@@ -1,0 +1,96 @@
+.footer {
+  height: 7rem;
+  font-family: Brandon Grotesque;
+  color: white;
+  background-color: var(--website-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .upperLayer {
+    width: var(--container-width);
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    ul {
+      list-style: none;
+      display: flex;
+      width: 50%;
+      justify-content: space-between;
+      align-items: center;
+      li {
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+      li:first-child,
+      :nth-child(2) {
+        font-weight: 700;
+      }
+      li:nth-child(3),
+      :nth-child(4),
+      :nth-child(5) {
+        font-weight: 300;
+      }
+    }
+  }
+  .lowerLayer {
+    display: flex;
+    height: 50%;
+    width: var(--container-width);
+    justify-content: space-between;
+    font-weight: 400;
+    align-items: center;
+    ul {
+      list-style: none;
+      display: flex;
+      width: 45%;
+      justify-content: space-between;
+      align-items: center;
+      li {
+        font-size: 0.9rem;
+      }
+    }
+    @media screen and (min-width: 71.875rem) and (max-width: 81.25rem) {
+      ul {
+        width: 50%;
+      }
+    }
+  }
+  @media screen and (max-width: 71.875rem) {
+    height: 20rem;
+    .upperLayer {
+      flex-wrap: wrap;
+      justify-content: center;
+      .logo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      ul {
+        width: min(30rem, 80%);
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: space-around;
+        li {
+          text-transform: initial;
+        }
+        li:first-child,
+        :nth-child(2) {
+          width: 50%;
+        }
+      }
+    }
+    .lowerLayer{
+        flex-direction: column;
+        justify-content: space-around;
+        ul{
+            height: 55%;
+            width: 100%;
+            flex-direction: column;
+        }
+    }
+  }
+}
