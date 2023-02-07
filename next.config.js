@@ -9,6 +9,9 @@ const nextConfig = {
       path.join(__dirname, 'components'),
     ],
   },
+  images: {
+    domains: ['localhost'],
+  },
 };
 
 module.exports = nextConfig;
