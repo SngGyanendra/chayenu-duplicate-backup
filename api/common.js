@@ -5,6 +5,7 @@ export async function getAllProducts() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/products`, {
       params: {
+        fields:"*.*.*",
         filter: {
           _and: [
             { student_only: { _eq: false } },
