@@ -22,7 +22,7 @@ export default function Subscribe() {
       <div className={Styles.products}>
         {allProducts.map((product) => {
           return (
-            <div key={product.id}>
+            <div key={product.id} className={Styles.productCard}>
               <ProductCard product={product} />
             </div>
           );
