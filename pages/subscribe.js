@@ -3,6 +3,7 @@ import { NextHead } from '../components/common';
 import Styles from '/styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
+import { DigitalSubscriptionForm } from '/components/forms';
 
 export default function Subscribe() {
   const [allProducts, setAllProducts] = useState([]);
@@ -50,6 +51,7 @@ export default function Subscribe() {
         </>
       )}
       {error && <div className={Styles.error}>{error}</div>}
+      <DigitalSubscriptionForm />
     </>
   );
 }
