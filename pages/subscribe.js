@@ -3,11 +3,13 @@ import { NextHead } from '../components/common';
 import Styles from '/styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
+import { DigitalSubscriptionForm } from '/components/forms';
 
 export default function Subscribe() {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [selectedProduct, setSelectedProduct] = useState(undefined);
 
   async function getData() {
     try {
@@ -41,7 +43,13 @@ export default function Subscribe() {
                 })
               : allProducts.map((product) => {
                   return (
-                    <div key={product.id} className={Styles.productCard}>
+                    <div
+                      key={product.id}
+                      className={Styles.productCard}
+                      onClick={() => {
+                        setSelectedProduct(product.id);
+                      }}
+                    >
                       <ProductCard product={product} />
                     </div>
                   );
@@ -50,6 +58,9 @@ export default function Subscribe() {
         </>
       )}
       {error && <div className={Styles.error}>{error}</div>}
+      {selectedProduct && (
+        <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+      )}
     </>
   );
 }
