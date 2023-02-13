@@ -9,6 +9,7 @@ export default function Subscribe() {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [selectedProduct, setSelectedProduct] = useState(undefined);
 
   async function getData() {
     try {
@@ -42,7 +43,13 @@ export default function Subscribe() {
                 })
               : allProducts.map((product) => {
                   return (
-                    <div key={product.id} className={Styles.productCard}>
+                    <div
+                      key={product.id}
+                      className={Styles.productCard}
+                      onClick={() => {
+                        setSelectedProduct(product.id);
+                      }}
+                    >
                       <ProductCard product={product} />
                     </div>
                   );
@@ -51,7 +58,9 @@ export default function Subscribe() {
         </>
       )}
       {error && <div className={Styles.error}>{error}</div>}
-      <DigitalSubscriptionForm />
+      {selectedProduct && (
+        <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+      )}
     </>
   );
 }
