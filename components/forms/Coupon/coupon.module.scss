@@ -1,0 +1,22 @@
+.couponLabel {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      width: 50%;
+      margin: auto;
+      .coupon {
+        width: 100%;
+        display: flex;
+        input {
+          border-radius: 10px 0 0 10px !important;
+        }
+        .apply {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0 10px;
+          border-radius: 0px 10px 10px 0px;
+          background-color: var(--website-color-opacity-low);
+          cursor: pointer;
+        }
+      }
+    }

@@ -4,16 +4,20 @@ import PhoneInput from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
 import { initializeBraintree } from '/components/common';
 import { PlanCard } from '/components/cards';
+import { Summary, Coupon } from '/components/forms';
 import { getAllPlans } from '/api';
+import * as Yup from 'yup';
 
 export function DigitalSubscriptionForm({ selectedProduct }) {
   const [allPlans, setAllPlans] = useState([]);
+  const [selectedPlan, setSelectedPlan] = useState(undefined);
+
   const initialValues = {
-    first_name: '',
-    emaillast_name: '',
-    email: '',
-    mobile: '',
-    coupon: '',
+    first_name: undefined,
+    last_name: undefined,
+    email: undefined,
+    mobile: undefined,
+    coupon: undefined,
     is_trail: false,
     quantity: 1,
     plan: undefined,
@@ -39,7 +43,7 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await getAllPlans(selectedProduct);
+      const { data } = await getAllPlans(selectedProduct.id);
       setAllPlans(data);
     })();
   }, [selectedProduct]);
@@ -50,7 +54,6 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
         <Formik
           initialValues={initialValues}
           initialErrors={initialErrors}
-          validate={() => {}}
           onSubmit={(values) => {
             console.log(values);
           }}
@@ -64,69 +67,98 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
             handleSubmit,
             isSubmitting,
           }) => (
-            <form className={Styles.form}>
+            <form className={Styles.form} onSubmit={handleSubmit}>
               <div className={Styles.plan}>
                 <div className={Styles.selectPlan}>Select a Plan</div>
                 <div className={Styles.plansContainer}>
                   {allPlans.map((plan, index) => (
-                    <PlanCard key={index} plan={plan} />
+                    <PlanCard
+                      key={index}
+                      plan={plan}
+                      setSelectedPlan={setSelectedPlan}
+                    />
                   ))}
                 </div>
               </div>
-              <div className={Styles.formGrid}>
-                <label>
-                  First Name
-                  <input
-                    type="text"
-                    name="first_name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.first_name}
+              {selectedPlan && (
+                <div className={Styles.formGrid}>
+                  <label>
+                    First Name
+                    <input
+                      type="text"
+                      name="first_name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.first_name}
+                    />
+                    {errors.first_name &&
+                      touched.first_name &&
+                      errors.first_name}
+                  </label>
+                  <label>
+                    Last Name
+                    <input
+                      type="text"
+                      name="last_name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.last_name}
+                    />
+                    {errors.last_name && touched.last_name && errors.last_name}
+                  </label>
+                  <label>
+                    Email
+                    <input
+                      type="email"
+                      name="email"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
+                    {errors.email && touched.email && errors.email}
+                  </label>
+                  <label>
+                    Phone Number
+                    <PhoneInput
+                      name="phone"
+                      mask="#"
+                      useNationalFormatForDefaultCountryValue={true}
+                      countrySelectProps={{ unicodeFlags: false }}
+                      withCountryCallingCode={false}
+                      className={Styles.phoneInput}
+                      onChange={(value) => {
+                        values.mobile = value;
+                      }}
+                    />
+                  </label>
+                  <div className={Styles.heading}>Payment Details</div>
+                  <div
+                    className={Styles.dropinContainer}
+                    id="dropin-container"
+                  ></div>
+
+                  <div className={Styles.heading}>Summary</div>
+                  <Summary
+                    selectedPlan={selectedPlan}
+                    autoRenewal={values.auto_renew}
+                    values={values}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
                   />
-                  {errors.first_name && touched.first_name && errors.first_name}
-                </label>
-                <label>
-                  Last Name
-                  <input
-                    type="text"
-                    name="last_name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.last_name}
+                  <Coupon
+                    values={values}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
                   />
-                  {errors.last_name && touched.last_name && errors.last_name}
-                </label>
-                <label>
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
-                  {errors.email && touched.email && errors.email}
-                </label>
-                <label>
-                  Phone Number
-                  <PhoneInput
-                    name="phone"
-                    mask="#"
-                    useNationalFormatForDefaultCountryValue={true}
-                    countrySelectProps={{ unicodeFlags: false }}
-                    withCountryCallingCode={false}
-                    className={Styles.phoneInput}
-                    onChange={(value) => {
-                      values.mobile = value;
-                    }}
-                  />
-                </label>
-                <div className={Styles.paymentDetails}>Payment Details</div>
-                <div
-                  className={Styles.dropinContainer}
-                  id="dropin-container"
-                ></div>
-              </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={Styles.submit}
+                  >
+                    Subscribe
+                  </button>
+                </div>
+              )}
             </form>
           )}
         </Formik>

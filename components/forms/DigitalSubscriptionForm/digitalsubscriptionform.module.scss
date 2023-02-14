@@ -77,7 +77,7 @@
         }
       }
     }
-    .paymentDetails {
+    .heading {
       grid-column-start: 1;
       grid-column-end: 3;
       margin: auto;
@@ -86,6 +86,21 @@
     .dropinContainer {
       grid-column-start: 1;
       grid-column-end: 3;
+    }
+    
+    .submit {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      margin: auto;
+      width: 25rem;
+      height: 3rem;
+      border-radius: 10px;
+      background-color: var(--website-color-opacity-low);
+      border: none;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      margin-top: 2rem;
     }
   }
 }

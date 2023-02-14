@@ -8,11 +8,12 @@
   .planType {
     font-size: 1.7rem;
     text-align: center;
+    font-weight: 300;
   }
   .monthlyPrice {
     font-size: 1.5rem;
     text-align: center;
-    margin-top: .7rem;
+    margin-top: 0.7rem;
   }
   &:nth-child(3n + 1) {
     margin-right: 1rem;

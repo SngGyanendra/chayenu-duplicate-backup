@@ -1,0 +1,26 @@
+.summary {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 50%;
+  margin: auto;
+  font-size: 1.3rem;
+  .planType {
+    display: flex;
+    justify-content: space-between;
+  }
+  .additional {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    select {
+      margin: 10px;
+      border: 1px solid grey;
+      width: 40px;
+      height: 25px;
+    }
+    .change {
+      font-size: 1rem;
+      color: var(--website-color);
+    }
+  }
+}
