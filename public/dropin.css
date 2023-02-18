@@ -317,7 +317,7 @@
   opacity: 0.1;
 }
 .braintree-sheet--has-error .braintree-sheet {
-  border: 2px solid #ca2a2a;
+  /* border: 2px solid #ca2a2a; */
   border-radius: 4px 4px 0 0;
 }
 .braintree-sheet--has-error .braintree-methods--edit .braintree-method {
@@ -349,7 +349,7 @@
   color: #ca2a2a;
   align-items: center;
   justify-content: center;
-  display: flex;
+  display: none;
   padding: 6px;
   position: relative;
   margin-top: 4px;
@@ -1034,7 +1034,7 @@
   right: 0;
   position: absolute;
 }
-@media only screen and (max-height: 700px) {
+/* @media only screen and (max-height: 700px) {
   #Cardinal-Modal {
     top: 10px !important;
     bottom: 10px !important;
@@ -1051,7 +1051,42 @@
   #Cardinal-ModalContent {
     height: 100% !important;
   }
-}
+} */
 .braintree-sheet__header {
   display: none;
+}
+@media screen and (min-width: 43.75rem) and (max-width: 65.625rem) {
+  [data-braintree-id*='number'] {
+    padding-right: 0 !important;
+  }
+  .braintree-sheet__content--form {
+    flex-direction: column;
+  }
+  [data-braintree-id*='expiration'] {
+    padding: 0px 10px 0px 0px !important;
+  }
+}
+@media screen and (max-width: 43.75rem) {
+  .braintree-form__flexible-fields {
+    display: flex;
+    flex-direction: column;
+  }
+  .braintree-sheet__content--form
+    .braintree-form__flexible-fields
+    .braintree-form__field-group {
+    flex-basis: unset;
+  }
+  [data-braintree-id*='number'] {
+    padding-right: 0 !important;
+    width: 100%;
+  }
+  [data-braintree-id*='expiration'] {
+    padding: 0px 0px 0px 0px !important;
+  }
+  [data-braintree-id*='cvv'] {
+    padding: 0px 0px 0px 0px !important;
+  }
+  .braintree-sheet__content--form {
+    flex-wrap: wrap;
+  }
 }

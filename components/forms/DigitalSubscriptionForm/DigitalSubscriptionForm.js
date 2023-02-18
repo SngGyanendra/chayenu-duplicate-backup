@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
 import { initializeBraintree } from '/components/common';
 import { PlanCard } from '/components/cards';
@@ -11,6 +11,21 @@ import * as Yup from 'yup';
 export function DigitalSubscriptionForm({ selectedProduct }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
+  const [braintreeInstance, setBraintreeInstance] = useState(undefined);
+  const [coupon, setCoupon] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    initializeBraintree(setBraintreeInstance);
+  }, [selectedPlan]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await getAllPlans(selectedProduct.id);
+      setAllPlans(data);
+    })();
+    setSelectedPlan(undefined);
+  }, [selectedProduct]);
 
   const initialValues = {
     first_name: undefined,
@@ -37,16 +52,50 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
     plan: undefined,
   };
 
-  useEffect(() => {
-    initializeBraintree();
-  }, [selectedProduct]);
+  const addSubscription = (values) => {
+    const finalValues = {
+      ...values,
+      quantity: parseInt(values.quantity),
+      plan: selectedPlan?.id,
+      coupon: coupon,
+    };
+    console.log(finalValues);
+  };
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await getAllPlans(selectedProduct.id);
-      setAllPlans(data);
-    })();
-  }, [selectedProduct]);
+  const validationSchema = Yup.object().shape({
+    first_name: Yup.string()
+      .trim()
+      .min(2, 'Too short!')
+      .max(50, 'Too long')
+      .required('First name is required')
+      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for first name.'),
+    last_name: Yup.string()
+      .trim()
+      .min(2, 'Too short!')
+      .max(50, 'Too long')
+      .required('Last Name is required')
+      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for last name.'),
+    email: Yup.string()
+      .trim()
+      .email('Enter valid email')
+      .required('Email is required'),
+    mobile: Yup.string()
+      .required('Phone is required')
+      .test('phone is valid', 'Invalid contact', (value) => {
+        if (value) {
+          return isValidPhoneNumber(value);
+        } else {
+          return false;
+        }
+      }),
+    coupon: Yup.string().trim(),
+    quantity: Yup.number()
+      .min(0, 'Minimunt quantity is 1')
+      .max(10, 'Maximum quantity is 1')
+      .required('Quantity is required')
+      .positive('Quantity needs to be positive')
+      .integer('Quantity needs to be an integer'),
+  });
 
   return (
     <div className={Styles.formWrapper}>
@@ -54,8 +103,20 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
         <Formik
           initialValues={initialValues}
           initialErrors={initialErrors}
-          onSubmit={(values) => {
-            console.log(values);
+          validationSchema={validationSchema}
+          onSubmit={async (values) => {
+            if (braintreeInstance) {
+              return braintreeInstance.requestPaymentMethod(
+                async (error, payload) => {
+                  setLoading(true);
+                  if (error) {
+                    setLoading(false);
+                    return null;
+                  }
+                  await addSubscription(values, payload);
+                }
+              );
+            }
           }}
         >
           {({
@@ -91,9 +152,11 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                       onBlur={handleBlur}
                       value={values.first_name}
                     />
-                    {errors.first_name &&
-                      touched.first_name &&
-                      errors.first_name}
+                    <span className={Styles.error}>
+                      {errors.first_name &&
+                        touched.first_name &&
+                        errors.first_name}
+                    </span>
                   </label>
                   <label>
                     Last Name
@@ -104,7 +167,11 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                       onBlur={handleBlur}
                       value={values.last_name}
                     />
-                    {errors.last_name && touched.last_name && errors.last_name}
+                    <span className={Styles.error}>
+                      {errors.last_name &&
+                        touched.last_name &&
+                        errors.last_name}
+                    </span>
                   </label>
                   <label>
                     Email
@@ -115,12 +182,14 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                       onBlur={handleBlur}
                       value={values.email}
                     />
-                    {errors.email && touched.email && errors.email}
+                    <span className={Styles.error}>
+                      {errors.email && touched.email && errors.email}
+                    </span>
                   </label>
                   <label>
                     Phone Number
                     <PhoneInput
-                      name="phone"
+                      name="mobile"
                       mask="#"
                       useNationalFormatForDefaultCountryValue={true}
                       countrySelectProps={{ unicodeFlags: false }}
@@ -130,13 +199,15 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                         values.mobile = value;
                       }}
                     />
+                    <span className={Styles.error}>
+                      {errors.mobile && touched.mobile && errors.mobile}
+                    </span>
                   </label>
                   <div className={Styles.heading}>Payment Details</div>
                   <div
                     className={Styles.dropinContainer}
                     id="dropin-container"
                   ></div>
-
                   <div className={Styles.heading}>Summary</div>
                   <Summary
                     selectedPlan={selectedPlan}
@@ -144,15 +215,19 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                     values={values}
                     handleChange={handleChange}
                     handleBlur={handleBlur}
+                    coupon={coupon}
                   />
                   <Coupon
                     values={values}
                     handleChange={handleChange}
                     handleBlur={handleBlur}
+                    selectedPlan={selectedPlan}
+                    coupon={coupon}
+                    setCoupon={setCoupon}
                   />
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={loading}
                     className={Styles.submit}
                   >
                     Subscribe

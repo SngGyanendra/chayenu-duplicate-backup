@@ -23,4 +23,11 @@
       color: var(--website-color);
     }
   }
+  @media screen and (min-width:62.5rem) and (max-width:75rem) {
+    width: 70%;
+  }
+  @media screen and (max-width: 62.5rem) {
+    grid-column-end: 2;
+    width: 100%;
+  }
 }
