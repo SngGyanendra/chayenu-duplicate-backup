@@ -1,0 +1,54 @@
+.couponLabel {
+  height: 8rem !important;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 50%;
+  margin: auto;
+  .error {
+    color: red;
+    font-size: 1rem;
+    height: 24px;
+    min-width: 10px;
+  }
+  .coupon {
+    width: 100%;
+    display: flex;
+    input {
+      border-radius: 10px 0 0 10px !important;
+      height: initial;
+    }
+    .apply {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 10px;
+      border-radius: 0px 10px 10px 0px;
+      background-color: var(--website-color-opacity-low);
+      cursor: pointer;
+    }
+  }
+  @media screen and (max-width: 62.5rem) {
+    grid-column-end: 2;
+    width: 100%;
+  }
+}
+.couponVerified {
+  width: 100%;
+  height: 48px;
+  background-color: var(--website-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  span {
+    display: flex;
+    align-items: center;
+    img:hover {
+      transform: scale(1.1);
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
+  }
+}

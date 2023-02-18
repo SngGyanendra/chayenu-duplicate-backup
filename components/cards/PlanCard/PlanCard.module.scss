@@ -8,11 +8,12 @@
   .planType {
     font-size: 1.7rem;
     text-align: center;
+    font-weight: 300;
   }
   .monthlyPrice {
     font-size: 1.5rem;
     text-align: center;
-    margin-top: .7rem;
+    margin-top: 0.7rem;
   }
   &:nth-child(3n + 1) {
     margin-right: 1rem;
@@ -24,5 +25,21 @@
   &:nth-child(3n + 3) {
     margin-left: 1rem;
     margin-right: none !important;
+  }
+  @media screen and (min-width: 55.938rem) and (max-width: 85.313rem) {
+    &:nth-child(2n + 1) {
+      margin-left: 0;
+      margin-right: 1rem;
+    }
+    &:nth-child(2n + 2) {
+      margin-left: 1rem;
+      margin-right: 0rem;
+    }
+  }
+  @media screen and (max-width: 55.938rem) {
+    &:nth-child(1n){
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
   }
 }

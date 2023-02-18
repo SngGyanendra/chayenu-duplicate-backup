@@ -47,7 +47,7 @@ export default function Subscribe() {
                       key={product.id}
                       className={Styles.productCard}
                       onClick={() => {
-                        setSelectedProduct(product.id);
+                        setSelectedProduct(product);
                       }}
                     >
                       <ProductCard product={product} />
