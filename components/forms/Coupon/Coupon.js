@@ -16,7 +16,8 @@ export function Coupon({
 
   const verifyCoupon = async () => {
     setError(undefined);
-    if (values?.coupon === undefined || values?.coupon) {
+    if (values?.coupon === undefined) {
+      return;
     }
     const couponFilter = {
       _and: [
@@ -69,7 +70,7 @@ export function Coupon({
               onClick={() => {
                 setCoupon(undefined);
                 values.coupon = undefined;
-                setIsCouponVerified(false)
+                setIsCouponVerified(false);
               }}
             >
               <Image src="/trash.svg" alt="delet icon" height={28} width={28} />

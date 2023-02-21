@@ -3,7 +3,10 @@ import { NextHead } from '../components/common';
 import Styles from '/styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
-import { DigitalSubscriptionForm } from '/components/forms';
+import {
+  DigitalSubscriptionForm,
+  PrintDigitalSubscriptionForm,
+} from '/components/forms';
 
 export default function Subscribe() {
   const [allProducts, setAllProducts] = useState([]);
@@ -59,7 +62,23 @@ export default function Subscribe() {
       )}
       {error && <div className={Styles.error}>{error}</div>}
       {selectedProduct && (
-        <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+        <>
+          {(() => {
+            if (selectedProduct.product_type.toLowerCase() === 'both') {
+              return (
+                <PrintDigitalSubscriptionForm
+                  selectedProduct={selectedProduct}
+                />
+              );
+            } else if (
+              selectedProduct.product_type.toLowerCase() === 'digital'
+            ) {
+              return (
+                <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+              );
+            }
+          })()}
+        </>
       )}
     </>
   );

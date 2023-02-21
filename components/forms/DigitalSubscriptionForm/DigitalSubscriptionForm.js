@@ -5,19 +5,20 @@ import Styles from './digitalsubscriptionform.module.scss';
 import { initializeBraintree } from '/components/common';
 import { PlanCard } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
-import { getAllPlans } from '/api';
+import { getAllPlans, addNewSubscription } from '/api';
 import * as Yup from 'yup';
 
 export function DigitalSubscriptionForm({ selectedProduct }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [braintreeInstance, setBraintreeInstance] = useState(undefined);
-  const [coupon, setCoupon] = useState();
+  const [coupon, setCoupon] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [require_cc, setRequire_cc] = useState(true);
 
   useEffect(() => {
     initializeBraintree(setBraintreeInstance);
-  }, [selectedPlan]);
+  }, [selectedPlan, require_cc]);
 
   useEffect(() => {
     (async () => {
@@ -27,13 +28,25 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
     setSelectedPlan(undefined);
   }, [selectedProduct]);
 
+  useEffect(() => {
+    if (typeof coupon === 'object') {
+      if (coupon.require_cc) {
+        setRequire_cc(true);
+      } else {
+        setRequire_cc(false);
+      }
+    } else {
+      setRequire_cc(true);
+    }
+  }, [coupon]);
+
   const initialValues = {
     first_name: undefined,
     last_name: undefined,
     email: undefined,
     mobile: undefined,
     coupon: undefined,
-    is_trail: false,
+    is_trial: false,
     quantity: 1,
     plan: undefined,
     college: undefined,
@@ -52,14 +65,19 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
     plan: undefined,
   };
 
-  const addSubscription = (values) => {
+  const addSubscription = async (values, payload) => {
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
       plan: selectedPlan?.id,
-      coupon: coupon,
+      coupon: coupon?.code,
+      ...(require_cc && { card_nonce: payload.nonce }),
     };
-    console.log(finalValues);
+    try {
+      const response = await addNewSubscription(finalValues);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const validationSchema = Yup.object().shape({
@@ -88,7 +106,7 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
           return false;
         }
       }),
-    coupon: Yup.string().trim(),
+    coupon: Yup.string('Coupon needs to be a string').trim(),
     quantity: Yup.number()
       .min(0, 'Minimunt quantity is 1')
       .max(10, 'Maximum quantity is 1')
@@ -116,6 +134,8 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                   await addSubscription(values, payload);
                 }
               );
+            } else {
+              await addSubscription(values);
             }
           }}
         >
@@ -204,10 +224,20 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                     </span>
                   </label>
                   <div className={Styles.heading}>Payment Details</div>
-                  <div
-                    className={Styles.dropinContainer}
-                    id="dropin-container"
-                  ></div>
+                  {require_cc && (
+                    <div
+                      className={Styles.dropinContainer}
+                      id="dropin-container"
+                    ></div>
+                  )}
+                  <Coupon
+                    values={values}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    selectedPlan={selectedPlan}
+                    coupon={coupon}
+                    setCoupon={setCoupon}
+                  />
                   <div className={Styles.heading}>Summary</div>
                   <Summary
                     selectedPlan={selectedPlan}
@@ -217,14 +247,7 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                     handleBlur={handleBlur}
                     coupon={coupon}
                   />
-                  <Coupon
-                    values={values}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    selectedPlan={selectedPlan}
-                    coupon={coupon}
-                    setCoupon={setCoupon}
-                  />
+
                   <button
                     type="submit"
                     disabled={loading}
