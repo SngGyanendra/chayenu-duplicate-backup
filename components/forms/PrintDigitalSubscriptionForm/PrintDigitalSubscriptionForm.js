@@ -262,7 +262,11 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                         <option key={distributor.id} value={distributor.id}>
                           {`${distributor.first_name} ${
                             distributor.last_name
-                          } - ${distributor?.address_1}, ${
+                          } - ${
+                            distributor?.address_1
+                              ? `${distributor?.address_1},`
+                              : ''
+                          } ${
                             distributor?.address_2
                               ? `${distributor?.address_2},`
                               : ''
