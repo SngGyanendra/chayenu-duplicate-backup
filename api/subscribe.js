@@ -5,7 +5,7 @@ export async function getAllPlans(id) {
   try {
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
       params: {
-        fields: '*.*',
+        fields: '*.*.*.*',
         filter: {
           _and: [
             { student_only: { _eq: false } },

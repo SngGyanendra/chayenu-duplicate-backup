@@ -14,6 +14,8 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
   const [braintreeInstance, setBraintreeInstance] = useState(undefined);
   const [countriesList, setCountriesList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
+  const [deliveryType, setDeliveryType] = useState(undefined);
+  const [distributor, setDistributor] = useState(undefined);
   const [coupon, setCoupon] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [require_cc, setRequire_cc] = useState(true);
@@ -54,11 +56,22 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     }
   }, [coupon]);
 
+  useEffect(() => {
+    if (typeof selectedCountry === 'object') {
+      if (selectedCountry?.has_distributors) {
+        setDeliveryType('distributor');
+      } else {
+        setDeliveryType('shipping');
+      }
+    }
+  }, [selectedCountry]);
+
   const initialValues = {
     first_name: undefined,
     last_name: undefined,
     organization: undefined,
     address_1: undefined,
+    distributor: undefined,
     address_2: undefined,
     zip_code: undefined,
     email: undefined,
@@ -88,6 +101,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     state: undefined,
     quantity: 1,
     plan: undefined,
+    distributor: undefined,
   };
 
   const addSubscription = async (values, payload) => {
@@ -205,19 +219,20 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                     </div>
                   </div>
                 )}
-              {selectedCountry.name !== 'USA' && (
+              {selectedCountry && selectedCountry?.name !== 'USA' && (
                 <div className={Styles.selectCountry}>
                   <select
                     name="country"
                     onChange={(e) => {
-                      console.log(e.target.value);
                       const country = countriesList.find((country) => {
                         return country.id == e.target.value;
                       });
                       setSelectedCountry(country);
                     }}
                   >
-                    <option value="default">Select a country</option>
+                    <option value="default" hidden={true}>
+                      Select a country
+                    </option>
                     {countriesList
                       .filter((country) => country.name !== 'USA')
                       .map((country) => (
@@ -228,25 +243,60 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                   </select>
                 </div>
               )}
-              {selectedCountry && selectedCountry !== 'others' && (
-                <div className={Styles.plan}>
-                  <div className={Styles.selectPlan}>Select a Plan</div>
-                  <div className={Styles.plansContainer}>
-                    {allPlans
-                      .filter(
-                        (plan) => plan?.country?.id === selectedCountry?.id
-                      )
-                      .map((plan, index) => (
-                        <PlanCard
-                          key={index}
-                          plan={plan}
-                          setSelectedPlan={setSelectedPlan}
-                        />
+              {selectedCountry &&
+                selectedCountry?.name !== 'USA' &&
+                selectedCountry.has_distributors && (
+                  <div className={Styles.selectDistributor}>
+                    <div>Choose a distributor</div>
+                    <select
+                      name="distributor"
+                      onChange={(e) => {
+                        values.distributor = e.target.value;
+                        setDistributor(e.target.value);
+                      }}
+                    >
+                      <option value="default" hidden={true}>
+                        Choose a distributor
+                      </option>
+                      {selectedCountry?.distributors?.map((distributor) => (
+                        <option key={distributor.id} value={distributor.id}>
+                          {`${distributor.first_name} ${
+                            distributor.last_name
+                          } - ${distributor?.address_1}, ${
+                            distributor?.address_2
+                              ? `${distributor?.address_2},`
+                              : ''
+                          } ${
+                            distributor?.city ? `${distributor?.city},` : ''
+                          } ${
+                            distributor?.state ? `${distributor?.state},` : ''
+                          } ${distributor?.country?.name}`}
+                        </option>
                       ))}
+                    </select>
                   </div>
-                </div>
-              )}
-              {selectedPlan && (
+                )}
+              {selectedCountry &&
+                selectedCountry !== 'others' &&
+                (deliveryType === 'shipping' || distributor) && (
+                  <div className={Styles.plan}>
+                    <div className={Styles.selectPlan}>Select a Plan</div>
+                    <div className={Styles.plansContainer}>
+                      {allPlans
+                        .filter(
+                          (plan) => plan?.country?.id === selectedCountry?.id
+                        )
+                        .map((plan, index) => (
+                          <PlanCard
+                            key={index}
+                            plan={plan}
+                            setSelectedPlan={setSelectedPlan}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                )}
+              {selectedPlan && selectedCountry !== 'others' && (
                 <div className={Styles.formGrid}>
                   <label>
                     First Name
@@ -332,15 +382,22 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                         {errors.city && touched.city && errors.city}
                       </span>
                     </label>
-                    <label>
-                      State
-                      <select name="state" id="" value={values.state}>
-                        <option value="1">1</option>
-                      </select>
-                      <span className={Styles.error}>
-                        {errors.state && touched.state && errors.state}
-                      </span>
-                    </label>
+                    {selectedCountry?.states?.length > 0 && (
+                      <label>
+                        State
+                        <select name="state" id="" value={values.state}>
+                          <option value={undefined} hidden={true}></option>
+                          {selectedCountry?.states?.map((state) => (
+                            <option key={state.id} value={state.id}>
+                              {state.name}
+                            </option>
+                          ))}
+                        </select>
+                        <span className={Styles.error}>
+                          {errors.state && touched.state && errors.state}
+                        </span>
+                      </label>
+                    )}
                     <label>
                       Zip Code
                       <input
