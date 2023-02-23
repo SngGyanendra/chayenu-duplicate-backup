@@ -187,6 +187,8 @@
       grid-auto-flow: column;
       @media screen and (max-width: 62.5rem) {
         grid-auto-flow: row;
+        grid-column-end: 2;
+        row-gap: 3rem;
       }
     }
     .heading {
