@@ -548,12 +548,11 @@
   .braintree-form__field-group
   .braintree-form__field
   .braintree-form__hosted-field {
-  border: none;
+  border: 1px solid rgb(206, 212, 218);
   border-radius: 10px !important;
   height: 44px;
   margin: 4px 0 0;
   padding: 0 8px;
-  background-color: var(--website-color-opacity-low);
 }
 .braintree-sheet__content--form
   .braintree-form__field-group
