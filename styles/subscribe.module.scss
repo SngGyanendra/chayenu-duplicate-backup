@@ -43,6 +43,16 @@
   }
   @media screen and (max-width: 59.375rem) {
     grid-template-columns: repeat(1, 1fr);
+    .productCard:nth-last-child(2):nth-child(3n + 1) {
+      grid-column-end: unset;
+    }
+    .productCard:last-child:nth-child(3n - 1) {
+      grid-column-end: unset;
+    }
+
+    .productCard:last-child:nth-child(3n - 2) {
+      grid-column-end: unset;
+    }
   }
 }
 .error {
