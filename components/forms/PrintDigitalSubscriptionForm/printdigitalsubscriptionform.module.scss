@@ -26,8 +26,7 @@
         font-size: 1.5rem;
         font-weight: 300;
         width: 50%;
-        border: none;
-        background-color: var(--website-color-opacity-low);
+        border: 1px solid rgb(206, 212, 218);
         box-shadow: none;
         &:focus {
           outline: none;
@@ -50,8 +49,7 @@
         font-size: 1.5rem;
         font-weight: 300;
         width: 50%;
-        border: none;
-        background-color: var(--website-color-opacity-low);
+        border: 1px solid rgb(206, 212, 218);
         box-shadow: none;
         &:focus {
           outline: none;
@@ -75,7 +73,7 @@
           justify-content: center;
           align-items: center;
           font-size: 1.3rem;
-          background-color: var(--website-color-opacity-low);
+          box-shadow: 0px 6px 12px #00000029;
           cursor: pointer;
         }
         @media screen and (max-width: 70rem) {
@@ -117,8 +115,7 @@
         font-size: 1.5rem;
         font-weight: 300;
         width: 100%;
-        border: none;
-        background-color: var(--website-color-opacity-low);
+        border: 1px solid rgb(206, 212, 218);
         box-shadow: none;
         &:focus {
           outline: none;
@@ -131,8 +128,7 @@
         font-size: 1.5rem;
         font-weight: 300;
         width: 100%;
-        border: none;
-        background-color: var(--website-color-opacity-low);
+        border: 1px solid rgb(206, 212, 218);
         box-shadow: none;
         &:focus {
           outline: none;
@@ -221,6 +217,7 @@
       font-family: 'Poppins', sans-serif;
       font-size: 1.5rem;
       margin-top: 2rem;
+      cursor: pointer;
       @media screen and (max-width: 62.5rem) {
         grid-column-end: 2;
       }

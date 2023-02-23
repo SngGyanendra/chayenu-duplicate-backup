@@ -66,9 +66,7 @@ export default function Subscribe() {
           {(() => {
             if (selectedProduct.product_type.toLowerCase() === 'both') {
               return (
-                <PrintDigitalSubscriptionForm
-                  selectedProduct={selectedProduct}
-                />
+                <DigitalSubscriptionForm selectedProduct={selectedProduct} />
               );
             } else if (
               selectedProduct.product_type.toLowerCase() === 'digital'
