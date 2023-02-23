@@ -114,7 +114,6 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       ...(require_cc && { card_nonce: payload.nonce }),
       ...(values.state && { state: parseInt(values.state) }),
     };
-    console.log(finalValues);
     try {
       const response = await addNewSubscription(finalValues);
     } catch (error) {
