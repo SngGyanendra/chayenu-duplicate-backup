@@ -77,8 +77,8 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     email: undefined,
     mobile: undefined,
     coupon: undefined,
-    is_trail: false,
-    quantity: undefined,
+    is_trial: false,
+    quantity: 1,
     plan: undefined,
     city: undefined,
     college: undefined,
@@ -112,7 +112,9 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       coupon: coupon?.code,
       country: selectedCountry?.id,
       ...(require_cc && { card_nonce: payload.nonce }),
+      ...(values.state && { state: parseInt(values.state) }),
     };
+    console.log(finalValues);
     try {
       const response = await addNewSubscription(finalValues);
     } catch (error) {
@@ -138,6 +140,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       .email('Enter valid email')
       .required('Email is required'),
     coupon: Yup.string('Coupon needs to be a string').trim(),
+    organization: Yup.string().trim(),
     quantity: Yup.number()
       .min(0, 'Minimunt quantity is 1')
       .max(10, 'Maximum quantity is 1')
@@ -153,8 +156,33 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
           return false;
         }
       }),
-    city: Yup.string().trim().required('City is required'),
-    state: Yup.string().trim().required('State is required'),
+    address_1: Yup.string().when('mobile', {
+      is: () =>
+        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry.name === 'USA',
+      then: () => Yup.string().trim().required('Address 1 is required'),
+    }),
+    address_2: Yup.string().trim(),
+    city: Yup.string().when({
+      is: () =>
+        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry.name === 'USA',
+      then: () => Yup.string().trim().required('City is required'),
+    }),
+    state: Yup.number().when({
+      is: () =>
+        (selectedCountry.has_shipping &&
+          deliveryType === 'shipping' &&
+          selectedCountry.states.length > 0) ||
+        selectedCountry.name === 'USA',
+      then: () => Yup.number().required('state is required'),
+    }),
+    zip_code: Yup.string().when({
+      is: () =>
+        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry.name === 'USA',
+      then: () => Yup.string().trim().required('zip code is required'),
+    }),
   });
 
   return (
@@ -342,80 +370,92 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                       value={values.organization}
                     />
                   </label>
-                  <label>
-                    Street Address
-                    <input
-                      type="text"
-                      name="address_1"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.address_1}
-                    />
-                    <span className={Styles.error}>
-                      {errors.address_1 &&
-                        touched.address_1 &&
-                        errors.address_1}
-                    </span>
-                  </label>
-                  <label>
-                    Apt, Floor, Unit, etc. (optional)
-                    <input
-                      type="text"
-                      name="address_2"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.address_2}
-                    />
-                    <span className={Styles.error}>
-                      {errors.address_2 &&
-                        touched.address_2 &&
-                        errors.address_2}
-                    </span>
-                  </label>
-                  <div className={Styles.locationDiv}>
-                    <label>
-                      City
-                      <input
-                        type="text"
-                        name="city"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.city}
-                      />
-                      <span className={Styles.error}>
-                        {errors.city && touched.city && errors.city}
-                      </span>
-                    </label>
-                    {selectedCountry?.states?.length > 0 && (
+                  {deliveryType === 'shipping' && (
+                    <>
                       <label>
-                        State
-                        <select name="state" id="" value={values.state}>
-                          <option value={undefined} hidden={true}></option>
-                          {selectedCountry?.states?.map((state) => (
-                            <option key={state.id} value={state.id}>
-                              {state.name}
-                            </option>
-                          ))}
-                        </select>
+                        Street Address
+                        <input
+                          type="text"
+                          name="address_1"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.address_1}
+                        />
                         <span className={Styles.error}>
-                          {errors.state && touched.state && errors.state}
+                          {errors.address_1 &&
+                            touched.address_1 &&
+                            errors.address_1}
                         </span>
                       </label>
-                    )}
-                    <label>
-                      Zip Code
-                      <input
-                        type="number"
-                        name="zip_code"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.zip_code}
-                      />
-                      <span className={Styles.error}>
-                        {errors.zip_code && touched.zip_code && errors.zip_code}
-                      </span>
-                    </label>
-                  </div>
+                      <label>
+                        Apt, Floor, Unit, etc. (optional)
+                        <input
+                          type="text"
+                          name="address_2"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.address_2}
+                        />
+                        <span className={Styles.error}>
+                          {errors.address_2 &&
+                            touched.address_2 &&
+                            errors.address_2}
+                        </span>
+                      </label>
+                      <div className={Styles.locationDiv}>
+                        <label>
+                          City
+                          <input
+                            type="text"
+                            name="city"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.city}
+                          />
+                          <span className={Styles.error}>
+                            {errors.city && touched.city && errors.city}
+                          </span>
+                        </label>
+                        {selectedCountry?.states?.length > 0 && (
+                          <label>
+                            State
+                            <select
+                              name="state"
+                              id=""
+                              value={values.state}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                            >
+                              <option value={''} hidden={true}></option>
+                              {selectedCountry?.states?.map((state) => (
+                                <option key={state.id} value={state.id}>
+                                  {state.name}
+                                </option>
+                              ))}
+                            </select>
+                            <span className={Styles.error}>
+                              {errors.state && touched.state && errors.state}
+                            </span>
+                          </label>
+                        )}
+                        <label>
+                          Zip Code
+                          <input
+                            type="text"
+                            name="zip_code"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.zip_code}
+                          />
+                          <span className={Styles.error}>
+                            {errors.zip_code &&
+                              touched.zip_code &&
+                              errors.zip_code}
+                          </span>
+                        </label>
+                      </div>
+                    </>
+                  )}
                   <label>
                     Email
                     <input
