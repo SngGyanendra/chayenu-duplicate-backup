@@ -156,6 +156,7 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
                     <PlanCard
                       key={index}
                       plan={plan}
+                      selectedPlan={selectedPlan}
                       setSelectedPlan={setSelectedPlan}
                     />
                   ))}

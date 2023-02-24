@@ -31,3 +31,13 @@ footer {
     transform: translateX(-100%) !important;
   }
 }
+.selected {
+  border: 3px solid #00aec4 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
