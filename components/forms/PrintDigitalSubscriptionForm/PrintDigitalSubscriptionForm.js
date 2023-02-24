@@ -239,7 +239,8 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                       </div>
                       <div
                         className={`${Styles.countryType} ${
-                          selectedCountry?.name !== ('USA' || undefined)
+                          selectedCountry?.name !== 'USA' &&
+                          selectedCountry !== undefined
                             ? 'selected'
                             : ''
                         }`}
