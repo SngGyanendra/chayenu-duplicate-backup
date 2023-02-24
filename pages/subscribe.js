@@ -76,6 +76,12 @@ export default function Subscribe() {
               return (
                 <DigitalSubscriptionForm selectedProduct={selectedProduct} />
               );
+            }else{
+              return (
+                <PrintDigitalSubscriptionForm
+                  selectedProduct={selectedProduct}
+                />
+              );
             }
           })()}
         </>

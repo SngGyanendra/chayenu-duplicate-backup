@@ -1,9 +1,11 @@
 import Styles from './PlanCard.module.scss';
 
-export function PlanCard({ plan, setSelectedPlan }) {
+export function PlanCard({ plan, selectedPlan, setSelectedPlan }) {
   return (
     <div
-      className={Styles.card}
+      className={`${Styles.card} ${
+        selectedPlan?.id === plan.id ? 'selected' : ''
+      }`}
       onClick={() => {
         setSelectedPlan(plan);
       }}
