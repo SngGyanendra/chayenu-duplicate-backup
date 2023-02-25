@@ -1,5 +1,7 @@
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
-import Styles from '../styles/home.module.scss'
+import Styles from '../styles/home.module.scss';
+import Image from 'next/image';
+import ChayenuAppImage from '/public/images/homepage/ChayenuBlue.png'
 
 export default function Home() {
   return (
@@ -38,8 +40,46 @@ export default function Home() {
                 </div>
             </ContainerCard>
             
-            <ContainerCard>
-               
+            <ContainerCard propClasses={Styles.section3}>
+
+              <div className={Styles.card}>
+              
+              <div className={Styles.head}>
+                  <h2>Chayenu App</h2>
+              </div>
+
+                   <div className={Styles.cardContentLeft}>
+                            <div>
+                              <p className={Styles.subtitle}>DAILY STUDY</p>
+                              
+                              <div className={Styles.childCard}>
+                              {
+                                [1, 2, 3, 4, 5, 6 ,7].map((data)=>(
+                                  <div className={Styles.dailyStudyCards} key={data}>
+                                    {data}
+                                  </div>))
+                              }
+                              </div>
+
+                            </div>
+                            <div>
+                              <p className={Styles.subtitle}>Weekly STUDY</p>
+                              <div>                              
+                                <div className={Styles.childCard}>
+                                {
+                                  [1, 2, 3, 4, 5, 6 ,7].map((data)=>(<div className={Styles.dailyStudyCards} key={data}>{data}</div>))
+                                }
+                                </div>
+
+                            </div>
+                            </div>
+                       
+                    </div>
+                    
+                    <div className={Styles.cardContentRight}>
+                        <Image src={ChayenuAppImage} alt="Chayenu Mobile" height={550} width={260} objectFit="contain"/>
+                    </div>
+                </div>
             </ContainerCard>
             
             <ContainerCard>
