@@ -103,10 +103,11 @@
 
   .section3{
     height: 921px;   
+    background-color: #e3f0fa;
 
     .card{
       height: 514px;
-      // width: 100%;
+      padding-top: 100px;
       grid-template-columns: auto auto;
       grid-template-rows: repeat(3, 1fr);
 
@@ -114,18 +115,22 @@
         display: grid;
         grid-column-start: 1;
         grid-column-end: 3;
+
+        h2{
+          font: normal normal bold 50px/82px var(--website-font-family);
+        }
       }
 
       .cardContentLeft{
         display: grid;
         grid-template-columns: repeat(2, auto);
-        align-items: center;
+        padding-top: 34px;
         div{
           height: 408px;
           display: grid;
           .childCard{
             display: grid;
-            grid-template-columns: repeat(2, auto);
+            grid-template-columns: repeat(2, 45%);
             align-items: center;
             grid-gap: 1rem;
             
@@ -139,6 +144,11 @@
             }
           
           }
+
+        }
+
+        & div:nth-child(2) > div{
+          grid-template-columns: repeat(3, auto);
 
         }
 
@@ -157,7 +167,72 @@
 
     }
 
+  }
 
+  .section4{
+    height: 590px;
+
+    .card{
+      grid-template-columns: repeat(4, 1fr);
+
+      div{
+          display: grid;
+          justify-content: center;
+      }
+    }
+
+  }
+
+  .section5{
+    height: 590px;
+
+    .card{
+      grid-template-columns: repeat(4, 1fr);
+
+      div{
+          display: grid;
+          justify-content: center;
+
+          img{
+            object-fit: contain;
+          }
+      }
+    }
+
+  }
+
+  .section6{
+    height: 590px;
+     .card{
+      grid-template-columns: repeat(2, 1fr);
+
+      div{
+          display: grid;
+          justify-content: center;
+
+          img{
+            object-fit: contain;
+          }
+      }
+    }
+
+  }
+
+  
+  .section7{
+    height: 590px;
+     .card{
+      grid-template-columns: repeat(3, 1fr);
+
+      div{
+          display: grid;
+          justify-content: center;
+
+          img{
+            object-fit: contain;
+          }
+      }
+    }
 
   }
 
