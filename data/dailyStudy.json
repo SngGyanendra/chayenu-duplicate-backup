@@ -1,0 +1,16 @@
+{
+    "data": [
+        {"title": "Chumash", "backgroundColor": "#EA1F2734"},
+        {"title": "Tanya", "backgroundColor": "#EE5A2433"},
+        {"title": "Rambam 1Chapter", "backgroundColor": "#F79F1E33"},
+        {"title": "Rambam 3Chapter", "backgroundColor": "#FFC31033"},
+        {"title": "Hayom Yom", "backgroundColor": "#9EC30033"},
+        {"title": "SEFER HAMITZVOS", "backgroundColor": "#77A30034"},
+        {"title": "DAILY HALACHA", "backgroundColor": "#00B9C133"},
+        {"title": "DAILY GEULAH", "backgroundColor": "#00ACA533"},
+        {"title": "TEHILLIM", "backgroundColor": "#00ACA533"},
+        {"title": "DAILY WISDOM", "backgroundColor": "#49A1CE33"},
+        {"title": "DAF YOMI", "backgroundColor": "#1389A733"}
+    ]
+
+}

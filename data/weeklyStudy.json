@@ -1,0 +1,19 @@
+{
+    "data": [
+        {"title": "CHASSIDUS", "backgroundColor": "#0352DD33"},
+        {"title": "PARSHA SNAPSHOT", "backgroundColor": "#2B229033"},
+        {"title": "RASHI IN-DEPTH", "backgroundColor": "#5758BB33"},
+        {"title": "NAME OF THE PARSHA", "backgroundColor": "#9980FA33"},
+        {"title": "WEEKLY WISDOM", "backgroundColor": "#D980FA33"},
+        {"title": "WEEKLY HALACHA", "backgroundColor": "#FDA7DF33"},
+        {"title": "KESSER SHEM TOV", "backgroundColor": "#ED4C6734"},
+        {"title": "REBBE RESPONSA", "backgroundColor": "#B5347133"},
+        {"title": "CHASSIDIC STORY", "backgroundColor": "#83347134"},
+        {"title": "THE GATE OF TRUST", "backgroundColor": "#8D005934"},
+        {"title": "GEULAH INSIGHT", "backgroundColor": "#28606533"},
+        {"title": "TORAH OHR", "backgroundColor": "#4E4E4E33"},
+        {"title": "WEEKLY MISHNAH", "backgroundColor": "#08938233"}
+    ]
+
+
+}

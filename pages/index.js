@@ -11,6 +11,9 @@ import TalmudM3 from '/public/images/homepage/TalmudM3.png';
 import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
 
+import dailyStudyData from '../data/dailyStudy.json';
+import weeklyStudyData from '../data/weeklyStudy.json';
+
 export default function Home() {
   return (
     <main>
@@ -70,9 +73,9 @@ export default function Home() {
                               
                               <div className={Styles.childCard}>
                               {
-                                [1, 2, 3, 4, 5, 6 ,7, 8, 9, 10].map((data)=>(
-                                  <div className={Styles.dailyStudyCards} key={data}>
-                                    {data}
+                                dailyStudyData.data.map((data)=>(
+                                  <div className={Styles.dailyStudyCards} style={{backgroundColor: data.backgroundColor}} key={data.title}>
+                                    <p>{data.title}</p>
                                   </div>))
                               }
                               </div>
@@ -83,7 +86,9 @@ export default function Home() {
                               <div>                              
                                 <div className={Styles.childCard}>
                                 {
-                                  [1, 2, 3, 4, 5, 6 ,7, , 9, 10, 11, 12, 13, 14].map((data)=>(<div className={Styles.dailyStudyCards} key={data}>{data}</div>))
+                                  weeklyStudyData.data.map((data)=>(<div style={{backgroundColor: data.backgroundColor}} className={Styles.dailyStudyCards} 
+                                  key={data.title}>
+                                  <p>{data.title}</p></div>))
                                 }
                                 </div>
 
