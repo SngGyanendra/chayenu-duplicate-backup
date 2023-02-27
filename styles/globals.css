@@ -11,6 +11,7 @@ body {
 :root {
   --website-color: #75b2e6;
   --website-color-opacity-low: rgb(117, 178, 230, 0.2);
+  --website-color-banner: rgb(117, 178, 230, 0.7);
   --container-width: min(75rem, 75vw);
   --website-font-family: brandon-grotesque, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
   Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;

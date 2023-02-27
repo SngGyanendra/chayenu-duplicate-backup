@@ -44,6 +44,14 @@ export default function Home() {
                         <button>View Sample</button>
                     </div>
                 </div>
+
+                <div className={Styles.card}> 
+
+                  <p>I am grateful that Chayenu has transformed into a super accessible app. I use the print, and now with the app, it is such a convenient way for me to get in some quick Torah study no matter where I am. The new Chayenu app makes it easy for me to share snippets of the Torah I learn with my family & friends.</p>
+                  
+                  <p>Lisa Melkin. Melbourne, Australia</p>
+
+                </div>
             </ContainerCard>
             
             <ContainerCard propClasses={Styles.section3}>
@@ -86,16 +94,17 @@ export default function Home() {
                         <Image src={ChayenuAppImage} alt="Chayenu Mobile" height={550} width={260} objectFit="contain"/>
                     </div>
                 </div>
+
             </ContainerCard>
             
             <ContainerCard propClasses={Styles.section4}>
                                 
                   <div className={Styles.card}>
-                    <div>
+                    <div className={Styles.column1}>
                         <h2>Gate of Trust</h2>
-                        <p>An Ancient Yet Relevant Manual, For Navigating Life With Positivity, Poise, And Purpose.</p>
-                        <span>In the Chayenu app or in book form</span>
-                        <span>BUY THE BOOK</span>
+                        <p className={Styles.note}>An Ancient Yet Relevant Manual, For Navigating Life With Positivity, Poise, And Purpose.</p>
+                        <p>In the Chayenu app or in book form</p>
+                        <p>BUY THE BOOK</p>
                     </div>
                     
                     <div>
@@ -103,11 +112,11 @@ export default function Home() {
                     </div>
                     
                     <div>
-                                <Image src={GOTMobileImage1} alt="" width={203} height={429}/>
+                                <Image src={GOTMobileImage1} alt="" width={203} height={400}/>
                     </div>
                     
                     <div>
-                                <Image src={GOTMobileImage2} alt="" width={203} height={429}/>
+                                <Image src={GOTMobileImage2} alt="" width={203} height={400}/>
                     </div>
                   
                   </div>                
@@ -116,10 +125,10 @@ export default function Home() {
             
             <ContainerCard propClasses={Styles.section5}>
               <div className={Styles.card}>
-                    <div>
+                    <div className={Styles.column1}>
                         <h2>Steinsaltz Talmud</h2>
                         <p>The Talmud At Your Fingertips</p>
-                        <span>The Talmud At Your Fingertips</span>
+                        <span>Chayenu App</span>
                         <span>Commentary by</span>
                         <span>Rabbi Adin Even-Israel (Steinsaltz) OBM</span>
                     </div>

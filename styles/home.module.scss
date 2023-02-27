@@ -15,7 +15,9 @@
   font-family: var(--website-font-family);
 
   .section1{
-       background-color: var(--website-color);
+    height: 590px;
+    background: var(--website-color-banner) url('/images/homepage/LinesBackground.png') 0% -4% no-repeat;
+    background-size: cover;
       .card{
 
         height: 590px;
@@ -60,8 +62,10 @@
   }
 
   .section2{
+    height: 878px;
       .card{
           height: 490px;
+          align-items: center;
 
           .cardContentLeft{
               h2{
@@ -98,8 +102,13 @@
               font: normal normal bold 18px/22px var(--website-font-family);
           }
       }
-  }
 
+      & .card:nth-child(2){
+        display: block;
+        height: 167px;
+        background: var(--website-color-banner) 0% 0% no-repeat padding-box;
+      }
+    }
 
   .section3{
     height: 921px;   
@@ -173,21 +182,70 @@
     height: 590px;
 
     .card{
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 27% 30% 1fr 1fr;
+      margin-top: 100px;
 
       div{
-          display: grid;
-          justify-content: center;
+        margin: 0 auto;
       }
+
+      h2{
+        font: normal normal bold 50px/82px var(--website-font-family);
+      }
+
+      .note{
+        font: normal normal normal 32px/46px var(--website-font-family);
+        padding-right: 45px;
+
+      }
+
+      .column1 p:nth-child(3){
+        padding-top: 10px;
+        font: normal normal normal 20px/29px var(--website-font-family);
+      }
+
+      .column1 p:nth-child(4){
+        font: italic normal medium 22px/31px var(--website-font-family);
+        color: var(--website-color);
+        padding-top: 18px;
+      }
+
     }
 
   }
 
   .section5{
-    height: 590px;
+    height: 629px;
+    background-color: #e3f0fa;
 
     .card{
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 35% repeat(3, 22%);
+      padding-top: 100px;
+
+      .column1{ 
+        h2{
+          font: normal normal bold 50px/82px var(--website-font-family);
+        }
+
+        :nth-child(2){
+          font: normal normal normal 30px/43px var(--website-font-family);
+        }
+
+       
+          :nth-child(3){
+            font: italic normal 300 26px/37px var(--website-font-family);
+          }
+          :nth-child(4){
+            font: normal normal normal 20px/29px var(--website-font-family);
+          }
+          :nth-child(5){
+            font: normal normal normal 30px/36px  var(--website-font-family);
+
+          }
+
+
+
+    }
 
       div{
           display: grid;
