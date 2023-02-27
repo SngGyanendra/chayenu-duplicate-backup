@@ -8,6 +8,8 @@ import GOTMobileImage2 from '/public/images/homepage/GOTM2@2x.png';
 import TalmudM1 from '/public/images/homepage/TalmudM1.png';
 import TalmudM2 from '/public/images/homepage/TalmudM2.png';
 import TalmudM3 from '/public/images/homepage/TalmudM3.png';
+import Chayus from '/public/images/homepage/Chayus.png';
+import Chitas from '/public/images/homepage/Chitas.png';
 
 export default function Home() {
   return (
@@ -47,9 +49,9 @@ export default function Home() {
 
                 <div className={Styles.card}> 
 
-                  <p>I am grateful that Chayenu has transformed into a super accessible app. I use the print, and now with the app, it is such a convenient way for me to get in some quick Torah study no matter where I am. The new Chayenu app makes it easy for me to share snippets of the Torah I learn with my family & friends.</p>
+                  <p>“As a subscriber of Chayenu I am thrilled to finally have a weekly study guide. On the road traveling often and constantly on the go, Chayenu has provided me an easy way to learn. Written in English that is perfect for the beginner to the more advanced. I strongly recommend Chayenu to anyone looking for that one booklet to assist you with your personal growth in Torah Study”</p>
                   
-                  <p>Lisa Melkin. Melbourne, Australia</p>
+                  <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
 
                 </div>
             </ContainerCard>
@@ -91,10 +93,20 @@ export default function Home() {
                     </div>
                     
                     <div className={Styles.cardContentRight}>
-                        <Image src={ChayenuAppImage} alt="Chayenu Mobile" height={550} width={260} objectFit="contain"/>
+                        <Image src={ChayenuAppImage} alt="Chayenu Mobile" height={411} width={190} objectFit="contain"/>
                     </div>
+
+                    
                 </div>
 
+
+                <div className={Styles.card}> 
+
+                  <p>“As a subscriber of Chayenu I am thrilled to finally have a weekly study guide. On the road traveling often and constantly on the go, Chayenu has provided me an easy way to learn. Written in English that is perfect for the beginner to the more advanced. I strongly recommend Chayenu to anyone looking for that one booklet to assist you with your personal growth in Torah Study”</p>
+
+                  <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
+
+                </div>
             </ContainerCard>
             
             <ContainerCard propClasses={Styles.section4}>
@@ -153,8 +165,8 @@ export default function Home() {
                       
                       <h2>Chayus</h2>
                       <p>Free weekly Torah digest. Curated snippets of great Torah content, in your inbox</p>
-                      <p>image</p>
-                      <p>Sample | Browse Archive</p>
+                      <Image src={Chayus} alt="" width={450} height={359}/>
+                      <p className={Styles.sample}>Sample | Browse Archive</p>
                       <button>SUBSCRIBE TO CHAYUS</button>
 
                 </div>
@@ -162,8 +174,8 @@ export default function Home() {
                 <div>
                       <h2>Chitas.org</h2>
                       <p>Join the movement to study Chitas daily, and in turn, receive and retain blessings from Hashem.</p>
-                      <p>COMING SOON</p>
-                      <p>image</p>
+                      <p className={Styles.sample}>COMING SOON</p>
+                      <Image src={Chitas} alt="" width={300} height={390}/>
                 </div>
               </div>
             </ContainerCard>

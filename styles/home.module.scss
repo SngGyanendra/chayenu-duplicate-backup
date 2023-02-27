@@ -103,10 +103,22 @@
           }
       }
 
-      & .card:nth-child(2){
+      .card:nth-child(2){
         display: block;
         height: 167px;
-        background: var(--website-color-banner) 0% 0% no-repeat padding-box;
+        background: transparent linear-gradient(278deg, #e0effc 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
+        padding: 20px;
+        border-radius: 10px;
+
+        p:nth-child(1){
+          font: normal normal 400 20px/29px var(--website-font-family);
+          color: var(--dark);
+          padding-bottom: 20px;
+        }
+        p:nth-child(2){
+          font: italic normal normal 14px/20px Brandon Grotesque;
+          color: var(--dark);
+        }
       }
     }
 
@@ -141,12 +153,12 @@
             display: grid;
             grid-template-columns: repeat(2, 45%);
             align-items: center;
-            grid-gap: 1rem;
+            grid-auto-rows: 3rem;
             
             .dailyStudyCards{
               display: grid;
-              width: 140px;
-              height: 62px;
+              width: 148px;
+              height: 28px;
               background: #EA1F2734 0% 0% no-repeat padding-box;
               justify-content: center;
               align-items: center;
@@ -157,7 +169,7 @@
         }
 
         & div:nth-child(2) > div{
-          grid-template-columns: repeat(3, auto);
+          grid-template-columns: repeat(2, auto);
 
         }
 
@@ -174,6 +186,25 @@
 
       }
 
+    }
+
+    .card:nth-child(2){
+      display: block;
+      height: 167px;
+      background: transparent linear-gradient(278deg, #e0effc 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 155px;
+
+      p:nth-child(1){
+        font: normal normal 400 20px/29px var(--website-font-family);
+        color: var(--dark);
+        padding-bottom: 20px;
+      }
+      p:nth-child(2){
+        font: italic normal normal 14px/20px Brandon Grotesque;
+        color: var(--dark);
+      }
     }
 
   }
@@ -260,16 +291,45 @@
   }
 
   .section6{
-    height: 590px;
+    height: 878px;
      .card{
+      padding-top: 100px;
       grid-template-columns: repeat(2, 1fr);
 
       div{
           display: grid;
+          justify-items: center;
           justify-content: center;
 
           img{
             object-fit: contain;
+          }
+
+          h2{
+            font: normal normal bold 50px/82px var(--website-font-family);
+
+          }
+
+          p:nth-child(2){
+            padding: 0px 38px;
+            text-align: center;
+            font: normal normal normal 30px/43px var(--website-font-family);
+          }
+
+          .sample{
+            font: normal normal bold 30px/43px var(--website-font-family);
+            padding-top: 30px;
+            padding-bottom: 30px;
+          }
+
+          button{
+            font: normal normal bold 24px/29px var(--website-font-family);
+            color: #FFFFFF;
+            background: var(--website-color) 0% 0% no-repeat padding-box;
+            border-radius: 10px;
+            border: none;
+            height: 57px;
+            width: 354px;
           }
       }
     }
@@ -279,12 +339,39 @@
   
   .section7{
     height: 590px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF0A 80%, var(--website-color-banner) 100%) 0% 0% no-repeat padding-box;
      .card{
       grid-template-columns: repeat(3, 1fr);
 
       div{
           display: grid;
           justify-content: center;
+          justify-items: center;
+
+          h2{
+            font: normal normal bold 50px/82px var(--website-font-family);
+            text-align: center;
+          }
+
+          p{
+            font: normal normal normal 30px/43px var(--website-font-family);
+            text-align: center;
+            padding-bottom: 30px;
+          }
+
+          button{
+            background-color: var(--website-color);
+            border-radius: 10px;
+            color: #fff;
+            height: 57px;
+            border: none;
+            width: 202px;
+            font: normal normal bold 24px/29px var(--website-font-family);
+
+          }
 
           img{
             object-fit: contain;
