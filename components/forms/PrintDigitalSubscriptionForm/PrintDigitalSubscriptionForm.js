@@ -224,7 +224,9 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                     <div className={Styles.selectCountry}>Select Location</div>
                     <div className={Styles.location}>
                       <div
-                        className={Styles.countryType}
+                        className={`${Styles.countryType} ${
+                          selectedCountry?.name === 'USA' ? 'selected' : ''
+                        }`}
                         onClick={() => {
                           setSelectedCountry(
                             countriesList?.find(
@@ -236,7 +238,12 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                         USA
                       </div>
                       <div
-                        className={Styles.countryType}
+                        className={`${Styles.countryType} ${
+                          selectedCountry?.name !== 'USA' &&
+                          selectedCountry !== undefined
+                            ? 'selected'
+                            : ''
+                        }`}
                         onClick={() => {
                           setSelectedCountry('others');
                         }}
@@ -321,6 +328,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                           <PlanCard
                             key={index}
                             plan={plan}
+                            selectedPlan={selectedPlan}
                             setSelectedPlan={setSelectedPlan}
                           />
                         ))}
