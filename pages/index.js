@@ -12,6 +12,7 @@ import TalmudM3 from '/public/images/homepage/TalmudM3.png';
 import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
+import Alan from '/public/images/homepage/Alan.png';
 
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
@@ -61,6 +62,8 @@ export default function Home() {
                   <p>“As a subscriber of Chayenu I am thrilled to finally have a weekly study guide. On the road traveling often and constantly on the go, Chayenu has provided me an easy way to learn. Written in English that is perfect for the beginner to the more advanced. I strongly recommend Chayenu to anyone looking for that one booklet to assist you with your personal growth in Torah Study”</p>
                   
                   <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
+
+                  <Image src={Alan} alt="Alan's Image" height={159} width={107}/>
 
                 </div>
             </ContainerCard>
@@ -130,9 +133,11 @@ export default function Home() {
 
                 <div className={Styles.card}> 
 
-                  <p>“As a subscriber of Chayenu I am thrilled to finally have a weekly study guide. On the road traveling often and constantly on the go, Chayenu has provided me an easy way to learn. Written in English that is perfect for the beginner to the more advanced. I strongly recommend Chayenu to anyone looking for that one booklet to assist you with your personal growth in Torah Study”</p>
+                  <p>I am grateful that Chayenu has transformed into a super accessible app. I use the print, and now with the app, it is such a convenient way for me to get in some quick Torah study no matter where I am. The new Chayenu app makes it easy for me to share snippets of the Torah I learn with my family & friends.</p>
 
-                  <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
+                  <p>Lisa Melkin. Melbourne, Australia</p>
+                  
+                  <Image src={Alan} alt="Alan's Image" height={159} width={107}/>
 
                 </div>
             </ContainerCard>

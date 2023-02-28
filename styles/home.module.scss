@@ -104,9 +104,11 @@
       }
 
       .card:nth-child(2){
-        display: block;
+        display: grid;
         height: 167px;
-        background: transparent linear-gradient(278deg, #e0effc 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
+        grid-template-columns: auto 8%;
+        grid-template-rows: 90% 10%;
+        background: transparent linear-gradient(278deg,#bfdef8 0%, var(--website-color-banner) 30%,  #e0effc 100%) 0% 0% no-repeat padding-box;
         padding: 20px;
         border-radius: 10px;
 
@@ -114,11 +116,22 @@
           font: normal normal 400 20px/29px var(--website-font-family);
           color: var(--dark);
           padding-bottom: 20px;
+          grid-column: 1/1;
         }
         p:nth-child(2){
           font: italic normal normal 14px/20px Brandon Grotesque;
           color: var(--dark);
+          grid-column: 1/1;
         }
+
+        img{
+          object-fit: contain;
+          grid-column: 2;
+          grid-row: 1/2;
+          margin-top: 20px;
+          margin-left: 2px;
+        }
+
       }
     }
 
@@ -211,9 +224,11 @@
     }
 
     .card:nth-child(2){
-      display: block;
+      display: grid;
+      grid-template-columns: auto 8%;
+      grid-template-rows: 90% 10%;
       height: 167px;
-      background: transparent linear-gradient(278deg, #e0effc 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
+      background: transparent linear-gradient(278deg, #bfdef8 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
       padding: 20px;
       border-radius: 10px;
       margin-top: 155px;
@@ -222,10 +237,20 @@
         font: normal normal 400 20px/29px var(--website-font-family);
         color: var(--dark);
         padding-bottom: 20px;
+        grid-column: 1/1;
       }
       p:nth-child(2){
         font: italic normal normal 14px/20px Brandon Grotesque;
         color: var(--dark);
+        grid-column: 1/1;
+      }
+
+      img{
+        object-fit: contain;
+        grid-column: 2;
+        grid-row: 1/2;
+        margin-top: -14px;
+        margin-left: 2px;
       }
     }
 
@@ -396,6 +421,9 @@
             height: 57px;
             border: none;
             width: 202px;
+            background-repeat: no-repeat;
+            background-position: 20% center;
+            padding-left: 10%;
             font: normal normal bold 24px/29px var(--website-font-family);
 
           }
@@ -404,6 +432,20 @@
             object-fit: contain;
           }
       }
+
+      :nth-child(1) button{
+        background-image: url('/images/homepage/newsletter.svg');
+      }
+      :nth-child(2) button{
+        width: 166px;
+        background-image: url('/images/homepage/whatsapp.svg');
+      }
+      :nth-child(3) button{
+        width: 157px;
+        background-image: url('/images/homepage/buy.svg');
+
+      }
+
     }
 
   }
