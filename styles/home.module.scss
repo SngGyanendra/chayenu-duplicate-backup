@@ -164,6 +164,7 @@
               background: #EA1F2734 0% 0% no-repeat padding-box;
               justify-content: center;
               align-items: center;
+              cursor: pointer;
               
               p{
                 font: normal normal bold 12px/18px var(--website-font-family);
@@ -186,6 +187,19 @@
       .cardContentRight{
         display: grid;
         justify-content: center;
+        position: relative;
+
+        
+        .screen{
+          left: 94px;
+          color: transparent;
+          position: absolute;
+          width: 176px;
+          height: 397px;
+          border-radius: 22px;
+          top: 7px;
+        }
+
       }
 
       .subtitle{
@@ -266,18 +280,23 @@
           font: normal normal bold 50px/82px var(--website-font-family);
         }
 
+        p,span, h2{
+          color: var(--dark)
+        }
+
         :nth-child(2){
-          font: normal normal normal 30px/43px var(--website-font-family);
+          font: normal normal normal 30px/20px var(--website-font-family);
         }
 
        
           :nth-child(3){
             font: italic normal 300 26px/37px var(--website-font-family);
-          }
-          :nth-child(4){
-            font: normal normal normal 20px/29px var(--website-font-family);
+            padding-bottom: 20px;
           }
           :nth-child(5){
+            font: normal normal normal 20px/29px var(--website-font-family);
+          }
+          :nth-child(6){
             font: normal normal normal 30px/36px  var(--website-font-family);
 
           }

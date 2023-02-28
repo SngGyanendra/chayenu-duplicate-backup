@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import Image from 'next/image';
@@ -10,11 +11,16 @@ import TalmudM2 from '/public/images/homepage/TalmudM2.png';
 import TalmudM3 from '/public/images/homepage/TalmudM3.png';
 import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
+import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
 
+
 export default function Home() {
+
+  const [selectedChumashScreen, setselectedChumashScreen] = useState(dailyStudyData.defaultUrl)
+
   return (
     <main>
         
@@ -74,8 +80,16 @@ export default function Home() {
                               <div className={Styles.childCard}>
                               {
                                 dailyStudyData.data.map((data)=>(
-                                  <div className={Styles.dailyStudyCards} style={{backgroundColor: data.backgroundColor}} key={data.title}>
-                                    <p>{data.title}</p>
+                                  <div 
+                                      className={Styles.dailyStudyCards} 
+                                      style={{backgroundColor: data.backgroundColor}} 
+                                      key={data.title}
+                                      onMouseOver={()=>{setselectedChumashScreen(data.imageUrl)}}
+                                      onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
+                                    
+                                  >
+                                    
+                                    <p style={{color:data.textColor}}>{data.title}</p>
                                   </div>))
                               }
                               </div>
@@ -86,9 +100,17 @@ export default function Home() {
                               <div>                              
                                 <div className={Styles.childCard}>
                                 {
-                                  weeklyStudyData.data.map((data)=>(<div style={{backgroundColor: data.backgroundColor}} className={Styles.dailyStudyCards} 
-                                  key={data.title}>
-                                  <p>{data.title}</p></div>))
+                                  weeklyStudyData.data.map((data)=>(
+                                  <div style={{backgroundColor: data.backgroundColor}} 
+                                      className={Styles.dailyStudyCards} 
+                                      key={data.title}
+                                      onMouseOver={()=>{setselectedChumashScreen(data.imageUrl)}}
+                                      onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
+                                  >
+                                    
+                                    <p style={{color:data.textColor}}>{data.title}</p>
+                                  
+                                  </div>))
                                 }
                                 </div>
 
@@ -98,7 +120,8 @@ export default function Home() {
                     </div>
                     
                     <div className={Styles.cardContentRight}>
-                        <Image src={ChayenuAppImage} alt="Chayenu Mobile" height={411} width={190} objectFit="contain"/>
+                        <Image src={GOTMobileImage1} alt="Chayenu Mobile" height={411} width={190} objectFit="contain"/>
+                        <Image className={Styles.screen} src={selectedChumashScreen} alt="Chayenu Mobile" height={396} width={175} objectFit="contain"/>
                     </div>
 
                     
@@ -146,6 +169,7 @@ export default function Home() {
                         <h2>Steinsaltz Talmud</h2>
                         <p>The Talmud At Your Fingertips</p>
                         <span>Chayenu App</span>
+                        <Image src={SteinsaltzLogo} alt="" width={80} height={80}/>
                         <span>Commentary by</span>
                         <span>Rabbi Adin Even-Israel (Steinsaltz) OBM</span>
                     </div>

@@ -1,16 +1,17 @@
 {
     "data": [
-        {"title": "Chumash", "backgroundColor": "#EA1F2734"},
-        {"title": "Tanya", "backgroundColor": "#EE5A2433"},
-        {"title": "Rambam 1Chapter", "backgroundColor": "#F79F1E33"},
-        {"title": "Rambam 3Chapter", "backgroundColor": "#FFC31033"},
-        {"title": "Hayom Yom", "backgroundColor": "#9EC30033"},
-        {"title": "SEFER HAMITZVOS", "backgroundColor": "#77A30034"},
-        {"title": "DAILY HALACHA", "backgroundColor": "#00B9C133"},
-        {"title": "DAILY GEULAH", "backgroundColor": "#00ACA533"},
-        {"title": "TEHILLIM", "backgroundColor": "#00ACA533"},
-        {"title": "DAILY WISDOM", "backgroundColor": "#49A1CE33"},
-        {"title": "DAF YOMI", "backgroundColor": "#1389A733"}
-    ]
+        {"title": "Chumash", "textColor":"#810005", "backgroundColor": "#EA1F2734", "imageUrl":"/images/homepage/AppScreenshots/Chumash.png"},
+        {"title": "Tanya", "textColor":"#932700", "backgroundColor": "#EE5A2433", "imageUrl":"/images/homepage/AppScreenshots/Tanya.png"},
+        {"title": "Rambam 1Chapter", "textColor":"#865000", "backgroundColor": "#F79F1E33", "imageUrl":"/images/homepage/AppScreenshots/Rambam 1.png"},
+        {"title": "Rambam 3Chapter", "textColor":"#936E00", "backgroundColor": "#FFC31033", "imageUrl":"/images/homepage/AppScreenshots/Rambam 3.png"},
+        {"title": "Hayom Yom", "textColor":"#526500", "backgroundColor": "#9EC30033", "imageUrl":"/images/homepage/AppScreenshots/Hayom Yom.png"},
+        {"title": "SEFER HAMITZVOS", "textColor":"#3A5000", "backgroundColor": "#77A30034", "imageUrl":"/images/homepage/AppScreenshots/Chumash.png"},
+        {"title": "DAILY HALACHA", "textColor":"#004115", "backgroundColor": "#00B9C133", "imageUrl":"/images/homepage/AppScreenshots/Sefer Hamitzvos.png"},
+        {"title": "DAILY GEULAH", "textColor":"#006064", "backgroundColor": "#00ACA533", "imageUrl":"/images/homepage/AppScreenshots/Daily Geulah.png"},
+        {"title": "TEHILLIM", "textColor":"#004D4A", "backgroundColor": "#00ACA533", "imageUrl":"/images/homepage/AppScreenshots/Daily Tehillim.png"},
+        {"title": "DAILY WISDOM", "textColor":"#003D5C", "backgroundColor": "#49A1CE33", "imageUrl":"/images/homepage/AppScreenshots/Daily Wisdom.png"},
+        {"title": "DAF YOMI", "textColor":"#056077", "backgroundColor": "#1389A733", "imageUrl":"/images/homepage/AppScreenshots/Daf Yomi.png"}
+    ],
+    "defaultUrl": "/images/homepage/AppScreenshots/SplashPage.png"
 
 }
