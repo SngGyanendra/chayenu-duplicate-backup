@@ -108,7 +108,8 @@
       width: 25rem;
       height: 3rem;
       border-radius: 10px;
-      background-color: var(--website-color-opacity-low);
+      background-color: var(--website-color);
+      color: white;
       border: none;
       outline: none;
       font-family: 'Poppins', sans-serif;
@@ -116,6 +117,13 @@
       margin-top: 2rem;
       @media screen and (max-width: 62.5rem) {
         grid-column-end: 2;
+      }
+      &:hover {
+        box-shadow: 0px 6px 12px #00000029;
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+          color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       }
     }
   }
