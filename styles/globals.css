@@ -37,7 +37,7 @@ footer {
   }
 }
 .selected {
-  border: 3px solid #00aec4 !important;
+  border: 3px solid var(--website-color) !important;
 }
 
 input:-webkit-autofill,

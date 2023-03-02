@@ -38,9 +38,13 @@
     }
   }
   @media screen and (max-width: 55.938rem) {
-    &:nth-child(1n){
+    &:nth-child(1n) {
       margin-left: 1rem;
       margin-right: 1rem;
     }
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transition: background-color ease .25s;
   }
 }
