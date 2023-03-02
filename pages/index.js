@@ -63,7 +63,7 @@ export default function Home() {
                   
                   <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
 
-                  <Image src={Alan} alt="Alan's Image" height={159} width={107}/>
+                  <Image src={Alan} alt="Alan's Image" height={120} width={80}/>
 
                 </div>
             </ContainerCard>
@@ -123,8 +123,8 @@ export default function Home() {
                     </div>
                     
                     <div className={Styles.cardContentRight}>
-                        <Image src={GOTMobileImage1} alt="Chayenu Mobile" height={411} width={190} objectFit="contain"/>
-                        <Image className={Styles.screen} src={selectedChumashScreen} alt="Chayenu Mobile" height={396} width={175} objectFit="contain"/>
+                        <Image src={GOTMobileImage1} alt="Chayenu Mobile" height={308} width={142} objectFit="contain"/>
+                        <Image className={Styles.screen} src={selectedChumashScreen} alt="Chayenu Mobile" height={297} width={132} objectFit="contain"/>
                     </div>
 
                     
@@ -137,7 +137,7 @@ export default function Home() {
 
                   <p>Lisa Melkin. Melbourne, Australia</p>
                   
-                  <Image src={Alan} alt="Alan's Image" height={159} width={107}/>
+                  <Image src={Alan} alt="Alan's Image" height={120} width={80}/>
 
                 </div>
             </ContainerCard>
@@ -153,15 +153,15 @@ export default function Home() {
                     </div>
                     
                     <div>
-                                <Image src={GOTBookImage} alt="" width={295} height={429}/>
+                                <Image src={GOTBookImage} alt="" width={222} height={322}/>
                     </div>
                     
                     <div>
-                                <Image src={GOTMobileImage1} alt="" width={203} height={400}/>
+                                <Image src={GOTMobileImage1} alt="" width={152} height={300}/>
                     </div>
                     
                     <div>
-                                <Image src={GOTMobileImage2} alt="" width={203} height={400}/>
+                                <Image src={GOTMobileImage2} alt="" width={152} height={300}/>
                     </div>
                   
                   </div>                
@@ -174,21 +174,21 @@ export default function Home() {
                         <h2>Steinsaltz Talmud</h2>
                         <p>The Talmud At Your Fingertips</p>
                         <span>Chayenu App</span>
-                        <Image src={SteinsaltzLogo} alt="" width={80} height={80}/>
+                        <Image src={SteinsaltzLogo} alt="" width={60} height={60}/>
                         <span>Commentary by</span>
                         <span>Rabbi Adin Even-Israel (Steinsaltz) OBM</span>
                     </div>
                     
                     <div>
-                                <Image src={TalmudM1} alt="" width={295} height={429}/>
+                                <Image src={TalmudM1} alt="" width={152} height={300}/>
                     </div>
                     
                     <div>
-                                <Image src={TalmudM2} alt="" width={203} height={429}/>
+                                <Image src={TalmudM2} alt="" width={152} height={300}/>
                     </div>
                     
                     <div>
-                                <Image src={TalmudM3} alt="" width={203} height={429}/>
+                                <Image src={TalmudM3} alt="" width={152} height={300}/>
                     </div>
               </div>
             </ContainerCard>
@@ -199,7 +199,7 @@ export default function Home() {
                       
                       <h2>Chayus</h2>
                       <p>Free weekly Torah digest. Curated snippets of great Torah content, in your inbox</p>
-                      <Image src={Chayus} alt="" width={450} height={359}/>
+                      <Image src={Chayus} alt="" width={338} height={270}/>
                       <p className={Styles.sample}>Sample | Browse Archive</p>
                       <button>SUBSCRIBE TO CHAYUS</button>
 
@@ -209,7 +209,7 @@ export default function Home() {
                       <h2>Chitas.org</h2>
                       <p>Join the movement to study Chitas daily, and in turn, receive and retain blessings from Hashem.</p>
                       <p className={Styles.sample}>COMING SOON</p>
-                      <Image src={Chitas} alt="" width={300} height={390}/>
+                      <Image src={Chitas} alt="" width={225} height={293}/>
                 </div>
               </div>
             </ContainerCard>
