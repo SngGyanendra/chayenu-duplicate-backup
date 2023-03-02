@@ -48,8 +48,8 @@ export function Header() {
             <Image
               src="/logo.svg"
               alt="logo"
-              height={50}
-              width={80}
+              height={38}
+              width={60}
               loading="lazy"
             />
           </div>
