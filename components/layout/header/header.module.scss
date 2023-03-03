@@ -11,6 +11,13 @@
   .translucentLayer {
     height: 100%;
   }
+  .login{
+    display: flex;
+    align-items: center;
+    img{
+      margin-right: .5rem;
+    }
+  }
   .container {
     display: flex;
     justify-content: space-between;

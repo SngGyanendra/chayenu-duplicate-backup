@@ -1,0 +1,4 @@
+@function fontvalue($fontSize, $lineHeight, $fontWeight) { 
+  $fontMix: normal normal $fontWeight #{$fontSize}px/#{$lineHeight}px var(--website-font-family);
+  @return  $fontMix;
+}
