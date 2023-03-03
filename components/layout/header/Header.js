@@ -1,8 +1,11 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Styles from './header.module.scss';
 import { useRef } from 'react';
 
 export function Header() {
+  const router = useRouter();
+
   const handleMenu = () => {
     const element = document.getElementsByClassName('menu')[0];
     element.classList.toggle('menuClose');
@@ -27,7 +30,7 @@ export function Header() {
             onClick={handleMenu}
           />
         </div>
-        <div>
+        <div onClick={() => router.push('/')}>
           <Image
             src="/logo.svg"
             alt="logo"
@@ -44,7 +47,7 @@ export function Header() {
         }}
       >
         <div className={Styles.container} ref={menu}>
-          <div>
+          <div onClick={() => router.push('/')}>
             <Image
               src="/logo.svg"
               alt="logo"
@@ -59,7 +62,16 @@ export function Header() {
               <li>EXPLORE</li>
             </ul>
           </div>
-          <div>LOGIN</div>
+          <div className={Styles.login} onClick={() => router.push('/login')}>
+            <Image
+              src="/profile.svg"
+              alt="Profile image"
+              height={16}
+              width={16}
+              className
+            />
+            LOGIN
+          </div>
         </div>
       </div>
     </header>
