@@ -46,7 +46,7 @@ export function Header() {
           handleClickedOutside(e);
         }}
       >
-        <div className={Styles.container} ref={menu}>
+        <div className={Styles.headerContainer} ref={menu}>
           <div onClick={() => router.push('/')}>
             <Image
               src="/logo.svg"
