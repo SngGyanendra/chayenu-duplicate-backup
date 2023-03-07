@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Styles from './header.module.scss';
 import { useRef } from 'react';
+import Link from 'next/link';
 
 export function Header() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export function Header() {
             onClick={handleMenu}
           />
         </div>
-        <div onClick={() => router.push('/')}>
+        <Link href="/">
           <Image
             src="/logo.svg"
             alt="logo"
@@ -38,7 +39,7 @@ export function Header() {
             width={80}
             loading="lazy"
           />
-        </div>
+        </Link>
       </div>
       <div
         className={`${Styles.translucentLayer} menuClose menu`}
@@ -47,7 +48,7 @@ export function Header() {
         }}
       >
         <div className={Styles.container} ref={menu}>
-          <div onClick={() => router.push('/')}>
+          <Link href="/">
             <Image
               src="/logo.svg"
               alt="logo"
@@ -55,11 +56,15 @@ export function Header() {
               width={60}
               loading="lazy"
             />
-          </div>
+          </Link>
           <div>
             <ul>
-              <li>SUBSCRIBE</li>
-              <li>EXPLORE</li>
+              <li>
+                <Link href="/explore">Subscribe</Link>
+              </li>
+              <li>
+                <Link href="/explore">Explore</Link>
+              </li>
             </ul>
           </div>
           <div className={Styles.login} onClick={() => router.push('/login')}>
@@ -68,7 +73,6 @@ export function Header() {
               alt="Profile image"
               height={16}
               width={16}
-              className
             />
             LOGIN
           </div>

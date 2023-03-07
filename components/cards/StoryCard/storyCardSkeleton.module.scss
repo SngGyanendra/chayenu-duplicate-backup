@@ -1,0 +1,18 @@
+.cardSkeleton {
+  background-color: var(--website-color-opacity-low);
+  border-radius: 10px;
+  background-color: red;
+  animation: skeleton-loading 1s linear infinite alternate;
+  width: 575px;
+  height: 300px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(204, 7%, 87%);
+  }
+
+  100% {
+    background-color: hsl(200, 16%, 96%);
+  }
+}
