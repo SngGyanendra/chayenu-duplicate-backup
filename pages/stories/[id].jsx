@@ -4,11 +4,13 @@ import { getStoryById } from '../../api/common';
 import { Print } from '../../components/common/Print.svg'
 import { Digital } from '../../components/common/Digital.svg'
 import { addIdToHeadings, convertTextToId } from '../../util/htmlProcessor';
+import { StoriesNav } from '../../components/common/StoriesNav/StoriesNav';
 
 export default function Story({ story, ids }) {
   return (
     <>
       <NextHead title={story.title} description={story.description} />
+      <StoriesNav />
       <main className={Styles.main}>
         <div className={Styles.outlineWrapper}>
           <ul>

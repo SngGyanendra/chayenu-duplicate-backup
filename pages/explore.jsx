@@ -7,17 +7,24 @@ import SubscribeStyles from '../styles/subscribe.module.scss'
 import { StoryCard } from '../components/cards/StoryCard/StoryCard';
 import { StoryCardSkeleton } from '../components/cards/StoryCard/StoryCardSkeleton';
 import { StoriesNav } from '../components/common/StoriesNav/StoriesNav';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateStories } from '../store/storiesSlice';
 
 export default function Explore() {
-  const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const { loaded, stories } = useSelector(state => state.stories);
+  const dispatch = useDispatch();
 
   async function getData() {
     try {
-      const { data } = await getAllStories();
-      setLoading(false);
-      setStories(data);
+      if (loaded === false) {
+        const { data } = await getAllStories();
+        setLoading(false);
+        dispatch(updateStories(data));
+      } else {
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
       setError('An error occured, please try after some time');
@@ -33,7 +40,7 @@ export default function Explore() {
       <NextHead title={'Explore'} />
       {!error && (
         <>
-          <StoriesNav stories={stories} />
+          <StoriesNav />
           <main>
             <section className={Styles.main}>
               <div className={Styles.introWrapper}>
