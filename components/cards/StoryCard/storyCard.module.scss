@@ -1,0 +1,60 @@
+.card {
+    width: 575px;
+    background: #e3f0fa;
+    padding: 40px;
+    border-radius: 10px;
+    transition: 0.3s;
+    display: flex;
+    gap: 30px;
+}
+
+.card:hover {
+    background: #c8e0f5;
+}
+
+.image {
+    height: 225px;
+    width: 180px;
+    flex: 1;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.cardContent {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.title {
+    text-transform: uppercase;
+    color: #003652;
+}
+
+.description {
+    height: 120px;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 25px;
+    color: #003652;
+}
+
+.learnMore {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    color: #75b2e6;
+}
+
+.learnMoreDigitalPrintWrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.digitalPrintWrapper {
+    display: flex;
+    gap: 10px;
+}

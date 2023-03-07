@@ -1,0 +1,70 @@
+.nav {
+    background: #5e8eb8;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+}
+
+.indexButtonWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.indexText {
+    font-weight: bold;
+    font-size: 14px;
+    padding-inline: 2px;
+}
+
+.arrowIcon {
+    width: 16px;
+    height: 16px;
+    margin-block-start: 2px;
+}
+
+.nav:hover .ul {
+    display: block;
+}
+
+.nav:hover .hideOnHover {
+    display: none;
+}
+
+.showOnHover {
+    display: none;
+}
+
+.nav:hover .showOnHover {
+    display: block;
+}
+
+.ul {
+    margin: 0 auto;
+    background: #75b2e6;
+    width: 237px;
+    display: none;
+    top: 40px;
+    position: absolute;
+    transition: 0.3s;
+}
+
+.li {
+    list-style: none;
+}
+
+.link {
+    text-decoration: none;
+    padding: 10px 10px 10px 20px;
+    color: white;
+    font-weight: 600;
+    display: inline-block;
+    width: 237px;
+    transition: 0.3s;
+}
+
+.link:hover {
+    background: #5e8eb8;
+}
