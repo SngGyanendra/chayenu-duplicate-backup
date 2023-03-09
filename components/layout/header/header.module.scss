@@ -1,10 +1,11 @@
 .header {
   height: 4rem;
   background-color: var(--website-color);
-  color: white;
+  color: white ;
   font-family: Brandon Grotesque;
   font-weight: 400;
   font-size: 1.1rem;
+  text-decoration: none;
   .mobileHeader {
     display: none;
   }
