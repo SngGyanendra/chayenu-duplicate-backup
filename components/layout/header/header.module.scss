@@ -1,6 +1,7 @@
 @import 'common.scss';
 
 
+
 .header {
   height: 4rem;
   background-color: var(--website-color);
@@ -21,11 +22,10 @@
       margin-right: .5rem;
     }
   }
-  .container {
+  .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: var(--container-width);
     height: 100%;
     margin: auto;
     div {
