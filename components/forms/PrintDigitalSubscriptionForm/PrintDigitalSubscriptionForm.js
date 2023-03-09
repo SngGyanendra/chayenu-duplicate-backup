@@ -142,7 +142,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     organization: Yup.string().trim(),
     quantity: Yup.number()
       .min(0, 'Minimunt quantity is 1')
-      .max(10, 'Maximum quantity is 1')
+      .max(10, 'Maximum quantity is 10')
       .required('Quantity is required')
       .positive('Quantity needs to be positive')
       .integer('Quantity needs to be an integer'),
@@ -159,7 +159,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       is: () =>
         (selectedCountry.has_shipping && deliveryType === 'shipping') ||
         selectedCountry.name === 'USA',
-      then: () => Yup.string().trim().required('Address 1 is required'),
+      then: () => Yup.string().trim().required('Street address is required'),
     }),
     address_2: Yup.string().trim(),
     city: Yup.string().when({

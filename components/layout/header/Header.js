@@ -58,8 +58,8 @@ export function Header() {
           </div>
           <div>
             <ul>
-              <li>SUBSCRIBE</li>
-              <li>EXPLORE</li>
+              <li onClick={() => router.push('/subscribe')}>SUBSCRIBE</li>
+              <li onClick={() => router.push('/explore')}>EXPLORE</li>
             </ul>
           </div>
           <div className={Styles.login} onClick={() => router.push('/login')}>

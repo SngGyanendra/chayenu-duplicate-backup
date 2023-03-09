@@ -73,7 +73,7 @@ export function Coupon({
                 setIsCouponVerified(false);
               }}
             >
-              <Image src="/trash.svg" alt="delet icon" height={28} width={28} />
+              <Image src="/trash.svg" alt="delet icon" height={20} width={20} />
             </span>
           </div>
         )}
