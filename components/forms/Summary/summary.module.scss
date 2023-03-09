@@ -1,9 +1,12 @@
+@import 'common.scss';
+
 .summary {
   grid-column-start: 1;
   grid-column-end: 3;
   width: 50%;
   margin: auto;
-  font-size: 1.3rem;
+  font: fontvalue(16, 16, 300);
+  font-family: 'Poppins', sans-serif;
   .planType {
     display: flex;
     justify-content: space-between;
@@ -16,14 +19,15 @@
       margin: 10px;
       border: 1px solid grey;
       width: 40px;
-      height: 25px;
+      height: 20px;
     }
     .change {
-      font-size: 1rem;
+      font: fontvalue(16, 16, 300);
+      font-family: 'Poppins', sans-serif;
       color: var(--website-color);
     }
   }
-  @media screen and (min-width:62.5rem) and (max-width:75rem) {
+  @media screen and (min-width: 62.5rem) and (max-width: 75rem) {
     width: 70%;
   }
   @media screen and (max-width: 62.5rem) {

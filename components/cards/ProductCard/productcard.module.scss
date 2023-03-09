@@ -1,18 +1,19 @@
+@import 'common.scss';
+
 .card {
   background-color: var(--website-color-opacity-low);
   border-radius: 10px;
-  padding: 50px;
-  height: 43rem;
+  padding: 30px;
+  height: 28rem;
   font-family: Brandon Grotesque;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0px 6px 12px #00000029;
   cursor: pointer;
   .name {
     color: #003652;
-    font-weight: 400;
-    font-size: 1.5rem;
-    font-weight: 500;
+    font: fontvalue(21, 23, 500);
     text-align: center;
   }
   .image {
@@ -24,21 +25,20 @@
     background-position: center center;
   }
   .type {
-    font-size: 1.3rem;
+    font: fontvalue(18, 18, 500);
     font-family: 'Poppins', sans-serif;
-    font-weight: 500;
     text-align: center;
   }
   .price {
     margin-top: 1rem;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font: fontvalue(13.5, 14, 500);
     font-family: 'Poppins', sans-serif;
     text-align: center;
   }
   .price_description {
+    font: fontvalue(12, 12, 500);
     font-family: 'Poppins', sans-serif;
-    font-weight: 500;
+    margin-top: 1rem;
     text-align: center;
     height: 1.1rem;
   }
@@ -48,7 +48,7 @@
     display: flex;
     font-family: 'Poppins', sans-serif;
     justify-content: center;
-    font-weight: 300;
+    font: fontvalue(12, 13, 300);
     span {
       text-align: center;
       align-self: flex-end;

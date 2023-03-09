@@ -336,7 +336,7 @@
 }
 .braintree-sheet__container {
   display: none;
-  margin: 0 auto 13px;
+  margin: 0 auto 0;
   max-height: 0;
   opacity: 0;
 }
@@ -508,7 +508,7 @@
   color: #000000;
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.4;
   margin: 0;
@@ -542,7 +542,7 @@
   margin-top: -14px;
   position: absolute;
   right: 11px;
-  top: 50%;
+  top: 58%;
 }
 .braintree-sheet__content--form
   .braintree-form__field-group
@@ -550,7 +550,7 @@
   .braintree-form__hosted-field {
   border: 1px solid rgb(206, 212, 218);
   border-radius: 10px !important;
-  height: 44px;
+  height: 2rem;
   margin: 4px 0 0;
   padding: 0 8px;
 }
@@ -1054,7 +1054,7 @@
 .braintree-sheet__header {
   display: none;
 }
-@media screen and (min-width: 43.75rem) and (max-width: 65.625rem) {
+@media screen and (min-width: 43.75rem) and (max-width: 75rem) {
   [data-braintree-id*='number'] {
     padding-right: 0 !important;
   }
@@ -1063,6 +1063,9 @@
   }
   [data-braintree-id*='expiration'] {
     padding: 0px 10px 0px 0px !important;
+  }
+  .braintree-sheet__content--form .braintree-form__field-group {
+    margin-bottom: 2rem;
   }
 }
 @media screen and (max-width: 43.75rem) {
@@ -1087,5 +1090,8 @@
   }
   .braintree-sheet__content--form {
     flex-wrap: wrap;
+  }
+  .braintree-sheet__content--form .braintree-form__field-group {
+    margin-bottom: 2rem;
   }
 }
