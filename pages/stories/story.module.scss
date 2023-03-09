@@ -1,0 +1,109 @@
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.page {
+    width: 720px;
+    color: #003652;
+}
+
+.title {
+    margin-block-start: 30px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.digitalPrintIndicatorWrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.digitalPrintIndicatorWrapper>* {
+    transform: scale(1.25);
+}
+
+.content {
+    margin-block-start: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.content h1,
+.content h2,
+.content h3,
+.content h4,
+.content h5 {
+    text-transform: uppercase;
+}
+
+.content h2 {
+    font-size: 20px;
+}
+
+.content p {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.content blockquote {
+    font-style: italic;
+}
+
+.content iframe {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.content img {
+    border: 1px solid #707070;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.content ul,
+.content ol {
+    margin-inline-start: 35px;
+}
+
+.content li {
+    margin-block-end: 28px;
+}
+
+.content video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.content a {
+    text-decoration: none;
+    color: #75B2E6;
+    font-weight: 700;
+}
+
+.outlineWrapper {
+    background-color: #e3f0fa;
+    border-radius: 10px;
+    position: sticky;
+    height: 100%;
+    top: 20px;
+}
+
+.outlineWrapper a {
+    color: #00222B;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.outlineWrapper ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    list-style-type: none;
+}
