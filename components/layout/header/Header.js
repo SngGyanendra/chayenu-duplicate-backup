@@ -1,11 +1,8 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import Styles from './header.module.scss';
 import { useRef } from 'react';
 
 export function Header() {
-  const router = useRouter();
-
   const handleMenu = () => {
     const element = document.getElementsByClassName('menu')[0];
     element.classList.toggle('menuClose');
@@ -30,7 +27,7 @@ export function Header() {
             onClick={handleMenu}
           />
         </div>
-        <div onClick={() => router.push('/')}>
+        <div>
           <Image
             src="/logo.svg"
             alt="logo"
@@ -46,32 +43,23 @@ export function Header() {
           handleClickedOutside(e);
         }}
       >
-        <div className={Styles.headerContainer} ref={menu}>
-          <div onClick={() => router.push('/')}>
+        <div className={Styles.container} ref={menu}>
+          <div>
             <Image
               src="/logo.svg"
               alt="logo"
-              height={38}
-              width={60}
+              height={50}
+              width={80}
               loading="lazy"
             />
           </div>
           <div>
             <ul>
-              <li onClick={() => router.push('/subscribe')}>SUBSCRIBE</li>
-              <li onClick={() => router.push('/explore')}>EXPLORE</li>
+              <li>SUBSCRIBE</li>
+              <li>EXPLORE</li>
             </ul>
           </div>
-          <div className={Styles.login} onClick={() => router.push('/login')}>
-            <Image
-              src="/profile.svg"
-              alt="Profile image"
-              height={16}
-              width={16}
-              className
-            />
-            LOGIN
-          </div>
+          <div>LOGIN</div>
         </div>
       </div>
     </header>

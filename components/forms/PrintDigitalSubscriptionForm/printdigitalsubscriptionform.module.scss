@@ -212,9 +212,6 @@
     .dropinContainer {
       grid-column-start: 1;
       grid-column-end: 3;
-      *{
-        // height:initial;
-      }
       @media screen and (max-width: 62.5rem) {
         grid-column-end: 2;
       }

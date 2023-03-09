@@ -1,31 +1,21 @@
-@import 'common.scss';
-
-
-
 .header {
   height: 4rem;
   background-color: var(--website-color);
   color: white;
-  font-family: var(--website-font-family);
+  font-family: Brandon Grotesque;
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   .mobileHeader {
     display: none;
   }
   .translucentLayer {
     height: 100%;
   }
-  .login{
-    display: flex;
-    align-items: center;
-    img{
-      margin-right: .5rem;
-    }
-  }
-  .headerContainer {
+  .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: var(--container-width);
     height: 100%;
     margin: auto;
     div {
