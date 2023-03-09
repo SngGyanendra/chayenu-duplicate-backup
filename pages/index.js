@@ -13,6 +13,8 @@ import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 import Alan from '/public/images/homepage/Alan.png';
+import Lisa from '/public/images/homepage/woman@2x.png';
+import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
@@ -66,7 +68,9 @@ export default function Home() {
                   
                   <p>Alan “Shlomo” Veingrad, former NFL offensive lineman with the Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship team</p>
 
-                  <Image src={Alan} alt="Alan's Image" height={120} width={80}/>
+                  <div>
+                    <Image src={Alan} alt="Alan's Image" height={120} width={80}/>
+                  </div>
 
                 </div>
             </ContainerCard>
@@ -90,8 +94,8 @@ export default function Home() {
                                       className={Styles.dailyStudyCards} 
                                       style={{backgroundColor: data.backgroundColor}} 
                                       key={data.title}
-                                      onMouseOver={()=>{setselectedChumashScreen(data.imageUrl)}}
-                                      onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
+                                      onClick={()=>{setselectedChumashScreen(data.imageUrl)}}
+                                      // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
                                     
                                   >
                                     
@@ -110,8 +114,8 @@ export default function Home() {
                                   <div style={{backgroundColor: data.backgroundColor}} 
                                       className={Styles.dailyStudyCards} 
                                       key={data.title}
-                                      onMouseOver={()=>{setselectedChumashScreen(data.imageUrl)}}
-                                      onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
+                                      onClick={()=>{setselectedChumashScreen(data.imageUrl)}}
+                                      // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
                                   >
                                     
                                     <p style={{color:data.textColor}}>{data.title}</p>
@@ -140,8 +144,9 @@ export default function Home() {
 
                   <p>Lisa Melkin. Melbourne, Australia</p>
                   
-                  <Image src={Alan} alt="Alan's Image" height={120} width={80}/>
-
+                  <div>
+                    <Image src={Lisa} alt="Alan's Image" height={130} width={120}/>
+                  </div>
                 </div>
             </ContainerCard>
             
@@ -165,6 +170,11 @@ export default function Home() {
                     
                     <div>
                                 <Image src={GOTMobileImage2} alt="" width={152} height={300}/>
+                    </div>
+                    
+                    <div className={Styles.mbuy}>
+                        <p>With Commentary Woven From Classical And Chassdic Sources</p>
+                        <p>BUY THE BOOK</p>
                     </div>
                   
                   </div>                
@@ -192,6 +202,11 @@ export default function Home() {
                     
                     <div>
                                 <Image src={TalmudM3} alt="" width={152} height={300}/>
+                    </div>
+                    
+                    <div className={Styles.mtalmud}>
+                      <Image src={Section5Mobile} alt="" width={343} height={325}/>
+
                     </div>
               </div>
             </ContainerCard>

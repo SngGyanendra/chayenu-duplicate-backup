@@ -3,8 +3,8 @@
   @return  $fontMix;
 }
 
-.upperlayer, .lowerlayer, .headerContainer{
-  width: var( --container-width);
+.upperLayer, .lowerLayer, .headerContainer{
+  width: var(--container-width);
 
   @media screen and (max-width: 1099px){
     width: var(--container-width-75);

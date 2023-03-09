@@ -63,7 +63,7 @@ $height: 27rem;
         
           @media screen and (max-width: 800px) {
             .cardMobileImage{
-            background: transparent url('/images/homepage/ChayenuHomeTopRight.png') 0% 0 no-repeat padding-box;
+            background: transparent url('/images/homepage/ChayenuHomeTopRight.png') center 0 no-repeat padding-box;
             background-size: contain;
             height: 10rem;
             margin-top: 1rem;
@@ -72,6 +72,20 @@ $height: 27rem;
           & {
             margin: 0 auto;
             display: grid;
+            width: 100%;
+
+            h1, h3{
+              text-align: center;
+            }
+
+            h1{
+              font: fontvalue(35,60,700);
+            }
+    
+          h3{
+              font: fontvalue(20,43,normal);
+            }
+
           }
       }  
     }
@@ -90,6 +104,11 @@ $height: 27rem;
 
   
   }
+
+  @media screen  and (max-width: 800px){
+      height: 30rem;
+  }
+
   }
 
   .section2{
@@ -138,11 +157,12 @@ $height: 27rem;
 
       .card:nth-child(2){
         display: grid;
-        height: 126px;
-        grid-template-columns: auto 8%;
+        height: 150px;
+        grid-template-columns: auto auto;
         grid-template-rows: 90% 10%;
         background: transparent linear-gradient(278deg,#bfdef8 0%, var(--website-color-banner) 30%,  #e0effc 100%) 0% 0% no-repeat padding-box;
         padding: 20px;
+        padding-right: 0;       
         border-radius: 10px;
 
         p:nth-child(1){
@@ -159,12 +179,11 @@ $height: 27rem;
           grid-column: 1/1;
         }
 
-        img{
+        div{
           object-fit: contain;
           grid-column: 2;
           grid-row: 1/2;
-          margin-top: 1rem;
-          margin-left: 0.3rem;
+          margin-top: 3rem;
         }
 
       }
@@ -174,12 +193,46 @@ $height: 27rem;
           height: 75rem;
         }
         .card{
-          height: 45rem;
+          height: 37rem;
+          justify-items: center;
+          align-content:center;
+          grid-template-rows: repeat(2, min-content);
+          margin-bottom: 1rem;
+          
+          .cardContentLeft{
+            justify-self: start;
+            h2{
+                font: fontvalue(28,39,bold);
+
+            }
+          }
+
+          .cardContentRight{
+            max-width: 17rem;
+            width: 100%;
+          }
         }
 
         .card:nth-child(2){
-          height: 24rem;
+          height: auto;
+          grid-template-rows: repeat(2, min-content);
+          padding-bottom: 0;
+    
+          p:nth-child(1){
+            grid-column: 1/3;
+            padding-right: 20px;
+          }
+    
+          div{
+            grid-row: 2/2;
+            margin: 0;
+            padding: 0;
+            display: grid;
+          }
+          
+
         }
+
       }
 
     }
@@ -211,6 +264,7 @@ $height: 27rem;
         div{
           height: 306px;
           display: grid;
+          grid-gap: 1rem;
           .childCard{
             display: grid;
             grid-template-rows: repeat(7, 10%);
@@ -261,8 +315,9 @@ $height: 27rem;
           margin-top: -314px;
         }
 
+
         @media screen and (max-width: 800px) {
-            .cardContentRight{
+            & {
               display: none;
             }
         }
@@ -279,11 +334,12 @@ $height: 27rem;
 
     .card:nth-child(2){
       display: grid;
-      grid-template-columns: auto 8%;
+      grid-template-columns: auto auto;
       grid-template-rows: 90% 10%;
-      height: 126px;
+      height: 150px;
       background: transparent linear-gradient(278deg, #bfdef8 0%, var(--website-color-banner) 30%, #bfdef8 100%) 0% 0% no-repeat padding-box;
       padding: 20px;
+      padding-right: 0;
       border-radius: 10px;
       margin-top: 105px;
 
@@ -292,6 +348,7 @@ $height: 27rem;
 
         color: var(--dark);
         padding-bottom: 20px;
+        padding-right: 20px;
         grid-column: 1/1;
       }
       p:nth-child(2){
@@ -301,12 +358,11 @@ $height: 27rem;
         grid-column: 1/1;
       }
 
-      img{
+      div{
         object-fit: contain;
         grid-column: 2;
         grid-row: 1/2;
-        margin-top: -1rem;
-        margin-left: 0.3rem;
+        margin-top: 0;
       }
     }
 
@@ -314,20 +370,53 @@ $height: 27rem;
     @media screen and (max-width: 800px) {
 
       &{
-        height: 70rem;
+        height: 100rem;
       }
 
       .card{
       .cardContentLeft{
         grid-template-columns: 1fr;
+
+        div{
+          height: 30rem;
+          .childCard{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                align-items: center;
+                width: 100%;
+                grid-gap: 1rem;
+                grid-auto-flow: row;
+
+                .dailyStudyCards{
+                  width: 100%;
+                  height: 100%;
+                }
+
+          }
+        }
+
       }
         
 
     }
 
     .card:nth-child(2){
-      margin-top: 22rem;
-      height: 20rem;
+      margin-top: 49rem;
+      height: auto;
+      grid-template-rows: 1fr auto;
+      padding-bottom: 0;
+
+      p:nth-child(1){
+        grid-column: 1/3;
+      }
+
+      div{
+        grid-row: 2/2;
+        margin: 0;
+        padding: 0;
+        display: grid;
+      }
+
     }
   }
 
@@ -370,12 +459,54 @@ $height: 27rem;
         padding-top: 18px;
       }
 
+      .mbuy{
+        display: none;
+      }
+
     }
 
     @media screen  and (max-width: 800px){
       & {
-        height: 81rem;
-      }      
+        height: 66rem;
+
+        .card{
+          justify-content: center;
+          grid-column-gap: 5px;
+
+          .column1, div:nth-child(2), .mbuy{
+            grid-column: 1/3;
+
+            h2, p{
+              text-align: center;
+              padding: 0;
+            }
+
+            :nth-child(3), :nth-child(4){
+              display: none;
+            }
+
+          }
+
+          div:nth-child(3), div:nth-child(4){
+            grid-row: 3/3;
+          }
+
+          .mbuy{
+            display: block;
+            text-align: center;
+            p:nth-child(2){
+              font: fontvalue(16,18,500);
+              font-style: italic;
+      
+              color: var(--website-color);
+              padding-top: 18px;
+            }
+            
+          }
+
+        }
+
+      }   
     }
 
   }
@@ -387,6 +518,7 @@ $height: 27rem;
     .card{
       grid-template-columns: 35% repeat(3, 22%);
       padding-top: 100px;
+      justify-content: center;
 
       .column1{ 
         h2{
@@ -431,13 +563,45 @@ $height: 27rem;
             object-fit: contain;
           }
       }
+
+      .mtalmud{
+
+        display: none;
+      }
+
     }
 
     @media screen  and (max-width: 800px){
       & {
-        height: 85rem;
+        height: 55rem;
+
+        .card{
+          
+          div{
+            justify-items: center;
+          }
+
+          div:nth-child(2), div:nth-child(3), div:nth-child(4){
+            display: none;
+          }
+          
+          .mtalmud{
+            margin-top: 4rem;
+            justify-self: center;
+            display: block;
+          }
+
+        }
       }      
     }
+
+    @media screen  and (max-width: 390px){
+      .mtalmud img{
+        width: 17rem;
+      } 
+
+    }
+
   }
 
   .section6{
@@ -445,6 +609,9 @@ $height: 27rem;
      .card{
       padding-top: 100px;
       grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+      justify-items: center;
+      grid-row-gap: 3rem;
 
       div{
           display: grid;
@@ -486,7 +653,7 @@ $height: 27rem;
 
     @media screen  and (max-width: 800px){
       & {
-        height: 80rem;
+        height: 73rem;
       }      
     }
 
@@ -506,6 +673,7 @@ $height: 27rem;
           display: grid;
           justify-content: center;
           justify-items: center;
+          grid-template-rows: 4rem auto 3rem;
 
           h2{
             font: fontvalue(38,62,bold);
@@ -557,7 +725,8 @@ $height: 27rem;
 
     @media screen  and (max-width: 800px){
       & {
-        height: 50rem;
+        height: 55rem;
+        margin-top: 5rem;
       }      
     }
 
@@ -566,6 +735,7 @@ $height: 27rem;
   .card{
     @media screen and (max-width: 800px) {
     grid-template-columns: 1fr !important;
+    grid-row-gap: 3rem;
   }
 
 }
