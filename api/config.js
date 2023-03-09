@@ -1,3 +1,2 @@
-export const directusUrl = 'http://localhost:8055';
-export const backendUrl = 'http://localhost:3001';
-// export const directusUrl = 'https://directus.chayenu.dev';
+export const directusUrl = process.env.NEXT_PUBLIC_DIRECTUS_URL;
+export const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;

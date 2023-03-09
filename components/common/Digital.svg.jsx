@@ -1,0 +1,7 @@
+export function Digital() {
+    return <svg xmlns="http://www.w3.org/2000/svg" width="15.001" height="20" viewBox="0 0 15.001 20">
+        <g id="noun-smartphone-4902133" transform="translate(-4 -1)">
+            <path id="Subtraction_9" data-name="Subtraction 9" d="M14.073,20H.928A.92.92,0,0,1,0,19.091V.909A.92.92,0,0,1,.928,0H14.073A.92.92,0,0,1,15,.909V19.091A.92.92,0,0,1,14.073,20ZM7.482,15.455a.909.909,0,0,0,0,1.818H7.52a.909.909,0,0,0,0-1.818ZM5,2.5V4.167h5V2.5Z" transform="translate(4 1)" fill="#75b2e6" />
+        </g>
+    </svg>
+}
