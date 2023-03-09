@@ -2,3 +2,11 @@
   $fontMix: normal normal $fontWeight #{$fontSize}px/#{$lineHeight}px var(--website-font-family);
   @return  $fontMix;
 }
+
+.upperLayer, .lowerLayer, .headerContainer{
+  width: var(--container-width);
+
+  @media screen and (max-width: 1099px){
+    width: var(--container-width-75);
+  }
+}
