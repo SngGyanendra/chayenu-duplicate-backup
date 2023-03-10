@@ -1,10 +1,14 @@
+@import 'common.scss';
+
+
 .header {
   height: 4rem;
   background-color: var(--website-color);
   color: white ;
-  font-family: Brandon Grotesque;
-  font-weight: 400;
-  font-size: 1.1rem;
+  // font-family: Brandon Grotesque;
+  // font-weight: 400;
+  // font-size: 1.1rem;
+  font: fontvalue(14, 18, 400);
   text-decoration: none;
   .mobileHeader {
     display: none;
@@ -12,7 +16,7 @@
   .translucentLayer {
     height: 100%;
   }
-  .container {
+  .headerContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -61,7 +65,7 @@
       top: 0;
       transition: transform 0.3s ease-out;
     }
-    .container {
+    .headerContainer {
       height: 100vh;
       background-color: var(--website-color);
       flex-direction: column;
