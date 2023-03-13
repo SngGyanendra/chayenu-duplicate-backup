@@ -9,3 +9,5 @@ export function saveAuthData(values) {
 export function removeAuthData() {
   localStorage.clear();
 }
+
+export * from './NextHead';

@@ -1,0 +1,26 @@
+@import 'common.scss';
+
+.header {
+  background-color: var(--color-secondary-header);
+  ul {
+    margin: auto;
+    width: var(--container-width);
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    a {
+      text-decoration: none;
+      li {
+        list-style: none;
+        font: fontvalue(10.5, 10.5, 300);
+        color: white;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+    .highlighted {
+      font-weight: 600;
+    }
+  }
+}
