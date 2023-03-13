@@ -1,27 +1,27 @@
 import { Footer, Header } from '../components/layout';
 import '../styles/globals.css';
-import { useState, useEffect } from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-import { Provider } from 'react-redux';
+import { useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from '../store';
 import { refreshToken } from '/util/refreshToken';
 
 function MyApp({ Component, pageProps }) {
-  const [queryClient] = useState(() => new QueryClient());
-  
-  useEffect(() => {
-    refreshToken();
-  }, []);
-
   return (
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-      </QueryClientProvider>
+      <HydrateToken />
+      <Header />
+      <Component {...pageProps} />
+      <Footer />
     </Provider>
   );
+}
+
+function HydrateToken() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    refreshToken(dispatch);
+  }, []);
+  return <></>;
 }
 
 export default MyApp;

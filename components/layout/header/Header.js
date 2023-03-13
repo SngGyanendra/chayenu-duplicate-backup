@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Styles from './header.module.scss';
 import { useRef } from 'react';
 
@@ -45,13 +46,15 @@ export function Header() {
       >
         <div className={Styles.headerContainer} ref={menu}>
           <div>
-            <Image
-              src="/logo.svg"
-              alt="logo"
-              height={50}
-              width={80}
-              loading="lazy"
-            />
+            <Link href="/">
+              <Image
+                src="/logo.svg"
+                alt="logo"
+                height={50}
+                width={80}
+                loading="lazy"
+              />
+            </Link>
           </div>
           <div>
             <ul>
