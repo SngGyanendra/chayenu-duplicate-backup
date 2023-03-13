@@ -1,41 +1,27 @@
 import decode from 'jwt-decode';
-import { saveAuthData, removeAuthData } from '/util';
+import { loginUser, logoutUser } from '/store/authSlice';
 import { refreshTokens } from '/api';
 
-export async function checkAndRefreshToken() {
-  if (window.location.href === `http://localhost:3000/login`) {
-    return;
-  }
-
-  const activeToken = localStorage.getItem('token');
-  const refreshToken = localStorage.getItem('refreshToken');
-
-  if (!activeToken || !refreshToken) return redirectToLoginPage();
-  const activeTokenDecoded = decode(activeToken);
-  const refreshTokenDecoded = decode(refreshToken);
-  if (activeTokenDecoded?.exp < new Date().getTime() / 1000 - 100) {
-    if (refreshTokenDecoded?.exp < new Date().getTime() / 1000 - 20) {
-      return redirectToLoginPage();
-    } else {
-      try {
-        const data = await refreshTokens();
-        saveAuthData(data);
-        return;
-      } catch (error) {
-        return redirectToLoginPage();
-      }
-    }
-  }
-}
-
-async function redirectToLoginPage() {
+async function redirectToLoginPage(dispatch) {
   try {
-    removeAuthData();
-    window.location.href = `http://localhost:3000/login`;
+    dispatch(logoutUser());
+
+    window.location.href = `${NEXT_PUBLIC_FRONTEND_URL}/login`;
   } catch (error) {}
 }
 
-export async function refreshToken() {
+function currentUserData() {
+  return {
+    id: localStorage?.getItem('id'),
+    accessToken: localStorage?.getItem('token'),
+    refreshToken: localStorage?.getItem('refreshToken'),
+    email: localStorage?.getItem('email'),
+    first_name: localStorage?.getItem('first_name'),
+    last_name: localStorage?.getItem('last_name'),
+  };
+}
+
+export async function refreshToken(dispatch) {
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
   try {
@@ -44,15 +30,18 @@ export async function refreshToken() {
     const currentTime = new Date().getTime();
     if (accessTokenDecoded.exp - currentTime / 1000 < 0) {
       if (refreshTokenDecoded.exp - currentTime / 1000 < 0) {
-        redirectToLoginPage();
+        dispatch(logoutUser());
+        redirectToLoginPage(dispatch);
       } else {
         const data = await refreshTokens();
-        saveAuthData(data);
+        dispatch(loginUser(data));
       }
     } else {
+      const data = currentUserData();
+      dispatch(loginUser(data));
       setTimeout(async () => {
         const data = await refreshTokens();
-        saveAuthData(data);
+        dispatch(loginUser(data));
       }, accessTokenDecoded.exp * 1000 - currentTime);
     }
   } catch (error) {

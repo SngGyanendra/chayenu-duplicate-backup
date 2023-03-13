@@ -2,11 +2,14 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { login } from '/api';
-import { saveAuthData } from '/util';
 import Styles from '/styles/login.module.scss';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../store/authSlice';
 
 export default function Login() {
   const [error, setError] = useState('');
+
+  const dispatch = useDispatch();
 
   const initialValues = { email: undefined, password: undefined };
   const initialErrors = { email: undefined, password: undefined };
@@ -30,7 +33,7 @@ export default function Login() {
           try {
             setError('');
             const data = await login(values);
-            saveAuthData(data);
+            dispatch(loginUser(data));
           } catch (error) {
             if (error?.response?.status === 401) {
               setError('Invalid credentials entered');
