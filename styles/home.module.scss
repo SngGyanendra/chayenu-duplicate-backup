@@ -194,11 +194,12 @@ $height: 27rem;
           height: auto;
         }
         .card{
-          height: 37rem;
+          height: auto;
           justify-items: center;
           grid-template-rows: repeat(2, min-content);
           margin-bottom: 1rem;
           margin-top: 2rem;
+          grid-row-gap: 0;
           
           .cardContentLeft{
             justify-self: start;
@@ -211,6 +212,7 @@ $height: 27rem;
           .cardContentRight{
             max-width: 17rem;
             width: 100%;
+            margin-top: -3rem;
           }
         }
 
@@ -229,6 +231,12 @@ $height: 27rem;
             margin: 0;
             padding: 0;
             display: grid;
+
+            img{
+              height: 6rem;
+              width: 4.2rem;
+            }
+
           }
           
 
@@ -416,6 +424,11 @@ $height: 27rem;
         margin: 0;
         padding: 0;
         display: grid;
+
+        img{
+          height: 6rem;
+          width: 5.3rem;
+        }
       }
 
     }
@@ -767,7 +780,7 @@ $height: 27rem;
   .card{
     @media screen and (max-width: 800px) {
     grid-template-columns: 1fr !important;
-    grid-row-gap: 3rem;
+    grid-row-gap: 1rem;
   }
 
 }
