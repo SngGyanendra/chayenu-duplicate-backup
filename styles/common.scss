@@ -1,3 +1,4 @@
+
 @function fontvalue($fontSize, $lineHeight, $fontWeight) { 
   $fontMix: normal normal $fontWeight #{$fontSize}px/#{$lineHeight}px var(--website-font-family);
   @return  $fontMix;
@@ -9,4 +10,26 @@
   @media screen and (max-width: 1099px){
     width: var(--container-width-75);
   }
+}
+
+@mixin buttonState($backgroundColor, $textColor){
+
+  background-color: $backgroundColor;
+  color: $textColor;
+
+  @if $backgroundColor == var(--dark){
+    &:hover{
+      background-color: var(--website-color);
+      color: #ffffff;
+      transition: background-color 0.5s;
+    }
+  }
+  @else{
+    &:hover{
+      background-color: var(--dark);
+      color: #ffffff;
+      transition: background-color 0.5s;
+    }
+  }
+
 }

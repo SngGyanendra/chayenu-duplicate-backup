@@ -48,16 +48,15 @@ $height: 27rem;
         }
   
         button{
+            @include buttonState(#ffffff, var(--dark));
             width: 10rem;
             height: 3rem;
             border: none;
             opacity: 1;
             border-radius: 10px;
-            background: #FFFFFF 0% 0% no-repeat padding-box;
             font: fontvalue(20,24,bold);
             margin: 0 auto;
             margin-top: 3rem;
-            color: var(--dark);
         }
 
         
@@ -145,11 +144,11 @@ $height: 27rem;
           background-size: contain;
 
           button{
-              background: var(--dark) 0% 0% no-repeat padding-box;
+              @include buttonState(var(--dark), #ffffff);
               border-radius: 10px;
+              border: none;
               width: 143px;
               height: 38px;
-              color: #fff;
               margin-top: 62%;
               margin-left: 33%;
               font: fontvalue(14,17,bold);
@@ -192,14 +191,15 @@ $height: 27rem;
 
       @media screen and (max-width: 800px){
         & {
-          height: 65rem;
+          height: auto;
         }
         .card{
-          height: 37rem;
+          height: auto;
           justify-items: center;
           grid-template-rows: repeat(2, min-content);
           margin-bottom: 1rem;
           margin-top: 2rem;
+          grid-row-gap: 0;
           
           .cardContentLeft{
             justify-self: start;
@@ -212,6 +212,7 @@ $height: 27rem;
           .cardContentRight{
             max-width: 17rem;
             width: 100%;
+            margin-top: -3rem;
           }
         }
 
@@ -230,6 +231,12 @@ $height: 27rem;
             margin: 0;
             padding: 0;
             display: grid;
+
+            img{
+              height: 6rem;
+              width: 4.2rem;
+            }
+
           }
           
 
@@ -417,6 +424,11 @@ $height: 27rem;
         margin: 0;
         padding: 0;
         display: grid;
+
+        img{
+          height: 6rem;
+          width: 5.3rem;
+        }
       }
 
     }
@@ -425,11 +437,12 @@ $height: 27rem;
   }
 
   .section4{
-    height: 443px;
+    min-height: 445px;
 
     .card{
-      grid-template-columns: 27% 30% 1fr 1fr;
+      grid-template-columns: 27% 1fr 1fr 1fr;
       margin-top: 100px;
+      grid-gap: 5px;
 
       div{
         margin: 0 auto;
@@ -472,6 +485,7 @@ $height: 27rem;
         height: 66rem;
 
         .card{
+          grid-template-columns: repeat(2, 1fr);
           justify-content: center;
           grid-column-gap: 5px;
 
@@ -611,7 +625,7 @@ $height: 27rem;
     height: 660px;
      .card{
       padding-top: 100px;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 10px 1fr;
       justify-content: center;
       justify-items: center;
       grid-row-gap: 3rem;
@@ -644,19 +658,32 @@ $height: 27rem;
 
           button{
             font: fontvalue(18,22,bold);
-            color: #FFFFFF;
-            background: var(--website-color) 0% 0% no-repeat padding-box;
+            @include buttonState(var(--website-color), #ffffff);
             border-radius: 10px;
             border: none;
             height: 43px;
             width: 265px;
           }
+
+      }
+      .verticalBar{
+        width: 10px;
+        background-color: var(--website-color);
+        opacity: 0.2;
+        height: 100%;
+        box-shadow: 20px 30px 30px #00000015;
       }
     }
 
     @media screen  and (max-width: 800px){
       & {
         height: 73rem;
+
+        .card{
+          .verticalBar{
+            display: none;
+          }
+        }
       }      
     }
 
@@ -693,9 +720,8 @@ $height: 27rem;
           }
 
           button{
-            background-color: var(--website-color);
+            @include buttonState(var(--website-color), #ffffff);
             border-radius: 10px;
-            color: #fff;
             height: 43px;
             border: none;
             width: 152px;
@@ -754,7 +780,7 @@ $height: 27rem;
   .card{
     @media screen and (max-width: 800px) {
     grid-template-columns: 1fr !important;
-    grid-row-gap: 3rem;
+    grid-row-gap: 1rem;
   }
 
 }
