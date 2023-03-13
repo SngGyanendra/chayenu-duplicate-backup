@@ -222,7 +222,11 @@ export default function Home() {
                       <button>SUBSCRIBE TO CHAYUS</button>
 
                 </div>
+                
+                <div className={Styles.verticalBar}> 
 
+                </div>
+                
                 <div>
                       <h2>Chitas.org</h2>
                       <p>Join the movement to study Chitas daily, and in turn, receive and retain blessings from Hashem.</p>
