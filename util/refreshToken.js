@@ -2,10 +2,9 @@ import decode from 'jwt-decode';
 import { loginUser, logoutUser } from '/store/authSlice';
 import { refreshTokens } from '/api';
 
-async function redirectToLoginPage(dispatch) {
+async function redirectToLoginPage() {
   try {
-    dispatch(logoutUser());
-
+    console.log('here');
     window.location.href = `${NEXT_PUBLIC_FRONTEND_URL}/login`;
   } catch (error) {}
 }
@@ -31,7 +30,6 @@ export async function refreshToken(dispatch) {
     if (accessTokenDecoded.exp - currentTime / 1000 < 0) {
       if (refreshTokenDecoded.exp - currentTime / 1000 < 0) {
         dispatch(logoutUser());
-        redirectToLoginPage(dispatch);
       } else {
         const data = await refreshTokens();
         dispatch(loginUser(data));
