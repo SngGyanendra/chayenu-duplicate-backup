@@ -10,4 +10,7 @@ export function removeAuthData() {
   localStorage.clear();
 }
 
+
+
 export * from './NextHead';
+export * from './date.js'

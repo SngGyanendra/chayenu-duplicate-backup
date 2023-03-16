@@ -1,5 +1,5 @@
 import decode from 'jwt-decode';
-import { loginUser, logoutUser } from '/store/authSlice';
+import { loginUser, logoutUser, setNewTokens } from '/store/authSlice';
 import { refreshTokens } from '/api';
 
 async function redirectToLoginPage() {
@@ -32,14 +32,14 @@ export async function refreshToken(dispatch) {
         dispatch(logoutUser());
       } else {
         const data = await refreshTokens();
-        dispatch(loginUser(data));
+        dispatch(setNewTokens(data));
       }
     } else {
       const data = currentUserData();
       dispatch(loginUser(data));
       setTimeout(async () => {
         const data = await refreshTokens();
-        dispatch(loginUser(data));
+        dispatch(setNewTokens(data));
       }, accessTokenDecoded.exp * 1000 - currentTime);
     }
   } catch (error) {

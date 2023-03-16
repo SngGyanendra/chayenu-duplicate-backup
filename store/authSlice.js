@@ -30,9 +30,13 @@ export const authSlice = createSlice({
       state.last_name = '';
       state.email = '';
     },
+    setNewTokens: (state, { payload }) => {
+      localStorage.setItem('token', payload.accessToken);
+      localStorage.setItem('refreshToken', payload.refreshToken);
+    },
   },
 });
 
-export const { loginUser, logoutUser } = authSlice.actions;
+export const { loginUser, logoutUser, setNewTokens } = authSlice.actions;
 
 export default authSlice.reducer;

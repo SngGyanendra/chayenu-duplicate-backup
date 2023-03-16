@@ -1,0 +1,16 @@
+@import 'common.scss';
+
+.addSubscription {
+  margin: 1rem auto;
+  width: var(--container-width);
+  button{
+    border: none;
+    background-color: var(--website-color);
+    color: white;
+    padding: 12px;
+    letter-spacing: .1rem;
+    word-spacing: .2rem;
+    border-radius: 5px;
+    font: fontvalue(14,14,300);
+  }
+}

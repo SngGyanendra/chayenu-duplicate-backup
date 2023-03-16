@@ -53,7 +53,6 @@ export async function addNewSubscription(values) {
       `${backendUrl}/subscription/addSubscription`,
       finalBody
     );
-    console.log(response);
     return response;
   } catch (error) {
     throw error;
