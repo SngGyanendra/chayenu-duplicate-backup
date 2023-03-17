@@ -1,10 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useWindowDimensions } from '/hooks';
 import Styles from './PortalHeader.module.scss';
 
 export function PortalHeader() {
   const router = useRouter();
+  const { width } = useWindowDimensions();
 
   const pagesList = [
     {
@@ -45,25 +47,33 @@ export function PortalHeader() {
   return (
     <header className={Styles.header}>
       <ul>
-        {pagesList.map((page, index) => (
-          <Link key={index} href={`${page.url}`}>
-            <li
-              className={`${
-                page.url === checkCurrentRoute() ? `${Styles.highlighted}` : ''
-              }`}
-            >
-              {page.imageUrl && (
-                <Image
-                  src={page.imageUrl}
-                  alt="subscribe"
-                  height={20}
-                  width={20}
-                />
-              )}
-              {page.name}
-            </li>
-          </Link>
-        ))}
+        {width > 1000 ? (
+          pagesList.map((page, index) => (
+            <Link key={index} href={`${page.url}`}>
+              <li
+                className={`${
+                  page.url === checkCurrentRoute()
+                    ? `${Styles.highlighted}`
+                    : ''
+                }`}
+              >
+                {page.imageUrl && (
+                  <Image
+                    src={page.imageUrl}
+                    alt="subscribe"
+                    height={20}
+                    width={20}
+                  />
+                )}
+                {page.name}
+              </li>
+            </Link>
+          ))
+        ) : (
+          <li>
+            {pagesList.filter((page) => page.url === checkCurrentRoute())[0].name}
+          </li>
+        )}
       </ul>
     </header>
   );

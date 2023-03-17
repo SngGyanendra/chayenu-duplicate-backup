@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import * as Yup from 'yup';
 import { login } from '/api';
 import Styles from '/styles/login.module.scss';
@@ -10,6 +11,7 @@ export default function Login() {
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const initialValues = { email: undefined, password: undefined };
   const initialErrors = { email: undefined, password: undefined };
@@ -34,6 +36,7 @@ export default function Login() {
             setError('');
             const data = await login(values);
             dispatch(loginUser(data));
+            router.push('/portal/my-subscriptions');
           } catch (error) {
             if (error?.response?.status === 401) {
               setError('Invalid credentials entered');

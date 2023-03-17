@@ -1,0 +1,68 @@
+@import 'common.scss';
+
+.subscriptionCard {
+  background-color: var(--website-color-opacity-low);
+  width: min(50rem, 70vw);
+  padding: 1.5rem;
+  margin: 1rem auto 0 auto;
+  border-radius: 10px;
+
+  .subscriptionDetails {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+    grid-auto-flow: column;
+    div {
+      font: fontvalue(14, 14, 300);
+    }
+    .keys {
+      margin-right: 0.5rem;
+    }
+    .value {
+      font-weight: 500;
+    }
+    .updateInfo {
+      float: right;
+      font-weight: 500;
+      color: var(--website-color);
+      cursor: pointer;
+    }
+    .active {
+      color: green;
+    }
+    .expired {
+      color: red;
+    }
+    .onhold {
+      color: #7070e0;
+    }
+    .processing {
+      color: #c49e00;
+    }
+    @media screen and (max-width: 48.125rem) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  .subscritpionButtons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    button {
+      border: none;
+      background-color: var(--website-color);
+      color: white;
+      padding: 8px;
+      font: fontvalue(12, 12, 300);
+      border-radius: 5px;
+      cursor: pointer;
+      &:last-child {
+        margin-left: 1rem;
+      }
+    }
+  }
+  @media screen and (max-width: 62.5rem) {
+    width: 90vw;
+  }
+}

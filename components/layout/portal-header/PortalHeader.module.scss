@@ -4,23 +4,27 @@
   background-color: var(--color-secondary-header);
   ul {
     margin: auto;
-    width: var(--container-width);
+    width: min(40rem, 40vw);
     padding: 10px 0;
     display: flex;
     justify-content: space-around;
+    li {
+      list-style: none;
+      font: fontvalue(10.5, 10.5, 300);
+      color: white;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
     a {
       text-decoration: none;
-      li {
-        list-style: none;
-        font: fontvalue(10.5, 10.5, 300);
-        color: white;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
     }
     .highlighted {
       font-weight: 600;
+    }
+
+    @media screen and (max-width: 81.25rem) {
+      width: var(--container-width);
     }
   }
 }
