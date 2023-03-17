@@ -12,5 +12,4 @@ export function removeAuthData() {
 
 
 
-export * from './NextHead';
 export * from './date.js'
