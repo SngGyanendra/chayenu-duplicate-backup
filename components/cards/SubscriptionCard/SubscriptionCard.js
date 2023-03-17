@@ -1,6 +1,14 @@
+import { useState } from 'react';
 import Styles from './subscriptioncard.module.scss';
+import { useWindowDimensions } from '/hooks';
 import { formatDate } from '/util';
+import { Popup } from '/components/common';
+import { TransferSubscriptions } from '/components/forms';
+
 export function SubscriptionCard({ subscription }) {
+  const { width } = useWindowDimensions();
+  const [popup, setPopup] = useState(undefined);
+
   const filteredSubscriptionData = (({
     plans,
     status,
@@ -56,7 +64,9 @@ export function SubscriptionCard({ subscription }) {
         count++;
       }
     }
-    if (count > 5) return 5;
+    if (width > 770) {
+      if (count > 5) return 5;
+    }
     return count;
   }
 
@@ -184,9 +194,45 @@ export function SubscriptionCard({ subscription }) {
         )}
       </div>
       <div className={Styles.subscritpionButtons}>
-        <button>TRANSFER</button>
-        <button>REACTIVATE SUBSCRIPTION</button>
+        {filteredSubscriptionData?.status === 'Expired' ? (
+          <button
+            onClick={() => {
+              setPopup('reactivate');
+            }}
+          >
+            REACTIVATE SUBSCRIPTION
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={() => {
+                setPopup('transfer');
+              }}
+            >
+              TRANSFER
+            </button>
+            <button
+              onClick={() => {
+                setPopup('cancel');
+              }}
+            >
+              CANCEL SUBSCRIPTION
+            </button>
+          </>
+        )}
       </div>
+
+      {(() => {
+        if (popup === 'transfer') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <TransferSubscriptions />
+            </Popup>
+          );
+        } else if (popup === 'reactivate') {
+        } else if (popup === 'cancel') {
+        }
+      })()}
     </div>
   );
 }
