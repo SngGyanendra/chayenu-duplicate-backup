@@ -24,6 +24,11 @@ export const userSlice = createSlice({
       state.countries = payload.countries;
       state.cancel_reasons = payload.cancel_reasons;
     },
+    removeUserData: (state, { payload }) => {
+      state.subscriptions = [];
+      state.cancel_reasons = [];
+      state.countries = [];
+    },
   },
 });
 
@@ -32,6 +37,7 @@ export const {
   updateCountries,
   updateCancelReasons,
   saveUserData,
+  removeUserData,
 } = userSlice.actions;
 
 export default userSlice.reducer;

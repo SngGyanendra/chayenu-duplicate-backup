@@ -197,6 +197,7 @@ export function TransferSubscriptions({ subscription }) {
               useNationalFormatForDefaultCountryValue={true}
               countrySelectProps={{ unicodeFlags: false }}
               withCountryCallingCode={false}
+              placeholder="Phone"
               className={Styles.phoneInput}
               onChange={(value) => {
                 values.mobile = value;

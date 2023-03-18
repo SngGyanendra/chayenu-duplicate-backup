@@ -63,3 +63,10 @@ export async function getStoryById(id) {
   });
   return data;
 }
+
+export async function getAllCancelReasons() {
+  try {
+    const { data } = await axios.get(`${directusUrl}/items/cancel_reasons`);
+    return data
+  } catch (error) {}
+}
