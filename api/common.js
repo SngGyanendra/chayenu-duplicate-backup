@@ -15,7 +15,20 @@ export async function getAllProducts() {
     },
   });
   return data;
-
+}
+export async function getAllCountries() {
+  const { data } = await axios.get(`${directusUrl}/items/countries`, {
+    params: {
+      fields: '*.*',
+      filter: {
+        _or: [
+          { has_distributors: { _eq: 'true' } },
+          { has_shipping: { _eq: 'true' } },
+        ],
+      },
+    },
+  });
+  return data;
 }
 
 export async function getAllStories() {
@@ -23,9 +36,7 @@ export async function getAllStories() {
     params: {
       fields: '*.*.*',
       filter: {
-        _and: [
-          { status: { _eq: 'published' } },
-        ],
+        _and: [{ status: { _eq: 'published' } }],
       },
     },
   });
@@ -38,7 +49,9 @@ export async function getAllStories() {
  * @returns Story of not found exception
  */
 export async function getStoryById(id) {
-  const { data: { data } } = await axios.get(`${directusUrl}/items/stories/${id}`, {
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/stories/${id}`, {
     params: {
       fields: '*.*',
       filter: {

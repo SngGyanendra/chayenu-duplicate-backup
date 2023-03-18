@@ -226,7 +226,7 @@ export function SubscriptionCard({ subscription }) {
         if (popup === 'transfer') {
           return (
             <Popup setPopupState={setPopup}>
-              <TransferSubscriptions />
+              <TransferSubscriptions subscription={subscription} />
             </Popup>
           );
         } else if (popup === 'reactivate') {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { backendUrl } from './config';
+import { directusUrl, backendUrl } from './config';
 
 export class AuthencticatedUserAPI {
   constructor() {
@@ -12,14 +12,65 @@ export class AuthencticatedUserAPI {
     }
   }
 
+  async prefetchAllData() {
+    try {
+      const { data } = await this.requestInstance.get(
+        `${backendUrl}/subscription/list`
+      );
+      const {
+        data: { data: countries },
+      } = await axios.get(`${directusUrl}/items/countries`, {
+        params: {
+          fields: '*.*',
+          filter: {
+            _or: [
+              { has_distributors: { _eq: 'true' } },
+              { has_shipping: { _eq: 'true' } },
+            ],
+          },
+        },
+      });
+      const {
+        data: { data: cancel_reasons },
+      } = await axios.get(`${directusUrl}/items/cancel_reasons`);
+      return {
+        subscriptions: data,
+        countries: countries,
+        cancel_reasons: cancel_reasons,
+      };
+    } catch (error) {}
+  }
+
   async getAllUserSubscriptions() {
     try {
-      const {data} = await this.requestInstance.get(
+      const { data } = await this.requestInstance.get(
         `${backendUrl}/subscription/list`
       );
       return data;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
+  }
+
+  async transferSubscription(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/subscription/transferSubscription`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async reactivateSubscription(id) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/subscription/reactivate`,
+        { id }
+      );
+      return response;
+    } catch (error) {}
   }
 }
