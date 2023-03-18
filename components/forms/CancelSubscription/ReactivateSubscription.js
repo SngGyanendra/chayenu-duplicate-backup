@@ -17,7 +17,8 @@ export function ReactivateSubscription({ subscription, setPopupState }) {
     >
       <div>Your request has been submitted.</div>
       <div className={Styles.subscriptionEnding}>
-        Your subscription is ending {isoToCustomDate(subscription.end_date)}
+        Your subscription is ending{' '}
+        <span className={Styles.date}>{isoToCustomDate(subscription.end_date)}</span>
       </div>
       <div className={Styles.subscriptionEnding}>
         To stop deliveries contact us: info@chayenu.org

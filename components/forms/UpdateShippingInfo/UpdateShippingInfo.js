@@ -1,3 +1,4 @@
+import Styles from './updateshippinginfo.module.scss';
 import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,9 +7,8 @@ import { updateSubscriptions } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { getAllCountries } from '/api';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-import Styles from './transfersubscriptions.module.scss';
 
-export function TransferSubscriptions({ subscription, setPopupState }) {
+export function UpdateShippingInfo({ subscription, setPopupState }) {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
@@ -41,7 +41,6 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
     city: undefined,
     country: undefined,
     state: undefined,
-    reason: undefined,
   };
   const initialErrors = {
     first_name: undefined,
@@ -54,11 +53,9 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
     city: undefined,
     country: undefined,
     state: undefined,
-    reason: undefined,
   };
 
   const validationSchema = Yup.object().shape({
-    reason: Yup.string().trim().required('Please provide a reason'),
     first_name: Yup.string()
       .trim()
       .min(2, 'Too short!')
@@ -94,17 +91,10 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
     zip_code: Yup.string().trim().required('Zip is required'),
   });
 
-  const transferCurrentSubscription = async (values) => {
+  const updateAddress = async (values) => {
     const finalValues = {
-      reason: values.reason,
-      subscription: subscription.id,
-      user: {
-        email: values.email,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        mobile: values.mobile,
-      },
-      address: {
+      id: subscription.id,
+      billing_address: {
         first_name: values.first_name,
         last_name: values.last_name,
         address_1: values.address_1,
@@ -116,16 +106,15 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
       },
     };
     try {
-      const response = await APIs.transferSubscription(finalValues);
+      const response = await APIs.updateAddress(finalValues);
       const subscriptions = await APIs.getAllUserSubscriptions();
       dispatch(updateSubscriptions(subscriptions));
-      setLoading(false);
       setPopupState(undefined);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -133,7 +122,7 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         setLoading(true);
-        await transferCurrentSubscription(values);
+        await updateAddress(values);
       }}
     >
       {({
@@ -145,19 +134,7 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
         handleSubmit,
       }) => (
         <form className={Styles.form} onSubmit={handleSubmit}>
-          <div>Transfer Subscription</div>
-          <input
-            type="text"
-            name="reason"
-            placeholder="Reason of transfer"
-            value={values.reason}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          <span className={Styles.error}>
-            {errors.reason && touched.reason && errors.reason}
-          </span>
-          <div>New User Info</div>
+          <div>Update Shipping Info</div>
           <div className={Styles.transferData}>
             <input
               type="text"
@@ -315,7 +292,7 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
               disabled={loading}
               className={`${loading ? `${Styles.disabled}` : ''}`}
             >
-              {!loading ? 'Submit' : 'Transferring...'}
+              {!loading ? 'Submit' : 'Updating...'}
             </button>
           </div>
         </form>

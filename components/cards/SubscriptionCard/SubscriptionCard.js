@@ -6,7 +6,11 @@ import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { useWindowDimensions } from '/hooks';
 import { formatDate } from '/util';
 import { Popup } from '/components/common';
-import { TransferSubscriptions, CancelSubscription } from '/components/forms';
+import {
+  TransferSubscriptions,
+  CancelSubscription,
+  UpdateShippingInfo,
+} from '/components/forms';
 
 export function SubscriptionCard({ subscription }) {
   const { width } = useWindowDimensions();
@@ -132,7 +136,14 @@ export function SubscriptionCard({ subscription }) {
             <span
               className={Styles.value}
             >{`${value} ${object.last_name}`}</span>
-            <span className={Styles.updateInfo}>UPDATE INFO</span>
+            <span
+              className={Styles.updateInfo}
+              onClick={() => {
+                setPopup('updateInfo');
+              }}
+            >
+              UPDATE INFO
+            </span>
           </div>
         );
         break;
@@ -246,13 +257,25 @@ export function SubscriptionCard({ subscription }) {
         if (popup === 'transfer') {
           return (
             <Popup setPopupState={setPopup}>
-              <TransferSubscriptions subscription={subscription} />
+              <TransferSubscriptions
+                subscription={subscription}
+                setPopupState={setPopup}
+              />
             </Popup>
           );
         } else if (popup === 'cancel') {
           return (
             <Popup setPopupState={setPopup}>
               <CancelSubscription
+                subscription={subscription}
+                setPopupState={setPopup}
+              />
+            </Popup>
+          );
+        } else if (popup === 'updateInfo') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <UpdateShippingInfo
                 subscription={subscription}
                 setPopupState={setPopup}
               />

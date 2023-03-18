@@ -62,6 +62,18 @@ export class AuthencticatedUserAPI {
     }
   }
 
+  async updateAddress(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/subscription/updateaddress`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async reactivateSubscription(id) {
     try {
       const response = await this.requestInstance.post(
@@ -80,7 +92,7 @@ export class AuthencticatedUserAPI {
       );
       return response;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 }
