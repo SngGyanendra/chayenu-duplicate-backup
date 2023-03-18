@@ -2,9 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useWindowDimensions } from '/hooks';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '/store/authSlice';
 import Styles from './PortalHeader.module.scss';
 
 export function PortalHeader() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { width } = useWindowDimensions();
 
@@ -49,29 +52,58 @@ export function PortalHeader() {
       <ul>
         {width > 1000 ? (
           pagesList.map((page, index) => (
-            <Link key={index} href={`${page.url}`}>
-              <li
-                className={`${
-                  page.url === checkCurrentRoute()
-                    ? `${Styles.highlighted}`
-                    : ''
-                }`}
-              >
-                {page.imageUrl && (
-                  <Image
-                    src={page.imageUrl}
-                    alt="subscribe"
-                    height={20}
-                    width={20}
-                  />
-                )}
-                {page.name}
-              </li>
-            </Link>
+            <>
+              {page.name !== 'LOGOUT' ? (
+                <Link key={index} href={`${page.url}`}>
+                  <li
+                    className={`${
+                      page.url === checkCurrentRoute()
+                        ? `${Styles.highlighted}`
+                        : ''
+                    }`}
+                  >
+                    {page.imageUrl && (
+                      <Image
+                        src={page.imageUrl}
+                        alt="subscribe"
+                        height={20}
+                        width={20}
+                      />
+                    )}
+                    {page.name}
+                  </li>
+                </Link>
+              ) : (
+                <li
+                  className={`${
+                    page.url === checkCurrentRoute()
+                      ? `${Styles.highlighted}`
+                      : ''
+                  }`}
+                  onClick={() => {
+                    dispatch(logoutUser());
+                    router.push('/')
+                  }}
+                >
+                  {page.imageUrl && (
+                    <Image
+                      src={page.imageUrl}
+                      alt="subscribe"
+                      height={20}
+                      width={20}
+                    />
+                  )}
+                  {page.name}
+                </li>
+              )}
+            </>
           ))
         ) : (
           <li>
-            {pagesList.filter((page) => page.url === checkCurrentRoute())[0].name}
+            {
+              pagesList.filter((page) => page.url === checkCurrentRoute())[0]
+                .name
+            }
           </li>
         )}
       </ul>

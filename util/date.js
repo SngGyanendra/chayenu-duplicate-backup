@@ -21,3 +21,27 @@ export function formatDate(dateString) {
 
   return `${monthNames[monthIndex]} ${day} ,${year}`;
 }
+
+export function isoToCustomDate(isoDate) {
+  const date = new Date(isoDate);
+
+  const monthAbbrev = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ][date.getMonth()];
+
+  const day = date.getDate();
+  const year = date.getFullYear().toString().substr(-2);
+
+  return `${monthAbbrev}/${day}/${year}`;
+}

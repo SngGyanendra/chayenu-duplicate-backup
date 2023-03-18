@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import Styles from './subscriptioncard.module.scss';
+import { useDispatch } from 'react-redux';
+import { updateSubscriptions } from '/store/userSlice';
+import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { useWindowDimensions } from '/hooks';
 import { formatDate } from '/util';
 import { Popup } from '/components/common';
-import { TransferSubscriptions } from '/components/forms';
+import { TransferSubscriptions, CancelSubscription } from '/components/forms';
 
 export function SubscriptionCard({ subscription }) {
   const { width } = useWindowDimensions();
   const [popup, setPopup] = useState(undefined);
+
+  const dispatch = useDispatch();
+  const APIs = new AuthencticatedUserAPI();
 
   const filteredSubscriptionData = (({
     plans,
@@ -21,6 +27,7 @@ export function SubscriptionCard({ subscription }) {
     states,
     countries,
     zip_code,
+    reactivation_requested,
   }) => ({
     plans,
     status,
@@ -33,6 +40,7 @@ export function SubscriptionCard({ subscription }) {
     states,
     countries,
     zip_code,
+    reactivation_requested,
   }))(subscription);
 
   Object.keys(filteredSubscriptionData).forEach((key) =>
@@ -80,6 +88,8 @@ export function SubscriptionCard({ subscription }) {
         return Styles.processing;
       case 'On Hold':
         return Styles.onhold;
+      case 'Cancelled':
+        return Styles.expired;
       default:
         return 'Invalid status.';
     }
@@ -194,10 +204,20 @@ export function SubscriptionCard({ subscription }) {
         )}
       </div>
       <div className={Styles.subscritpionButtons}>
-        {filteredSubscriptionData?.status === 'Expired' ? (
+        {(filteredSubscriptionData?.status === 'Expired' ||
+          filteredSubscriptionData?.status === 'Cancelled') &&
+        filteredSubscriptionData.reactivation_requested === false ? (
           <button
-            onClick={() => {
-              setPopup('reactivate');
+            onClick={async () => {
+              try {
+                const response = await APIs.reactivateSubscription(
+                  subscription.id
+                );
+                const newSubscriptionsList =
+                  await APIs.getAllUserSubscriptions();
+                console.log(newSubscriptionsList);
+                dispatch(updateSubscriptions(newSubscriptionsList));
+              } catch (error) {}
             }}
           >
             REACTIVATE SUBSCRIPTION
@@ -229,8 +249,15 @@ export function SubscriptionCard({ subscription }) {
               <TransferSubscriptions subscription={subscription} />
             </Popup>
           );
-        } else if (popup === 'reactivate') {
         } else if (popup === 'cancel') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <CancelSubscription
+                subscription={subscription}
+                setPopupState={setPopup}
+              />
+            </Popup>
+          );
         }
       })()}
     </div>

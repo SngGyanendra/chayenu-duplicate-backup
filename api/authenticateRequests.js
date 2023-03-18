@@ -47,9 +47,7 @@ export class AuthencticatedUserAPI {
         `${backendUrl}/subscription/list`
       );
       return data;
-    } catch (error) {
-      throw error;
-    }
+    } catch (error) {}
   }
 
   async transferSubscription(values) {
@@ -72,5 +70,17 @@ export class AuthencticatedUserAPI {
       );
       return response;
     } catch (error) {}
+  }
+
+  async cancelSubscription(id, reasons) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/subscription/cancelSubscription`,
+        { id, reasons }
+      );
+      return response;
+    } catch (error) {
+      throw error
+    }
   }
 }

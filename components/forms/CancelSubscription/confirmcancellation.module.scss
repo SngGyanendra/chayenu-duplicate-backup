@@ -1,0 +1,23 @@
+@import 'common.scss';
+
+.form {
+  background-color: var(--website-color-light);
+  width: min(18rem, 90vw);
+  padding: 20px;
+  font: fontvalue(14, 14, 500);
+  border-radius: 10px;
+  text-align: center;
+  display: grid;
+  row-gap: 1rem;
+  button {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: 1rem;
+    font: fontvalue(14, 14, 500);
+    width: 100%;
+    border: none;
+    color: white;
+    background-color: var(--website-color);
+  }
+}

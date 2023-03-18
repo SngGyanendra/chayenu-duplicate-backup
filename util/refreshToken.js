@@ -23,6 +23,7 @@ function currentUserData() {
 export async function refreshToken(dispatch) {
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
+  if (!token) dispatch(logoutUser());
   try {
     const accessTokenDecoded = decode(token);
     const refreshTokenDecoded = decode(refreshToken);

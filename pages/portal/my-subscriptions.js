@@ -23,7 +23,7 @@ export default function MySubcriptions() {
     } else {
       setAllSubscriptions(subscriptions);
     }
-  }, []);
+  }, [subscriptions]);
 
   return (
     <section>
