@@ -11,6 +11,7 @@ body {
 }
 :root {
   --website-color: #75b2e6;
+   --website-color-light: #d8eafa;
   --website-color-opacity-low: rgb(117, 178, 230, 0.2);
   --website-color-banner: rgb(117, 178, 230, 0.7);
   --color-secondary-header: #5d8cb5;

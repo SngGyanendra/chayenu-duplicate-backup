@@ -11,6 +11,11 @@ export function Header() {
   const handleMenu = () => {
     const element = document.getElementsByClassName('menu')[0];
     element.classList.toggle('menuClose');
+    if (element.classList.contains('menuClose')) {
+      document.body.style.overflowY = 'visible';
+    } else {
+      document.body.style.overflowY = 'hidden';
+    }
   };
   const handleClickedOutside = (e) => {
     if (!menu.current.contains(e.target)) {
