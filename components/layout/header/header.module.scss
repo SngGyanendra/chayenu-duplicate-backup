@@ -1,6 +1,5 @@
 @import 'common.scss';
 
-
 .header {
   height: 4rem;
   background-color: var(--website-color);
@@ -23,8 +22,21 @@
     width: var(--container-width);
     height: 100%;
     margin: auto;
+    a{
+      text-decoration: none;
+      color: white;
+    }
     div {
       cursor: pointer;
+    }
+    .loggedIn{
+      display: flex;
+      align-items: center;
+      text-transform: uppercase;
+      margin-left: 0;
+      img{
+        margin-right: .3rem;
+      }
     }
     div:nth-child(2) {
       width: 20%;

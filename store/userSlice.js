@@ -4,6 +4,7 @@ const initialState = {
   subscriptions: [],
   countries: [],
   cancel_reasons: [],
+  transactions_list: [],
 };
 
 export const userSlice = createSlice({
@@ -19,10 +20,14 @@ export const userSlice = createSlice({
     updateCancelReasons: (state, { payload }) => {
       state.cancel_reasons = payload;
     },
+    updateTransactions: (state, { payload }) => {
+      state.transactions_list = payload;
+    },
     saveUserData: (state, { payload }) => {
       state.subscriptions = payload.subscriptions;
       state.countries = payload.countries;
       state.cancel_reasons = payload.cancel_reasons;
+      state.transactions_list = payload.transactions_list;
     },
     removeUserData: (state, { payload }) => {
       state.subscriptions = [];
@@ -36,6 +41,7 @@ export const {
   updateSubscriptions,
   updateCountries,
   updateCancelReasons,
+  updateTransactions,
   saveUserData,
   removeUserData,
 } = userSlice.actions;

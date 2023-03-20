@@ -11,12 +11,13 @@ body {
 }
 :root {
   --website-color: #75b2e6;
-   --website-color-light: #d8eafa;
+  --website-color-light: #d8eafa;
   --website-color-opacity-low: rgb(117, 178, 230, 0.2);
   --website-color-banner: rgb(117, 178, 230, 0.7);
   --color-secondary-header: #5d8cb5;
   --container-width-75: min(75rem, 75vw);
   --container-width: min(56rem, 56vw);
+  --container-portal-width: min(50rem, 70vw);
   --website-font-family: brandon-grotesque, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --dark: #003652;
@@ -52,4 +53,9 @@ input:-webkit-autofill:active {
 
 button {
   cursor: pointer;
+}
+@media screen and (max-width: 62.5rem) {
+  :root {
+    --container-portal-width: 90vw;
+  }
 }

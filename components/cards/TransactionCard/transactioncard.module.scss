@@ -1,0 +1,61 @@
+@import 'common.scss';
+.card {
+  padding: 25px 20px;
+  background-color: white;
+  margin: 1rem;
+  border-radius: 10px;
+  font: fontvalue(14, 14, 300);
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  .success {
+    color: green;
+  }
+  .failed {
+    color: red;
+  }
+  .successDot{
+    background-color: green;
+  }
+  .failedDot{
+    background-color: red;
+    display: inline-block;
+  }
+  .paymentStatus {
+    min-height: 10px;
+    min-width: 10px;
+  }
+  .transactionDetail:first-child {
+    font-weight: 500;
+  }
+  .transactionDetail:nth-child(2) {
+    font-weight: 500;
+  }
+  .transactionDetail:last-child {
+    text-align: right;
+  }
+  .transactionDetail:not(:first-child):not(:last-child) {
+    text-align: center;
+  }
+  @media screen and (max-width: 43.75rem) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+    .paymentStatus{
+      margin-right: 10px;
+      border-radius: 10px;
+    }
+    .transactionDetail:first-child {
+      display: flex;
+      align-items: center;
+    }
+    .transactionDetail:last-child {
+      display: none;
+    }
+    .transactionDetail:nth-child(2n) {
+      text-align: right !important;
+    }
+    .transactionDetail:nth-child(2n + 1) {
+      text-align: left !important;
+    }
+  }
+}

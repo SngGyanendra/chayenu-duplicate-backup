@@ -253,11 +253,11 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
               }}
               onBlur={handleBlur}
               className={`${!values.country ? Styles.defaultOption : ''}`}
+              defaultValue="country"
             >
               <option
-                value={undefined}
+                value="country"
                 disabled={true}
-                selected={true}
                 hidden={true}
               >
                 Country
@@ -279,9 +279,10 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={`${!values.state ? Styles.defaultOption : ''}`}
+                  defaultValue="state"
                 >
                   <option
-                    value={undefined}
+                    value="state"
                     disabled={true}
                     selected={true}
                     hidden={true}

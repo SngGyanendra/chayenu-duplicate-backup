@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import Styles from './header.module.scss';
 import { useRef } from 'react';
 import { PortalHeader } from '../portal-header/PortalHeader';
 
 export function Header() {
   const router = useRouter();
+  const { isLoggedIn, first_name } = useSelector((state) => state.auth);
 
   const handleMenu = () => {
     const element = document.getElementsByClassName('menu')[0];
@@ -68,11 +70,24 @@ export function Header() {
             </div>
             <div>
               <ul>
-                <li>SUBSCRIBE</li>
-                <li>EXPLORE</li>
+                <li>
+                  <Link href="/subscribe">SUBSCRIBE</Link>
+                </li>
+                <li>
+                  <Link href="/explore">EXPLORE</Link>
+                </li>
               </ul>
             </div>
-            <div>LOGIN</div>
+            <div>
+              {isLoggedIn ? (
+                <div className={Styles.loggedIn}>
+                  <Image src="/profile.svg" alt="" height={16} width={16} />
+                  {first_name}
+                </div>
+              ) : (
+                <Link href="/login">LOGIN</Link>
+              )}
+            </div>
           </div>
         </div>
       </header>

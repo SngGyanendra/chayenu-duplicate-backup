@@ -17,6 +17,11 @@ export class AuthencticatedUserAPI {
       const { data } = await this.requestInstance.get(
         `${backendUrl}/subscription/list`
       );
+
+      const { data: transactions_list } = await this.requestInstance.get(
+        `${backendUrl}/transactions`
+      );
+
       const {
         data: { data: countries },
       } = await axios.get(`${directusUrl}/items/countries`, {
@@ -33,10 +38,12 @@ export class AuthencticatedUserAPI {
       const {
         data: { data: cancel_reasons },
       } = await axios.get(`${directusUrl}/items/cancel_reasons`);
+
       return {
         subscriptions: data,
         countries: countries,
         cancel_reasons: cancel_reasons,
+        transactions_list: transactions_list,
       };
     } catch (error) {}
   }
@@ -45,6 +52,15 @@ export class AuthencticatedUserAPI {
     try {
       const { data } = await this.requestInstance.get(
         `${backendUrl}/subscription/list`
+      );
+      return data;
+    } catch (error) {}
+  }
+
+  async getAllUserTransactions() {
+    try {
+      const { data } = await this.requestInstance.get(
+        `${backendUrl}/transactions`
       );
       return data;
     } catch (error) {}
