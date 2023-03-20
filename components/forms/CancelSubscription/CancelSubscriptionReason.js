@@ -12,7 +12,7 @@ export function CancelSubscriptionReason({ reasonList, setReasonList, setProgres
       const { data } = await getAllCancelReasons();
       setCancelReasons(data);
     };
-    if (cancelReasons.length === 0) {
+    if (cancel_reasons.length === 0) {
       getData();
     } else {
       setCancelReasons(cancel_reasons);
