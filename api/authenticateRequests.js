@@ -94,6 +94,30 @@ export class AuthencticatedUserAPI {
     }
   }
 
+  async updatePassword(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/auth/changePassword`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateUserProfile(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/user/editProfile`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateAddress(values) {
     try {
       const response = await this.requestInstance.post(
