@@ -21,9 +21,13 @@ function MyApp({ Component, pageProps }) {
 function HydrateToken() {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { subscriptions, countries, cancel_reasons } = useSelector(
-    (state) => state.user
-  );
+  const {
+    subscriptions,
+    countries,
+    cancel_reasons,
+    transactions_list,
+    user_details,
+  } = useSelector((state) => state.user);
   const APIs = new AuthencticatedUserAPI();
   useEffect(() => {
     refreshToken(dispatch);
@@ -31,14 +35,28 @@ function HydrateToken() {
       if (
         subscriptions?.length === 0 ||
         countries.length === 0 ||
-        cancel_reasons.length === 0
+        cancel_reasons.length === 0 ||
+        transactions_list.length === 0 ||
+        user_details === {}
       ) {
         (async () => {
           const data = await APIs.prefetchAllData();
           if (data) {
-            const { subscriptions, countries, cancel_reasons } = data;
+            const {
+              subscriptions,
+              countries,
+              cancel_reasons,
+              transactions_list,
+              user_details,
+            } = data;
             dispatch(
-              saveUserData({ subscriptions, countries, cancel_reasons })
+              saveUserData({
+                subscriptions,
+                countries,
+                cancel_reasons,
+                transactions_list,
+                user_details,
+              })
             );
           }
         })();

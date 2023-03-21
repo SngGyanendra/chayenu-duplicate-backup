@@ -230,13 +230,9 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               }}
               onBlur={handleBlur}
               className={`${!values.country ? Styles.defaultOption : ''}`}
+              defaultValue="country"
             >
-              <option
-                value={undefined}
-                disabled={true}
-                selected={true}
-                hidden={true}
-              >
+              <option value="country" disabled={true} hidden={true}>
                 Country
               </option>
               {countries.map((country) => (
@@ -256,11 +252,11 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={`${!values.state ? Styles.defaultOption : ''}`}
+                  defaultValue="state"
                 >
                   <option
-                    value={undefined}
+                    value="state"
                     disabled={true}
-                    selected={true}
                     hidden={true}
                   >
                     State

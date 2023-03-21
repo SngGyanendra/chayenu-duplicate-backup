@@ -1,16 +1,23 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateCancelReasons } from '/store/userSlice';
 import { getAllCancelReasons } from '/api';
 import Styles from './cancelsubscriptionreason.module.scss';
 
-export function CancelSubscriptionReason({ reasonList, setReasonList, setProgress }) {
+export function CancelSubscriptionReason({
+  reasonList,
+  setReasonList,
+  setProgress,
+}) {
   const [cancelReasons, setCancelReasons] = useState([]);
   const { cancel_reasons } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = async () => {
       const { data } = await getAllCancelReasons();
       setCancelReasons(data);
+      dispatch(updateCancelReasons(data));
     };
     if (cancel_reasons.length === 0) {
       getData();

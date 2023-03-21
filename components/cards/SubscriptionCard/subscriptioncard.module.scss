@@ -2,7 +2,7 @@
 
 .subscriptionCard {
   background-color: var(--website-color-opacity-low);
-  width: min(50rem, 70vw);
+  width: var(--container-portal-width);
   padding: 1.5rem;
   margin: 1rem auto 0 auto;
   border-radius: 10px;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateSubscriptions } from '/store/userSlice';
+import { updateSubscriptions, updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { getAllCountries } from '/api';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
@@ -22,6 +22,7 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
     const getData = async () => {
       const { data } = await getAllCountries();
       setCountries(data);
+      dispatch(updateCountries(data))
     };
     if (countriesList.length === 0) {
       getData();
@@ -253,11 +254,11 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
               }}
               onBlur={handleBlur}
               className={`${!values.country ? Styles.defaultOption : ''}`}
+              defaultValue="country"
             >
               <option
-                value={undefined}
+                value="country"
                 disabled={true}
-                selected={true}
                 hidden={true}
               >
                 Country
@@ -279,9 +280,10 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={`${!values.state ? Styles.defaultOption : ''}`}
+                  defaultValue="state"
                 >
                   <option
-                    value={undefined}
+                    value="state"
                     disabled={true}
                     selected={true}
                     hidden={true}

@@ -17,6 +17,11 @@ export class AuthencticatedUserAPI {
       const { data } = await this.requestInstance.get(
         `${backendUrl}/subscription/list`
       );
+
+      const { data: transactions_list } = await this.requestInstance.get(
+        `${backendUrl}/transactions`
+      );
+
       const {
         data: { data: countries },
       } = await axios.get(`${directusUrl}/items/countries`, {
@@ -33,10 +38,17 @@ export class AuthencticatedUserAPI {
       const {
         data: { data: cancel_reasons },
       } = await axios.get(`${directusUrl}/items/cancel_reasons`);
+
+      const { data: user_details } = await this.requestInstance.get(
+        `${backendUrl}/auth/getUser`
+      );
+
       return {
         subscriptions: data,
         countries: countries,
         cancel_reasons: cancel_reasons,
+        transactions_list: transactions_list,
+        user_details: user_details,
       };
     } catch (error) {}
   }
@@ -50,11 +62,31 @@ export class AuthencticatedUserAPI {
     } catch (error) {}
   }
 
+  async getAllUserTransactions() {
+    try {
+      const { data } = await this.requestInstance.get(
+        `${backendUrl}/transactions`
+      );
+      return data;
+    } catch (error) {}
+  }
+
   async transferSubscription(values) {
     try {
       const response = await this.requestInstance.post(
         `${backendUrl}/subscription/transferSubscription`,
         values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUser() {
+    try {
+      const response = await this.requestInstance.get(
+        `${backendUrl}/auth/getUser`
       );
       return response;
     } catch (error) {
