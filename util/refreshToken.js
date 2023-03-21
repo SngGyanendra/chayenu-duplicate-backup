@@ -4,7 +4,6 @@ import { refreshTokens } from '/api';
 
 async function redirectToLoginPage() {
   try {
-    console.log('here');
     window.location.href = `${NEXT_PUBLIC_FRONTEND_URL}/login`;
   } catch (error) {}
 }

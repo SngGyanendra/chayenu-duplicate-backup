@@ -14,7 +14,6 @@ export async function login(values) {
 }
 
 export async function refreshTokens() {
-  console.log('refresh api being called');
   try {
     const { data } = await axios.post(
       `${backendUrl}/auth/refreshTokens`,

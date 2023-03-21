@@ -226,7 +226,6 @@ export function SubscriptionCard({ subscription }) {
                 );
                 const newSubscriptionsList =
                   await APIs.getAllUserSubscriptions();
-                console.log(newSubscriptionsList);
                 dispatch(updateSubscriptions(newSubscriptionsList));
               } catch (error) {}
             }}

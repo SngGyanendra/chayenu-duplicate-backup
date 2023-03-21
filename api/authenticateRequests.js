@@ -39,11 +39,16 @@ export class AuthencticatedUserAPI {
         data: { data: cancel_reasons },
       } = await axios.get(`${directusUrl}/items/cancel_reasons`);
 
+      const { data: user_details } = await this.requestInstance.get(
+        `${backendUrl}/auth/getUser`
+      );
+
       return {
         subscriptions: data,
         countries: countries,
         cancel_reasons: cancel_reasons,
         transactions_list: transactions_list,
+        user_details: user_details,
       };
     } catch (error) {}
   }
@@ -71,6 +76,17 @@ export class AuthencticatedUserAPI {
       const response = await this.requestInstance.post(
         `${backendUrl}/subscription/transferSubscription`,
         values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUser() {
+    try {
+      const response = await this.requestInstance.get(
+        `${backendUrl}/auth/getUser`
       );
       return response;
     } catch (error) {

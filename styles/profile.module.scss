@@ -1,0 +1,44 @@
+@import 'common.scss';
+.profileCard {
+  width: var(--container-portal-width);
+  margin: 1rem auto;
+  border-radius: 10px;
+  background-color: var(--website-color-opacity-low);
+  padding: 30px;
+  .userDetailsAndEdit {
+    display: grid;
+      position: relative;
+
+    .userDetails {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      row-gap: 1rem;
+      column-gap: 1rem;
+      font: fontvalue(14, 14, 300);
+      .profileData {
+        font-weight: 500;
+      }
+    }
+    .edit {
+      height: 2rem;
+      border-radius: 5px;
+      padding: 0px 5px;
+      font: fontvalue(14, 14, 500);
+      width: 4rem;
+      border: none;
+      color: white;
+      background-color: var(--website-color);
+      position: absolute;
+      right: 0;
+    }
+  }
+  .changePassword {
+    font: fontvalue(12, 12, 300);
+    margin-top: 2rem;
+    color: var(--website-color);
+    cursor: pointer;
+  }
+  @media screen and (max-width: 25rem) {
+    padding: 10px;
+  }
+}
