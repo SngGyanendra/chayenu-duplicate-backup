@@ -28,8 +28,8 @@ export default function Story({ story, ids }) {
         <section className={Styles.page}>
           <h1 className={Styles.title} id={convertTextToId(story.title)}>{story.title}</h1>
           <div className={Styles.digitalPrintIndicatorWrapper}>
-            {story.is_print_available && <Print />}
-            {story.is_digital_available && <Digital />}
+            {story.is_print_available && <div title="print"><Print /></div>}
+            {story.is_digital_available && <div title="digital"><Digital /></div>}
           </div>
           <div
             className={Styles.content}

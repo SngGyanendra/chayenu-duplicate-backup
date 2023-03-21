@@ -1,11 +1,21 @@
-.nav {
+.navWrapper {
     background: #5e8eb8;
+}
+
+.nav {
+    margin: 0 auto;
+    width: 237px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     position: relative;
+    transition: background 1s;
+}
+
+.nav:hover {
+    background: linear-gradient(90deg, rgba(94,142,184,1) 0%, rgba(54,91,122,1) 50%, rgba(94,142,184,1) 100%);
 }
 
 .indexButtonWrapper {
@@ -63,6 +73,7 @@
     display: inline-block;
     width: 237px;
     transition: 0.3s;
+    font-size: 14px;
 }
 
 .link:hover {

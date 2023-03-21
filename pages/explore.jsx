@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { getAllStories } from '../api/common';
-import { NextHead } from '../components/common';
-import Styles from '../styles/explore.module.scss';
-import SubscribeStyles from '../styles/subscribe.module.scss'
-import { StoryCard } from '../components/cards/StoryCard/StoryCard';
-import { StoryCardSkeleton } from '../components/cards/StoryCard/StoryCardSkeleton';
-import { StoriesNav } from '../components/common/StoriesNav/StoriesNav';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateStories } from '../store/storiesSlice';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { getAllStories } from "../api/common";
+import { NextHead } from "../components/common";
+import Styles from "../styles/explore.module.scss";
+import SubscribeStyles from "../styles/subscribe.module.scss";
+import { StoryCard } from "../components/cards/StoryCard/StoryCard";
+import { StoryCardSkeleton } from "../components/cards/StoryCard/StoryCardSkeleton";
+import { StoriesNav } from "../components/common/StoriesNav/StoriesNav";
+import { useSelector, useDispatch } from "react-redux";
+import { updateStories } from "../store/storiesSlice";
 
 export default function Explore() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-  const { loaded, stories } = useSelector(state => state.stories);
+  const { loaded, stories } = useSelector((state) => state.stories);
   const dispatch = useDispatch();
 
   async function getData() {
@@ -27,7 +27,7 @@ export default function Explore() {
       }
     } catch (error) {
       setLoading(false);
-      setError('An error occured, please try after some time');
+      setError("An error occured, please try after some time");
     }
   }
 
@@ -37,16 +37,17 @@ export default function Explore() {
 
   return (
     <>
-      <NextHead title={'Explore'} />
+      <NextHead title={"Explore"} />
       {!error && (
         <>
           <StoriesNav />
-          <main>
-            <section className={Styles.main}>
+          <main className={Styles.main}>
+            <section>
               <div className={Styles.introWrapper}>
                 <h1 className={Styles.title}>Explore Chayenu</h1>
                 <p className={Styles.introParagraph}>
-                  Learn about each section of Chayenu below or <Link
+                  Learn about each section of Chayenu below or{" "}
+                  <Link
                     className={Styles.introParagraphLinks}
                     href="/subscribe"
                   >
@@ -54,7 +55,8 @@ export default function Explore() {
                   </Link>
                 </p>
                 <p className={Styles.introParagraph}>
-                  Chayenu is your daily Torah study delivered every two weeks in print or digital formats.
+                  Chayenu is your daily Torah study delivered every two weeks in
+                  print or digital formats.
                 </p>
                 <p className={Styles.introParagraph}>
                   <Link
@@ -62,17 +64,50 @@ export default function Explore() {
                     href="/subscribe"
                   >
                     Click here
-                  </Link> to go to the library of books used in the Chayenu weekly Magazine
+                  </Link>{" "}
+                  to go to the library of books used in the Chayenu weekly
+                  Magazine
                 </p>
               </div>
 
-              <div className={Styles.storiesWrapper}>{
-                loading ?
+              <div className={Styles.storiesWrapper}>
+                {loading &&
                   Array.apply(0, Array(4)).map(function (_, i) {
-                    return (<StoryCardSkeleton key={i} />);
-                  })
-                  : stories.map(story => <StoryCard key={story.id} story={story} />)
-              }</div>
+                    return <StoryCardSkeleton key={i} />;
+                  })}
+                {loading === false &&
+                  stories.map((story, index) => {
+                    if (index % 2 !== 0) return null;
+                    const isLastItem = index === stories.length - 1;
+                    if (isLastItem) {
+                      return (
+                        <div key={index} className={Styles.storyRow}>
+                          <div className={Styles.storyWrapperLeft}>
+                            <StoryCard
+                              key={story.id}
+                              story={story}
+                            />
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    const nextStory = stories[index + 1];
+                    return (
+                      <div key={index} className={Styles.storyRow}>
+                        <div className={Styles.storyWrapperLeft}>
+                          <StoryCard key={story.id} story={story} />
+                        </div>
+                        <div className={Styles.storyWrapperRight}>
+                          <StoryCard
+                            key={nextStory.id}
+                            story={nextStory}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
             </section>
           </main>
         </>
