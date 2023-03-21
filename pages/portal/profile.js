@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Styles from '/styles/profile.module.scss';
 import { updateUserDetails } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
+import { Popup } from '/components/common';
+import { EditProfile, ChangePassword } from '/components/forms';
 
 export default function Profile() {
   const APIs = new AuthencticatedUserAPI();
@@ -24,7 +26,7 @@ export default function Profile() {
     } else {
       setUserDetails(user_details);
     }
-  }, []);
+  }, [user_details]);
 
   return (
     <section className={Styles.profileCard}>
@@ -58,6 +60,21 @@ export default function Profile() {
       >
         CHANGE PASSWORD
       </div>
+      {(() => {
+        if (popup === 'edit') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <EditProfile userProfile={userDetails} setPopupState={setPopup} />
+            </Popup>
+          );
+        } else if (popup === 'changePassword') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <ChangePassword setPopupState={setPopup} />
+            </Popup>
+          );
+        }
+      })()}
     </section>
   );
 }

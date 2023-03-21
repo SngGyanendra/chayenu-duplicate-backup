@@ -16,14 +16,14 @@ export default function Transactions() {
     const getData = async () => {
       const transactions = await APIs.getAllUserTransactions();
       setTransactionsList(transactions);
-      dispatch(updateTransactions(transactions))
+      dispatch(updateTransactions(transactions));
     };
     if (transactions_list.length === 0) {
       getData();
     } else {
       setTransactionsList(transactions_list);
     }
-  }, []);
+  }, [transactions_list]);
 
   return (
     <section className={Styles.page}>
