@@ -1,0 +1,49 @@
+# This workflow will
+# - Build the code
+# - Deploy to the server
+#
+# The following steps are taken for deploying on the server
+#
+# - SSH into the server
+# - Pull the latest code
+# - Run npm ci
+# - Restart the pm2 server
+
+name: Dev - Deploy using Git
+
+on:
+  push:
+    branches: [dev]
+
+env:
+  DEV_SSH_KEY: ${{ secrets.DEV_SSH_KEY }}
+  DEV_SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
+  DEV_SSH_PORT: ${{ secrets.DEV_SSH_PORT }}
+  DEV_SSH_USER: ${{ secrets.DEV_SSH_USER }}
+  DEV_PROJECT_PATH: ${{ secrets.DEV_PROJECT_PATH }}
+  DEV_PM2_NAME: ${{ secrets.DEV_PM2_NAME }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-local
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm run build --if-present
+      - name: Clone code and build
+        run: |
+          eval $(ssh-agent -s)
+          echo "$DEV_SSH_KEY" | tr -d '\r' | ssh-add -
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -p $DEV_SSH_PORT $DEV_SSH_HOST >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          ssh $DEV_SSH_USER@$DEV_SSH_HOST -p $DEV_SSH_PORT "cd $DEV_PROJECT_PATH && git pull"
+          ssh $DEV_SSH_USER@$DEV_SSH_HOST -p $DEV_SSH_PORT "cd $DEV_PROJECT_PATH && npm ci"
+          ssh $DEV_SSH_USER@$DEV_SSH_HOST -p $DEV_SSH_PORT "cd $DEV_PROJECT_PATH && npm run build"
+          ssh $DEV_SSH_USER@$DEV_SSH_HOST -p $DEV_SSH_PORT "cd $DEV_PROJECT_PATH && pm2 restart $DEV_PM2_NAME"
