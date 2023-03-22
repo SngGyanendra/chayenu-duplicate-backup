@@ -25,8 +25,9 @@ function HydrateToken() {
     subscriptions,
     countries,
     cancel_reasons,
-    transactions_list,
+    transactions,
     user_details,
+    support_issues,
   } = useSelector((state) => state.user);
   const APIs = new AuthencticatedUserAPI();
   useEffect(() => {
@@ -36,8 +37,9 @@ function HydrateToken() {
         subscriptions?.length === 0 ||
         countries.length === 0 ||
         cancel_reasons.length === 0 ||
-        transactions_list.length === 0 ||
-        user_details === {}
+        transactions.length === 0 ||
+        user_details === {} ||
+        support_issues.length===0
       ) {
         (async () => {
           const data = await APIs.prefetchAllData();
@@ -46,16 +48,18 @@ function HydrateToken() {
               subscriptions,
               countries,
               cancel_reasons,
-              transactions_list,
+              transactions,
               user_details,
+              support_issues,
             } = data;
             dispatch(
               saveUserData({
                 subscriptions,
                 countries,
                 cancel_reasons,
-                transactions_list,
+                transactions,
                 user_details,
+                support_issues,
               })
             );
           }

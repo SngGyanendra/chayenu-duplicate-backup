@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Styles from './subscriptioncard.module.scss';
 import { useDispatch } from 'react-redux';
-import { updateSubscriptions } from '/store/userSlice';
+import { updateSubscriptions, updateTransactions } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { useWindowDimensions } from '/hooks';
 import { formatDate } from '/util';
@@ -227,6 +227,8 @@ export function SubscriptionCard({ subscription }) {
                 const newSubscriptionsList =
                   await APIs.getAllUserSubscriptions();
                 dispatch(updateSubscriptions(newSubscriptionsList));
+                const newTransactionList = await APIs.getAllUserTransactions();
+                dispatch(updateTransactions(newTransactionList));
               } catch (error) {}
             }}
           >

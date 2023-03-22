@@ -107,7 +107,9 @@ export function EditProfile({ userProfile, setPopupState }) {
             placeholder="Phone"
             className={Styles.phoneInput}
             value={values.mobile}
-            onChange={handleChange}
+            onChange={(e) => {
+              values.mobile = e;
+            }}
             onBlur={handleBlur}
           />
           <span className={Styles.error}>

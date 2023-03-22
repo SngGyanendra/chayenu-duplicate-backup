@@ -9,7 +9,7 @@ export default function Transactions() {
   const APIs = new AuthencticatedUserAPI();
   const [transactionsList, setTransactionsList] = useState([]);
 
-  const { transactions_list } = useSelector((state) => state.user);
+  const { transactions } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,12 +18,12 @@ export default function Transactions() {
       setTransactionsList(transactions);
       dispatch(updateTransactions(transactions));
     };
-    if (transactions_list.length === 0) {
+    if (transactions.length === 0) {
       getData();
     } else {
-      setTransactionsList(transactions_list);
+      setTransactionsList(transactions);
     }
-  }, [transactions_list]);
+  }, [transactions]);
 
   return (
     <section className={Styles.page}>
