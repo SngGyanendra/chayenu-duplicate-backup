@@ -4,8 +4,9 @@ const initialState = {
   subscriptions: [],
   countries: [],
   cancel_reasons: [],
-  transactions_list: [],
+  transactions: [],
   user_details: {},
+  support_issues: [],
 };
 
 export const userSlice = createSlice({
@@ -22,23 +23,27 @@ export const userSlice = createSlice({
       state.cancel_reasons = payload;
     },
     updateTransactions: (state, { payload }) => {
-      state.transactions_list = payload;
+      state.transactions = payload;
     },
     updateUserDetails: (state, { payload }) => {
       state.user_details = payload;
+    },
+    updateSupportIssues: (state, { payload }) => {
+      state.support_issues = payload;
     },
     saveUserData: (state, { payload }) => {
       state.subscriptions = payload.subscriptions;
       state.countries = payload.countries;
       state.cancel_reasons = payload.cancel_reasons;
-      state.transactions_list = payload.transactions_list;
+      state.transactions = payload.transactions;
       state.user_details = payload.user_details;
+      state.support_issues = payload.support_issues;
     },
     removeUserData: (state, { payload }) => {
       state.subscriptions = [];
       state.cancel_reasons = [];
       state.countries = [];
-      state.transactions_list = [];
+      state.transactions = [];
       state.user_details = {};
     },
   },
@@ -52,6 +57,7 @@ export const {
   saveUserData,
   removeUserData,
   updateUserDetails,
+  updateSupportIssues,
 } = userSlice.actions;
 
 export default userSlice.reducer;

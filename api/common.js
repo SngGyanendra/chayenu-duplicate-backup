@@ -67,6 +67,21 @@ export async function getStoryById(id) {
 export async function getAllCancelReasons() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/cancel_reasons`);
-    return data
-  } catch (error) {}
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getAllSupportIssues() {
+  try {
+    const { data } = await axios.get(`${directusUrl}/items/support_issues`, {
+      params: {
+        fields: '*.*',
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
 }

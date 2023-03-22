@@ -29,7 +29,7 @@
     div {
       cursor: pointer;
     }
-    .loggedIn{
+    .login{
       display: flex;
       align-items: center;
       text-transform: uppercase;
@@ -71,6 +71,7 @@
     }
     .translucentLayer {
       width: 100vw;
+      z-index: 1;
       height: 100vh;
       background-color: #00000029;
       position: absolute;

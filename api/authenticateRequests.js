@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getAllSupportIssues } from '/api/common';
 import { directusUrl, backendUrl } from './config';
 
 export class AuthencticatedUserAPI {
@@ -18,7 +19,7 @@ export class AuthencticatedUserAPI {
         `${backendUrl}/subscription/list`
       );
 
-      const { data: transactions_list } = await this.requestInstance.get(
+      const { data: transactions } = await this.requestInstance.get(
         `${backendUrl}/transactions`
       );
 
@@ -43,12 +44,15 @@ export class AuthencticatedUserAPI {
         `${backendUrl}/auth/getUser`
       );
 
+      const { data: support_issues } = await getAllSupportIssues();
+
       return {
         subscriptions: data,
         countries: countries,
         cancel_reasons: cancel_reasons,
-        transactions_list: transactions_list,
+        transactions: transactions,
         user_details: user_details,
+        support_issues: support_issues,
       };
     } catch (error) {}
   }
@@ -75,6 +79,18 @@ export class AuthencticatedUserAPI {
     try {
       const response = await this.requestInstance.post(
         `${backendUrl}/subscription/transferSubscription`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async submitSupportRequest(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/support/createSupportRequest`,
         values
       );
       return response;

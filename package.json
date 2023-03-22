@@ -21,6 +21,7 @@
     "react-phone-number-input": "^3.2.18",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
+    "react-select": "^5.7.1",
     "sass": "^1.58.0",
     "yup": "^1.0.0"
   },

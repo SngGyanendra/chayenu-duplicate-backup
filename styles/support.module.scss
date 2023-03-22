@@ -1,0 +1,107 @@
+@import 'common.scss';
+
+.form {
+  width: var(--container-portal-width);
+  background-color: var(--website-color-opacity-low);
+  margin: 1rem auto;
+  border-radius: 10px;
+  padding: 20px;
+  display: grid;
+  row-gap: 1.5rem;
+  .getSupport {
+    text-align: center;
+    font: fontvalue(16, 16, 500);
+    margin-bottom: 1rem;
+  }
+  .subscriptionOptions {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+    font: fontvalue(14, 14, 300);
+    text-transform: uppercase;
+    .lastname {
+      margin-left: 0.5rem;
+    }
+    @media screen and (max-width: 37.5rem) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      row-gap: 0.5rem;
+    }
+  }
+  .supportIssuesOptions {
+    font: fontvalue(14, 14, 300);
+    text-transform: uppercase;
+  }
+  .active {
+    color: green;
+  }
+  .expired {
+    color: red;
+  }
+  .onhold {
+    color: #7070e0;
+  }
+  .processing {
+    color: #c49e00;
+  }
+  .error {
+    font: fontvalue(12, 12, 300);
+    color: red;
+  }
+  .disabled {
+    background-color: grey;
+    cursor: auto;
+  }
+  textarea {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    font: fontvalue(16, 16, 300);
+    padding: 10px;
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      font-weight: 400;
+      color: hsl(0, 0%, 50%);
+    }
+  }
+  button {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: 1rem;
+    font: fontvalue(14, 14, 500);
+    width: 6rem;
+    margin: 0 auto;
+    border: none;
+    color: white;
+    background-color: var(--website-color);
+  }
+  .messsage {
+    color: red;
+  }
+}
+
+.card {
+  background-color: var(--website-color-light);
+  font: fontvalue(14, 14, 500);
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  width: min(18rem, 90vw);
+  display: grid;
+  row-gap: 1rem;
+  button {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: 1rem;
+    font: fontvalue(14, 14, 500);
+    border: none;
+    width: 3rem;
+    margin: 0 auto;
+    color: white;
+    background-color: var(--website-color);
+  }
+}

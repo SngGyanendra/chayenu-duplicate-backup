@@ -80,12 +80,15 @@ export function Header() {
             </div>
             <div>
               {isLoggedIn ? (
-                <div className={Styles.loggedIn}>
+                <div className={Styles.login}>
                   <Image src="/profile.svg" alt="" height={16} width={16} />
                   {first_name}
                 </div>
               ) : (
-                <Link href="/login">LOGIN</Link>
+                <div className={Styles.login}>
+                  <Image src="/profile.svg" alt="" height={16} width={16} />
+                  <Link href="/login">LOGIN</Link>
+                </div>
               )}
             </div>
           </div>
