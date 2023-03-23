@@ -33,7 +33,6 @@ jobs:
           node-version: 16
           cache: 'npm'
       - run: npm ci
-      - run: npx prisma generate
       - run: npm run build --if-present
       - name: Clone code and build
         run: |
