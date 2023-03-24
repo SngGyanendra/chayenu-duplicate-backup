@@ -3,19 +3,17 @@ import { useState, useEffect } from 'react';
 import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import { updateUserDetails, updateCountries } from '/store/userSlice';
+import { updatePaymentMethods } from '/store/userSlice';
+import { updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './editpaymentmethod.module.scss';
 
 export function EditPaymentMethod({ paymentMethod, setEditingState }) {
   const APIs = new AuthencticatedUserAPI();
   const dispatch = useDispatch();
-  const { user_details, countries: countriesList } = useSelector(
-    (state) => state.user
-  );
+  const { countries: countriesList } = useSelector((state) => state.user);
 
   const [countries, setCountries] = useState([]);
-  const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState();
 
@@ -35,19 +33,6 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
     }
     getCurrentCountry();
   }, [countries]);
-
-  useEffect(() => {
-    async function getData() {
-      const { data } = await APIs.getUser();
-      setUserDetails(data);
-      dispatch(updateUserDetails(data));
-    }
-    if (Object.keys(user_details).length === 0) {
-      getData();
-    } else {
-      setUserDetails(user_details);
-    }
-  }, [user_details]);
 
   useEffect(() => {
     const getData = async () => {
@@ -70,7 +55,7 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
     state: selectedCountry?.states?.find(
       (state) => state.name === paymentMethod?.billingAddress?.state
     )?.id,
-    default: undefined,
+    default: false,
   };
 
   const initialErrors = {
@@ -98,24 +83,25 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
       initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        console.log(values);
         try {
           setLoading(true);
           const newValues = {
-            billing_address: values,
+            billing_address: { ...values },
             card_token: paymentMethod.cardToken,
           };
           delete newValues.billing_address.default;
           const response = await APIs.updatePaymentMethod(newValues);
           if (values.default) {
             try {
-              const response = await APIs.updatePaymentMethod(
+              const response = await APIs.updateDefaultCard(
                 paymentMethod.cardToken
               );
             } catch (error) {}
           }
           setLoading(false);
           setEditingState(false);
+          const newPaymentMethods = await APIs.getAllPaymentMethods();
+          dispatch(updatePaymentMethods(newPaymentMethods));
         } catch (error) {
           setLoading(false);
         }
@@ -201,9 +187,9 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
                   const country = countries.find((country) => {
                     return country.id == e.target.value;
                   });
+                  values.state = undefined;
                   values.country = e.target.value;
                   setSelectedCountry(country);
-                  values.state = undefined;
                 }}
                 onBlur={handleBlur}
                 className={`${!values.country ? Styles.defaultOption : ''}`}
