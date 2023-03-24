@@ -46,6 +46,7 @@ export class AuthencticatedUserAPI {
 
       const { data: support_issues } = await getAllSupportIssues();
 
+      const payment_methods = await this.getAllPaymentMethods();
       return {
         subscriptions: data,
         countries: countries,
@@ -53,6 +54,7 @@ export class AuthencticatedUserAPI {
         transactions: transactions,
         user_details: user_details,
         support_issues: support_issues,
+        payment_methods: payment_methods,
       };
     } catch (error) {}
   }
@@ -66,13 +68,50 @@ export class AuthencticatedUserAPI {
     } catch (error) {}
   }
 
+  async updatePaymentMethod(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/user/paymentmethods/billingaddress/update`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateDefaultCard(card_token) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/user/paymentmethods/setdefaultcard`,
+        { card_token }
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getAllUserTransactions() {
     try {
       const { data } = await this.requestInstance.get(
         `${backendUrl}/transactions`
       );
       return data;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllPaymentMethods() {
+    try {
+      const { data } = await this.requestInstance.get(
+        `${backendUrl}/user/paymentmethods/list`
+      );
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async transferSubscription(values) {

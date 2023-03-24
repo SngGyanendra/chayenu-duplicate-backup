@@ -17,6 +17,9 @@
       font: fontvalue(14, 14, 300);
       .profileData {
         font-weight: 500;
+        span:first-child{
+          margin-right: .2rem;
+        }
       }
     }
     .edit {

@@ -22,14 +22,14 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
     const getData = async () => {
       const { data } = await getAllCountries();
       setCountries(data);
-      dispatch(updateCountries(data))
+      dispatch(updateCountries(data));
     };
     if (countriesList.length === 0) {
       getData();
     } else {
       setCountries(countriesList);
     }
-  }, []);
+  }, [countriesList]);
 
   const initialValues = {
     first_name: undefined,

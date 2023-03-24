@@ -24,7 +24,7 @@ export default function Support() {
   useEffect(() => {
     async function getData() {
       const newSubscriptions = await APIs.getAllUserSubscriptions();
-      newSubscriptions.push({ id: 0, label: 'Others' });
+      newSubscriptions?.push({ id: 0, label: 'Others' });
       setSubscriptionsList(newSubscriptions);
       dispatch(updateSubscriptions(newSubscriptions));
     }
@@ -32,7 +32,7 @@ export default function Support() {
       getData();
     } else {
       const newSubscriptions = [...subscriptions];
-      newSubscriptions.push({ id: 0, label: 'Others' });
+      newSubscriptions?.push({ id: 0, label: 'Others' });
       setSubscriptionsList(newSubscriptions);
     }
   }, [subscriptions]);
