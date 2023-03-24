@@ -8,7 +8,8 @@ import { PortalHeader } from '../portal-header/PortalHeader';
 
 export function Header() {
   const router = useRouter();
-  const { isLoggedIn, first_name } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { user_details } = useSelector((state) => state.user);
 
   const handleMenu = () => {
     const element = document.getElementsByClassName('menu')[0];
@@ -82,7 +83,7 @@ export function Header() {
               {isLoggedIn ? (
                 <div className={Styles.login}>
                   <Image src="/profile.svg" alt="" height={16} width={16} />
-                  {first_name}
+                  {user_details.first_name}
                 </div>
               ) : (
                 <div className={Styles.login}>

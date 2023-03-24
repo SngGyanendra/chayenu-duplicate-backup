@@ -34,8 +34,8 @@ export default function Profile() {
         <div className={Styles.userDetails}>
           <div>Name:</div>
           <span className={Styles.profileData}>
-            {userDetails?.first_name}
-            {userDetails?.last_name ? userDetails.last_name : ''}
+            <span>{userDetails?.first_name}</span>
+            <span> {userDetails?.last_name ? userDetails.last_name : ''}</span>
           </span>
           <div>Email:</div>
           <span className={Styles.profileData}>{userDetails?.email}</span>

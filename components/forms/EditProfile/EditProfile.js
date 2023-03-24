@@ -61,6 +61,8 @@ export function EditProfile({ userProfile, setPopupState }) {
           dispatch(updateUserDetails(data));
           setLoading(false);
           setPopupState(undefined);
+          localStorage.setItem('first_name', data?.first_name);
+          localStorage.setItem('last_name', data?.last_name);
         } catch (error) {
           setLoading(false);
         }

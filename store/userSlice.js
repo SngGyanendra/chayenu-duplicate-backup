@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  subscriptions: [],
+  subscriptions: [{label:'jjj'}],
   countries: [],
   cancel_reasons: [],
   transactions: [],
   user_details: {},
   support_issues: [],
+  payment_methods: [],
 };
 
 export const userSlice = createSlice({
@@ -31,6 +32,9 @@ export const userSlice = createSlice({
     updateSupportIssues: (state, { payload }) => {
       state.support_issues = payload;
     },
+    updatePaymentMethods: (state, { payload }) => {
+      state.payment_methods = payload;
+    },
     saveUserData: (state, { payload }) => {
       state.subscriptions = payload.subscriptions;
       state.countries = payload.countries;
@@ -38,6 +42,7 @@ export const userSlice = createSlice({
       state.transactions = payload.transactions;
       state.user_details = payload.user_details;
       state.support_issues = payload.support_issues;
+      state.payment_methods = payload.payment_methods;
     },
     removeUserData: (state, { payload }) => {
       state.subscriptions = [];
@@ -58,6 +63,7 @@ export const {
   removeUserData,
   updateUserDetails,
   updateSupportIssues,
+  updatePaymentMethods,
 } = userSlice.actions;
 
 export default userSlice.reducer;

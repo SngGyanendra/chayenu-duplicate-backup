@@ -28,8 +28,11 @@ function HydrateToken() {
     transactions,
     user_details,
     support_issues,
+    payment_methods,
   } = useSelector((state) => state.user);
+
   const APIs = new AuthencticatedUserAPI();
+
   useEffect(() => {
     refreshToken(dispatch);
     if (isLoggedIn) {
@@ -39,7 +42,8 @@ function HydrateToken() {
         cancel_reasons.length === 0 ||
         transactions.length === 0 ||
         user_details === {} ||
-        support_issues.length===0
+        support_issues.length === 0 ||
+        payment_methods.length === 0
       ) {
         (async () => {
           const data = await APIs.prefetchAllData();
@@ -51,6 +55,7 @@ function HydrateToken() {
               transactions,
               user_details,
               support_issues,
+              payment_methods,
             } = data;
             dispatch(
               saveUserData({
@@ -60,6 +65,7 @@ function HydrateToken() {
                 transactions,
                 user_details,
                 support_issues,
+                payment_methods,
               })
             );
           }
