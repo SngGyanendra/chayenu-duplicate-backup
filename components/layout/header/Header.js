@@ -30,7 +30,7 @@ export function Header() {
   };
 
   const menu = useRef();
-  const loggedInDropDown = useRef();
+  const chayenuLogo = useRef();
 
   return (
     <>
@@ -124,7 +124,7 @@ export function Header() {
                     </span>
                   </div>
                   {isDropDownOpen && (
-                    <ul ref={loggedInDropDown}>
+                    <ul>
                       <li onClick={() => setIsDropDownOpen(false)}>
                         <Link href="/portal/my-subscriptions">
                           <Image
@@ -200,18 +200,21 @@ export function Header() {
                 </div>
               ) : (
                 <div className={`${Styles.loggedOut} ${Styles.portalLink}`}>
-                  <Link href="/login">
+                  <Link
+                    href="/login"
+                    onMouseEnter={() => {
+                      chayenuLogo.current.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/profilecirculardark.svg`;
+                    }}
+                    onMouseLeave={() => {
+                      chayenuLogo.current.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/profilecircular.svg`;
+                    }}
+                  >
                     <Image
                       src="/profilecircular.svg"
                       alt=""
                       height={16}
                       width={16}
-                      onMouseEnter={(e) => {
-                        e.target.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/profilecirculardark.svg`;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/profilecircular.svg`;
-                      }}
+                      ref={chayenuLogo}
                     />
                     LOGIN
                   </Link>
