@@ -82,7 +82,7 @@ export function PortalHeader() {
                   }`}
                   onClick={() => {
                     dispatch(logoutUser());
-                    router.push('/')
+                    router.push('/login')
                   }}
                 >
                   {page.imageUrl && (

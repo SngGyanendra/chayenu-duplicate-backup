@@ -1,6 +1,8 @@
 import decode from 'jwt-decode';
 import { loginUser, logoutUser, setNewTokens } from '/store/authSlice';
+import { updateUserDetails } from '/store/userSlice';
 import { refreshTokens } from '/api';
+import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 
 async function redirectToLoginPage() {
   try {
@@ -20,8 +22,10 @@ function currentUserData() {
 }
 
 export async function refreshToken(dispatch) {
+  const APIs = new AuthencticatedUserAPI();
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
+
   if (!token) dispatch(logoutUser());
   try {
     const accessTokenDecoded = decode(token);
@@ -37,6 +41,13 @@ export async function refreshToken(dispatch) {
     } else {
       const data = currentUserData();
       dispatch(loginUser(data));
+      try {
+        const { data } = await APIs.getUser();
+        dispatch(updateUserDetails(data));
+      } catch (error) {
+        dispatch(logoutUser());
+        redirectToLoginPage();
+      }
       setTimeout(async () => {
         const data = await refreshTokens();
         dispatch(setNewTokens(data));
