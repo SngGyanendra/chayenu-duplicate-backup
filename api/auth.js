@@ -29,3 +29,25 @@ export async function refreshTokens() {
     throw error;
   }
 }
+
+export async function sendForgetPasswordOTP(email) {
+  try {
+    const { data } = await axios.post(`${backendUrl}/auth/forgotPassword`, {
+      email: email,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function resetPassword(values) {
+  try {
+    const { data } = await axios.post(
+      `${backendUrl}/auth/resetPassword`,
+      values
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

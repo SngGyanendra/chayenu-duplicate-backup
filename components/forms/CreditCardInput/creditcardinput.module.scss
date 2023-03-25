@@ -1,0 +1,21 @@
+@import 'common.scss';
+.creditCard {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font: fontvalue(16, 16, 500);
+  min-height: 12rem;
+  min-width: 20rem;
+  border-radius: 10px;
+  background: transparent linear-gradient(301deg, #4b86b9 0%, #113c60 80%) 0% 0%
+    no-repeat padding-box;
+  color: white;
+
+  @media screen and (max-width: 53.125rem) {
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 31.25rem) {
+    min-width: 100%;
+  }
+}

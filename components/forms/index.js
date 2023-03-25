@@ -6,5 +6,7 @@ export * from './TransferSubscriptions/TransferSubscriptions';
 export * from './CancelSubscription';
 export * from './UpdateShippingInfo/UpdateShippingInfo';
 export * from './EditProfile/EditProfile';
-export * from './ChangePassword/ChangesPassword';
+export * from './ChangePassword/ChangePassword';
 export * from './EditPaymentMethod/EditPaymentMethod';
+export * from './AddPaymentMethod/AddPaymentMethod'
+export * from './CreditCardInput/CreditCardInput'
