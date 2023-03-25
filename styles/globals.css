@@ -57,7 +57,10 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 button {
   cursor: pointer;
 }

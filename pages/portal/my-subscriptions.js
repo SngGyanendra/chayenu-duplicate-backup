@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Link from 'next/link';
 import { updateSubscriptions } from '/store/userSlice';
 import { SubscriptionCard } from '/components/cards';
 import Styles from '/styles/my-subscription.module.scss';
@@ -33,7 +34,9 @@ export default function MySubcriptions() {
         ))}
       </div>
       <div className={Styles.addSubscription}>
-        <button>ADD SUBSCRIPTION</button>
+        <button>
+          <Link href='/subscribe'>ADD SUBSCRIPTION</Link>
+        </button>
       </div>
     </section>
   );

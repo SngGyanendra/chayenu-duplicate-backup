@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import * as Yup from 'yup';
 import { login } from '/api';
 import Styles from '/styles/login.module.scss';
@@ -83,7 +84,9 @@ export default function Login() {
             </label>
             <input type="submit" value="LOGIN" />
             {error && <span className={Styles.error}>{error}</span>}
-            <div className={Styles.forgotPassword}>Forgot Your Password?</div>
+            <div className={Styles.forgotPassword}>
+              <Link href="/forgot-password">Forgot Your Password?</Link>
+            </div>
           </form>
         )}
       </Formik>

@@ -71,7 +71,7 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
     city: Yup.string().required('City is required'),
     country: Yup.number().required('country is required'),
     state: Yup.number().when({
-      is: () => selectedCountry.states.length > 0,
+      is: () => selectedCountry?.states?.length > 0,
       then: () => Yup.number().required('state is required'),
     }),
     zip_code: Yup.string().required('zip code is required'),

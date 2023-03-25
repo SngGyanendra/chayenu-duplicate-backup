@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { updatePaymentMethods } from '/store/userSlice';
 import { PaymentMethod } from '/components/cards';
+import { AddPaymentMethod } from '/components/forms';
 import Styles from '/styles/payments.module.scss';
 
 export default function Payments() {
   const [paymentMethods, setPaymentMethods] = useState([]);
+  const [addPaymentMethodForm, setAddPaymentMethodForm] = useState(false);
   const { payment_methods } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -33,6 +35,11 @@ export default function Payments() {
           <PaymentMethod key={index} paymentMethod={paymentMethod} />
         ))}
       </div>
+      {!addPaymentMethodForm ? (
+        <button onClick={() => setAddPaymentMethodForm(true)}>ADD CARD</button>
+      ) : (
+        <AddPaymentMethod setEditingState={setAddPaymentMethodForm} />
+      )}
     </section>
   );
 }

@@ -31,9 +31,11 @@ export default function Support() {
     if (subscriptions?.length === 0) {
       getData();
     } else {
-      const newSubscriptions = [...subscriptions];
-      newSubscriptions?.push({ id: 0, label: 'Others' });
-      setSubscriptionsList(newSubscriptions);
+      if (subscriptions) {
+        const newSubscriptions = [...subscriptions];
+        newSubscriptions?.push({ id: 0, label: 'Others' });
+        setSubscriptionsList(newSubscriptions);
+      }
     }
   }, [subscriptions]);
 
