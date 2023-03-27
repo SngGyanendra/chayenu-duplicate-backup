@@ -194,7 +194,7 @@ export function AddPaymentMethod({ setEditingState }) {
                 Postal Code:
                 <input
                   type="text"
-                  name="zip"
+                  name="zip_code"
                   id="zip"
                   placeholder="Zip"
                   value={values.zip_code}

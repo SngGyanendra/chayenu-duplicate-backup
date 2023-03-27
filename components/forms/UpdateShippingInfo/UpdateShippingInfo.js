@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateSubscriptions } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { getAllCountries } from '/api';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 
 export function UpdateShippingInfo({ subscription, setPopupState }) {
   const [countries, setCountries] = useState([]);
@@ -30,17 +29,24 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (subscription?.country) {
+      const country = countries.find(
+        (country) => country.id === subscription?.country
+      );
+      setSelectedCountry(country);
+    }
+  }, [countries]);
+
   const initialValues = {
-    first_name: undefined,
-    last_name: undefined,
-    address_1: undefined,
-    address_2: undefined,
-    zip_code: undefined,
-    email: undefined,
-    mobile: undefined,
-    city: undefined,
-    country: undefined,
-    state: undefined,
+    first_name: subscription?.first_name,
+    last_name: subscription?.last_name,
+    address_1: subscription?.address_1,
+    address_2: subscription?.address_2,
+    zip_code: subscription?.zip_code,
+    city: subscription?.city,
+    country: subscription?.country,
+    state: subscription?.state,
   };
   const initialErrors = {
     first_name: undefined,
@@ -48,8 +54,6 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
     address_1: undefined,
     address_2: undefined,
     zip_code: undefined,
-    email: undefined,
-    mobile: undefined,
     city: undefined,
     country: undefined,
     state: undefined,
@@ -68,21 +72,8 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
       .max(50, 'Too long')
       .required('Last Name is required')
       .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for last name.'),
-    email: Yup.string()
-      .trim()
-      .email('Enter valid email')
-      .required('Email is required'),
-    mobile: Yup.string()
-      .required('Phone is required')
-      .test('phone is valid', 'Invalid contact', (value) => {
-        if (value) {
-          return isValidPhoneNumber(value);
-        } else {
-          return false;
-        }
-      }),
     address_1: Yup.string().trim().required('Address is required'),
-    address_2: Yup.string().trim(),
+    address_2: Yup.string().trim().nullable(),
     city: Yup.string().trim().required('City is required'),
     state: Yup.number().when({
       is: () => selectedCountry?.states.length > 0,
@@ -159,33 +150,6 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               {errors.last_name && touched.last_name && errors.last_name}
             </span>
             <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <span className={Styles.error}>
-              {errors.email && touched.email && errors.email}
-            </span>
-            <PhoneInput
-              name="mobile"
-              mask="#"
-              useNationalFormatForDefaultCountryValue={true}
-              countrySelectProps={{ unicodeFlags: false }}
-              withCountryCallingCode={false}
-              placeholder="Phone"
-              className={Styles.phoneInput}
-              onChange={(value) => {
-                values.mobile = value;
-              }}
-              onBlur={handleBlur}
-            />
-            <span className={Styles.error}>
-              {errors.mobile && touched.mobile && errors.mobile}
-            </span>
-            <input
               type="text"
               name="address_1"
               placeholder="Address line 1"
@@ -231,6 +195,7 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               onBlur={handleBlur}
               className={`${!values.country ? Styles.defaultOption : ''}`}
               defaultValue="country"
+              value={values.country}
             >
               <option value="country" disabled={true} hidden={true}>
                 Country
@@ -254,11 +219,7 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
                   className={`${!values.state ? Styles.defaultOption : ''}`}
                   defaultValue="state"
                 >
-                  <option
-                    value="state"
-                    disabled={true}
-                    hidden={true}
-                  >
+                  <option value="state" disabled={true} hidden={true}>
                     State
                   </option>
                   {selectedCountry.states.map((country) => (
@@ -279,6 +240,7 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               placeholder="Zip"
               onChange={handleChange}
               onBlur={handleBlur}
+              value={values.zip_code}
             />
             <span className={Styles.error}>
               {errors.zip_code && touched.zip_code && errors.zip_code}
@@ -288,7 +250,7 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               disabled={loading}
               className={`${loading ? `${Styles.disabled}` : ''}`}
             >
-              {!loading ? 'Submit' : 'Updating...'}
+              {!loading ? 'Change' : 'Changing...'}
             </button>
           </div>
         </form>

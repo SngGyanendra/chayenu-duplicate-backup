@@ -8,7 +8,12 @@ import { updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './editpaymentmethod.module.scss';
 
-export function EditPaymentMethod({ paymentMethod, setEditingState }) {
+export function EditPaymentMethod({
+  paymentMethod,
+  setEditingState,
+  country,
+  state,
+}) {
   const APIs = new AuthencticatedUserAPI();
   const dispatch = useDispatch();
   const { countries: countriesList } = useSelector((state) => state.user);
@@ -18,20 +23,8 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
   const [selectedCountry, setSelectedCountry] = useState();
 
   useEffect(() => {
-    function getCurrentCountry() {
-      let currentCountry = paymentMethod?.billingAddress?.country;
-      if (!currentCountry) setSelectedCountry('default');
-      currentCountry = countries?.find(
-        (country) =>
-          country.braintree_name === paymentMethod?.billingAddress?.country
-      );
-      if (!currentCountry) {
-        setSelectedCountry('default');
-      } else {
-        setSelectedCountry(currentCountry);
-      }
-    }
-    getCurrentCountry();
+    const countryObject = countries.find((value) => value.id === country);
+    setSelectedCountry(countryObject);
   }, [countries]);
 
   useEffect(() => {
@@ -51,10 +44,8 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
     address_1: paymentMethod?.billingAddress?.address,
     zip_code: paymentMethod?.billingAddress?.zip,
     city: paymentMethod?.billingAddress?.city,
-    country: selectedCountry?.id,
-    state: selectedCountry?.states?.find(
-      (state) => state.name === paymentMethod?.billingAddress?.state
-    )?.id,
+    country: country,
+    state: state,
     default: false,
   };
 
@@ -86,9 +77,18 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
         try {
           setLoading(true);
           const newValues = {
-            billing_address: { ...values },
+            billing_address: {
+              country: parseInt(values.country),
+              state: parseInt(values.state),
+              address_1: values.address_1,
+              city: values.city,
+              zip_code: values.zip_code,
+            },
             card_token: paymentMethod.cardToken,
           };
+          if (!newValues.billing_address.state) {
+            delete newValues.billing_address.state;
+          }
           delete newValues.billing_address.default;
           const response = await APIs.updatePaymentMethod(newValues);
           if (values.default) {
@@ -106,7 +106,6 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
           setLoading(false);
         }
       }}
-      enableReinitialize={true}
     >
       {({
         values,
@@ -213,7 +212,7 @@ export function EditPaymentMethod({ paymentMethod, setEditingState }) {
               Postal Code:
               <input
                 type="text"
-                name="zip"
+                name="zip_code"
                 id="zip"
                 placeholder="Zip"
                 value={values.zip_code}

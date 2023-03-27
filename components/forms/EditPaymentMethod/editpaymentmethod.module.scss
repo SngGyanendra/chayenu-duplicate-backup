@@ -82,6 +82,9 @@
       &:first-child {
         margin-bottom: 1rem;
       }
+      &:focus{
+        outline: none;
+      }
     }
     .defaultCardId {
       color: #003652;
