@@ -10,10 +10,10 @@ import { refreshToken } from '/util/refreshToken';
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <HydrateToken />
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+        <HydrateToken />
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
     </Provider>
   );
 }

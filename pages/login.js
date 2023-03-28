@@ -1,18 +1,22 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import * as Yup from 'yup';
 import { login } from '/api';
 import Styles from '/styles/login.module.scss';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../store/authSlice';
+import { loginUser, logoutUser } from '../store/authSlice';
 
 export default function Login() {
   const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    dispatch(logoutUser());
+  }, []);
 
   const initialValues = { email: undefined, password: undefined };
   const initialErrors = { email: undefined, password: undefined };

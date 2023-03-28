@@ -1,7 +1,11 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 import { sendForgetPasswordOTP, resetPassword } from '/api';
+import { toastTemplate, sleep } from '/components/common';
+import { logoutUser } from '../store/authSlice';
 import * as Yup from 'yup';
 import Styles from '/styles/forgotpassword.module.scss';
 
@@ -14,6 +18,11 @@ export default function ForgotPassword() {
   const initialErrorsSendOTP = { email: undefined };
 
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(logoutUser());
+  }, []);
 
   const initialValuesChangePassword = {
     otp: undefined,
@@ -108,19 +117,35 @@ export default function ForgotPassword() {
             validationSchema={validationSchemaChangePassword}
             enableReinitialize={true}
             onSubmit={async (values) => {
+              const loadingToast = toastTemplate(
+                toast.error,
+                'Password change unsuccessful'
+              );
               try {
                 setError('');
                 setLoading(true);
                 const response = await resetPassword(values);
+                toastTemplate(
+                  toast.success,
+                  'Password changes successfully\n redirecting to login page',
+                  loadingToast
+                );
+                await sleep(3000);
                 setLoading(false);
                 router.push('/login');
               } catch (error) {
+                console.log(error);
                 setLoading(false);
                 if (error?.response?.status === 404) {
                   setError('Invalid OTP');
                 } else {
                   setError('A error occured');
                 }
+                toastTemplate(
+                  toast.error,
+                  'Password change unsuccessful',
+                  loadingToast
+                );
               }
             }}
           >
@@ -186,6 +211,7 @@ export default function ForgotPassword() {
               </form>
             )}
           </Formik>
+          <Toaster />
         </>
       )}
     </div>
