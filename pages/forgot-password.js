@@ -118,8 +118,8 @@ export default function ForgotPassword() {
             enableReinitialize={true}
             onSubmit={async (values) => {
               const loadingToast = toastTemplate(
-                toast.error,
-                'Password change unsuccessful'
+                toast.loading,
+                'Changing password...'
               );
               try {
                 setError('');
