@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '/store/authSlice';
 import Styles from './header.module.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState,useEffect } from 'react';
 import { PortalHeader } from '../portal-header/PortalHeader';
 
 export function Header() {
@@ -28,6 +28,83 @@ export function Header() {
       handleMenu();
     }
   };
+
+
+  const dropDownOptions = [
+    {
+      label: "My Subscriptions",
+      link: "/portal/my-subscriptions",
+      alt: "subscription",
+      img: "/header/autorenewdark.svg",
+      img_mb: "/header/autorenewdark_mb.svg"
+
+    },
+    {
+      label: "Payment Methods",
+      link: "/portal/payments",
+      alt: "payment",
+      img: "/header/dollardark.svg",
+      img_mb: "/header/dollardark_mb.svg",
+
+    },
+    {
+      label: "My Profile",
+      link: "/portal/profile",
+      alt: "profile",
+
+      img: "/header/profiledark.svg",
+      img_mb: "/header/dollardark_mb.svg",
+
+    },
+    {
+      label: "My Transactions",
+      link: "/portal/transactions",
+      alt: "transaction",
+
+      img: "/header/receiptdark.svg",
+      img_mb: "/header/receiptdark_mb.svg"
+
+    },
+    {
+      label: "Support",
+      link: "/portal/support",
+      alt: "support",
+      img: "/header/supportdark.svg",
+      img_mb: "/header/dollardark_mb.svg",
+
+    },
+    {
+      label: "Logout",
+      alt: "logout",
+      link: "/login",
+      img: "/header/logoutdark.svg",
+      img_mb: "/header/logout_mb.svg",
+
+    }
+
+
+
+  ]
+  const [mobileScreen, setMobileScreen] = useState(
+false  );
+  useEffect(() => {
+
+    window
+    .matchMedia("(max-width: 1000px)")
+    .addEventListener('change', (e) =>{
+      setMobileScreen( e.matches )
+    });
+  }, []);
+  useEffect(() => {
+
+    if(typeof window!=undefined){
+  setMobileScreen(
+    window.matchMedia("(max-width: 1000px)").matches
+
+  )
+    }
+  }, []);
+
 
   const menu = useRef();
   const chayenuLogo = useRef();
@@ -91,9 +168,8 @@ export function Header() {
               </ul>
             </div>
             <div
-              className={`${Styles.userDetails} ${
-                isDropDownOpen ? `${Styles.backgroundLight}` : ''
-              }`}
+              className={`${Styles.userDetails} ${(isDropDownOpen&&!mobileScreen) ? `${Styles.backgroundLight}` : ''
+                }`}
             >
               {isLoggedIn ? (
                 <div className={Styles.login}>
@@ -102,99 +178,43 @@ export function Header() {
                       setIsDropDownOpen((previousState) => !previousState)
                     }
                   >
-                    {!isDropDownOpen ? (
-                      <Image
-                        src="/profilecircular.svg"
+                       <Image
+                        src= {(isDropDownOpen && !mobileScreen) ?"/profilecirculardark.svg":"/profilecircular.svg" }
                         alt=""
                         height={16}
                         width={16}
                       />
-                    ) : (
-                      <Image
-                        src="/profilecirculardark.svg"
-                        alt=""
-                        height={16}
-                        width={16}
-                      />
-                    )}
+ 
                     <span
-                      className={isDropDownOpen ? `${Styles.colorDark}` : ''}
+                      className={(isDropDownOpen  &&!mobileScreen )? `${Styles.colorDark}` : ''}
                     >
                       {user_details?.first_name}
                     </span>
                   </div>
-                  {isDropDownOpen && (
+                  {(isDropDownOpen || mobileScreen) && (
                     <ul>
-                      <li onClick={() => setIsDropDownOpen(false)}>
-                        <Link href="/portal/my-subscriptions">
-                          <Image
-                            src="/header/autorenewdark.svg"
-                            alt="subscribe"
-                            height={15}
-                            width={15}
-                          />
-                          My Subscriptions
-                        </Link>
-                      </li>
-                      <li onClick={() => setIsDropDownOpen(false)}>
-                        <Link href="/portal/payments">
-                          <Image
-                            src="/header/dollardark.svg"
-                            alt="subscribe"
-                            height={15}
-                            width={15}
-                          />
-                          Payment Methods
-                        </Link>
-                      </li>
-                      <li onClick={() => setIsDropDownOpen(false)}>
-                        <Link href="/portal/profile">
-                          <Image
-                            src="/header/profiledark.svg"
-                            alt="subscribe"
-                            height={15}
-                            width={15}
-                          />
-                          My Profile
-                        </Link>
-                      </li>
-                      <li onClick={() => setIsDropDownOpen(false)}>
-                        <Link href="/portal/transactions">
-                          <Image
-                            src="/header/receiptdark.svg"
-                            alt="subscribe"
-                            height={15}
-                            width={15}
-                          />
-                          My Transactions
-                        </Link>
-                      </li>
-                      <li onClick={() => setIsDropDownOpen(false)}>
-                        <Link href="/portal/support">
-                          <Image
-                            src="/header/supportdark.svg"
-                            alt="subscribe"
-                            height={15}
-                            width={15}
-                          />
-                          Support
-                        </Link>
-                      </li>
-                      <li
-                        onClick={() => {
-                          setIsDropDownOpen(false);
-                          dispatch(logoutUser());
-                          router.push('/login');
-                        }}
-                      >
-                        <Image
-                          src="/header/logoutdark.svg"
-                          alt="subscribe"
-                          height={15}
-                          width={15}
-                        />
-                        Logout
-                      </li>
+                      {
+                        dropDownOptions.map((e,index) =>
+                          <li key={index} onClick={() => { 
+                            setIsDropDownOpen(false)
+                            if(e.label === "Logout"){
+                            dispatch(logoutUser());
+                            router.push(e.link)
+
+                            }
+                            }}>
+                            <Link href={e.link} aria-disabled={e.label === "Logout"?true:false}>
+                              <Image
+                                src={mobileScreen?e?.img_mb: e?.img}
+                                alt={e?.alt || ""}
+                                height={15}
+                                width={15}
+                              />
+                              {e?.label}
+                            </Link>
+                          </li>
+                        )
+                      }
                     </ul>
                   )}
                 </div>

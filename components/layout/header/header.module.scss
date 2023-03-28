@@ -172,7 +172,18 @@
         .login {
           ul {
             position: static;
+            background: none;
+            color: white;
+            font-family: Brandon Grotesque;
+
+            font-weight: normal;
+            font-size: 14px;
+            padding: 0;
+            li{
+              margin-top: 20px;
+            }
           }
+          
         }
       }
     }
