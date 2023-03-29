@@ -10,6 +10,6 @@ export function removeAuthData() {
   localStorage.clear();
 }
 
-
-
-export * from './date.js'
+export * from './date.js';
+export * from './HydrateToken';
+export * from './CheckAuth'

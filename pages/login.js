@@ -5,17 +5,21 @@ import Link from 'next/link';
 import * as Yup from 'yup';
 import { login } from '/api';
 import Styles from '/styles/login.module.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, logoutUser } from '../store/authSlice';
 
 export default function Login() {
   const [error, setError] = useState('');
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(logoutUser());
+    console.log(isLoggedIn);
+    if (isLoggedIn) {
+      router.push('/portal/my-subscriptions');
+    }
   }, []);
 
   const initialValues = { email: undefined, password: undefined };
