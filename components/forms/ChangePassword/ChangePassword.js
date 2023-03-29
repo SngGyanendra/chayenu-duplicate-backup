@@ -3,6 +3,8 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import Styles from './changepassword.module.scss';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
+import toast from 'react-hot-toast';
+import { toastTemplate } from '/components/common';
 
 export function ChangePassword({ setPopupState }) {
   const [loading, setLoading] = useState(false);
@@ -37,15 +39,24 @@ export function ChangePassword({ setPopupState }) {
       initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        const loadingToast = toastTemplate(toast.loading, 'Updating password');
         try {
           setLoading(true);
           setError();
           const response = await APIs.updatePassword(values);
           setLoading(false);
           setPopupState(false);
+          toastTemplate(
+            toast.success,
+            'Password changed successfully',
+            loadingToast
+          );
         } catch (error) {
-          console.log(error);
-
+          toastTemplate(
+            toast.error,
+            'Password updation failed',
+            loadingToast
+          );
           setLoading(false);
           if (error.response) {
             if (error?.response?.status === 401) {

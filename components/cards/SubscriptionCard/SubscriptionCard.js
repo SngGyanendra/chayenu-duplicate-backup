@@ -3,9 +3,10 @@ import Styles from './subscriptioncard.module.scss';
 import { useDispatch } from 'react-redux';
 import { updateSubscriptions, updateTransactions } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
+import toast from 'react-hot-toast';
 import { useWindowDimensions } from '/hooks';
 import { formatDate } from '/util';
-import { Popup } from '/components/common';
+import { Popup, toastTemplate } from '/components/common';
 import {
   TransferSubscriptions,
   CancelSubscription,
@@ -200,93 +201,114 @@ export function SubscriptionCard({ subscription, setLoading }) {
   }
 
   return (
-    <div className={Styles.subscriptionCard}>
-      <div
-        className={Styles.subscriptionDetails}
-        style={{
-          gridTemplateRows: `repeat(${countValidKeys(
-            filteredSubscriptionData
-          )},1fr)`,
-        }}
-      >
-        {Object.entries(filteredSubscriptionData).map(([key, value]) =>
-          formatSubscriptionDetail(key, value, filteredSubscriptionData)
-        )}
-      </div>
-      <div className={Styles.subscritpionButtons}>
-        {filteredSubscriptionData?.status === 'Expired' ||
-        filteredSubscriptionData?.status === 'Cancelled' ? (
-          <button
-            className={disabled ? `${Styles.disabled}` : ''}
-            onClick={async () => {
-              try {
-                setDisabled(true);
-                const response = await APIs.reactivateSubscription(
-                  subscription.id
+    <>
+      <div className={Styles.subscriptionCard}>
+        <div
+          className={Styles.subscriptionDetails}
+          style={{
+            gridTemplateRows: `repeat(${countValidKeys(
+              filteredSubscriptionData
+            )},1fr)`,
+          }}
+        >
+          {Object.entries(filteredSubscriptionData).map(([key, value]) =>
+            formatSubscriptionDetail(key, value, filteredSubscriptionData)
+          )}
+        </div>
+        <div className={Styles.subscritpionButtons}>
+          {filteredSubscriptionData?.status === 'Expired' ||
+          filteredSubscriptionData?.status === 'Cancelled' ? (
+            <button
+              disabled={disabled}
+              className={disabled ? `${Styles.disabled}` : ''}
+              onClick={async () => {
+                const loadingToast = toastTemplate(
+                  toast.loading,
+                  'Reactivating'
                 );
-                setLoading(true);
-                const newSubscriptionsList =
-                  await APIs.getAllUserSubscriptions();
-                dispatch(updateSubscriptions(newSubscriptionsList));
-                setLoading(false);
-                setDisabled(false);
-                const newTransactionList = await APIs.getAllUserTransactions();
-                dispatch(updateTransactions(newTransactionList));
-              } catch (error) {}
-            }}
-          >
-            REACTIVATE SUBSCRIPTION
-          </button>
-        ) : (
-          <>
-            <button
-              onClick={() => {
-                setPopup('transfer');
+                try {
+                  setDisabled(true);
+                  const response = await APIs.reactivateSubscription(
+                    subscription.id
+                  );
+                  toastTemplate(
+                    toast.success,
+                    'Subscription reactivated successfully',
+                    loadingToast
+                  );
+                  setLoading(true);
+                  const newSubscriptionsList =
+                    await APIs.getAllUserSubscriptions();
+                  dispatch(updateSubscriptions(newSubscriptionsList));
+                  setLoading(false);
+                  setDisabled(false);
+                  const newTransactionList =
+                    await APIs.getAllUserTransactions();
+                  dispatch(updateTransactions(newTransactionList));
+                } catch (error) {
+                  toastTemplate(
+                    toast.error,
+                    'Reactivation failed\n try updating credit card',
+                    loadingToast
+                  );
+                  setDisabled(false);
+                  setLoading(false);
+                }
               }}
             >
-              TRANSFER
+              REACTIVATE SUBSCRIPTION
             </button>
-            <button
-              onClick={() => {
-                setPopup('cancel');
-              }}
-            >
-              CANCEL SUBSCRIPTION
-            </button>
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  setPopup('transfer');
+                }}
+              >
+                TRANSFER
+              </button>
+              <button
+                onClick={() => {
+                  setPopup('cancel');
+                }}
+              >
+                CANCEL SUBSCRIPTION
+              </button>
+            </>
+          )}
+        </div>
 
-      {(() => {
-        if (popup === 'transfer') {
-          return (
-            <Popup setPopupState={setPopup}>
-              <TransferSubscriptions
-                subscription={subscription}
-                setPopupState={setPopup}
-              />
-            </Popup>
-          );
-        } else if (popup === 'cancel') {
-          return (
-            <Popup setPopupState={setPopup}>
-              <CancelSubscription
-                subscription={subscription}
-                setPopupState={setPopup}
-              />
-            </Popup>
-          );
-        } else if (popup === 'updateInfo') {
-          return (
-            <Popup setPopupState={setPopup}>
-              <UpdateShippingInfo
-                subscription={subscription}
-                setPopupState={setPopup}
-              />
-            </Popup>
-          );
-        }
-      })()}
-    </div>
+        {(() => {
+          if (popup === 'transfer') {
+            return (
+              <Popup setPopupState={setPopup}>
+                <TransferSubscriptions
+                  subscription={subscription}
+                  setPopupState={setPopup}
+                />
+              </Popup>
+            );
+          } else if (popup === 'cancel') {
+            return (
+              <Popup setPopupState={setPopup}>
+                <CancelSubscription
+                  subscription={subscription}
+                  setPopupState={setPopup}
+                />
+              </Popup>
+            );
+          } else if (popup === 'updateInfo') {
+            return (
+              <Popup setPopupState={setPopup}>
+                <UpdateShippingInfo
+                  subscription={subscription}
+                  setPopupState={setPopup}
+                />
+              </Popup>
+            );
+          }
+        })()}
+      </div>
+    </>
   );
 }

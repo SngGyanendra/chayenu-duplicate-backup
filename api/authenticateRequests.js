@@ -194,7 +194,9 @@ export class AuthencticatedUserAPI {
         { id }
       );
       return response;
-    } catch (error) {}
+    } catch (error) {
+      throw error;
+    }
   }
 
   async cancelSubscription(id, reasons) {

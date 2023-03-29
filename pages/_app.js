@@ -1,5 +1,6 @@
 import { Footer, Header } from '../components/layout';
 import '../styles/globals.css';
+import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from '../store';
@@ -10,10 +11,11 @@ import { refreshToken } from '/util/refreshToken';
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-        <HydrateToken />
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
+      <HydrateToken />
+      <Header />
+      <Component {...pageProps} />
+      <Footer />
+      <Toaster />
     </Provider>
   );
 }

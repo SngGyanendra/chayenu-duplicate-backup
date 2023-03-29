@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateSubscriptions } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { getAllCountries } from '/api';
+import toast from 'react-hot-toast';
+import { toastTemplate } from '/components/common';
 
 export function UpdateShippingInfo({ subscription, setPopupState }) {
   const [countries, setCountries] = useState([]);
@@ -96,14 +98,17 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
         zip_code: values.zip_code,
       },
     };
+    const loadingToast = toastTemplate(toast.loading, 'Updating...');
     try {
       const response = await APIs.updateAddress(finalValues);
+      toastTemplate(toast.success, 'Info updated successfully', loadingToast);
       const subscriptions = await APIs.getAllUserSubscriptions();
       dispatch(updateSubscriptions(subscriptions));
       setPopupState(undefined);
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      toastTemplate(toast.error, 'Failed to update the info', loadingToast);
     }
   };
   return (

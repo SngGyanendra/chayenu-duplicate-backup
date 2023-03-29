@@ -4,6 +4,8 @@ import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { updatePaymentMethods } from '/store/userSlice';
+import toast from 'react-hot-toast';
+import { toastTemplate } from '/components/common';
 import { updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { CreditCardInput } from '/components/forms';
@@ -66,26 +68,28 @@ export function AddPaymentMethod({ setEditingState }) {
         initialErrors={initialErrors}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
+          const loadingToast = toastTemplate(
+            toast.loading,
+            'Add payment method'
+          );
           try {
             setLoading(true);
-            const newValues = {
-              billing_address: { ...values },
-              card_token: paymentMethod.cardToken,
-            };
-            delete newValues.billing_address.default;
-            const response = await APIs.updatePaymentMethod(newValues);
-            if (values.default) {
-              try {
-                const response = await APIs.updateDefaultCard(
-                  paymentMethod.cardToken
-                );
-              } catch (error) {}
-            }
+            // const response = await APIs.updatePaymentMethod(newValues);
             setLoading(false);
+            toastTemplate(
+              toast.success,
+              'Payment added successfully',
+              loadingToast
+            );
             setEditingState(false);
             const newPaymentMethods = await APIs.getAllPaymentMethods();
             dispatch(updatePaymentMethods(newPaymentMethods));
           } catch (error) {
+            toastTemplate(
+              toast.error,
+              'Unable to add payment method',
+              loadingToast
+            );
             setLoading(false);
           }
         }}

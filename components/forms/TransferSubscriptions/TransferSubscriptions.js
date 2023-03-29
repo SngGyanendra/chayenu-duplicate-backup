@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateSubscriptions, updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
+import { toastTemplate } from '/components/common';
+import toast from 'react-hot-toast';
 import { getAllCountries } from '/api';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './transfersubscriptions.module.scss';
@@ -116,13 +118,25 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
         zip_code: values.zip_code,
       },
     };
+    const loadingToast = toastTemplate(toast.loading, 'Transferring...');
+    console.log(loadingToast);
     try {
       const response = await APIs.transferSubscription(finalValues);
+      toastTemplate(
+        toast.success,
+        'Subscription transferred successfully',
+        loadingToast
+      );
       const subscriptions = await APIs.getAllUserSubscriptions();
       dispatch(updateSubscriptions(subscriptions));
       setLoading(false);
       setPopupState(undefined);
     } catch (error) {
+      toastTemplate(
+        toast.error,
+        'Transfer failed\n please contact support',
+        loadingToast
+      );
       setLoading(false);
     }
   };
@@ -256,11 +270,7 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
               className={`${!values.country ? Styles.defaultOption : ''}`}
               defaultValue="country"
             >
-              <option
-                value="country"
-                disabled={true}
-                hidden={true}
-              >
+              <option value="country" disabled={true} hidden={true}>
                 Country
               </option>
               {countries.map((country) => (
