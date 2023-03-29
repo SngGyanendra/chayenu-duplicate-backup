@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  subscriptions: [{label:'jjj'}],
+  subscriptions: [{ label: 'jjj' }],
   countries: [],
   cancel_reasons: [],
   transactions: [],
@@ -15,25 +15,25 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     updateSubscriptions: (state, { payload }) => {
-      state.subscriptions = payload;
+      if (payload?.length) state.subscriptions = payload;
     },
     updateCountries: (state, { payload }) => {
-      state.countries = payload;
+      if (payload?.length) state.countries = payload;
     },
     updateCancelReasons: (state, { payload }) => {
-      state.cancel_reasons = payload;
+      if (payload?.length) state.cancel_reasons = payload;
     },
     updateTransactions: (state, { payload }) => {
-      state.transactions = payload;
+      if (payload?.length) state.transactions = payload;
     },
     updateUserDetails: (state, { payload }) => {
-      state.user_details = payload;
+      if (payload) state.user_details = payload;
     },
     updateSupportIssues: (state, { payload }) => {
-      state.support_issues = payload;
+      if (payload?.length) state.support_issues = payload;
     },
     updatePaymentMethods: (state, { payload }) => {
-      state.payment_methods = payload;
+      if (payload?.length) state.payment_methods = payload;
     },
     saveUserData: (state, { payload }) => {
       state.subscriptions = payload.subscriptions;

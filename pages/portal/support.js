@@ -8,11 +8,13 @@ import { Popup } from '/components/common';
 import { updateSubscriptions, updateSupportIssues } from '/store/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import { PageLoadFailed } from '/components/common';
 import Styles from '/styles/support.module.scss';
 
 export default function Support() {
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState(undefined);
+  const [error, setError] = useState('');
   const [subscriptionsList, setSubscriptionsList] = useState([]);
   const [supportIssues, setSupportIssues] = useState([]);
 
@@ -24,6 +26,10 @@ export default function Support() {
   useEffect(() => {
     async function getData() {
       const newSubscriptions = await APIs.getAllUserSubscriptions();
+      if (!newSubscriptions) {
+        setError('Unable to fetch data currently!');
+        return;
+      }
       newSubscriptions?.push({ id: 0, label: 'Others' });
       setSubscriptionsList(newSubscriptions);
       dispatch(updateSubscriptions(newSubscriptions));
@@ -42,6 +48,10 @@ export default function Support() {
   useEffect(() => {
     async function getData() {
       const { data: newSupportIssues } = await getAllSupportIssues();
+      if (!newSupportIssues) {
+        setError('Unable to fetch data currently!');
+        return;
+      }
       setSupportIssues(newSupportIssues);
       dispatch(updateSupportIssues(newSupportIssues));
     }
@@ -126,109 +136,114 @@ export default function Support() {
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        initialErrors={initialErrors}
-        validationSchema={validationSchema}
-        onSubmit={async (values) => {
-          try {
-            setLoading(true);
-            const response = await APIs.submitSupportRequest(values);
-            setPopup('requestSuccess');
-            setLoading(false);
-          } catch (error) {
-            setLoading(false);
-          }
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-        }) => (
-          <form className={Styles.form} onSubmit={handleSubmit}>
-            <div className={Styles.getSupport}>Get Support</div>
-            <div>
-              <Select
-                name="subscription"
-                placeholder="Subscription"
-                options={subscriptionsList}
-                styles={style}
-                formatOptionLabel={(subscription) =>
-                  formatSubscriptionLabel(subscription)
-                }
-                components={{
-                  IndicatorSeparator: () => null,
-                }}
-                getOptionValue={(option) => option.id}
-                onBlur={handleBlur}
-                onChange={(value) => {
-                  values.subscription = value.id;
-                }}
-              />
-              <span className={Styles.error}>
-                {errors.subscription &&
-                  touched.subscription &&
-                  errors.subscription}
-              </span>
-            </div>
-            <div>
-              <Select
-                name="subscription"
-                placeholder="Support Issues"
-                options={supportIssues}
-                styles={style}
-                formatOptionLabel={(issue) => formatIssuesLabel(issue)}
-                components={{
-                  IndicatorSeparator: () => null,
-                }}
-                getOptionValue={(option) => option.id}
-                onBlur={handleBlur}
-                onChange={(value) => {
-                  values.support_issue = value.id;
-                }}
-              />
-              <span className={Styles.error}>
-                {errors.support_issue &&
-                  touched.support_issue &&
-                  errors.support_issue}
-              </span>
-            </div>
-            <div>
-              <textarea
-                name="notes"
-                placeholder="Notes"
-                rows="10"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.notes}
-              />
-              <span className={Styles.error}>
-                {errors.notes && touched.notes && errors.notes}
-              </span>
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className={`${loading ? `${Styles.disabled}` : ''}`}
-            >
-              {!loading ? 'Submit' : 'Submiting...'}
-            </button>
-          </form>
-        )}
-      </Formik>
-      {(() => {
-        if (popup === 'requestSuccess') {
-          return (
-            <Popup setPopupState={setPopup}>
-              <SupportRequestSubmitted />
-            </Popup>
-          );
-        }
-      })()}
+      {error && <PageLoadFailed error={error} />}
+      {!error && (
+        <>
+          <Formik
+            initialValues={initialValues}
+            initialErrors={initialErrors}
+            validationSchema={validationSchema}
+            onSubmit={async (values) => {
+              try {
+                setLoading(true);
+                const response = await APIs.submitSupportRequest(values);
+                setPopup('requestSuccess');
+                setLoading(false);
+              } catch (error) {
+                setLoading(false);
+              }
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+            }) => (
+              <form className={Styles.form} onSubmit={handleSubmit}>
+                <div className={Styles.getSupport}>Get Support</div>
+                <div>
+                  <Select
+                    name="subscription"
+                    placeholder="Subscription"
+                    options={subscriptionsList}
+                    styles={style}
+                    formatOptionLabel={(subscription) =>
+                      formatSubscriptionLabel(subscription)
+                    }
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    getOptionValue={(option) => option.id}
+                    onBlur={handleBlur}
+                    onChange={(value) => {
+                      values.subscription = value.id;
+                    }}
+                  />
+                  <span className={Styles.error}>
+                    {errors.subscription &&
+                      touched.subscription &&
+                      errors.subscription}
+                  </span>
+                </div>
+                <div>
+                  <Select
+                    name="subscription"
+                    placeholder="Support Issues"
+                    options={supportIssues}
+                    styles={style}
+                    formatOptionLabel={(issue) => formatIssuesLabel(issue)}
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    getOptionValue={(option) => option.id}
+                    onBlur={handleBlur}
+                    onChange={(value) => {
+                      values.support_issue = value.id;
+                    }}
+                  />
+                  <span className={Styles.error}>
+                    {errors.support_issue &&
+                      touched.support_issue &&
+                      errors.support_issue}
+                  </span>
+                </div>
+                <div>
+                  <textarea
+                    name="notes"
+                    placeholder="Notes"
+                    rows="10"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.notes}
+                  />
+                  <span className={Styles.error}>
+                    {errors.notes && touched.notes && errors.notes}
+                  </span>
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`${loading ? `${Styles.disabled}` : ''}`}
+                >
+                  {!loading ? 'Submit' : 'Submiting...'}
+                </button>
+              </form>
+            )}
+          </Formik>
+          {(() => {
+            if (popup === 'requestSuccess') {
+              return (
+                <Popup setPopupState={setPopup}>
+                  <SupportRequestSubmitted />
+                </Popup>
+              );
+            }
+          })()}
+        </>
+      )}
     </>
   );
 }

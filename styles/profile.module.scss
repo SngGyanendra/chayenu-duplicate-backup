@@ -1,4 +1,12 @@
 @import 'common.scss';
+
+.fetchError {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  font:fontvalue(18,18,300)
+}
 .profileCard {
   width: var(--container-portal-width);
   margin: 1rem auto;
@@ -7,7 +15,7 @@
   padding: 30px;
   .userDetailsAndEdit {
     display: grid;
-      position: relative;
+    position: relative;
 
     .userDetails {
       display: grid;
@@ -17,8 +25,8 @@
       font: fontvalue(14, 14, 300);
       .profileData {
         font-weight: 500;
-        span:first-child{
-          margin-right: .2rem;
+        span:first-child {
+          margin-right: 0.2rem;
         }
       }
     }

@@ -99,7 +99,7 @@ export class AuthencticatedUserAPI {
       );
       return data;
     } catch (error) {
-      throw error;
+      // throw error;
     }
   }
 
@@ -110,7 +110,7 @@ export class AuthencticatedUserAPI {
       );
       return data;
     } catch (error) {
-      throw error;
+      // throw error;
     }
   }
 
@@ -140,12 +140,14 @@ export class AuthencticatedUserAPI {
 
   async getUser() {
     try {
-      const response = await this.requestInstance.get(
+      const { data } = await this.requestInstance.get(
         `${backendUrl}/auth/getUser`
       );
-      return response;
+      return data;
     } catch (error) {
-      throw error;
+      if (error?.response?.status === 401) {
+      } else {
+      }
     }
   }
 

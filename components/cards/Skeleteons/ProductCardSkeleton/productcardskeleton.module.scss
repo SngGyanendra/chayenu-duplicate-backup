@@ -1,0 +1,6 @@
+@import 'common.scss';
+.cardSkeleton {
+  height: 28rem;
+  border-radius: 10px;
+  @include skeletonAnimation();
+}

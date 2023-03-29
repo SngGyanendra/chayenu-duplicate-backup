@@ -1,0 +1,12 @@
+@import 'common.scss';
+.cardSkeleton {
+  height: 13.8rem;
+  width: var(--container-portal-width);
+  margin: 1rem auto;
+  border-radius: 10px;
+  @include skeletonAnimation();
+  @media screen and (max-width: 62.5rem) {
+    width: 90vw;
+    height: 27.18rem;
+  }
+}

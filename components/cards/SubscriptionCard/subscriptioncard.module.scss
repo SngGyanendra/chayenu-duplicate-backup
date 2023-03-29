@@ -61,6 +61,10 @@
         margin-left: 1rem;
       }
     }
+    .disabled {
+      background-color: grey !important;
+      cursor: auto;
+    }
   }
   @media screen and (max-width: 62.5rem) {
     width: 90vw;
