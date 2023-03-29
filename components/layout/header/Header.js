@@ -105,13 +105,15 @@ export function Header() {
             />
           </div>
           <div>
-            <Image
-              src="/logo.svg"
-              alt="logo"
-              height={50}
-              width={80}
-              loading="lazy"
-            />
+            <Link href="/">
+              <Image
+                src="/logo.svg"
+                alt="logo"
+                height={50}
+                width={80}
+                loading="lazy"
+              />
+            </Link>
           </div>
         </div>
         <div
@@ -199,12 +201,13 @@ export function Header() {
                           <Link
                             href={e.link}
                             aria-disabled={e.label === 'Logout' ? true : false}
+                            onClick={handleMenu}
                           >
                             <Image
                               src={mobileScreen ? e?.img_mb : e?.img}
                               alt={e?.alt || ''}
-                              height={15}
-                              width={15}
+                              height={16}
+                              width={16}
                             />
                             {e?.label}
                           </Link>
