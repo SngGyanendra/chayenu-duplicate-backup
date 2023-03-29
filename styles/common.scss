@@ -1,35 +1,46 @@
-
-@function fontvalue($fontSize, $lineHeight, $fontWeight) { 
-  $fontMix: normal normal $fontWeight #{$fontSize}px/#{$lineHeight}px var(--website-font-family);
-  @return  $fontMix;
+@function fontvalue($fontSize, $lineHeight, $fontWeight) {
+  $fontMix: normal normal $fontWeight #{$fontSize}px/#{$lineHeight}px
+    var(--website-font-family);
+  @return $fontMix;
 }
 
-.upperLayer, .lowerLayer, .headerContainer{
+.upperLayer,
+.lowerLayer,
+.headerContainer {
   width: var(--container-width);
 
-  @media screen and (max-width: 1099px){
+  @media screen and (max-width: 1099px) {
     width: var(--container-width-75);
   }
 }
 
-@mixin buttonState($backgroundColor, $textColor){
-
+@mixin buttonState($backgroundColor, $textColor) {
   background-color: $backgroundColor;
   color: $textColor;
 
-  @if $backgroundColor == var(--dark){
-    &:hover{
+  @if $backgroundColor == var(--dark) {
+    &:hover {
       background-color: var(--website-color);
       color: #ffffff;
       transition: background-color 0.5s;
     }
-  }
-  @else{
-    &:hover{
+  } @else {
+    &:hover {
       background-color: var(--dark);
       color: #ffffff;
       transition: background-color 0.5s;
     }
   }
+}
 
+@mixin skeletonAnimation() {
+  animation: skeleton-loading 1s linear infinite alternate;
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(204, 7%, 87%);
+    }
+    100% {
+      background-color: hsl(200, 16%, 96%);
+    }
+  }
 }

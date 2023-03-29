@@ -42,7 +42,7 @@ export async function refreshToken(dispatch) {
       const data = currentUserData();
       dispatch(loginUser(data));
       try {
-        const { data } = await APIs.getUser();
+        const data = await APIs.getUser();
         dispatch(updateUserDetails(data));
       } catch (error) {
         dispatch(logoutUser());

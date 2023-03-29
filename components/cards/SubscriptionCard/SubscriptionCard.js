@@ -12,9 +12,10 @@ import {
   UpdateShippingInfo,
 } from '/components/forms';
 
-export function SubscriptionCard({ subscription }) {
+export function SubscriptionCard({ subscription, setLoading }) {
   const { width } = useWindowDimensions();
   const [popup, setPopup] = useState(undefined);
+  const [disabled, setDisabled] = useState(false);
 
   const dispatch = useDispatch();
   const APIs = new AuthencticatedUserAPI();
@@ -31,7 +32,6 @@ export function SubscriptionCard({ subscription }) {
     states,
     countries,
     zip_code,
-    reactivation_requested,
   }) => ({
     plans,
     status,
@@ -44,7 +44,6 @@ export function SubscriptionCard({ subscription }) {
     states,
     countries,
     zip_code,
-    reactivation_requested,
   }))(subscription);
 
   Object.keys(filteredSubscriptionData).forEach((key) =>
@@ -215,18 +214,22 @@ export function SubscriptionCard({ subscription }) {
         )}
       </div>
       <div className={Styles.subscritpionButtons}>
-        {(filteredSubscriptionData?.status === 'Expired' ||
-          filteredSubscriptionData?.status === 'Cancelled') &&
-        filteredSubscriptionData.reactivation_requested === false ? (
+        {filteredSubscriptionData?.status === 'Expired' ||
+        filteredSubscriptionData?.status === 'Cancelled' ? (
           <button
+            className={disabled ? `${Styles.disabled}` : ''}
             onClick={async () => {
               try {
+                setDisabled(true);
                 const response = await APIs.reactivateSubscription(
                   subscription.id
                 );
+                setLoading(true);
                 const newSubscriptionsList =
                   await APIs.getAllUserSubscriptions();
                 dispatch(updateSubscriptions(newSubscriptionsList));
+                setLoading(false);
+                setDisabled(false);
                 const newTransactionList = await APIs.getAllUserTransactions();
                 dispatch(updateTransactions(newTransactionList));
               } catch (error) {}

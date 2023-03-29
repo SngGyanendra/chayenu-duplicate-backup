@@ -21,7 +21,7 @@ export function PaymentMethod({ paymentMethod }) {
 
   useEffect(() => {
     async function getData() {
-      const { data } = await APIs.getUser();
+      const data = await APIs.getUser();
       setUserDetails(data);
       dispatch(updateUserDetails(data));
     }
