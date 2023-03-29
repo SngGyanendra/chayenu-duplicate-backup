@@ -6,6 +6,7 @@ import { PageLoadFailed } from '/components/common';
 import { PaymentMethod } from '/components/cards';
 import { AddPaymentMethod } from '/components/forms';
 import { PaymentMethodSkeleton } from '/components/cards';
+import { Toaster } from 'react-hot-toast';
 import Styles from '/styles/payments.module.scss';
 
 export default function Payments() {
@@ -30,7 +31,7 @@ export default function Payments() {
       setLoading(false);
     }
 
-    if (payment_methods.length === 0) {
+    if (payment_methods?.length === 0) {
       getData();
     } else {
       setPaymentMethods(payment_methods);

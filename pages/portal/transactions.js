@@ -26,7 +26,7 @@ export default function Transactions() {
       dispatch(updateTransactions(transactions));
       setLoading(false);
     };
-    if (transactions.length === 0) {
+    if (transactions?.length === 0) {
       getData();
     } else {
       setTransactionsList(transactions);

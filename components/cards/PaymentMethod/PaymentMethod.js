@@ -38,7 +38,7 @@ export function PaymentMethod({ paymentMethod }) {
       setCountries(data);
       dispatch(updateCountries(data));
     };
-    if (countriesList.length === 0) {
+    if (countriesList?.length === 0) {
       getData();
     } else {
       setCountries(countriesList);

@@ -15,6 +15,7 @@ export default function Support() {
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState(undefined);
   const [error, setError] = useState('');
+  const [requestError, setRequestError] = useState('');
   const [subscriptionsList, setSubscriptionsList] = useState([]);
   const [supportIssues, setSupportIssues] = useState([]);
 
@@ -55,7 +56,7 @@ export default function Support() {
       setSupportIssues(newSupportIssues);
       dispatch(updateSupportIssues(newSupportIssues));
     }
-    if (support_issues.length === 0) {
+    if (support_issues?.length === 0) {
       getData();
     } else {
       setSupportIssues(support_issues);
@@ -147,9 +148,13 @@ export default function Support() {
               try {
                 setLoading(true);
                 const response = await APIs.submitSupportRequest(values);
-                setPopup('requestSuccess');
+                setPopup('requestProcessed');
                 setLoading(false);
               } catch (error) {
+                setPopup('requestProcessed');
+                setRequestError(
+                  'Unable to submit request now, please reach us by mail info@chayenu.org'
+                );
                 setLoading(false);
               }
             }}
@@ -234,10 +239,10 @@ export default function Support() {
             )}
           </Formik>
           {(() => {
-            if (popup === 'requestSuccess') {
+            if (popup === 'requestProcessed') {
               return (
                 <Popup setPopupState={setPopup}>
-                  <SupportRequestSubmitted />
+                  <SupportRequestSubmitted requestError={requestError} />
                 </Popup>
               );
             }
@@ -247,12 +252,16 @@ export default function Support() {
     </>
   );
 }
-function SupportRequestSubmitted() {
+function SupportRequestSubmitted({ requestError }) {
   const router = useRouter();
 
   return (
     <div className={Styles.card}>
-      <div>We got your message. We will respond as soon as possible.</div>
+      {requestError ? (
+        requestError
+      ) : (
+        <div>We got your message. We will respond as soon as possible.</div>
+      )}
       <button
         onClick={() => {
           router.push('/portal/my-subscriptions');

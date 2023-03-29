@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import { updatePaymentMethods } from '/store/userSlice';
-import { updateCountries } from '/store/userSlice';
+import { updatePaymentMethods, updateCountries } from '/store/userSlice';
+import toast from 'react-hot-toast';
+import { toastTemplate } from '/components/common';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './editpaymentmethod.module.scss';
 
@@ -74,6 +75,14 @@ export function EditPaymentMethod({
       initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        const loadingToast = toastTemplate(
+          toast.loading,
+          'Updating billing address'
+        );
+        const loadingToastDefaultCard = toastTemplate(
+          toast.loading,
+          'Updating default card'
+        );
         try {
           setLoading(true);
           const newValues = {
@@ -91,18 +100,39 @@ export function EditPaymentMethod({
           }
           delete newValues.billing_address.default;
           const response = await APIs.updatePaymentMethod(newValues);
+          toastTemplate(
+            toast.success,
+            'billing addresss updated successfully',
+            loadingToast
+          );
           if (values.default) {
             try {
               const response = await APIs.updateDefaultCard(
                 paymentMethod.cardToken
               );
-            } catch (error) {}
+              toastTemplate(
+                toast.success,
+                'default card updated successfully',
+                loadingToastDefaultCard
+              );
+            } catch (error) {
+              toastTemplate(
+                toast.error,
+                'default card failed to update',
+                loadingToast
+              );
+            }
           }
           setLoading(false);
           setEditingState(false);
           const newPaymentMethods = await APIs.getAllPaymentMethods();
           dispatch(updatePaymentMethods(newPaymentMethods));
         } catch (error) {
+          toastTemplate(
+            toast.error,
+            'Billing address update failed',
+            loadingToast
+          );
           setLoading(false);
         }
       }}

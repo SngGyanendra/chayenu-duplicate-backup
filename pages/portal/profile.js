@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
 import Styles from '/styles/profile.module.scss';
 import { updateUserDetails } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';

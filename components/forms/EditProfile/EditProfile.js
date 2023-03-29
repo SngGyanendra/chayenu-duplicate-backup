@@ -6,6 +6,8 @@ import { updateUserDetails } from '/store/userSlice';
 import * as Yup from 'yup';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './editprofile.module.scss';
+import toast from 'react-hot-toast';
+import { toastTemplate } from '/components/common';
 
 export function EditProfile({ userProfile, setPopupState }) {
   const APIs = new AuthencticatedUserAPI();
@@ -55,15 +57,23 @@ export function EditProfile({ userProfile, setPopupState }) {
       initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        const loadingToast = toastTemplate(toast.loading, 'Updating profile');
         try {
           setLoading(true);
           const { data } = await APIs.updateUserProfile(values);
           dispatch(updateUserDetails(data));
           setLoading(false);
+          toastTemplate(
+            toast.success,
+            'Profile updated successfully',
+            loadingToast
+          );
           setPopupState(undefined);
           localStorage.setItem('first_name', data?.first_name);
           localStorage.setItem('last_name', data?.last_name);
         } catch (error) {
+          toastTemplate(toast.error, 'Profile update failed\n please try again laster', loadingToast);
+          setPopupState(undefined);
           setLoading(false);
         }
       }}
