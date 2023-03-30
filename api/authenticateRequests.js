@@ -144,11 +144,7 @@ export class AuthencticatedUserAPI {
         `${backendUrl}/auth/getUser`
       );
       return data;
-    } catch (error) {
-      if (error?.response?.status === 401) {
-      } else {
-      }
-    }
+    } catch (error) {}
   }
 
   async updatePassword(values) {

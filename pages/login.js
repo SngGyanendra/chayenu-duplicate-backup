@@ -16,7 +16,6 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(isLoggedIn);
     if (isLoggedIn) {
       router.push('/portal/my-subscriptions');
     }

@@ -47,8 +47,7 @@
         text-transform: uppercase;
         position: relative;
         @media screen and (max-width: 62.5rem) {
-        align-items: flex-start;
-          
+          align-items: flex-start;
         }
         .colorDark {
           color: #003652;
@@ -76,7 +75,6 @@
             align-items: center;
             width: 100%;
             a {
-              text-transform: uppercase;
               display: flex;
               align-items: center;
               color: inherit;
@@ -150,6 +148,11 @@
         div {
           margin-left: 0;
         }
+        li {
+          a {
+            text-transform: uppercase;
+          }
+        }
       }
       div {
         font-size: 1rem;
@@ -185,11 +188,10 @@
             font-weight: normal;
             font-size: 14px;
             padding: 0;
-            li{
+            li {
               margin-top: 20px;
             }
           }
-          
         }
       }
     }
