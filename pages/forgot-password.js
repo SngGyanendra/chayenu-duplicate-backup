@@ -8,11 +8,16 @@ import { toastTemplate, sleep } from '/components/common';
 import { logoutUser } from '../store/authSlice';
 import * as Yup from 'yup';
 import Styles from '/styles/forgotpassword.module.scss';
+import { Popup } from '../components/common/Popup/Popup';
+import { Alert } from '../components/common/Alert/Alert';
+import Link from 'next/link';
+
 
 export default function ForgotPassword() {
   const [error, setError] = useState('');
   const [forgotPasswordStage, setForgotPasswordStage] = useState('OTP');
   const [loading, setLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const initialValuesSendOTP = { email: undefined };
   const initialErrorsSendOTP = { email: undefined };
@@ -74,6 +79,7 @@ export default function ForgotPassword() {
                   error?.response?.status === 400
                 ) {
                   setError('Email not found');
+                  setShowAlert(true)
                 } else {
                   setError('A error occured');
                 }
@@ -213,6 +219,18 @@ export default function ForgotPassword() {
           </Formik>
         </>
       )}
+      { showAlert && <Popup setPopupState={setShowAlert}>
+          <Alert level={1}>
+              <h3 className={Styles.popupTitle}>{"No user found with this email address."}</h3>  
+              <p>
+                {"If you made a Chayenu account using Chayenu's old system "} 
+                 <Link target="_blank" href="https://chayenu.org/my-account/"><span className={Styles.link}>click here</span></Link>
+                {" to manage your account"}
+              </p>
+          </Alert>
+      </Popup>}
     </div>
+
+
   );
 }
