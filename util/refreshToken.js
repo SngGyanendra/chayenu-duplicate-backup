@@ -43,6 +43,9 @@ export async function refreshToken(dispatch) {
       dispatch(loginUser(data));
       try {
         const data = await APIs.getUser();
+        if (!data) {
+          throw new Error('');
+        }
         dispatch(updateUserDetails(data));
       } catch (error) {
         dispatch(logoutUser());
