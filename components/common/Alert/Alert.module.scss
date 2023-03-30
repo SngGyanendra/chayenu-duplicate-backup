@@ -1,0 +1,27 @@
+@import "common.scss";
+
+.localContainer{
+    margin: 1rem;
+    height: 15rem;
+    max-width: 30rem;
+    background-color: red;
+    color: white;
+}
+
+.alert1{
+    padding: 1.5rem;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--website-color);
+}
+
+.alert2{
+    padding: 20px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: red;
+}
