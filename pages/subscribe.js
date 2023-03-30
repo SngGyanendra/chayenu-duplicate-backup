@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NextHead } from '../components/common';
+import { NextHead } from '/components/common';
 import Styles from '/styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
@@ -30,7 +30,7 @@ export default function Subscribe() {
 
   return (
     <>
-      <NextHead title={'Subscribe'} />
+      <NextHead title="Chayenu | Subscribe" />
       {!error && (
         <>
           <div className={Styles.subscribe}>Subscribe to Chayenu</div>
@@ -76,7 +76,7 @@ export default function Subscribe() {
               return (
                 <DigitalSubscriptionForm selectedProduct={selectedProduct} />
               );
-            }else{
+            } else {
               return (
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}

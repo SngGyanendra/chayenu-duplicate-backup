@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from '/styles/transactions.module.scss';
 import { updateTransactions } from '/store/userSlice';
+import { NextHead } from '/components/common';
 import { PageLoadFailed } from '/components/common';
 import { useSelector, useDispatch } from 'react-redux';
 import { TransactionCard, TransactionsSkeleton } from '/components/cards';
@@ -38,6 +39,7 @@ export default function Transactions() {
     <>
       {error && <PageLoadFailed error={error} />}
       <section className={Styles.page}>
+        <NextHead title="Chayenu | Portal | Transactions" />
         {!error && loading
           ? Array.apply(0, Array(3)).map(function (_, i) {
               return (

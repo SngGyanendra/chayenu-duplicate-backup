@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
+import { NextHead } from '/components/common';
 import { Formik } from 'formik';
 import Select from 'react-select';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
@@ -140,6 +141,7 @@ export default function Support() {
       {error && <PageLoadFailed error={error} />}
       {!error && (
         <>
+          <NextHead title="Chayenu | Portal | Support" />
           <Formik
             initialValues={initialValues}
             initialErrors={initialErrors}

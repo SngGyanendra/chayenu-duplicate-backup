@@ -1,8 +1,8 @@
-import Styles from './story.module.scss';
-import { NextHead } from '../../components/common';
+import Styles from '/styles/story.module.scss';
+import { NextHead } from '/components/common';
 import { getStoryById } from '../../api/common';
-import { Print } from '../../components/common/Print.svg'
-import { Digital } from '../../components/common/Digital.svg'
+import { Print } from '../../components/common/Print.svg';
+import { Digital } from '../../components/common/Digital.svg';
 import { addIdToHeadings, convertTextToId } from '../../util/htmlProcessor';
 import { StoriesNav } from '../../components/common/StoriesNav/StoriesNav';
 
@@ -17,7 +17,7 @@ export default function Story({ story, ids }) {
             <li>
               <a href={`#${convertTextToId(story.title)}`}>{story.title}</a>
             </li>
-            {ids.map(id => (
+            {ids.map((id) => (
               <li key={id.id}>
                 <a href={`#${id.id}`}>{id.title}</a>
               </li>
@@ -26,10 +26,20 @@ export default function Story({ story, ids }) {
         </div>
 
         <section className={Styles.page}>
-          <h1 className={Styles.title} id={convertTextToId(story.title)}>{story.title}</h1>
+          <h1 className={Styles.title} id={convertTextToId(story.title)}>
+            {story.title}
+          </h1>
           <div className={Styles.digitalPrintIndicatorWrapper}>
-            {story.is_print_available && <div title="print"><Print /></div>}
-            {story.is_digital_available && <div title="digital"><Digital /></div>}
+            {story.is_print_available && (
+              <div title="print">
+                <Print />
+              </div>
+            )}
+            {story.is_digital_available && (
+              <div title="digital">
+                <Digital />
+              </div>
+            )}
           </div>
           <div
             className={Styles.content}

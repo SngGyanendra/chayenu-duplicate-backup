@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { updatePaymentMethods } from '/store/userSlice';
+import { NextHead } from '/components/common';
 import { PageLoadFailed } from '/components/common';
 import { PaymentMethod } from '/components/cards';
 import { AddPaymentMethod } from '/components/forms';
@@ -44,6 +45,7 @@ export default function Payments() {
       {error && <PageLoadFailed error={error} />}
       {!error && (
         <section className={Styles.page}>
+          <NextHead title="Chayenu | Portal | Payments" />
           <div className={Styles.cardList}>
             {loading
               ? Array.apply(0, Array(3)).map(function (_, i) {

@@ -1,17 +1,16 @@
 import { Formik } from 'formik';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { NextHead } from '/components/common';
 import { useRouter } from 'next/router';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { sendForgetPasswordOTP, resetPassword } from '/api';
 import { toastTemplate, sleep } from '/components/common';
 import { logoutUser } from '../store/authSlice';
 import * as Yup from 'yup';
 import Styles from '/styles/forgotpassword.module.scss';
-import { Popup } from '../components/common/Popup/Popup';
-import { Alert } from '../components/common/Alert/Alert';
+import { Popup, Alert } from '../components/common';
 import Link from 'next/link';
-
 
 export default function ForgotPassword() {
   const [error, setError] = useState('');
@@ -60,6 +59,7 @@ export default function ForgotPassword() {
 
   return (
     <div className={Styles.forgotPasswordContainer}>
+      <NextHead title="Chayenu | Forgot Password" />
       {forgotPasswordStage === 'OTP' ? (
         <>
           <div className={Styles.emailText}>Enter your email</div>
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
                   error?.response?.status === 400
                 ) {
                   setError('Email not found');
-                  setShowAlert(true)
+                  setShowAlert(true);
                 } else {
                   setError('A error occured');
                 }
@@ -219,18 +219,22 @@ export default function ForgotPassword() {
           </Formik>
         </>
       )}
-      { showAlert && <Popup setPopupState={setShowAlert}>
+      {showAlert && (
+        <Popup setPopupState={setShowAlert}>
           <Alert level={1}>
-              <h3 className={Styles.popupTitle}>{"No user found with this email address."}</h3>  
-              <p>
-                {"If you made a Chayenu account using Chayenu's old system "} 
-                 <Link target="_blank" href="https://chayenu.org/my-account/"><span className={Styles.link}>click here</span></Link>
-                {" to manage your account"}
-              </p>
+            <h3 className={Styles.popupTitle}>
+              {'No user found with this email address.'}
+            </h3>
+            <p>
+              {"If you made a Chayenu account using Chayenu's old system "}
+              <Link target="_blank" href="https://chayenu.org/my-account/">
+                <span className={Styles.link}>click here</span>
+              </Link>
+              {' to manage your account'}
+            </p>
           </Alert>
-      </Popup>}
+        </Popup>
+      )}
     </div>
-
-
   );
 }

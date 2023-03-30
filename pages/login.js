@@ -1,12 +1,13 @@
 import { Formik } from 'formik';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { NextHead } from '/components/common';
 import Link from 'next/link';
 import * as Yup from 'yup';
 import { login } from '/api';
 import Styles from '/styles/login.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, logoutUser } from '../store/authSlice';
+import { loginUser } from '../store/authSlice';
 
 export default function Login() {
   const [error, setError] = useState('');
@@ -34,6 +35,7 @@ export default function Login() {
 
   return (
     <div className={Styles.loginContainer}>
+      <NextHead title="Chayenu | Login" />
       <div className={Styles.loginText}>Login into Your Account</div>
       <Formik
         initialValues={initialValues}
