@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NextHead } from '/components/common';
 import Link from 'next/link';
 import { updateSubscriptions } from '/store/userSlice';
 import { SubscriptionCard } from '/components/cards';
@@ -41,6 +42,7 @@ export default function MySubcriptions() {
       {error && <PageLoadFailed error={error} />}
       {!error && (
         <section>
+          <NextHead title="Chayenu | Portal | Subcsriptions" />
           <div className={Styles.subscriptionCard}>
             {loading
               ? Array.apply(0, Array(3)).map(function (_, i) {

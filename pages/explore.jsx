@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAllStories } from "../api/common";
-import { NextHead } from "../components/common";
+import { NextHead } from '/components/common';
 import Styles from "../styles/explore.module.scss";
 import SubscribeStyles from "../styles/subscribe.module.scss";
 import { StoryCard } from "../components/cards/StoryCard/StoryCard";
@@ -37,7 +37,7 @@ export default function Explore() {
 
   return (
     <>
-      <NextHead title={"Explore"} />
+      <NextHead title="Chayenu | Explore" />
       {!error && (
         <>
           <StoriesNav />

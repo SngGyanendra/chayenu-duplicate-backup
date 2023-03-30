@@ -5,6 +5,7 @@ import { updateUserDetails } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { Popup } from '/components/common';
 import { EditProfile, ChangePassword } from '/components/forms';
+import { NextHead } from '/components/common';
 import { ProfileSkeleton } from '/components/cards';
 import { PageLoadFailed } from '/components/common';
 
@@ -46,6 +47,7 @@ export default function Profile() {
           <ProfileSkeleton />
         ) : (
           <section className={Styles.profileCard}>
+            <NextHead title="Chayenu | Portal | Profile" />
             <div className={Styles.userDetailsAndEdit}>
               <div className={Styles.userDetails}>
                 <div>Name:</div>
