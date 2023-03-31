@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAllStories } from "../api/common";
-import { NextHead } from '/components/common';
+import { NextHead } from "/components/common";
 import Styles from "../styles/explore.module.scss";
 import SubscribeStyles from "../styles/subscribe.module.scss";
 import { StoryCard } from "../components/cards/StoryCard/StoryCard";
@@ -72,8 +72,14 @@ export default function Explore() {
 
               <div className={Styles.storiesWrapper}>
                 {loading &&
-                  Array.apply(0, Array(4)).map(function (_, i) {
-                    return <StoryCardSkeleton key={i} />;
+                  Array.apply(0, Array(2)).map(function (_, i) {
+                    let index = (i += 1);
+                    return (
+                      <div key={index} className={Styles.skeletonWrapper}>
+                        <StoryCardSkeleton key={index} />
+                        <StoryCardSkeleton key={index + 1} />
+                      </div>
+                    );
                   })}
                 {loading === false &&
                   stories.map((story, index) => {
@@ -83,10 +89,7 @@ export default function Explore() {
                       return (
                         <div key={index} className={Styles.storyRow}>
                           <div className={Styles.storyWrapperLeft}>
-                            <StoryCard
-                              key={story.id}
-                              story={story}
-                            />
+                            <StoryCard key={story.id} story={story} />
                           </div>
                         </div>
                       );
@@ -99,10 +102,7 @@ export default function Explore() {
                           <StoryCard key={story.id} story={story} />
                         </div>
                         <div className={Styles.storyWrapperRight}>
-                          <StoryCard
-                            key={nextStory.id}
-                            story={nextStory}
-                          />
+                          <StoryCard key={nextStory.id} story={nextStory} />
                         </div>
                       </div>
                     );

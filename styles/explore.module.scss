@@ -22,11 +22,19 @@
     width: 50%;
   }
 
+  .skeletonWrapper {
+    display: flex;
+  }
+
   @media screen and (max-width: 65rem) {
     .storyWrapperLeft,
     .storyWrapperRight {
       width: 100%;
       padding: 20px 0;
+    }
+
+    .skeletonWrapper {
+      flex-direction: column;
     }
   }
 }
@@ -59,3 +67,4 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
