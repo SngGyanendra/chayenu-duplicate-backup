@@ -80,6 +80,18 @@ export class AuthencticatedUserAPI {
     }
   }
 
+  async addPaymentMethod(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/user/paymentmethods/add`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateDefaultCard(card_token) {
     try {
       const response = await this.requestInstance.post(
