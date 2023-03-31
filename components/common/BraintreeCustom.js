@@ -1,15 +1,11 @@
 import braintree from 'braintree-web';
-import { generateBraintreeToken } from '/api';
 
 export const initializeCustomBraintree = async (
-  setCardNonce,
-  setCardErrors,
   setHostedFields
 ) => {
-  const token = await generateBraintreeToken();
   braintree.hostedFields.create(
     {
-      authorization: token,
+      authorization: process.env.NEXT_PUBLIC_BRAINTREE_AUTH_TOKEN,
       styles: {
         input: {
           'font-size': '14px',

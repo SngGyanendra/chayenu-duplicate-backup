@@ -3,65 +3,39 @@ import { initializeCustomBraintree } from '/components/common';
 import Styles from './creditcardinput.module.scss';
 
 export function CreditCardInput({
-  setCardNonce,
-  creditCardForm,
-  setCardErrors,
+  cardErrors,
+  setHostedFields,
 }) {
-  const [hostedFields, setHostedFields] = useState();
-
-  useEffect(() => {
-    console.log(hostedFields);
-  }, [hostedFields]);
-
   useEffect(() => {
     async function getData() {
-      await initializeCustomBraintree(
-        setCardNonce,
-        setCardErrors,
-        setHostedFields
-      );
+      await initializeCustomBraintree(setHostedFields);
     }
     getData();
-
-    function validateAndGetNonce() {
-      console.log(hostedFields);
-    }
-    creditCardForm.current.addEventListener('submit', function(){
-    validateAndGetNonce();
-
-    });
-    return () =>
-      creditCardForm?.current?.removeEventListener('submit', function (e) {});
   }, []);
-  // (e) => {
-  //   e.preventDefault();
-  //   test();
-  //   hostedFields?.tokenize(function (err, payload) {
-  //     console.log(payload);
-  //     if (err) {
-  //       console.error(err);
-  //       return;
-  //     }
-  //   });
-  // };
+
   return (
     <div className={Styles.creditCard}>
-      <form className={Styles.form} ref={creditCardForm}>
-        <div className={Styles.ccnumber}>
-          <label for="cc-number">Credit Number</label>
-          <div id="cc-number" className={Styles.hostedFields}></div>
+      <div className={Styles.ccnumber}>
+        <label for="cc-number">Credit Number</label>
+        <div id="cc-number" className={Styles.hostedFields}></div>
+        {cardErrors && (
+          <span className={Styles.error}>{cardErrors.number}</span>
+        )}
+      </div>
+      <div className={Styles.expirycvv}>
+        <div>
+          <label for="cc-expiry">Expiry</label>
+          <div id="cc-expiry" className={Styles.hostedFields}></div>
+          {cardErrors && (
+            <span className={Styles.error}>{cardErrors.expiry}</span>
+          )}
         </div>
-        <div className={Styles.expirycvv}>
-          <div>
-            <label for="cc-expiry">Expiry</label>
-            <div id="cc-expiry" className={Styles.hostedFields}></div>
-          </div>
-          <div>
-            <label for="cc-cvv">CVV</label>
-            <div id="cc-cvv" className={Styles.hostedFields}></div>
-          </div>
+        <div>
+          <label for="cc-cvv">CVV</label>
+          <div id="cc-cvv" className={Styles.hostedFields}></div>
+          {cardErrors && <span className={Styles.error}>{cardErrors.cvv}</span>}
         </div>
-      </form>
+      </div>
     </div>
   );
 }

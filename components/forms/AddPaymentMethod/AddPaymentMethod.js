@@ -19,7 +19,7 @@ export function AddPaymentMethod({ setEditingState }) {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState();
-  const [cardNonce, setCardNonce] = useState();
+  const [hostedFields, setHostedFields] = useState();
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -68,26 +68,96 @@ export function AddPaymentMethod({ setEditingState }) {
     zip_code: Yup.string().required('zip code is required'),
   });
 
+  const validateCreditCard = (state) => {
+    const isValid = { cvv: true, number: true, expirationDate: true };
+    const fields = state?.fields;
+    if (
+      !(
+        fields.cvv.isValid &&
+        !fields.cvv.isEmpty &&
+        fields.cvv.isPotentiallyValid
+      )
+    ) {
+      isValid.cvv = false;
+      setCardErrors((previousState) => {
+        return { ...previousState, cvv: 'invalid cvv' };
+      });
+    }
+    if (
+      !(
+        fields.number.isValid &&
+        !fields.number.isEmpty &&
+        fields.number.isPotentiallyValid
+      )
+    ) {
+      isValid.number = false;
+      setCardErrors((previousState) => {
+        return { ...previousState, number: 'invalid credit card number' };
+      });
+    }
+    if (
+      !(
+        fields.expirationDate.isValid &&
+        !fields.expirationDate.isEmpty &&
+        fields.expirationDate.isPotentiallyValid
+      )
+    ) {
+      isValid.expirationDate = false;
+      setCardErrors((previousState) => {
+        return { ...previousState, expiry: 'invalid expiry' };
+      });
+    }
+    if (isValid.cvv && isValid.expirationDate && isValid.number) {
+      setCardErrors({ cvv: '', expiry: '', number: '' });
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className={Styles.paymentMethod}>
       <CreditCardInput
-        setCardNonce={setCardNonce}
         creditCardForm={creditCardForm}
         setCardErrors={setCardErrors}
+        cardErrors={cardErrors}
+        setHostedFields={setHostedFields}
       />
       <Formik
         initialValues={initialValues}
         initialErrors={initialErrors}
-        // validationSchema={validationSchema}
-        onSubmit={(values) => {
-          creditCardForm.current.dispatchEvent(new Event('submit'));
+        validationSchema={validationSchema}
+        onSubmit={async (values) => {
+          if (!validateCreditCard(hostedFields.getState())) {
+            return;
+          }
           const loadingToast = toastTemplate(
             toast.loading,
-            'Add payment method'
+            'Adding payment method'
           );
+          let cardNonce;
           try {
+            const { nonce } = await hostedFields.tokenize();
+            cardNonce = nonce;
+          } catch (error) {
+            toastTemplate(
+              toast.error,
+              'Please check the card values',
+              loadingToast
+            );
+            return;
+          }
+          try {
+            const newValues = {
+              billing_address: {
+                ...values,
+                state: parseFloat(values.state),
+                country: parseFloat(values.country),
+              },
+              card_nonce: cardNonce,
+            };
             setLoading(true);
-            // const response = await APIs.updatePaymentMethod(newValues);
+            const response = await APIs.addPaymentMethod(newValues);
             setLoading(false);
             toastTemplate(
               toast.success,
@@ -95,8 +165,8 @@ export function AddPaymentMethod({ setEditingState }) {
               loadingToast
             );
             setEditingState(false);
-            // const newPaymentMethods = await APIs.getAllPaymentMethods();
-            // dispatch(updatePaymentMethods(newPaymentMethods));
+            const newPaymentMethods = await APIs.getAllPaymentMethods();
+            dispatch(updatePaymentMethods(newPaymentMethods));
           } catch (error) {
             toastTemplate(
               toast.error,
@@ -194,7 +264,12 @@ export function AddPaymentMethod({ setEditingState }) {
                   className={`${!values.country ? Styles.defaultOption : ''}`}
                   value={values.country}
                 >
-                  <option value="country" disabled={true} hidden={true}>
+                  <option
+                    value="country"
+                    disabled={true}
+                    selected={true}
+                    hidden={true}
+                  >
                     Country
                   </option>
                   {countries.map((country) => (
