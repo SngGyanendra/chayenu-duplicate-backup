@@ -19,7 +19,7 @@ export function formatDate(dateString) {
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
 
-  return `${monthNames[monthIndex]} ${day} ,${year}`;
+  return `${monthNames[monthIndex]} ${day}, ${year}`;
 }
 
 export function isoToCustomDate(isoDate) {

@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
@@ -19,6 +19,14 @@ export function AddPaymentMethod({ setEditingState }) {
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState();
+  const [cardNonce, setCardNonce] = useState();
+  const [cardErrors, setCardErrors] = useState({
+    cvv: undefined,
+    number: undefined,
+    expiry: undefined,
+  });
+
+  const creditCardForm = useRef();
 
   useEffect(() => {
     const getData = async () => {
@@ -62,12 +70,17 @@ export function AddPaymentMethod({ setEditingState }) {
 
   return (
     <div className={Styles.paymentMethod}>
-      <CreditCardInput />
+      <CreditCardInput
+        setCardNonce={setCardNonce}
+        creditCardForm={creditCardForm}
+        setCardErrors={setCardErrors}
+      />
       <Formik
         initialValues={initialValues}
         initialErrors={initialErrors}
-        validationSchema={validationSchema}
-        onSubmit={async (values) => {
+        // validationSchema={validationSchema}
+        onSubmit={(values) => {
+          creditCardForm.current.dispatchEvent(new Event('submit'));
           const loadingToast = toastTemplate(
             toast.loading,
             'Add payment method'
@@ -82,8 +95,8 @@ export function AddPaymentMethod({ setEditingState }) {
               loadingToast
             );
             setEditingState(false);
-            const newPaymentMethods = await APIs.getAllPaymentMethods();
-            dispatch(updatePaymentMethods(newPaymentMethods));
+            // const newPaymentMethods = await APIs.getAllPaymentMethods();
+            // dispatch(updatePaymentMethods(newPaymentMethods));
           } catch (error) {
             toastTemplate(
               toast.error,

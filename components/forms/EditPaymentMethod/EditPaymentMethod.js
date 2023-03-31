@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import { updatePaymentMethods, updateCountries } from '/store/userSlice';
+import {
+  updatePaymentMethods,
+  updateCountries,
+  updateUserDetails,
+} from '/store/userSlice';
 import toast from 'react-hot-toast';
 import { toastTemplate } from '/components/common';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
@@ -79,10 +83,7 @@ export function EditPaymentMethod({
           toast.loading,
           'Updating billing address'
         );
-        const loadingToastDefaultCard = toastTemplate(
-          toast.loading,
-          'Updating default card'
-        );
+
         try {
           setLoading(true);
           const newValues = {
@@ -106,6 +107,10 @@ export function EditPaymentMethod({
             loadingToast
           );
           if (values.default) {
+            const loadingToastDefaultCard = toastTemplate(
+              toast.loading,
+              'Updating default card'
+            );
             try {
               const response = await APIs.updateDefaultCard(
                 paymentMethod.cardToken
@@ -125,6 +130,8 @@ export function EditPaymentMethod({
           }
           setLoading(false);
           setEditingState(false);
+          const userDetails = await APIs.getUser()
+          dispatch(updateUserDetails(userDetails))
           const newPaymentMethods = await APIs.getAllPaymentMethods();
           dispatch(updatePaymentMethods(newPaymentMethods));
         } catch (error) {

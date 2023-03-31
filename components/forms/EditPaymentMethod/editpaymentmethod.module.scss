@@ -21,11 +21,11 @@
       border-radius: 5px;
       padding: 0px 10px;
       font-size: 1rem;
+      margin-top: 5px;
       font: fontvalue(13, 13, 300);
       height: 60%;
       width: 100%;
       border: none;
-      border: 1px solid rgb(206, 212, 218);
       box-shadow: none;
       &:focus {
         outline: none;
@@ -36,9 +36,10 @@
       border-radius: 5px;
       padding: 0px 10px;
       font-size: 1rem;
+      margin-top: 5px;
       width: 100%;
       font: fontvalue(14, 14, 300);
-      border: 1px solid rgb(206, 212, 218);
+      border: none;
       box-shadow: none;
       &:focus {
         outline: none;

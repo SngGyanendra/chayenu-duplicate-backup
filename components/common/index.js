@@ -3,4 +3,5 @@ export * from './Popup/Popup';
 export * from './NextHead';
 export * from './toast';
 export * from './Alert/Alert'
+export * from './BraintreeCustom'
 export * from './PageLoadFailed/PageLoadFailed';
