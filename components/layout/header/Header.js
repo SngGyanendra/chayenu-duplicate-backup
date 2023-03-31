@@ -53,7 +53,7 @@ export function Header() {
       img_mb: '/header/dollardark_mb.svg',
     },
     {
-      label: 'My Transactions',
+      label: 'Transactions',
       link: '/portal/transactions',
       alt: 'transaction',
 

@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { updatePaymentMethods } from '/store/userSlice';
-import { NextHead } from '/components/common';
-import { PageLoadFailed } from '/components/common';
-import { PaymentMethod } from '/components/cards';
+import { NextHead, PageLoadFailed } from '/components/common';
 import { AddPaymentMethod } from '/components/forms';
-import { PaymentMethodSkeleton } from '/components/cards';
-import { Toaster } from 'react-hot-toast';
+import { PaymentMethodSkeleton, PaymentMethod } from '/components/cards';
 import Styles from '/styles/payments.module.scss';
 
 export default function Payments() {
