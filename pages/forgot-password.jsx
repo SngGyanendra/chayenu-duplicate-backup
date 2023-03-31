@@ -18,8 +18,8 @@ export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const initialValuesSendOTP = { email: undefined };
-  const initialErrorsSendOTP = { email: undefined };
+  const initialValuesSendOTP = { email: '' };
+  const initialErrorsSendOTP = { email: '' };
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -29,14 +29,16 @@ export default function ForgotPassword() {
   }, []);
 
   const initialValuesChangePassword = {
-    otp: undefined,
-    newPassword: undefined,
-    confirmNewPassword: undefined,
+    email: '',
+    otp: '',
+    newPassword: '',
+    confirmNewPassword: '',
   };
   const initialErrorsChangePassword = {
-    otp: undefined,
-    newPassword: undefined,
-    confirmNewPassword: undefined,
+    email: '',
+    otp: '',
+    newPassword: '',
+    confirmNewPassword: '',
   };
 
   const validationSchemaSendOTP = Yup.object().shape({
@@ -47,6 +49,10 @@ export default function ForgotPassword() {
   });
 
   const validationSchemaChangePassword = Yup.object().shape({
+    email: Yup.string()
+      .trim()
+      .email('Enter valid email')
+      .required('Email is required'),
     otp: Yup.string().required('OTP is required'),
     newPassword: Yup.string()
       .required('New Password is Required')
@@ -164,6 +170,16 @@ export default function ForgotPassword() {
               handleSubmit,
             }) => (
               <form className={Styles.passwordInput} onSubmit={handleSubmit}>
+                <label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </label>
                 <label>
                   <input
                     type="password"
