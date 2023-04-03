@@ -19,7 +19,6 @@ export function Summary({
       return price - coupon?.amount;
     }
   };
-
   return (
     <div className={Styles.summary}>
       <div className={Styles.planType}>
@@ -30,7 +29,7 @@ export function Summary({
             : `$${calculateDiscountedPrice(selectedPlan.price, coupon)}`}
         </span>
       </div>
-      <div className={Styles.additional}>
+      {/* <div className={Styles.additional}>
         <div>
           Quantity:
           <select
@@ -58,7 +57,7 @@ export function Summary({
           </span>
         </div>
         <div>{autoRenewal ? 'Auto renewal on' : 'Auto renewal off'}</div>
-      </div>
+      </div> */}
     </div>
   );
 }

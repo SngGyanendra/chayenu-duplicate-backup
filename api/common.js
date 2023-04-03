@@ -14,6 +14,7 @@ export async function getAllProducts() {
       },
     },
   });
+  console.log("data data",data)
   return data;
 }
 export async function getAllCountries() {

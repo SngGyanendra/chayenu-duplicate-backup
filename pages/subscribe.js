@@ -48,12 +48,13 @@ export default function Subscribe() {
                   return (
                     <div
                       key={product.id}
-                      className={Styles.productCard}
+                      className={`${Styles.productCard} ${selectedProduct?.id===product?.id?Styles.selectedCard:""}`}
                       onClick={() => {
                         setSelectedProduct(product);
+               
                       }}
                     >
-                      <ProductCard product={product} />
+                      <ProductCard  product={product} />
                     </div>
                   );
                 })}
@@ -64,19 +65,12 @@ export default function Subscribe() {
       {selectedProduct && (
         <>
           {(() => {
-            if (selectedProduct.product_type.toLowerCase() === 'both') {
-              return (
-                <PrintDigitalSubscriptionForm
-                  selectedProduct={selectedProduct}
-                />
-              );
-            } else if (
-              selectedProduct.product_type.toLowerCase() === 'digital'
-            ) {
+            if (selectedProduct.product_type.toLowerCase() === 'digital') {
               return (
                 <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+
               );
-            } else {
+            } else{
               return (
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}
