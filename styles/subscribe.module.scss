@@ -20,6 +20,11 @@
   .productCard {
     grid-column: span 2;
   }
+  .selectedCard{
+
+    border: 3px solid #003652;
+    border-radius: 10px;
+  }
   .productCard:last-child:nth-child(3n - 1) {
     grid-column-end: -2;
   }

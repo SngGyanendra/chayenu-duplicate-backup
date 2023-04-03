@@ -180,7 +180,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       is: () =>
         (selectedCountry.has_shipping && deliveryType === 'shipping') ||
         selectedCountry.name === 'USA',
-      then: () => Yup.string().trim().required('zip code is required'),
+      then: () => Yup.string().trim().required('postal code is required'),
     }),
   });
 
@@ -217,239 +217,254 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
             handleSubmit,
             isSubmitting,
           }) => (
-            <form className={Styles.form} onSubmit={handleSubmit}>
-              {countriesList.find((country) => country.name === 'USA') &&
-                countriesList.length > 1 && (
-                  <div className={Styles.country}>
-                    <div className={Styles.selectCountry}>Select Location</div>
-                    <div className={Styles.location}>
-                      <div
-                        className={`${Styles.countryType} ${
-                          selectedCountry?.name === 'USA' ? 'selected' : ''
-                        }`}
-                        onClick={() => {
-                          setSelectedCountry(
-                            countriesList?.find(
-                              (country) => country.name === 'USA'
-                            )
-                          );
-                        }}
-                      >
-                        USA
-                      </div>
-                      <div
-                        className={`${Styles.countryType} ${
-                          selectedCountry?.name !== 'USA' &&
-                          selectedCountry !== undefined
-                            ? 'selected'
+            <form onSubmit={handleSubmit}>
+              <div className={Styles.form}>
+                {countriesList.find((country) => country.name === 'USA') &&
+                  countriesList.length > 1 && (
+                    <div className={Styles.country}>
+                      <div className={Styles.selectCountry}>ENTER YOUR LOCATION</div>
+                      <div className={Styles.location}>
+                        <div
+                          className={`${Styles.countryType} ${selectedCountry?.name === 'USA' ? Styles.selectCountry : ""
+                            }`}
+                          onClick={() => {
+                            setSelectedCountry(
+                              countriesList?.find(
+                                (country) => country.name === 'USA'
+                              )
+                            );
+                          }}
+                        >
+                          USA
+                        </div>
+                        <div
+                          className={`${Styles.countryType} ${selectedCountry?.name !== 'USA' &&
+                            selectedCountry !== undefined
+                            ? Styles.selectCountry
                             : ''
-                        }`}
-                        onClick={() => {
-                          setSelectedCountry('others');
-                        }}
-                      >
-                        International
+                            }`}
+                          onClick={() => {
+                            setSelectedCountry('others');
+                          }}
+                        >
+                          International
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              {selectedCountry && selectedCountry?.name !== 'USA' && (
-                <div className={Styles.selectCountry}>
-                  <select
-                    name="country"
-                    onChange={(e) => {
-                      const country = countriesList.find((country) => {
-                        return country.id == e.target.value;
-                      });
-                      setSelectedCountry(country);
-                    }}
-                  >
-                    <option value="default" hidden={true}>
-                      Select a country
-                    </option>
-                    {countriesList
-                      .filter((country) => country.name !== 'USA')
-                      .map((country) => (
-                        <option key={country.id} value={country.id}>
-                          {country.name}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-              )}
-              {selectedCountry &&
-                selectedCountry?.name !== 'USA' &&
-                selectedCountry.has_distributors && (
-                  <div className={Styles.selectDistributor}>
-                    <div>Choose a distributor</div>
+                  )}
+                {selectedCountry && selectedCountry?.name !== 'USA' && (
+                  <div className={Styles.selectCountry}>
                     <select
-                      name="distributor"
+                      name="country"
                       onChange={(e) => {
-                        values.distributor = e.target.value;
-                        setDistributor(e.target.value);
+                        const country = countriesList.find((country) => {
+                          return country.id == e.target.value;
+                        });
+                        setSelectedCountry(country);
                       }}
                     >
                       <option value="default" hidden={true}>
-                        Choose a distributor
+                        Select a country
                       </option>
-                      {selectedCountry?.distributors?.map((distributor) => (
-                        <option key={distributor.id} value={distributor.id}>
-                          {`${distributor.first_name} ${
-                            distributor.last_name
-                          } - ${
-                            distributor?.address_1
-                              ? `${distributor?.address_1},`
-                              : ''
-                          } ${
-                            distributor?.address_2
-                              ? `${distributor?.address_2},`
-                              : ''
-                          } ${
-                            distributor?.city ? `${distributor?.city},` : ''
-                          } ${
-                            distributor?.state ? `${distributor?.state},` : ''
-                          } ${distributor?.country?.name}`}
-                        </option>
-                      ))}
+                      {countriesList
+                        .filter((country) => country.name !== 'USA')
+                        .map((country) => (
+                          <option key={country.id} value={country.id}>
+                            {country.name}
+                          </option>
+                        ))}
                     </select>
                   </div>
                 )}
+                {selectedCountry &&
+                  selectedCountry?.name !== 'USA' &&
+                  selectedCountry.has_distributors && (
+                    <div className={Styles.selectDistributor}>
+                      <div>Choose a distributor</div>
+                      <select
+                        name="distributor"
+                        onChange={(e) => {
+                          values.distributor = e.target.value;
+                          setDistributor(e.target.value);
+                        }}
+                      >
+                        <option value="default" hidden={true}>
+                          Choose a distributor
+                        </option>
+                        {selectedCountry?.distributors?.map((distributor) => (
+                          <option key={distributor.id} value={distributor.id}>
+                            {`${distributor.first_name} ${distributor.last_name
+                              } - ${distributor?.address_1
+                                ? `${distributor?.address_1},`
+                                : ''
+                              } ${distributor?.address_2
+                                ? `${distributor?.address_2},`
+                                : ''
+                              } ${distributor?.city ? `${distributor?.city},` : ''
+                              } ${distributor?.state ? `${distributor?.state},` : ''
+                              } ${distributor?.country?.name}`}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+              </div>
+              <br />
               {selectedCountry &&
                 selectedCountry !== 'others' &&
                 (deliveryType === 'shipping' || distributor) && (
-                  <div className={Styles.plan}>
-                    <div className={Styles.selectPlan}>Select a Plan</div>
-                    <div className={Styles.plansContainer}>
-                      {allPlans
-                        .filter(
-                          (plan) => plan?.country?.id === selectedCountry?.id
-                        )
-                        .map((plan, index) => (
-                          <PlanCard
-                            key={index}
-                            plan={plan}
-                            selectedPlan={selectedPlan}
-                            setSelectedPlan={setSelectedPlan}
-                          />
-                        ))}
+                  <div className={Styles.form}>
+
+                    <div className={Styles.plan}>
+                      <div className={Styles.selectPlan}>SELECT PLAN</div>
+                      <div className={Styles.plansContainer}>
+                        {allPlans
+                          .filter(
+                            (plan) => plan?.country?.id === selectedCountry?.id
+                          )
+                          .map((plan, index) => (
+                            <PlanCard
+                              key={index}
+                              plan={plan}
+                              selectedPlan={selectedPlan}
+                              setSelectedPlan={setSelectedPlan}
+                            />
+                          ))}
+                      </div>
                     </div>
                   </div>
+
                 )}
+              <br />
+
+
               {selectedPlan && selectedCountry !== 'others' && (
-                <div className={Styles.formGrid}>
-                  <label>
-                    First Name
-                    <input
-                      type="text"
-                      name="first_name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.first_name}
-                    />
-                    <span className={Styles.error}>
-                      {errors.first_name &&
-                        touched.first_name &&
-                        errors.first_name}
-                    </span>
-                  </label>
-                  <label>
-                    Last Name
-                    <input
-                      type="text"
-                      name="last_name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.last_name}
-                    />
-                    <span className={Styles.error}>
-                      {errors.last_name &&
-                        touched.last_name &&
-                        errors.last_name}
-                    </span>
-                  </label>
-                  <label className={Styles.organization}>
-                    Organization
-                    <input
-                      type="text"
-                      name="organization"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.organization}
-                    />
-                  </label>
-                  {deliveryType === 'shipping' && (
-                    <>
-                      <label>
-                        Street Address
-                        <input
-                          type="text"
-                          name="address_1"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.address_1}
-                        />
-                        <span className={Styles.error}>
-                          {errors.address_1 &&
-                            touched.address_1 &&
-                            errors.address_1}
-                        </span>
-                      </label>
-                      <label>
-                        Apt, Floor, Unit, etc. (optional)
-                        <input
-                          type="text"
-                          name="address_2"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.address_2}
-                        />
-                        <span className={Styles.error}>
-                          {errors.address_2 &&
-                            touched.address_2 &&
-                            errors.address_2}
-                        </span>
-                      </label>
-                      <div className={Styles.locationDiv}>
+                <div className={Styles.form}>
+                  <div className={Styles.selectCountry}>SHIPPING INFO</div>
+
+                  <div className={Styles.nameSection}>
+                    <label>
+                      <input
+                        type="text"
+                        placeholder="First Name"
+
+                        name="first_name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.first_name}
+                      />
+                      <span className={Styles.error}>
+                        {errors.first_name &&
+                          touched.first_name &&
+                          errors.first_name}
+                      </span>
+                    </label>
+                    <label>
+                      {/* Last Name */}
+                      <input
+                        type="text"
+                        name="last_name"
+                        placeholder='Last Name'
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.last_name}
+                      />
+                      <span className={Styles.error}>
+                        {errors.last_name &&
+                          touched.last_name &&
+                          errors.last_name}
+                      </span>
+                    </label>
+
+                  </div>
+                  <>
+
+                    {deliveryType === 'shipping' &&
+                      <>
                         <label>
-                          City
                           <input
                             type="text"
-                            name="city"
+                            name="address_1"
+                            placeholder='Street Address'
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.city}
+                            value={values.address_1}
                           />
                           <span className={Styles.error}>
-                            {errors.city && touched.city && errors.city}
+                            {errors.address_1 &&
+                              touched.address_1 &&
+                              errors.address_1}
                           </span>
                         </label>
-                        {selectedCountry?.states?.length > 0 && (
-                          <label>
-                            State
-                            <select
-                              name="state"
-                              id=""
-                              value={values.state}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                            >
-                              <option value={''} hidden={true}></option>
-                              {selectedCountry?.states?.map((state) => (
-                                <option key={state.id} value={state.id}>
-                                  {state.name}
-                                </option>
-                              ))}
-                            </select>
-                            <span className={Styles.error}>
-                              {errors.state && touched.state && errors.state}
-                            </span>
-                          </label>
-                        )}
                         <label>
-                          Zip Code
                           <input
                             type="text"
-                            name="zip_code"
+                            name="address_2"
+                            placeholder='Apt, Floor, Unit, etc. (optional)'
+
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.address_2}
+                          />
+                          <span className={Styles.error}>
+                            {errors.address_2 &&
+                              touched.address_2 &&
+                              errors.address_2}
+                          </span>
+                        </label>
+
+                        <div className={Styles.location}>
+                          <label>
+                            {/* City */}
+                            <input
+                              type="text"
+                              name="city"
+                              placeholder='City'
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.city}
+                            />
+                            <span className={Styles.error}>
+                              {errors.city && touched.city && errors.city}
+                            </span>
+                          </label>
+                          {selectedCountry?.states?.length > 0 && (
+                            <label>
+                              {/* State */}
+                              <select
+                                name="state"
+                                id=""
+                                placeholder='State'
+                                value={values.state}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              >
+                                <option value="" hidden={true}>State</option>
+                                {selectedCountry?.states?.map((state) => (
+                                  <option key={state.id} value={state.id}>
+                                    {state.name}
+                                  </option>
+                                ))}
+                              </select>
+                              <span className={Styles.error}>
+                                {errors.state && touched.state && errors.state}
+                              </span>
+                            </label>
+                          )}
+                        </div>
+                      </>
+
+
+
+                    }
+                    <div className={Styles.location}>
+                      {deliveryType === 'shipping' &&
+                        <label>
+                          {/* Postal Code  */}
+                          <input
+                            type="text"
+                            name="postal_code"
+                            placeholder='Postal Code'
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.zip_code}
@@ -460,54 +475,247 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                               errors.zip_code}
                           </span>
                         </label>
-                      </div>
-                    </>
-                  )}
-                  <label>
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
+
+                      }
+                      <label>
+                        {/* Email */}
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder='Email Address'
+                          label="Email"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.email}
+                        />
+                        <span className={Styles.error}>
+                          {errors.email && touched.email && errors.email}
+                        </span>
+                      </label>
+                    </div>
+                  </>
+
+                </div>
+
+                // <div className={Styles.form}>
+                //   <div className={Styles.formGrid}>
+                //   <label>
+                //     {/* First Name */}
+                //     <input
+                //       type="text"
+                //       placeholder="First Name"
+
+                //       name="first_name"
+                //       onChange={handleChange}
+                //       onBlur={handleBlur}
+                //       value={values.first_name}
+                //     />
+                //     <span className={Styles.error}>
+                //       {errors.first_name &&
+                //         touched.first_name &&
+                //         errors.first_name}
+                //     </span>
+                //   </label>
+                //   <label>
+                //     {/* Last Name */}
+                //     <input
+                //       type="text"
+                //       name="last_name"
+                //       placeholder='Last Name'
+                //       onChange={handleChange}
+                //       onBlur={handleBlur}
+                //       value={values.last_name}
+                //     />
+                //     <span className={Styles.error}>
+                //       {errors.last_name &&
+                //         touched.last_name &&
+                //         errors.last_name}
+                //     </span>
+                //   </label>
+
+                //   {deliveryType === 'shipping' && (
+                //     <>
+                //       <div className={Styles.streetAddress}>
+                //       <label>
+                //         {/* Street Address */}
+                //         <input
+                //           type="text"
+                //           name="address_1"
+                //           placeholder='Street Address'
+                //           onChange={handleChange}
+                //           onBlur={handleBlur}
+                //           value={values.address_1}
+                //         />
+                //         <span className={Styles.error}>
+                //           {errors.address_1 &&
+                //             touched.address_1 &&
+                //             errors.address_1}
+                //         </span>
+                //       </label>
+                //       <label>
+                //         {/* Apt, Floor, Unit, etc. (optional) */}
+                //         <input
+                //           type="text"
+                //           name="address_2"
+                //           placeholder='Apt, Floor, Unit, etc. (optional)'
+
+                //           onChange={handleChange}
+                //           onBlur={handleBlur}
+                //           value={values.address_2}
+                //         />
+                //         <span className={Styles.error}>
+                //           {errors.address_2 &&
+                //             touched.address_2 &&
+                //             errors.address_2}
+                //         </span>
+                //       </label>
+                //       </div>
+                //       <div className={Styles.locationDiv}>
+                //         <label>
+                //           {/* City */}
+                //           <input
+                //             type="text"
+                //             name="city"
+                //             placeholder='City'
+                //             onChange={handleChange}
+                //             onBlur={handleBlur}
+                //             value={values.city}
+                //           />
+                //           <span className={Styles.error}>
+                //             {errors.city && touched.city && errors.city}
+                //           </span>
+                //         </label>
+                //         {selectedCountry?.states?.length > 0 && (
+                //           <label>
+                //             {/* State */}
+                //             <select
+                //               name="state"
+                //               id=""
+                //               placeholder='State'
+                //               value={values.state}
+                //               onChange={handleChange}
+                //               onBlur={handleBlur}
+                //             >
+                //               <option value={''} hidden={true}></option>
+                //               {selectedCountry?.states?.map((state) => (
+                //                 <option key={state.id} value={state.id}>
+                //                   {state.name}
+                //                 </option>
+                //               ))}
+                //             </select>
+                //             <span className={Styles.error}>
+                //               {errors.state && touched.state && errors.state}
+                //             </span>
+                //           </label>
+                //         )}
+                //         <label>
+                //             {/* Zip Code  */}
+                //           <input
+                //             type="text"
+                //             name="zip_code"
+                //             placeholder='Zip Code'
+                //             onChange={handleChange}
+                //             onBlur={handleBlur}
+                //             value={values.zip_code}
+                //           />
+                //           <span className={Styles.error}>
+                //             {errors.zip_code &&
+                //               touched.zip_code &&
+                //               errors.zip_code}
+                //           </span>
+                //         </label>
+                //       </div>
+                //     </>
+                //   )}
+                //   <label>
+                //     Email
+                //     <input
+                //       type="email"
+                //       name="email"
+                //       label="Email"
+                //       onChange={handleChange}
+                //       onBlur={handleBlur}
+                //       value={values.email}
+                //     />
+                //     <span className={Styles.error}>
+                //       {errors.email && touched.email && errors.email}
+                //     </span>
+                //   </label>
+                //   <label>
+                //     Phone Number
+                //     <PhoneInput
+                //       name="mobile"
+                //       mask="#"
+                //       countrySelectProps={{ unicodeFlags: false }}
+                //       withCountryCallingCode={false}
+                //       className={Styles.phoneInput}
+                //       onChange={(value) => {
+                //         values.mobile = value;
+                //       }}
+                //     />
+                //     <span className={Styles.error}>
+                //       {errors.mobile && touched.mobile && errors.mobile}
+                //     </span>
+                //   </label>
+                //   <div className={Styles.heading}>Payment Details</div>
+                //   {require_cc && (
+                //     <div
+                //       className={Styles.dropinContainer}
+                //       id="dropin-container"
+                //     ></div>
+                //   )}
+                //   <Coupon
+                //     values={values}
+                //     handleChange={handleChange}
+                //     handleBlur={handleBlur}
+                //     selectedPlan={selectedPlan}
+                //     coupon={coupon}
+                //     setCoupon={setCoupon}
+                //   />
+                //   <div className={Styles.heading}>Summary</div>
+                //   <Summary
+                //     selectedPlan={selectedPlan}
+                //     autoRenewal={values.auto_renew}
+                //     values={values}
+                //     handleChange={handleChange}
+                //     handleBlur={handleBlur}
+                //     coupon={coupon}
+                //   />
+
+                //   <button
+                //     type="submit"
+                //     disabled={loading}
+                //     className={Styles.submit}
+                //   >
+                //     Subscribe
+                //   </button>
+                // </div>
+                // </div>
+              )}
+              {selectedPlan &&
+                <>
+                  <br />
+                  <div className={Styles.form}>
+                    <div className={Styles.selectCountry}>PAYMENT INFO</div>
+                    {/* {false && (
+                      <div
+                        className={Styles.dropinContainer}
+                        id="dropin-container"
+                      ></div>
+                    )} */}
+                    
+                    <Coupon
+                      values={values}
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      selectedPlan={selectedPlan}
+                      coupon={coupon}
+                      setCoupon={setCoupon}
                     />
-                    <span className={Styles.error}>
-                      {errors.email && touched.email && errors.email}
-                    </span>
-                  </label>
-                  <label>
-                    Phone Number
-                    <PhoneInput
-                      name="mobile"
-                      mask="#"
-                      countrySelectProps={{ unicodeFlags: false }}
-                      withCountryCallingCode={false}
-                      className={Styles.phoneInput}
-                      onChange={(value) => {
-                        values.mobile = value;
-                      }}
-                    />
-                    <span className={Styles.error}>
-                      {errors.mobile && touched.mobile && errors.mobile}
-                    </span>
-                  </label>
-                  <div className={Styles.heading}>Payment Details</div>
-                  {require_cc && (
-                    <div
-                      className={Styles.dropinContainer}
-                      id="dropin-container"
-                    ></div>
-                  )}
-                  <Coupon
-                    values={values}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    selectedPlan={selectedPlan}
-                    coupon={coupon}
-                    setCoupon={setCoupon}
-                  />
-                  <div className={Styles.heading}>Summary</div>
+                  </div>
+                  <br/>
+                  <div className={`${Styles.form} ${Styles.payment}`}>
+                  <div className={Styles.selectCountry}>SUMMARY</div>
                   <Summary
                     selectedPlan={selectedPlan}
                     autoRenewal={values.auto_renew}
@@ -524,8 +732,11 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                   >
                     Subscribe
                   </button>
-                </div>
-              )}
+                  </div>
+                </>
+
+              }
+
             </form>
           )}
         </Formik>
