@@ -15,6 +15,10 @@ import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 import Alan from '/public/images/homepage/Alan.png';
 import Lisa from '/public/images/homepage/woman@2x.png';
+import Alice from '/public/images/homepage/Testimonials/1.png';
+import Bob from '/public/images/homepage/Testimonials/2.png';
+import Arnie from '/public/images/homepage/Testimonials/3.png';
+import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 
 import dailyStudyData from '../data/dailyStudy.json';
@@ -201,6 +205,19 @@ export default function Home() {
               <p>BUY THE BOOK</p>
             </div>
           </div>
+        
+          <div className={`${Styles.testimonials}`}>
+            <p>
+              I love my Chayenu app! The app, on the front page of my phone, helps me feel my connection to HaShem as part of my morning routine. Besides the daily portion, my favorite reads are the “Name of the Parsha” and the Chassidic Story.”
+            </p>
+
+            <p>Alice Harron, San Francisco, CA</p>
+
+            <div>
+              <Image src={Alice} alt="Alice's Image" height={130} width={120} />
+            </div>
+          </div>
+
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section5}>
@@ -230,6 +247,19 @@ export default function Home() {
               <Image src={Section5Mobile} alt="" width={343} height={325} />
             </div>
           </div>
+        
+          <div className={`${Styles.testimonials}`}>
+            <p>
+            I am a huge fan. I read the app every day. It has been life transforming and gives me the critical daily study I need for the day in an easily accessible way.
+            </p>
+
+            <p>Arnie Herz,Port Washington, NY </p>
+
+            <div>
+              <Image src={Arnie} alt="Alice's Image" height={130} width={120} />
+            </div>
+          </div>
+        
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section6}>
@@ -255,6 +285,19 @@ export default function Home() {
               </p>
               <p className={Styles.sample}>COMING SOON</p>
               <Image src={Chitas} alt="" width={225} height={293} />
+            </div>
+          </div>
+
+
+          <div className={`${Styles.testimonials}`}>
+            <p>
+            I usually make time for learning on Shabbat. I really enjoy the Ein Yaakov. Certain things I think I would never have studied if it wasn’t in Chayenu, like Rambam. The Chassidic story is interesting to me.  And they added a letter from the Rebbe.
+            </p>
+
+            <p>Dr. Bob Shorr, Ventura, California</p>
+
+            <div>
+              <Image src={Bob} alt="Alice's Image" height={130} width={120} />
             </div>
           </div>
         </ContainerCard>
@@ -286,6 +329,18 @@ export default function Home() {
                 disposal
               </p>
               <button>BUY</button>
+            </div>
+          </div>
+          <div className={`${Styles.testimonials}`}>
+            <p>
+            {`Chayenu makes it easier for me to learn Torah on a daily basis, especially when I am traveling on my concert tours.
+            There are so many blessings that come from it. It's enhanced my life in so many ways.`}
+            </p>
+
+            <p>Esther Freeman</p>
+
+            <div>
+              <Image src={Esther} alt="Alice's Image" height={130} width={120} />
             </div>
           </div>
         </ContainerCard>
