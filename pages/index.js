@@ -3,6 +3,7 @@ import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
 import Image from 'next/image';
+import { Popup } from '../components/common';
 import ChayenuAppImage from '/public/images/homepage/ChayenuBlue.png';
 import GOTBookImage from '/public/images/homepage/GOT@2x.png';
 import GOTMobileImage1 from '/public/images/homepage/GOTM1@2x.png';
@@ -20,7 +21,6 @@ import Bob from '/public/images/homepage/Testimonials/2.png';
 import Arnie from '/public/images/homepage/Testimonials/3.png';
 import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
-
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
 
@@ -28,6 +28,7 @@ export default function Home() {
   const [selectedChumashScreen, setselectedChumashScreen] = useState(
     dailyStudyData.defaultUrl
   );
+  const [openPopup, setOpenPopup] = useState(false);
 
   return (
     <main>
@@ -109,6 +110,7 @@ export default function Home() {
                       style={{ backgroundColor: data.backgroundColor }}
                       key={data.title}
                       onClick={() => {
+                        setOpenPopup(true);
                         setselectedChumashScreen(data.imageUrl);
                       }}
                       // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
@@ -128,6 +130,7 @@ export default function Home() {
                         className={Styles.dailyStudyCards}
                         key={data.title}
                         onClick={() => {
+                          setOpenPopup(true)
                           setselectedChumashScreen(data.imageUrl);
                         }}
                         // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
@@ -345,6 +348,31 @@ export default function Home() {
           </div>
         </ContainerCard>
       </section>
+      {
+      
+      openPopup && 
+      <div className={Styles.popUp}>
+      <Popup setPopupState={setOpenPopup} additionalStyles={{alignItems: 'flex-start', paddingTop:'2rem'}}> 
+            <div>
+              <Image
+                src={GOTMobileImage1}
+                alt="Chayenu Mobile"
+                height={584}
+                width={269}
+                objectFit="contain"
+              />
+              <Image
+                className={Styles.modalScreen}
+                src={selectedChumashScreen}
+                alt="Chayenu Mobile"
+                height={560}
+                width={250}
+                objectFit="contain"
+              />
+            </div>
+      </Popup>
+      </div>
+      }
     </main>
   );
 }
