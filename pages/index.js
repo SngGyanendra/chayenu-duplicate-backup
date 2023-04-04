@@ -1,4 +1,4 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
