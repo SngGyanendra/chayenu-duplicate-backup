@@ -1,7 +1,6 @@
 import Styles from './PlanCard.module.scss';
 
 export function PlanCard({ plan, selectedPlan, setSelectedPlan }) {
-  console.log("plan card  *** ",plan)
   return (
     <div
       className={`${Styles.card} ${

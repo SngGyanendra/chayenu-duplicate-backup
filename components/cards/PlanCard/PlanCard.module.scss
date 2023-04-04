@@ -1,33 +1,33 @@
 @import 'common.scss';
 
-
-.selectedPlan{
-  background-color: #75B2E6;
-  color: white;
-  font: fontvalue(16, 16, bold)!important;
-
+.selectedPlan {
+  background-color: #75b2e6;
+  color: white !important;
+  font: fontvalue(16, 16, 600) !important;
+  margin: 2px !important;
 }
 
 .card {
-
   cursor: pointer;
-  padding: 12px 0px;
+  padding: 20px 0px;
   width: 100%;
   margin: 2px;
   border-radius: 3px;
-  
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  color: #003652;
+  row-gap: 1rem;
+
   .planType {
     text-align: center;
-    // font: fontvalue(16, 16, 300);
-    font-family: 'Brandon Grotesque', sans-serif;
+    font: fontvalue(16, 16, 600);
+    text-transform: uppercase;
   }
   .monthlyPrice {
-    // font: fontvalue(16, 16, 300);
-    font-family: 'Brandon Grotesque', sans-serif;
+    font: fontvalue(16, 16, 300);
     text-align: center;
-    margin-top: 1.5rem;
   }
- 
+
   @media screen and (min-width: 55.938rem) and (max-width: 85.313rem) {
     &:nth-child(2n + 1) {
       margin-left: 0;
@@ -38,5 +38,4 @@
       margin-right: 0rem;
     }
   }
-
 }
