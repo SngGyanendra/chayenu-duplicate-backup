@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Styles from './popup.module.scss';
 
-export function Popup({ children, setPopupState }) {
+export function Popup({ children, setPopupState, additionalStyles }) {
   const popup = useRef();
   useEffect(() => {
     document.body.style.overflowY = 'hidden';
@@ -20,6 +20,7 @@ export function Popup({ children, setPopupState }) {
   return (
     <div
       className={Styles.translucentLayer}
+      style={{...additionalStyles}}
       onClick={(e) => {
         handleOutsideClick(e);
       }}
