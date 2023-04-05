@@ -19,7 +19,7 @@ export function CheckAuth() {
         }
       }
     }
-  }, [router]);
+  }, [router, isLoggedIn]);
 
   return <></>;
 }
