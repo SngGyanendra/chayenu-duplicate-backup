@@ -3,7 +3,7 @@
 .summary {
   grid-column-start: 1;
   grid-column-end: 3;
-  width: 50%;
+  width: 100%;
   margin: auto;
   font: fontvalue(16, 16, 300);
   font-family: 'Poppins', sans-serif;
@@ -27,11 +27,11 @@
       color: var(--website-color);
     }
   }
-  @media screen and (min-width: 62.5rem) and (max-width: 75rem) {
-    width: 70%;
-  }
-  @media screen and (max-width: 62.5rem) {
-    grid-column-end: 2;
-    width: 100%;
-  }
+  // @media screen and (min-width: 62.5rem) and (max-width: 75rem) {
+  //   width: 70%;
+  // }
+  // @media screen and (max-width: 62.5rem) {
+  //   grid-column-end: 2;
+  //   width: 100%;
+  // }
 }

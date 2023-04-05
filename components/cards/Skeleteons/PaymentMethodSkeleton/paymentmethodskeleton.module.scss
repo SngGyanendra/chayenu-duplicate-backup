@@ -7,6 +7,8 @@
   @include skeletonAnimation();
   @media screen and (max-width: 62.5rem) {
     width: 90vw;
+  }
+  @media screen and (max-width: 53.125rem) {
     height: 27.18rem;
   }
 }

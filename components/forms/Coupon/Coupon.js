@@ -45,12 +45,12 @@ export function Coupon({
   return (
     <>
       <label className={Styles.couponLabel}>
-        Coupon
         {!isCouponVerified ? (
           <div className={Styles.coupon}>
             <input
               type="text"
               name="coupon"
+              placeholder='Coupon'
               value={values.coupon}
               onChange={handleChange}
               onBlur={handleBlur}

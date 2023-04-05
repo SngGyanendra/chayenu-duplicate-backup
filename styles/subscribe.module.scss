@@ -22,7 +22,7 @@
   }
   .selectedCard{
 
-    border: 3px solid #003652;
+    border: 3px solid var(--website-color);
     border-radius: 10px;
   }
   .productCard:last-child:nth-child(3n - 1) {

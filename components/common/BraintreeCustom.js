@@ -12,7 +12,6 @@ export const initializeCustomBraintree = async (
           'font-family': 'brandon-grotesque',
           color: 'black',
         },
-        '.number': {},
         '.valid': {
           color: 'green',
         },
