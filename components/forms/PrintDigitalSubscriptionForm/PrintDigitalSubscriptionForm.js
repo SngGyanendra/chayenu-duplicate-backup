@@ -134,6 +134,11 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       position: 'absolute',
       marginTop: '0px',
     }),
+    menu:(defaultStyles) => ({
+      ...defaultStyles,
+      marginTop: '0px',
+      top:'75%'
+    })
   };
 
   function getCardImage(cardName) {
