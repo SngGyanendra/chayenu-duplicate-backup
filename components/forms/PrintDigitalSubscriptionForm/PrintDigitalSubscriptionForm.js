@@ -15,7 +15,6 @@ import * as Yup from 'yup';
 export function PrintDigitalSubscriptionForm({ selectedProduct }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
-  const [braintreeInstance, setBraintreeInstance] = useState(undefined);
   const [countriesList, setCountriesList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
   const [deliveryType, setDeliveryType] = useState(undefined);
@@ -49,6 +48,9 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
   useEffect(() => {
     if (payment_methods && isLoggedIn) {
       const newPaymentMethods = [...payment_methods];
+      newPaymentMethods.push({ id: 'other', label: 'other' });
+      setAllPaymentMethods(newPaymentMethods);
+    } else if (isLoggedIn) {
       newPaymentMethods.push({ id: 'other', label: 'other' });
       setAllPaymentMethods(newPaymentMethods);
     }
