@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { initializeCustomBraintree } from '/components/common';
 import Select from 'react-select';
 import { Formik } from 'formik';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { validateCreditCard } from '/util';
+// import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import { useSelector } from 'react-redux';
 import Styles from './printdigitalsubscriptionform.module.scss';
 import { PlanCard } from '/components/cards';
@@ -40,6 +41,8 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     }
     if (paymentMethod === 'other' || isLoggedIn === false) {
       getData();
+    } else {
+      setHostedFields(undefined);
     }
   }, [selectedPlan, require_cc, paymentMethod, isLoggedIn]);
 
@@ -225,20 +228,24 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
     distributor: undefined,
   };
 
-  const addSubscription = async (values, payload) => {
+  const addSubscription = async (values, nonce) => {
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
       plan: selectedPlan?.id,
       coupon: coupon?.code,
       country: selectedCountry?.id,
-      ...(require_cc && { card_nonce: payload.nonce }),
+      ...(require_cc && { card_nonce: nonce }),
       ...(values.state && { state: parseInt(values.state) }),
+      ...(paymentMethod &&
+        paymentMethod !== 'other' && { card_token: paymentMethod }),
     };
     try {
       const response = await addNewSubscription(finalValues);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -267,15 +274,15 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       .required('Quantity is required')
       .positive('Quantity needs to be positive')
       .integer('Quantity needs to be an integer'),
-    mobile: Yup.string()
-      .required('Phone is required')
-      .test('phone is valid', 'Invalid contact', (value) => {
-        if (value) {
-          return isValidPhoneNumber(value);
-        } else {
-          return false;
-        }
-      }),
+    // mobile: Yup.string()
+    //   .required('Phone is required')
+    //   .test('phone is valid', 'Invalid contact', (value) => {
+    //     if (value) {
+    //       return isValidPhoneNumber(value);
+    //     } else {
+    //       return false;
+    //     }
+    //   }),
     address_1: Yup.string().when('mobile', {
       is: () =>
         (selectedCountry.has_shipping && deliveryType === 'shipping') ||
@@ -313,17 +320,24 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
           initialErrors={initialErrors}
           validationSchema={validationSchema}
           onSubmit={async (values) => {
-            if (braintreeInstance) {
-              return braintreeInstance.requestPaymentMethod(
-                async (error, payload) => {
-                  setLoading(true);
-                  if (error) {
-                    setLoading(false);
-                    return null;
-                  }
-                  await addSubscription(values, payload);
-                }
-              );
+            setLoading(true);
+            if (hostedFields) {
+              if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
+                return;
+              }
+              let cardNonce;
+              try {
+                const { nonce } = await hostedFields.tokenize();
+                cardNonce = nonce;
+              } catch (error) {
+                setCardErrors({
+                  cvv: 'Recheck CVV',
+                  number: 'Recheck Card Number',
+                  expirationDate: 'Recheck Expiration Date',
+                });
+                setLoading(false);
+              }
+              await addSubscription(values, cardNonce);
             } else {
               await addSubscription(values);
             }
@@ -580,7 +594,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                         <label>
                           <input
                             type="text"
-                            name="postal_code"
+                            name="zip_code"
                             placeholder="Postal Code"
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -634,7 +648,6 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                           IndicatorSeparator: () => null,
                         }}
                         onChange={(value) => {
-                          console.log(value)
                           if (value.label === 'other') {
                             setPaymentMethod(value.id);
                           } else {
@@ -709,7 +722,9 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                     <button
                       type="submit"
                       disabled={loading}
-                      className={Styles.submit}
+                      className={`${Styles.submit} ${
+                        loading ? `${Styles.disabled}` : ''
+                      }`}
                     >
                       Subscribe
                     </button>

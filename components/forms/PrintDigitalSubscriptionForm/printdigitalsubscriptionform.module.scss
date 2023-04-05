@@ -37,6 +37,10 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1rem;
+      @media screen and (max-width: 62.5rem) {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+      }
     }
     background-color: #75b2e633;
     padding: 30px;
@@ -322,6 +326,14 @@
 
       &:hover {
         box-shadow: 0px 6px 12px #00000029;
+      }
+    }
+
+    .disabled {
+      background-color: grey !important;
+      cursor: auto;
+      &:hover {
+        box-shadow: none;
       }
     }
   }

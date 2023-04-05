@@ -50,7 +50,7 @@ export function Coupon({
             <input
               type="text"
               name="coupon"
-              placeholder='Coupon'
+              placeholder="Coupon"
               value={values.coupon}
               onChange={handleChange}
               onBlur={handleBlur}
