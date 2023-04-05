@@ -86,6 +86,12 @@ export function Header() {
       setMobileScreen(window.matchMedia('(max-width: 1000px)').matches);
     }
   }, []);
+  useEffect(() => {
+    const element = document.getElementsByClassName('menu')[0];
+    if (element.classList.contains('menuClose')) {
+      document.body.style.overflowY = 'visible';
+    }
+  }, []);
 
   const menu = useRef();
   const chayenuLogo = useRef();

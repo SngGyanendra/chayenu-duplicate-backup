@@ -157,9 +157,9 @@ export function SubscriptionCard({ subscription, setLoading }) {
         html = (
           <div>
             <span className={Styles.keys}>Address:</span>
-            <span
-              className={Styles.value}
-            >{`${value} ${object.address_2?object.address_2:''}`}</span>
+            <span className={Styles.value}>{`${value} ${
+              object.address_2 ? object.address_2 : ''
+            }`}</span>
           </div>
         );
         break;
