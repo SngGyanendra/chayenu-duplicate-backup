@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  subscriptions: [{ label: 'jjj' }],
+  subscriptions: [],
   countries: [],
   cancel_reasons: [],
   transactions: [],

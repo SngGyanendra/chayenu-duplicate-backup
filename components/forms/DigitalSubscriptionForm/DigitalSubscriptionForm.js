@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
+import { useSelector } from 'react-redux';
+import Select from 'react-select';
+import Image from 'next/image';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
-import { initializeBraintree } from '/components/common';
+import { validateCreditCard } from '/util';
+import { initializeCustomBraintree } from '/components/common';
 import { PlanCard } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
 import { getAllPlans, addNewSubscription } from '/api';
@@ -13,12 +17,42 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [braintreeInstance, setBraintreeInstance] = useState(undefined);
   const [coupon, setCoupon] = useState(undefined);
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [hostedFields, setHostedFields] = useState();
+  const [allPaymentMethods, setAllPaymentMethods] = useState();
   const [loading, setLoading] = useState(false);
   const [require_cc, setRequire_cc] = useState(true);
+  const [cardErrors, setCardErrors] = useState({
+    cvv: undefined,
+    number: undefined,
+    expiry: undefined,
+  });
+
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { payment_methods } = useSelector((state) => state.user);
 
   useEffect(() => {
-    initializeBraintree(setBraintreeInstance);
-  }, [selectedPlan, require_cc]);
+    async function getData() {
+      await initializeCustomBraintree(setHostedFields);
+    }
+    if (paymentMethod === 'other' || isLoggedIn === false) {
+      getData();
+    } else {
+      setHostedFields(undefined);
+    }
+  }, [selectedPlan, require_cc, paymentMethod, isLoggedIn]);
+
+  useEffect(() => {
+    if (payment_methods && isLoggedIn) {
+      const newPaymentMethods = [...payment_methods];
+      newPaymentMethods.push({ id: 'other', label: 'other' });
+      setAllPaymentMethods(newPaymentMethods);
+    } else if (isLoggedIn) {
+      const newPaymentMethods = [];
+      newPaymentMethods.push({ id: 'other', label: 'other' });
+      setAllPaymentMethods(newPaymentMethods);
+    }
+  }, [isLoggedIn, payment_methods]);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +73,106 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
       setRequire_cc(true);
     }
   }, [coupon]);
+
+  const style = {
+    control: (provided, state) => ({
+      ...provided,
+      border: 0,
+      boxShadow: 'none',
+      fontFamily: 'Brandon Grotesque',
+      fontSize:'14px',
+      height: '2rem',
+      minHeight: '2rem',
+      marginTop: '.2rem',
+      display: 'flex',
+      alignItems: 'center',
+    }),
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '2rem',
+      padding: '0px 8px',
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      height: '2rem',
+      margin: '0',
+      padding: '0',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '2rem',
+    }),
+    placeholder: (defaultStyles) => ({
+      ...defaultStyles,
+      fontFamily: 'Brandon Grotesque',
+      color: '#999',
+      fontWeight: '300',
+      position: 'absolute',
+      marginTop: '0px',
+    }),
+    menu: (defaultStyles) => ({
+      ...defaultStyles,
+      marginTop: '0px',
+      top: '75%',
+    }),
+  };
+
+  function getCardImage(cardName) {
+    switch (cardName) {
+      case 'Visa':
+        return (
+          <Image src="/cards/VisaDark.svg" alt="Visa" height={20} width={40} />
+        );
+
+      case 'American Express':
+        return (
+          <Image
+            src="/cards/AmericanExpressDark.svg"
+            alt="Visa"
+            height={20}
+            width={40}
+          />
+        );
+      case 'MasterCard':
+        return (
+          <Image
+            src="/cards/mastercardDark.svg"
+            alt="Visa"
+            height={30}
+            width={40}
+          />
+        );
+      case 'Discover':
+        return (
+          <Image
+            src="/cards/DiscoverDark.svg"
+            alt="Visa"
+            height={30}
+            width={50}
+          />
+        );
+      case 'JCB':
+        return (
+          <Image src="/cards/JCBDark.svg" alt="Visa" height={25} width={25} />
+        );
+      default:
+        return '';
+    }
+  }
+
+  function formatPaymentMethods(card) {
+    if (card.label === 'other') {
+      return <div className={Styles.stylePaymentMethods}>others</div>;
+    } else {
+      return (
+        <div className={Styles.stylePaymentMethods}>
+          {getCardImage(card?.cardType)}
+          {card.label}
+          {`**** **** **** ${card?.number?.slice(-4)}`}
+        </div>
+      );
+    }
+  }
 
   const initialValues = {
     first_name: undefined,
@@ -65,18 +199,22 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
     plan: undefined,
   };
 
-  const addSubscription = async (values, payload) => {
+  const addSubscription = async (values, nonce) => {
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
       plan: selectedPlan?.id,
       coupon: coupon?.code,
-      ...(require_cc && { card_nonce: payload.nonce }),
+      ...(require_cc && { card_nonce: nonce }),
+      ...(paymentMethod &&
+        paymentMethod !== 'other' && { card_token: paymentMethod }),
     };
     try {
       const response = await addNewSubscription(finalValues);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -123,17 +261,24 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
           initialErrors={initialErrors}
           validationSchema={validationSchema}
           onSubmit={async (values) => {
-            if (braintreeInstance) {
-              return braintreeInstance.requestPaymentMethod(
-                async (error, payload) => {
-                  setLoading(true);
-                  if (error) {
-                    setLoading(false);
-                    return null;
-                  }
-                  await addSubscription(values, payload);
-                }
-              );
+            setLoading(true);
+            if (hostedFields) {
+              if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
+                return;
+              }
+              let cardNonce;
+              try {
+                const { nonce } = await hostedFields.tokenize();
+                cardNonce = nonce;
+              } catch (error) {
+                setCardErrors({
+                  cvv: 'Recheck CVV',
+                  number: 'Recheck Card Number',
+                  expirationDate: 'Recheck Expiration Date',
+                });
+                setLoading(false);
+              }
+              await addSubscription(values, cardNonce);
             } else {
               await addSubscription(values);
             }
@@ -148,115 +293,196 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
             handleSubmit,
             isSubmitting,
           }) => (
-            <form className={Styles.form} onSubmit={handleSubmit}>
-              <div className={Styles.plan}>
-                <div className={Styles.selectPlan}>Select a Plan</div>
-                <div className={Styles.plansContainer}>
-                  {allPlans.map((plan, index) => (
-                    <PlanCard
-                      key={index}
-                      plan={plan}
-                      selectedPlan={selectedPlan}
-                      setSelectedPlan={setSelectedPlan}
-                    />
-                  ))}
+            <form className={Styles.formWrapper} onSubmit={handleSubmit}>
+              <div className={Styles.form}>
+                <div className={Styles.plan}>
+                  <div className={Styles.selectPlan}>Select a Plan</div>
+                  <div className={Styles.plansContainer}>
+                    {allPlans.map((plan, index) => (
+                      <PlanCard
+                        key={index}
+                        plan={plan}
+                        selectedPlan={selectedPlan}
+                        setSelectedPlan={setSelectedPlan}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
               {selectedPlan && (
-                <div className={Styles.formGrid}>
-                  <label>
-                    First Name
-                    <input
-                      type="text"
-                      name="first_name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.first_name}
+                <>
+                  <div className={Styles.form}>
+                    <div className={Styles.selectCountry}>SHIPPING INFO</div>
+                    <div className={Styles.nameSection}>
+                      <label>
+                        <input
+                          type="text"
+                          name="first_name"
+                          placeholder="First Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.first_name}
+                        />
+                        <span className={Styles.error}>
+                          {errors.first_name &&
+                            touched.first_name &&
+                            errors.first_name}
+                        </span>
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          placeholder="Last Name"
+                          name="last_name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.last_name}
+                        />
+                        <span className={Styles.error}>
+                          {errors.last_name &&
+                            touched.last_name &&
+                            errors.last_name}
+                        </span>
+                      </label>
+                    </div>
+                    <label>
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.email}
+                      />
+                      <span className={Styles.error}>
+                        {errors.email && touched.email && errors.email}
+                      </span>
+                    </label>
+                    <label>
+                      <PhoneInput
+                        placeholder="Mobile"
+                        name="mobile"
+                        mask="#"
+                        useNationalFormatForDefaultCountryValue={true}
+                        countrySelectProps={{ unicodeFlags: false }}
+                        withCountryCallingCode={false}
+                        className={Styles.phoneInput}
+                        onChange={(value) => {
+                          values.mobile = value;
+                        }}
+                      />
+                      <span className={Styles.error}>
+                        {errors.mobile && touched.mobile && errors.mobile}
+                      </span>
+                    </label>
+                  </div>
+                </>
+              )}
+              {selectedPlan && (
+                <>
+                  <div className={`${Styles.form} ${Styles.paymentInfo}`}>
+                    <div className={Styles.selectCountry}>Payment Details</div>
+                    <div className={Styles.selectPaymentMethod}>
+                      <Select
+                        name="payment_method"
+                        options={allPaymentMethods}
+                        styles={style}
+                        placeholder={
+                          isLoggedIn
+                            ? 'Choose payment method'
+                            : 'Login to see saved cards'
+                        }
+                        className={Styles.selectPaymentMethodDropdown}
+                        getOptionValue={(option) => option.cardToken}
+                        id="payment_method"
+                        isDisabled={!isLoggedIn}
+                        formatOptionLabel={(card) => formatPaymentMethods(card)}
+                        components={{
+                          IndicatorSeparator: () => null,
+                        }}
+                        onChange={(value) => {
+                          if (value.label === 'other') {
+                            setPaymentMethod(value.id);
+                          } else {
+                            setPaymentMethod(value.cardToken);
+                          }
+                        }}
+                      />
+                      <Coupon
+                        values={values}
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        selectedPlan={selectedPlan}
+                        coupon={coupon}
+                        setCoupon={setCoupon}
+                      />
+                    </div>
+                    {require_cc &&
+                      (paymentMethod === 'other' || !isLoggedIn) && (
+                        <div className={Styles.creditCard}>
+                          <div className={Styles.ccnumber}>
+                            <label for="cc-number">Credit Number</label>
+                            <div
+                              id="cc-number"
+                              className={Styles.hostedFields}
+                            ></div>
+                            {cardErrors && (
+                              <span className={Styles.error}>
+                                {cardErrors.number}
+                              </span>
+                            )}
+                          </div>
+                          <div className={Styles.expirycvv}>
+                            <div>
+                              <label for="cc-expiry">Expiry</label>
+                              <div
+                                id="cc-expiry"
+                                className={Styles.hostedFields}
+                              ></div>
+                              {cardErrors && (
+                                <span className={Styles.error}>
+                                  {cardErrors.expiry}
+                                </span>
+                              )}
+                            </div>
+                            <div>
+                              <label for="cc-cvv">CVV</label>
+                              <div
+                                id="cc-cvv"
+                                className={Styles.hostedFields}
+                              ></div>
+                              {cardErrors && (
+                                <span className={Styles.error}>
+                                  {cardErrors.cvv}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                  <div className={`${Styles.form} ${Styles.subscribe}`}>
+                    <div className={Styles.selectCountry}>Summary</div>
+                    <Summary
+                      selectedPlan={selectedPlan}
+                      autoRenewal={values.auto_renew}
+                      values={values}
+                      handleChange={handleChange}
+                      handleBlur={handleBlur}
+                      coupon={coupon}
                     />
-                    <span className={Styles.error}>
-                      {errors.first_name &&
-                        touched.first_name &&
-                        errors.first_name}
-                    </span>
-                  </label>
-                  <label>
-                    Last Name
-                    <input
-                      type="text"
-                      name="last_name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.last_name}
-                    />
-                    <span className={Styles.error}>
-                      {errors.last_name &&
-                        touched.last_name &&
-                        errors.last_name}
-                    </span>
-                  </label>
-                  <label>
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
-                    <span className={Styles.error}>
-                      {errors.email && touched.email && errors.email}
-                    </span>
-                  </label>
-                  <label>
-                    Phone Number
-                    <PhoneInput
-                      name="mobile"
-                      mask="#"
-                      useNationalFormatForDefaultCountryValue={true}
-                      countrySelectProps={{ unicodeFlags: false }}
-                      withCountryCallingCode={false}
-                      className={Styles.phoneInput}
-                      onChange={(value) => {
-                        values.mobile = value;
-                      }}
-                    />
-                    <span className={Styles.error}>
-                      {errors.mobile && touched.mobile && errors.mobile}
-                    </span>
-                  </label>
-                  <div className={Styles.heading}>Payment Details</div>
-                  {require_cc && (
-                    <div
-                      className={Styles.dropinContainer}
-                      id="dropin-container"
-                    ></div>
-                  )}
-                  <Coupon
-                    values={values}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    selectedPlan={selectedPlan}
-                    coupon={coupon}
-                    setCoupon={setCoupon}
-                  />
-                  <div className={Styles.heading}>Summary</div>
-                  <Summary
-                    selectedPlan={selectedPlan}
-                    autoRenewal={values.auto_renew}
-                    values={values}
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    coupon={coupon}
-                  />
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className={Styles.submit}
-                  >
-                    Subscribe
-                  </button>
-                </div>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className={`${Styles.submit} ${
+                        loading ? `${Styles.disabled}` : ''
+                      }`}
+                    >
+                      Subscribe
+                    </button>
+                  </div>
+                </>
               )}
             </form>
           )}
