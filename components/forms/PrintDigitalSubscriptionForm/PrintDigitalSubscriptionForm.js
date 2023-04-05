@@ -51,6 +51,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       newPaymentMethods.push({ id: 'other', label: 'other' });
       setAllPaymentMethods(newPaymentMethods);
     } else if (isLoggedIn) {
+      const newPaymentMethods = [];
       newPaymentMethods.push({ id: 'other', label: 'other' });
       setAllPaymentMethods(newPaymentMethods);
     }
