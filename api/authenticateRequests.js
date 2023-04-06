@@ -195,6 +195,18 @@ export class AuthencticatedUserAPI {
     }
   }
 
+  async updateSubscriptionPaymentMethod(values) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/subscription/updatePaymentMethod`,
+        values
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async reactivateSubscription(id) {
     try {
       const response = await this.requestInstance.post(

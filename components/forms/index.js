@@ -8,5 +8,6 @@ export * from './UpdateShippingInfo/UpdateShippingInfo';
 export * from './EditProfile/EditProfile';
 export * from './ChangePassword/ChangePassword';
 export * from './EditPaymentMethod/EditPaymentMethod';
-export * from './AddPaymentMethod/AddPaymentMethod'
-export * from './CreditCardInput/CreditCardInput'
+export * from './AddPaymentMethod/AddPaymentMethod';
+export * from './CreditCardInput/CreditCardInput';
+export * from './ChangePaymentMethod/ChangePaymentMethod';
