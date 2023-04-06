@@ -11,6 +11,7 @@ import {
   TransferSubscriptions,
   CancelSubscription,
   UpdateShippingInfo,
+  ChangePaymentMethod,
 } from '/components/forms';
 
 export function SubscriptionCard({ subscription, setLoading }) {
@@ -206,7 +207,14 @@ export function SubscriptionCard({ subscription, setLoading }) {
             <span className={Styles.value}>
               {`${value.card_type} ${value?.number?.slice(-4)}`}
             </span>
-            <span className={Styles.updateInfo}>CHANGE</span>
+            <span
+              className={Styles.updateInfo}
+              onClick={() => {
+                setPopup('updatePaymentMethod');
+              }}
+            >
+              CHANGE
+            </span>
           </div>
         );
         break;
@@ -317,6 +325,15 @@ export function SubscriptionCard({ subscription, setLoading }) {
             return (
               <Popup setPopupState={setPopup}>
                 <UpdateShippingInfo
+                  subscription={subscription}
+                  setPopupState={setPopup}
+                />
+              </Popup>
+            );
+          } else if (popup === 'updatePaymentMethod') {
+            return (
+              <Popup setPopupState={setPopup}>
+                <ChangePaymentMethod
                   subscription={subscription}
                   setPopupState={setPopup}
                 />
