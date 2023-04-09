@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
@@ -24,11 +24,59 @@ import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
 
+
 export default function Home() {
   const [selectedChumashScreen, setselectedChumashScreen] = useState(
     dailyStudyData.defaultUrl
   );
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPDF, setOpenPDF] = useState(false);
+  const viewer = useRef(null);
+
+  useEffect(() => {
+    if(viewer.current){
+    import("@pdftron/pdfjs-express-viewer")
+.then(() => {
+      WebViewer(
+      {
+        path: '/',
+        css:'/styles/pdf_viewer.css',
+        initialDoc: '/pdfs/sample.pdf',
+        licenseKey: 'BODVt5HLwkGSrI8l52V6',
+        disabledElements: [
+          "menuButton",
+          "panToolButton",
+          "viewControlsButton",
+          "textSelectButton",
+          "moreButton",
+          "selectToolButton",
+          "fitButton",
+          "searchButton",
+        ],
+      },
+      viewer.current,
+    ).then((instance) => {
+        // now you can access APIs through the WebViewer instance
+        const { Core } = instance;
+
+        // adding an event listener for when a document is loaded
+        Core.documentViewer.addEventListener('documentLoaded', () => {
+          console.log('document loaded');
+          const rectangle = new Annotations.RectangleAnnotation();
+          rectangle.PageNumber = 1;
+          rectangle.X = 100;
+          rectangle.Y = 100;
+          rectangle.Width = 250;
+          rectangle.Height = 250;
+        });
+
+        // adding an event listener for when the page number has changed
+        Core.documentViewer.addEventListener('pageNumberUpdated', (pageNumber) => {
+          console.log(`Page number is: ${pageNumber}`);
+        });
+      });})
+    }
+    }, [openPDF]);
 
   return (
     <main>
@@ -67,9 +115,15 @@ export default function Home() {
               </ul>
             </div>
             <div className={Styles.cardContentRight}>
-              <button>View Sample</button>
+              <button onClick={()=>{setOpenPDF(true)}}>View Sample</button>
             </div>
           </div>
+          
+          {openPDF &&
+            <Popup setPopupState={setOpenPDF}>
+              <div className="webviewer" ref={viewer}></div>
+            </Popup>
+          }
 
           <div className={Styles.card}>
             <p>

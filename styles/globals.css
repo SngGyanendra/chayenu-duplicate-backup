@@ -64,6 +64,17 @@ a{
 button {
   cursor: pointer;
 }
+
+.webviewer{
+  position: relative;
+  border: 4px solid var(--website-color);
+  border-radius: 15px;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+}
+
 @media screen and (max-width: 62.5rem) {
   :root {
     --container-portal-width: 90vw;
