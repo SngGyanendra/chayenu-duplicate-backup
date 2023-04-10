@@ -23,7 +23,7 @@ import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
-import PDF from 'components/common/PDF/PDF';
+import PDF from '../components/common/PDF/PDF';
 
 
 export default function Home() {
