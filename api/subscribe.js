@@ -35,7 +35,9 @@ export async function addNewSubscription(values) {
       is_trial: values.is_trial,
       plan: values.plan,
       quantity: values.quantity,
-      ...(!values.coupon && { card_nonce: values.card_nonce }),
+      // ...(!values.coupon && { card_nonce: values.card_nonce }),
+      card_nonce: values.card_nonce,
+      card_token: values.card_token,
       ...(values.address_1 && {
         billing_address: {
           first_name: values.first_name,

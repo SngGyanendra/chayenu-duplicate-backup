@@ -11,6 +11,7 @@ import {
   TransferSubscriptions,
   CancelSubscription,
   UpdateShippingInfo,
+  ChangePaymentMethod,
 } from '/components/forms';
 
 export function SubscriptionCard({ subscription, setLoading }) {
@@ -25,6 +26,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     plans,
     status,
     next_bill_date,
+    paymentMethod,
     first_name,
     last_name,
     address_1,
@@ -37,6 +39,8 @@ export function SubscriptionCard({ subscription, setLoading }) {
     plans,
     status,
     next_bill_date,
+    paymentMethod,
+
     first_name,
     last_name,
     address_1,
@@ -73,6 +77,8 @@ export function SubscriptionCard({ subscription, setLoading }) {
       } else if (key === 'next_bill_date' && obj[key] !== null) {
         count++;
       } else if (key === 'first_name' && obj[key] !== null) {
+        count++;
+      } else if (key === 'paymentMethod' && obj[key] !== null) {
         count++;
       }
     }
@@ -152,9 +158,9 @@ export function SubscriptionCard({ subscription, setLoading }) {
         html = (
           <div>
             <span className={Styles.keys}>Address:</span>
-            <span
-              className={Styles.value}
-            >{`${value} ${object.address_2}`}</span>
+            <span className={Styles.value}>{`${value} ${
+              object.address_2 ? object.address_2 : ''
+            }`}</span>
           </div>
         );
         break;
@@ -191,6 +197,24 @@ export function SubscriptionCard({ subscription, setLoading }) {
           <div>
             <span className={Styles.keys}>Zip Code:</span>
             <span className={Styles.value}>{value}</span>
+          </div>
+        );
+        break;
+      case 'paymentMethod':
+        html = (
+          <div>
+            <span className={Styles.keys}>Payment Method:</span>
+            <span className={Styles.value}>
+              {`${value.card_type} ${value?.number?.slice(-4)}`}
+            </span>
+            <span
+              className={Styles.updateInfo}
+              onClick={() => {
+                setPopup('updatePaymentMethod');
+              }}
+            >
+              CHANGE
+            </span>
           </div>
         );
         break;
@@ -301,6 +325,15 @@ export function SubscriptionCard({ subscription, setLoading }) {
             return (
               <Popup setPopupState={setPopup}>
                 <UpdateShippingInfo
+                  subscription={subscription}
+                  setPopupState={setPopup}
+                />
+              </Popup>
+            );
+          } else if (popup === 'updatePaymentMethod') {
+            return (
+              <Popup setPopupState={setPopup}>
+                <ChangePaymentMethod
                   subscription={subscription}
                   setPopupState={setPopup}
                 />

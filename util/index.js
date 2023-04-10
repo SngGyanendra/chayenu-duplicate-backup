@@ -13,3 +13,4 @@ export function removeAuthData() {
 export * from './date.js';
 export * from './HydrateToken';
 export * from './CheckAuth'
+export * from './validateCreditCard.js'

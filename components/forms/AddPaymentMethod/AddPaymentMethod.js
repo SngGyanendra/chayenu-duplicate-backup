@@ -1,11 +1,12 @@
 import { Formik } from 'formik';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { getAllCountries } from '/api';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { updatePaymentMethods } from '/store/userSlice';
 import toast from 'react-hot-toast';
 import { toastTemplate } from '/components/common';
+import { validateCreditCard } from '/util';
 import { updateCountries } from '/store/userSlice';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { CreditCardInput } from '/components/forms';
@@ -25,8 +26,6 @@ export function AddPaymentMethod({ setEditingState }) {
     number: undefined,
     expiry: undefined,
   });
-
-  const creditCardForm = useRef();
 
   useEffect(() => {
     const getData = async () => {
@@ -68,58 +67,9 @@ export function AddPaymentMethod({ setEditingState }) {
     zip_code: Yup.string().required('zip code is required'),
   });
 
-  const validateCreditCard = (state) => {
-    const isValid = { cvv: true, number: true, expirationDate: true };
-    const fields = state?.fields;
-    if (
-      !(
-        fields.cvv.isValid &&
-        !fields.cvv.isEmpty &&
-        fields.cvv.isPotentiallyValid
-      )
-    ) {
-      isValid.cvv = false;
-      setCardErrors((previousState) => {
-        return { ...previousState, cvv: 'invalid cvv' };
-      });
-    }
-    if (
-      !(
-        fields.number.isValid &&
-        !fields.number.isEmpty &&
-        fields.number.isPotentiallyValid
-      )
-    ) {
-      isValid.number = false;
-      setCardErrors((previousState) => {
-        return { ...previousState, number: 'invalid credit card number' };
-      });
-    }
-    if (
-      !(
-        fields.expirationDate.isValid &&
-        !fields.expirationDate.isEmpty &&
-        fields.expirationDate.isPotentiallyValid
-      )
-    ) {
-      isValid.expirationDate = false;
-      setCardErrors((previousState) => {
-        return { ...previousState, expiry: 'invalid expiry' };
-      });
-    }
-    if (isValid.cvv && isValid.expirationDate && isValid.number) {
-      setCardErrors({ cvv: '', expiry: '', number: '' });
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   return (
     <div className={Styles.paymentMethod}>
       <CreditCardInput
-        creditCardForm={creditCardForm}
-        setCardErrors={setCardErrors}
         cardErrors={cardErrors}
         setHostedFields={setHostedFields}
       />
@@ -128,7 +78,7 @@ export function AddPaymentMethod({ setEditingState }) {
         initialErrors={initialErrors}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          if (!validateCreditCard(hostedFields.getState())) {
+          if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
             return;
           }
           const loadingToast = toastTemplate(

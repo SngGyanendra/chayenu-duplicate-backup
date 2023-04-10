@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { initializeCustomBraintree } from '/components/common';
 import Styles from './creditcardinput.module.scss';
 

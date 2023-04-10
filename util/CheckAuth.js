@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 export function CheckAuth() {
   const router = useRouter();
-  const firstUpdate = useRef(true);
+  const [firstUpdate, setFirstUpdate] = useState(true);
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
+    if (firstUpdate) {
+      setFirstUpdate(false);
     } else {
       const route = router.asPath;
       if (route.split('/')[1] === 'portal') {
@@ -19,7 +19,7 @@ export function CheckAuth() {
         }
       }
     }
-  }, [router]);
+  }, [router, firstUpdate, isLoggedIn]);
 
   return <></>;
 }
