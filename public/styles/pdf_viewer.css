@@ -43,9 +43,8 @@
 }
 
 .Icon {
-    width: 22px;
-    height: 22px;
-    pointer-events: none;
+    width: 19px;
+    height: 19px;
 }
 
 .zoom-overlay {

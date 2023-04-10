@@ -76,6 +76,20 @@ $height: 27rem;
         }
 }
 
+.pdfContainer{
+  height: 540px;
+  border: 6px solid var(--website-color);
+  border-radius: 5px;
+
+  .ribbon{
+    background-color: var(--website-color);
+    text-align: center;
+    height: 2rem;
+    font: fontvalue(16,23,bold);
+    padding-top: 2px;
+
+  }
+}
 
 .main{
   font-family: var(--website-font-family);

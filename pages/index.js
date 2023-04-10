@@ -76,14 +76,8 @@ export default function Home() {
           
           {openPDF &&
             <Popup setPopupState={setOpenPDF}>
-              <div style={
-                {
-                  height: "540px",
-                  border: "6px solid var(--website-color)",
-                  borderRadius: "5px"
-                }
-              }>
-                <div style={{backgroundColor: "var(--website-color)", textAlign: "center"}}>Chayenu Sample</div>
+              <div className={Styles.pdfContainer}>
+                <div className={Styles.ribbon}>Chayenu Sample</div>
                 <PDF pdfPath={"/pdfs/sample.pdf"}/>
               </div>
             </Popup>
