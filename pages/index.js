@@ -59,15 +59,26 @@ export default function Home() {
         // now you can access APIs through the WebViewer instance
         const { Core } = instance;
 
+
+        const iframeDoc = instance.UI.iframeWindow.document;
+        const container = iframeDoc.querySelector('.DocumentContainer');
+        container.style.backgroundColor = "#FFFFFF";
+        console.log("C", container)
+
+        instance.UI.setHeaderItems((header) => {
+          header.getHeader('default').push({
+            img: "icon-header-full-screen",
+            index: -1,
+            type: "actionButton",
+            element: 'fullScreenButton',
+            onClick: () => {
+              instance.UI.toggleFullScreen()
+            }
+          });
+        });
+
         // adding an event listener for when a document is loaded
         Core.documentViewer.addEventListener('documentLoaded', () => {
-          console.log('document loaded');
-          const rectangle = new Annotations.RectangleAnnotation();
-          rectangle.PageNumber = 1;
-          rectangle.X = 100;
-          rectangle.Y = 100;
-          rectangle.Width = 250;
-          rectangle.Height = 250;
         });
 
         // adding an event listener for when the page number has changed

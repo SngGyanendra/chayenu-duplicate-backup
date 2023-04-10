@@ -15,5 +15,6 @@
 
 .translucentLayer .form{
   width: var(--container-width);
-  height: 70%;
+  max-height: 640px;
+  height: 80%;
 }
