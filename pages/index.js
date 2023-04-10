@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
@@ -23,12 +23,15 @@ import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
+import PDF from 'components/common/PDF/PDF';
+
 
 export default function Home() {
   const [selectedChumashScreen, setselectedChumashScreen] = useState(
     dailyStudyData.defaultUrl
   );
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPDF, setOpenPDF] = useState(false);
 
   return (
     <main>
@@ -67,9 +70,18 @@ export default function Home() {
               </ul>
             </div>
             <div className={Styles.cardContentRight}>
-              <button>View Sample</button>
+              <button onClick={()=>{setOpenPDF(true)}}>View Sample</button>
             </div>
           </div>
+          
+          {openPDF &&
+            <Popup setPopupState={setOpenPDF}>
+              <div className={Styles.pdfContainer}>
+                <div className={Styles.ribbon}>Chayenu Sample</div>
+                <PDF pdfPath={"/pdfs/sample.pdf"}/>
+              </div>
+            </Popup>
+          }
 
           <div className={Styles.card}>
             <p>

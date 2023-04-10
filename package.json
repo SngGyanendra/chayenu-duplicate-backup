@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pdftron/pdfjs-express-viewer": "^8.7.2",
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.3.1",
     "braintree-web": "^3.92.0",

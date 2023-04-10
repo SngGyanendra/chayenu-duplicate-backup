@@ -1,0 +1,52 @@
+.Header{
+    background-color: #d8eaf8
+}
+.HeaderItems {
+    /* width: var(--container-width-percent); */
+    max-width: 1200px;
+    width: 100%;
+}
+.Header:not(.Tools) .Button:hover:enabled {
+    background: none;
+}
+.HeaderItems .Button:not(.disabled):hover{
+    background-color: none;
+}
+.hide-in-small-mobile{
+    display: none;
+}
+.open.ContextMenuPopup{
+    display: none;
+}
+.App{
+    background-color: #8C9EAC;
+}
+.DocumentContainer{
+    padding-top: 30px;
+}
+.App>.content{
+    /* max-width: 1200px; */
+    width: 100%;
+    margin:auto;
+    /* margin: 30px auto 0px auto; */
+}
+.Button img{
+    filter: brightness(0) invert(1);
+}
+
+.Button .Icon svg path{
+    fill: #003652 !important;
+  }
+
+.OverlayContainer{
+    display: none;
+}
+
+.Icon {
+    width: 19px;
+    height: 19px;
+}
+
+.zoom-overlay {
+    background-color: transparent;
+}
