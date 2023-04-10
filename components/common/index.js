@@ -5,3 +5,4 @@ export * from './toast';
 export * from './Alert/Alert'
 export * from './BraintreeCustom'
 export * from './PageLoadFailed/PageLoadFailed';
+export * from './PDF/PDF';
