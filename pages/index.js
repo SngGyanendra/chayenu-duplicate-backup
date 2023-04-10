@@ -23,6 +23,7 @@ import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
+import PDF from 'components/common/PDF/PDF';
 
 
 export default function Home() {
@@ -31,63 +32,6 @@ export default function Home() {
   );
   const [openPopup, setOpenPopup] = useState(false);
   const [openPDF, setOpenPDF] = useState(false);
-  const viewer = useRef(null);
-
-  useEffect(() => {
-    if(viewer.current){
-    import("@pdftron/pdfjs-express-viewer")
-.then(() => {
-      WebViewer(
-      {
-        path: '/',
-        css:'/styles/pdf_viewer.css',
-        initialDoc: '/pdfs/sample.pdf',
-        licenseKey: 'BODVt5HLwkGSrI8l52V6',
-        disabledElements: [
-          "menuButton",
-          "panToolButton",
-          "viewControlsButton",
-          "textSelectButton",
-          "moreButton",
-          "selectToolButton",
-          "fitButton",
-          "searchButton",
-        ],
-      },
-      viewer.current,
-    ).then((instance) => {
-        // now you can access APIs through the WebViewer instance
-        const { Core } = instance;
-
-
-        const iframeDoc = instance.UI.iframeWindow.document;
-        const container = iframeDoc.querySelector('.DocumentContainer');
-        container.style.backgroundColor = "#FFFFFF";
-        console.log("C", container)
-
-        instance.UI.setHeaderItems((header) => {
-          header.getHeader('default').push({
-            img: "icon-header-full-screen",
-            index: -1,
-            type: "actionButton",
-            element: 'fullScreenButton',
-            onClick: () => {
-              instance.UI.toggleFullScreen()
-            }
-          });
-        });
-
-        // adding an event listener for when a document is loaded
-        Core.documentViewer.addEventListener('documentLoaded', () => {
-        });
-
-        // adding an event listener for when the page number has changed
-        Core.documentViewer.addEventListener('pageNumberUpdated', (pageNumber) => {
-          console.log(`Page number is: ${pageNumber}`);
-        });
-      });})
-    }
-    }, [openPDF]);
 
   return (
     <main>
@@ -132,7 +76,16 @@ export default function Home() {
           
           {openPDF &&
             <Popup setPopupState={setOpenPDF}>
-              <div className="webviewer" ref={viewer}></div>
+              <div style={
+                {
+                  height: "540px",
+                  border: "6px solid var(--website-color)",
+                  borderRadius: "5px"
+                }
+              }>
+                <div style={{backgroundColor: "var(--website-color)", textAlign: "center"}}>Chayenu Sample</div>
+                <PDF pdfPath={"/pdfs/sample.pdf"}/>
+              </div>
             </Popup>
           }
 

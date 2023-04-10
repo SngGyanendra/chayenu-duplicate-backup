@@ -67,11 +67,9 @@ button {
 
 .webviewer{
   position: relative;
-  border: 4px solid var(--website-color);
-  border-radius: 15px;
   width: 100%;
   max-width: 1200px;
-  height: 100%;
+  height: 506px;
   margin: 0 auto;
 }
 
