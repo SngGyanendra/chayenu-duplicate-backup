@@ -103,7 +103,7 @@ $height: 27rem;
       .card{
 
         height: $height;
-        grid-template-columns: 1fr 16rem;
+        grid-template-columns: 1fr 25rem;
 
        .cardContentLeft{
         align-self: center;
@@ -164,7 +164,7 @@ $height: 27rem;
   
     .cardContentRight{
         background: transparent url('/images/homepage/ChayenuHomeTopRight.png') 0% 100px no-repeat padding-box;
-        background-size: contain;
+        background-size: 100% 280px;
 
         @media screen and (max-width: 800px) {
             display: none;
