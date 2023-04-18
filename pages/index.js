@@ -44,7 +44,7 @@ export default function Home() {
               <h1>Daily Torah Study</h1>
               <h3>More Accesible Than Ever! </h3>
               <div className={Styles.cardMobileImage}></div>
-              <button type="button">Subscribe</button>
+              <button type="button">SUBSCRIBE</button>
             </div>
             <div className={Styles.cardContentRight}></div>
           </div>
