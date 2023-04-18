@@ -77,7 +77,9 @@ $height: 27rem;
 }
 
 .pdfContainer{
-  height: 540px;
+  width: var(--container-width);
+  max-height: 640px;
+  height: 80%;
   border: 6px solid var(--website-color);
   border-radius: 5px;
 
