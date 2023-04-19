@@ -11,7 +11,7 @@
   }
 }
 
-$height: 27rem;
+$height: 30rem;
 
 
 .card{
@@ -103,7 +103,7 @@ $height: 27rem;
       .card{
 
         height: $height;
-        grid-template-columns: 1fr 25rem;
+        grid-template-columns: 1fr 28rem;
 
        .cardContentLeft{
         align-self: center;
@@ -137,7 +137,7 @@ $height: 27rem;
             .cardMobileImage{
             background: transparent url('/images/homepage/ChayenuHomeTopRight.png') center 0 no-repeat padding-box;
             background-size: contain;
-            height: 10rem;
+            height: 12rem;
             margin-top: 1rem;
           }
 
@@ -184,11 +184,15 @@ $height: 27rem;
   }
 
   .section2{
-    height: 615px;
+    min-height: 590px;
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+    height: auto;
       .card{
-          height: 368px;
+          height: auto;
           align-items: center;
-          grid-template-columns: 1fr 15rem;
+          grid-template-columns: 1fr 26rem;
+          padding-top: 2rem;
 
           .cardContentLeft{
               h2{
@@ -199,6 +203,7 @@ $height: 27rem;
               ul{
                   padding-top: 1rem;
                   padding-left: 1rem;
+                  padding-bottom: 1rem;
               }
 
               ul li::marker {
@@ -213,17 +218,18 @@ $height: 27rem;
       }
 
       .cardContentRight{
-          background: transparent url('/images/homepage/ChayenuHomeSecondSection.png') 0% 25px no-repeat padding-box;
-          background-size: contain;
+          background: transparent url('/images/homepage/ChayenuHomeSecondSection.png') 0 36px no-repeat padding-box;
+          background-size: 100% 290px;
+          height: 100%;
 
           button{
               @include buttonState(var(--dark), #ffffff);
               border-radius: 10px;
               border: none;
-              width: 143px;
-              height: 38px;
-              margin-top: 62%;
-              margin-left: 33%;
+              width: 145px;
+              height: 40px;
+              margin-top: 67%;
+              margin-left: 32%;
               font: fontvalue(14,17,bold);
 
           }
@@ -238,6 +244,7 @@ $height: 27rem;
         padding: 20px;
         padding-right: 0;       
         border-radius: 10px;
+        margin-top: 2rem;
 
         p:nth-child(1){
           font: fontvalue(15,22,400);
@@ -283,9 +290,10 @@ $height: 27rem;
           }
 
           .cardContentRight{
-            max-width: 17rem;
+            max-width: 20rem;
             width: 100%;
             margin-top: 0;
+            background-size: contain;
           }
         }
 
@@ -326,7 +334,7 @@ $height: 27rem;
     .card{
       height: 385px;
       padding-top: 75px;
-      grid-template-columns: auto auto;
+      grid-template-columns: 1fr auto;
       grid-template-rows: repeat(3, 1fr);
 
       .head{
@@ -341,9 +349,9 @@ $height: 27rem;
 
       .cardContentLeft{
         display: grid;
-        grid-template-columns: repeat(2, auto);
-        padding-top: 25px;
-        grid-column-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 6px;
+        grid-column-gap: 0;
         div{
           height: 306px;
           display: grid;
@@ -352,8 +360,9 @@ $height: 27rem;
             display: grid;
             grid-template-rows: repeat(5, 16%);
             align-items: center;
-            grid-auto-columns: 1fr;
-            grid-gap: 0 10px;
+            grid-auto-columns: 1fr 1fr;
+            padding-right: 6%;
+            grid-gap: 0 0;
             grid-auto-flow: column;
             
             .dailyStudyCards{
@@ -364,10 +373,12 @@ $height: 27rem;
               justify-content: center;
               align-items: center;
               cursor: pointer;
+              margin-right: 1rem;
               
               p{
-                font: fontvalue(9,14,bold);
+                font: fontvalue(12,14,bold);
                 text-transform: uppercase;
+                text-align: center;
               }
 
             }
@@ -381,21 +392,44 @@ $height: 27rem;
 
         }
 
+        @media screen and (max-width: 800px) {
+
+          &{
+            div{
+
+              .subtitle{
+                font-size: 1rem;
+              }
+
+              .childCard{
+                padding-right: 0;
+              }
+            }
+          }
+
+        }
+
       }
 
       .cardContentRight{
         display: grid;
-        justify-content: center;
+        justify-content: right;
         position: relative;
+        
+        grid-row: 1/3;
+        grid-column: 3;
 
+        .mobileWrapper{
+          margin-top: 25px;
+        }
         
         .screen{
-          margin-left: 5px;
+          margin-left: 6px;
           color: transparent;
-          width: 132px;
-          height: 298px;
+          width: 143px;
+          height: 315px;
           border-radius: 12px;
-          margin-top: -314px;
+          margin-top: -331px;
         }
 
 
