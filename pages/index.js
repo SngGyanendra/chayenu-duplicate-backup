@@ -17,7 +17,7 @@ import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 import Alan from '/public/images/homepage/Alan.png';
 import Lisa from '/public/images/homepage/woman@2x.png';
 import Alice from '/public/images/homepage/Testimonials/1.png';
-import Bob from '/public/images/homepage/Testimonials/2.png';
+import Bob from '/public/images/homepage/Testimonials/DrBobShor.png';
 import Arnie from '/public/images/homepage/Testimonials/3.png';
 import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
@@ -315,7 +315,7 @@ export default function Home() {
             <p>Dr. Bob Shorr, Ventura, California</p>
 
             <div>
-              <Image src={Bob} alt="Alice's Image" height={130} width={120} />
+              <Image src={Bob} alt="Alice's Image" height={130} width={130} />
             </div>
           </div>
         </ContainerCard>

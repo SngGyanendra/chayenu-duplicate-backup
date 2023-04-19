@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Styles from './footer.module.scss';
 import Image from 'next/image';
 
@@ -15,8 +16,8 @@ export function Footer() {
           />
         </div>
         <ul>
-          <li>Subscribe</li>
-          <li>Explore</li>
+          <li><Link href="/subscribe">Subscribe</Link></li>
+          <li><Link href="/explore">Explore</Link></li>
           <li>Library</li>
           <li>Chayus</li>
           <li>Newsletter</li>
