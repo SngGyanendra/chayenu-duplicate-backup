@@ -103,7 +103,7 @@ $height: 27rem;
       .card{
 
         height: $height;
-        grid-template-columns: 1fr 25rem;
+        grid-template-columns: 1fr 28rem;
 
        .cardContentLeft{
         align-self: center;
@@ -188,7 +188,7 @@ $height: 27rem;
       .card{
           height: 368px;
           align-items: center;
-          grid-template-columns: 1fr 15rem;
+          grid-template-columns: 1fr 26rem;
 
           .cardContentLeft{
               h2{
@@ -213,17 +213,18 @@ $height: 27rem;
       }
 
       .cardContentRight{
-          background: transparent url('/images/homepage/ChayenuHomeSecondSection.png') 0% 25px no-repeat padding-box;
-          background-size: contain;
+          background: transparent url('/images/homepage/ChayenuHomeSecondSection.png') 0 36px no-repeat padding-box;
+          background-size: 100% 300px;
+          height: 100%;
 
           button{
               @include buttonState(var(--dark), #ffffff);
               border-radius: 10px;
               border: none;
-              width: 143px;
-              height: 38px;
-              margin-top: 62%;
-              margin-left: 33%;
+              width: 145px;
+              height: 40px;
+              margin-top: 68%;
+              margin-left: 32%;
               font: fontvalue(14,17,bold);
 
           }
@@ -326,7 +327,7 @@ $height: 27rem;
     .card{
       height: 385px;
       padding-top: 75px;
-      grid-template-columns: auto auto;
+      grid-template-columns: 1fr auto;
       grid-template-rows: repeat(3, 1fr);
 
       .head{
@@ -341,9 +342,9 @@ $height: 27rem;
 
       .cardContentLeft{
         display: grid;
-        grid-template-columns: repeat(2, auto);
-        padding-top: 25px;
-        grid-column-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        padding-top: 6px;
+        grid-column-gap: 0;
         div{
           height: 306px;
           display: grid;
@@ -352,8 +353,9 @@ $height: 27rem;
             display: grid;
             grid-template-rows: repeat(5, 16%);
             align-items: center;
-            grid-auto-columns: 1fr;
-            grid-gap: 0 10px;
+            grid-auto-columns: 1fr 1fr;
+            padding-right: 6%;
+            grid-gap: 0 0;
             grid-auto-flow: column;
             
             .dailyStudyCards{
@@ -366,7 +368,7 @@ $height: 27rem;
               cursor: pointer;
               
               p{
-                font: fontvalue(9,14,bold);
+                font: fontvalue(12,14,bold);
                 text-transform: uppercase;
               }
 
@@ -385,17 +387,23 @@ $height: 27rem;
 
       .cardContentRight{
         display: grid;
-        justify-content: center;
+        justify-content: right;
         position: relative;
+        
+        grid-row: 1/3;
+        grid-column: 3;
 
+        .mobileWrapper{
+          margin-top: 25px;
+        }
         
         .screen{
-          margin-left: 5px;
+          margin-left: 6px;
           color: transparent;
-          width: 132px;
-          height: 298px;
+          width: 143px;
+          height: 315px;
           border-radius: 12px;
-          margin-top: -314px;
+          margin-top: -331px;
         }
 
 
