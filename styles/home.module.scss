@@ -11,7 +11,7 @@
   }
 }
 
-$height: 27rem;
+$height: 30rem;
 
 
 .card{
@@ -137,7 +137,7 @@ $height: 27rem;
             .cardMobileImage{
             background: transparent url('/images/homepage/ChayenuHomeTopRight.png') center 0 no-repeat padding-box;
             background-size: contain;
-            height: 10rem;
+            height: 12rem;
             margin-top: 1rem;
           }
 
@@ -184,11 +184,15 @@ $height: 27rem;
   }
 
   .section2{
-    height: 615px;
+    min-height: 590px;
+    padding-bottom: 3rem;
+    padding-top: 1rem;
+    height: auto;
       .card{
-          height: 368px;
+          height: auto;
           align-items: center;
           grid-template-columns: 1fr 26rem;
+          padding-top: 2rem;
 
           .cardContentLeft{
               h2{
@@ -199,6 +203,7 @@ $height: 27rem;
               ul{
                   padding-top: 1rem;
                   padding-left: 1rem;
+                  padding-bottom: 1rem;
               }
 
               ul li::marker {
@@ -214,7 +219,7 @@ $height: 27rem;
 
       .cardContentRight{
           background: transparent url('/images/homepage/ChayenuHomeSecondSection.png') 0 36px no-repeat padding-box;
-          background-size: 100% 300px;
+          background-size: 100% 290px;
           height: 100%;
 
           button{
@@ -223,7 +228,7 @@ $height: 27rem;
               border: none;
               width: 145px;
               height: 40px;
-              margin-top: 68%;
+              margin-top: 67%;
               margin-left: 32%;
               font: fontvalue(14,17,bold);
 
@@ -239,6 +244,7 @@ $height: 27rem;
         padding: 20px;
         padding-right: 0;       
         border-radius: 10px;
+        margin-top: 2rem;
 
         p:nth-child(1){
           font: fontvalue(15,22,400);
@@ -284,9 +290,10 @@ $height: 27rem;
           }
 
           .cardContentRight{
-            max-width: 17rem;
+            max-width: 20rem;
             width: 100%;
             margin-top: 0;
+            background-size: contain;
           }
         }
 
@@ -366,10 +373,12 @@ $height: 27rem;
               justify-content: center;
               align-items: center;
               cursor: pointer;
+              margin-right: 1rem;
               
               p{
                 font: fontvalue(12,14,bold);
                 text-transform: uppercase;
+                text-align: center;
               }
 
             }
@@ -380,6 +389,23 @@ $height: 27rem;
 
         & div:nth-child(2) > div.childCard{
           grid-template-columns: repeat(2, 1fr);
+
+        }
+
+        @media screen and (max-width: 800px) {
+
+          &{
+            div{
+
+              .subtitle{
+                font-size: 1rem;
+              }
+
+              .childCard{
+                padding-right: 0;
+              }
+            }
+          }
 
         }
 
