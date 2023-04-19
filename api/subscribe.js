@@ -30,6 +30,7 @@ export async function addNewSubscription(values) {
         first_name: values.first_name,
         last_name: values.last_name,
         email: values.email.toLowerCase(),
+        mobile: values.mobile,
       },
       ...(values.coupon && { coupon: values.coupon }),
       is_trial: values.is_trial,

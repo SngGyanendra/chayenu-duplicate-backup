@@ -93,6 +93,20 @@ export function Header() {
     }
   }, []);
 
+  const dropDown = useRef();
+
+  useEffect(() => {
+    document.body.addEventListener('click', (event) => {
+      if (
+        event.target != dropDown.current &&
+        !dropDown.current?.contains(event.target)
+      ) {
+        setIsDropDownOpen(false);
+      }
+    });
+    return () => {};
+  }, []);
+
   const menu = useRef();
   const chayenuLogo = useRef();
 
@@ -157,6 +171,7 @@ export function Header() {
               </ul>
             </div>
             <div
+              ref={dropDown}
               className={`${Styles.userDetails} ${
                 isDropDownOpen && !mobileScreen
                   ? `${Styles.backgroundLight}`

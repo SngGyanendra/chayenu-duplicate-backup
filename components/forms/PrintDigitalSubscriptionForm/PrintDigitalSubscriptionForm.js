@@ -4,7 +4,7 @@ import { initializeCustomBraintree } from '/components/common';
 import Select from 'react-select';
 import { Formik } from 'formik';
 import { validateCreditCard } from '/util';
-// import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import { useSelector } from 'react-redux';
 import Styles from './printdigitalsubscriptionform.module.scss';
 import { PlanCard } from '/components/cards';
@@ -62,7 +62,8 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       const { data } = await getAllPlans(selectedProduct.id);
       setAllPlans(data);
 
-      const countryList = data.map((plan) => plan.country);
+      let countryList = data.map((plan) => plan.country);
+      countryList = countryList.filter((country) => country !== null);
       const uniqueCountries = [
         ...new Map(
           countryList.map((country) => [country.id, country])
@@ -134,11 +135,11 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       position: 'absolute',
       marginTop: '0px',
     }),
-    menu:(defaultStyles) => ({
+    menu: (defaultStyles) => ({
       ...defaultStyles,
       marginTop: '0px',
-      top:'75%'
-    })
+      top: '75%',
+    }),
   };
 
   function getCardImage(cardName) {
@@ -237,6 +238,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
   };
 
   const addSubscription = async (values, nonce) => {
+    console.log(values)
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
@@ -282,15 +284,15 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       .required('Quantity is required')
       .positive('Quantity needs to be positive')
       .integer('Quantity needs to be an integer'),
-    // mobile: Yup.string()
-    //   .required('Phone is required')
-    //   .test('phone is valid', 'Invalid contact', (value) => {
-    //     if (value) {
-    //       return isValidPhoneNumber(value);
-    //     } else {
-    //       return false;
-    //     }
-    //   }),
+    mobile: Yup.string()
+      .required('Phone is required')
+      .test('phone is valid', 'Invalid contact', (value) => {
+        if (value) {
+          return isValidPhoneNumber(value);
+        } else {
+          return false;
+        }
+      }),
     address_1: Yup.string().when('mobile', {
       is: () =>
         (selectedCountry.has_shipping && deliveryType === 'shipping') ||
@@ -630,6 +632,22 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                         </span>
                       </label>
                     </div>
+                    <label>
+                      <PhoneInput
+                        name="mobile"
+                        mask="#"
+                        placeholder="Mobile Number"
+                        countrySelectProps={{ unicodeFlags: false }}
+                        withCountryCallingCode={false}
+                        className={Styles.phoneInput}
+                        onChange={(value) => {
+                          values.mobile = value;
+                        }}
+                      />
+                      <span className={Styles.error}>
+                        {errors.mobile && touched.mobile && errors.mobile}
+                      </span>
+                    </label>
                   </>
                 </div>
               )}
