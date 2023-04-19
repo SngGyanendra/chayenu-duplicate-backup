@@ -24,6 +24,7 @@ import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
 import PDF from '../components/common/PDF/PDF';
+import { useWindowDimensions } from './../hooks/useWindow';
 
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
   );
   const [openPopup, setOpenPopup] = useState(false);
   const [openPDF, setOpenPDF] = useState(false);
+  const { width } = useWindowDimensions();
 
   return (
     <main>
@@ -122,7 +124,7 @@ export default function Home() {
                       style={{ backgroundColor: data.backgroundColor }}
                       key={data.title}
                       onClick={() => {
-                        setOpenPopup(true);
+                        width <=800 && setOpenPopup(true);
                         setselectedChumashScreen(data.imageUrl);
                       }}
                       // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
@@ -142,7 +144,7 @@ export default function Home() {
                         className={Styles.dailyStudyCards}
                         key={data.title}
                         onClick={() => {
-                          setOpenPopup(true)
+                          width <=800 && setOpenPopup(true);
                           setselectedChumashScreen(data.imageUrl);
                         }}
                         // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
