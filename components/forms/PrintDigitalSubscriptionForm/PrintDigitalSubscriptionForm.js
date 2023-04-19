@@ -7,7 +7,7 @@ import { validateCreditCard } from '/util';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import { useSelector } from 'react-redux';
 import Styles from './printdigitalsubscriptionform.module.scss';
-import { PlanCard } from '/components/cards';
+import { PlanCard, CountryLoadingSkeleton } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
 import { getAllPlans, addNewSubscription } from '/api';
 import * as Yup from 'yup';
@@ -238,7 +238,6 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
   };
 
   const addSubscription = async (values, nonce) => {
-    console.log(values)
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
@@ -324,6 +323,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
 
   return (
     <div className={Styles.formWrapper}>
+      {!allPlans.length && <CountryLoadingSkeleton />}
       {allPlans.length > 0 && (
         <Formik
           initialValues={initialValues}
@@ -366,42 +366,44 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
               <div className={Styles.form}>
                 {countriesList.find((country) => country.name === 'USA') &&
                   countriesList.length > 1 && (
-                    <div className={Styles.country}>
-                      <div className={Styles.selectCountry}>
-                        ENTER YOUR LOCATION
-                      </div>
-                      <div className={Styles.location}>
-                        <div
-                          className={`${Styles.countryType} ${
-                            selectedCountry?.name === 'USA'
-                              ? Styles.selectCountry
-                              : ''
-                          }`}
-                          onClick={() => {
-                            setSelectedCountry(
-                              countriesList?.find(
-                                (country) => country.name === 'USA'
-                              )
-                            );
-                          }}
-                        >
-                          USA
+                    <>
+                      <div className={Styles.country}>
+                        <div className={Styles.selectCountry}>
+                          ENTER YOUR LOCATION
                         </div>
-                        <div
-                          className={`${Styles.countryType} ${
-                            selectedCountry?.name !== 'USA' &&
-                            selectedCountry !== undefined
-                              ? Styles.selectCountry
-                              : ''
-                          }`}
-                          onClick={() => {
-                            setSelectedCountry('others');
-                          }}
-                        >
-                          International
+                        <div className={Styles.location}>
+                          <div
+                            className={`${Styles.countryType} ${
+                              selectedCountry?.name === 'USA'
+                                ? Styles.selectCountry
+                                : ''
+                            }`}
+                            onClick={() => {
+                              setSelectedCountry(
+                                countriesList?.find(
+                                  (country) => country.name === 'USA'
+                                )
+                              );
+                            }}
+                          >
+                            USA
+                          </div>
+                          <div
+                            className={`${Styles.countryType} ${
+                              selectedCountry?.name !== 'USA' &&
+                              selectedCountry !== undefined
+                                ? Styles.selectCountry
+                                : ''
+                            }`}
+                            onClick={() => {
+                              setSelectedCountry('others');
+                            }}
+                          >
+                            International
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </>
                   )}
                 {selectedCountry && selectedCountry?.name !== 'USA' && (
                   <div className={Styles.selectCountry}>
@@ -464,6 +466,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
                     </div>
                   )}
               </div>
+
               {selectedCountry &&
                 selectedCountry !== 'others' &&
                 (deliveryType === 'shipping' || distributor) && (
