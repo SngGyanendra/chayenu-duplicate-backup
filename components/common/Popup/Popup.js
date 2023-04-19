@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Styles from './popup.module.scss';
 
-export function Popup({ children, setPopupState, additionalStyles }) {
+export function Popup({ children, setPopupState, additionalStyles, innerDivClassNames }) {
   const popup = useRef();
   useEffect(() => {
     document.body.style.overflowY = 'hidden';
@@ -25,7 +25,7 @@ export function Popup({ children, setPopupState, additionalStyles }) {
         handleOutsideClick(e);
       }}
     >
-      <div className={Styles.form} ref={popup}>
+      <div className={innerDivClassNames} ref={popup} >
         {children}
       </div>
     </div>

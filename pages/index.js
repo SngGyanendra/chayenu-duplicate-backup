@@ -77,7 +77,7 @@ export default function Home() {
           </div>
           
           {openPDF &&
-            <Popup setPopupState={setOpenPDF}>
+            <Popup setPopupState={setOpenPDF} innerDivClassNames={'innerDiv'}>
               <div className={Styles.pdfContainer}>
                 <div className={Styles.ribbon}>Chayenu Sample</div>
                 <PDF pdfPath={"/pdfs/sample.pdf"}/>
