@@ -20,7 +20,7 @@ export default function Login() {
     if (isLoggedIn) {
       router.push('/portal/my-subscriptions');
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const initialValues = { email: undefined, password: undefined };
   const initialErrors = { email: undefined, password: undefined };
