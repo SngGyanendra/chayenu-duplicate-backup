@@ -70,7 +70,7 @@ export default function Home() {
               </ul>
             </div>
             <div className={Styles.cardContentRight}>
-              <button onClick={()=>{setOpenPDF(true)}}>View Sample</button>
+              <button onClick={()=>{setOpenPDF(true)}}>VIEW SAMPLE</button>
             </div>
           </div>
           
@@ -158,9 +158,10 @@ export default function Home() {
             <div className={Styles.cardContentRight}>
               <Image
                 src={GOTMobileImage1}
+                className={Styles.mobileWrapper}
                 alt="Chayenu Mobile"
-                height={308}
-                width={142}
+                height={328}
+                width={155}
                 objectFit="contain"
               />
               <Image
