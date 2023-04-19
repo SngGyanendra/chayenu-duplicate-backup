@@ -9,8 +9,8 @@ export function Footer() {
           <Image
             src="/logo.svg"
             alt="logo"
-            height={38}
-            width={60}
+            height={40}
+            width={68}
             loading="lazy"
           />
         </div>
