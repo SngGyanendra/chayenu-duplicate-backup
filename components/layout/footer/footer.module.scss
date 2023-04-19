@@ -2,13 +2,14 @@
 
 
 .footer {
-  height: 7rem;
+  height: 8rem;
   font-family: var(--website-font-family);
   color: white;
   background-color: var(--website-color);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 1rem;
   .upperLayer {
     height: 50%;
     display: flex;
@@ -35,6 +36,7 @@
         font-weight: 300;
       }
     }
+
   }
   .lowerLayer {
     display: flex;
@@ -52,6 +54,15 @@
         font-size: 0.8rem;
       }
     }
+
+    div{
+      text-align: center;
+    }
+    
+    @media screen and (max-width: 50rem) {
+        ul li {font-size: 0.875rem;}
+    }
+
     @media screen and (min-width: 71.875rem) and (max-width: 81.25rem) {
       ul {
         width: 50%;
@@ -59,7 +70,7 @@
     }
   }
   @media screen and (max-width: 71.875rem) {
-    height: 20rem;
+    height: 24rem;
     .upperLayer {
       flex-wrap: wrap;
       justify-content: center;
@@ -71,12 +82,14 @@
       }
 
       ul {
-        width: min(30rem, 80%);
+        width: min(20rem, 80%);
         flex-wrap: wrap;
         text-align: center;
-        justify-content: space-around;
+        justify-content: space-between;
+        height: 5rem;
         li {
           text-transform: initial;
+          font-size: 0.875rem;
         }
         li:first-child,
         :nth-child(2) {
@@ -87,11 +100,30 @@
     .lowerLayer{
         flex-direction: column;
         justify-content: space-around;
+        padding-top: 1rem;
         ul{
             height: 55%;
             width: 100%;
             flex-direction: column;
+            li{
+              font-size: 0.875rem;
+            }
         }
     }
   }
+
+  
+  @media screen and (max-width: 50rem) {
+  
+    .upperLayer{
+    &{
+      height: 11rem;
+    }
+
+    ul li {font-size: 1rem;}
+  }
 }
+
+}
+
+
