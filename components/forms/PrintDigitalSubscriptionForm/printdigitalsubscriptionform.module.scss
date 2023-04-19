@@ -224,10 +224,10 @@
       outline: none;
       width: 100%;
       input {
-        margin-left: 1rem;
+        // margin-left: 1rem;
       }
       & > div {
-        display: block;
+        display: none;
         height: 100%;
         position: relative;
         & > select {
