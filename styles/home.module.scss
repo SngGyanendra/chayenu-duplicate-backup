@@ -13,7 +13,6 @@
 
 $height: 30rem;
 
-
 .card{
   @include general-container;
   grid-template-columns: repeat(2, auto);
@@ -90,6 +89,12 @@ $height: 30rem;
     font: fontvalue(16,23,bold);
     padding-top: 2px;
 
+  }
+
+  @media screen and (max-width: 800px){
+    &{
+      width: 100%;   
+    } 
   }
 }
 
