@@ -140,7 +140,7 @@ export default function Home() {
                   {dailyStudyData.data.map((data) => (
                     <div
                       className={Styles.dailyStudyCards}
-                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor ? `2px solid ${borderColor}`: '' }}
+                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor && width > 800 ? `2px solid ${borderColor}`: '' }}
                       key={data.title}
                       onMouseOver={() => {
                         width <=800 && setOpenPopup(true);
@@ -160,7 +160,7 @@ export default function Home() {
                   <div className={Styles.childCard}>
                     {weeklyStudyData.data.map((data, index) => (
                       <div
-                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor ? `2px solid ${borderColor}`: '' }}
+                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor && width > 800? `2px solid ${borderColor}`: '' }}
                         className={Styles.dailyStudyCards}
                         key={data.title}
                         onMouseOver={() => {
@@ -400,7 +400,7 @@ export default function Home() {
               />
               <Image
                 className={Styles.modalScreen}
-                src={selectedChumashScreen}
+                src={selectedChumashScreen.imageUrl}
                 alt="Chayenu Mobile"
                 height={560}
                 width={250}
