@@ -11,7 +11,7 @@
   font: fontvalue(15, 17, 400);
 }
 .products {
-  margin: 1rem auto 1rem auto;
+  margin: 1rem auto 3rem auto;
   width: var(--container-width);
   display: grid;
   grid-template-columns: repeat(6, 1fr);

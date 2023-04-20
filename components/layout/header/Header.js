@@ -157,16 +157,21 @@ export function Header() {
                   onMouseLeave={(e) => {
                     e.target.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/logo.svg`;
                   }}
+                  onClick={handleMenu}
                 />
               </Link>
             </div>
             <div>
               <ul>
                 <li className={Styles.portalLink}>
-                  <Link href="/subscribe">SUBSCRIBE</Link>
+                  <Link href="/subscribe" onClick={handleMenu}>
+                    SUBSCRIBE
+                  </Link>
                 </li>
                 <li className={Styles.portalLink}>
-                  <Link href="/explore">EXPLORE</Link>
+                  <Link href="/explore" onClick={handleMenu}>
+                    EXPLORE
+                  </Link>
                 </li>
               </ul>
             </div>
