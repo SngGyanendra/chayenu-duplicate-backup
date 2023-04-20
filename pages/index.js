@@ -61,6 +61,14 @@ export default function Home() {
 
   }, [width])
 
+  useEffect(()=>{
+
+    if(width > 800 && openPopup){
+      setOpenPopup(false)
+    }
+
+  }, [width, openPopup])
+
   return (
     <main>
       <NextHead title="Chayenu" />
