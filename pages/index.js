@@ -23,17 +23,43 @@ import Esther  from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
-import PDF from '../components/common/PDF/PDF';
 import { useWindowDimensions } from './../hooks/useWindow';
+import Link  from 'next/link';
 
 
 export default function Home() {
   const [selectedChumashScreen, setselectedChumashScreen] = useState(
-    dailyStudyData.defaultUrl
+    dailyStudyData
   );
   const [openPopup, setOpenPopup] = useState(false);
-  const [openPDF, setOpenPDF] = useState(false);
+  const [borderColor, setBorderColor] = useState(dailyStudyData.defaultBorderColor);
+  const studyIndexRef = useRef(0)
   const { width } = useWindowDimensions();
+
+  useEffect(()=>{
+
+    if(width >= 800){
+    const combinedStudyData = [...dailyStudyData.data, ...weeklyStudyData.data]
+    const lengthOfCombinedStudyData = combinedStudyData.length
+    
+    const interval = setInterval(()=>{
+
+      if(studyIndexRef.current >= lengthOfCombinedStudyData){
+        studyIndexRef.current = 0;
+      } else{
+        setselectedChumashScreen(combinedStudyData[studyIndexRef.current])
+        setBorderColor(combinedStudyData[studyIndexRef.current].textColor)
+        ++studyIndexRef.current;
+      }
+
+    }, 2000)
+
+    return () => {
+      window.clearInterval(interval)
+    }
+  }
+
+  }, [width])
 
   return (
     <main>
@@ -72,19 +98,12 @@ export default function Home() {
               </ul>
             </div>
             <div className={Styles.cardContentRight}>
-              <button onClick={()=>{setOpenPDF(true)}}>VIEW SAMPLE</button>
+              <Link href="/pdfs/Chayenu-Sample.pdf" target="_blank">
+                <button>VIEW SAMPLE</button>
+              </Link>
             </div>
           </div>
           
-          {openPDF &&
-            <Popup setPopupState={setOpenPDF} innerDivClassNames={'innerDiv'}>
-              <div className={Styles.pdfContainer}>
-                <div className={Styles.ribbon}>Chayenu Sample</div>
-                <PDF pdfPath={"/pdfs/sample.pdf"}/>
-              </div>
-            </Popup>
-          }
-
           <div className={Styles.card}>
             <p>
               “As a subscriber of Chayenu I am thrilled to finally have a weekly
@@ -121,13 +140,14 @@ export default function Home() {
                   {dailyStudyData.data.map((data) => (
                     <div
                       className={Styles.dailyStudyCards}
-                      style={{ backgroundColor: data.backgroundColor }}
+                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor ? `2px solid ${borderColor}`: '' }}
                       key={data.title}
-                      onClick={() => {
+                      onMouseOver={() => {
                         width <=800 && setOpenPopup(true);
-                        setselectedChumashScreen(data.imageUrl);
+                        setselectedChumashScreen(data);
+                        setBorderColor(selectedChumashScreen.textColor)
+                        studyIndexRef.current = data.id
                       }}
-                      // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
                     >
                       <p style={{ color: data.textColor }}>{data.title}</p>
                     </div>
@@ -138,14 +158,16 @@ export default function Home() {
                 <p className={Styles.subtitle}>Weekly STUDY</p>
                 <div>
                   <div className={Styles.childCard}>
-                    {weeklyStudyData.data.map((data) => (
+                    {weeklyStudyData.data.map((data, index) => (
                       <div
-                        style={{ backgroundColor: data.backgroundColor }}
+                      style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor ? `2px solid ${borderColor}`: '' }}
                         className={Styles.dailyStudyCards}
                         key={data.title}
-                        onClick={() => {
+                        onMouseOver={() => {
                           width <=800 && setOpenPopup(true);
-                          setselectedChumashScreen(data.imageUrl);
+                          setselectedChumashScreen(data);
+                          setBorderColor(selectedChumashScreen.textColor)
+                          studyIndexRef.current = data.id;
                         }}
                         // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
                       >
@@ -168,7 +190,7 @@ export default function Home() {
               />
               <Image
                 className={Styles.screen}
-                src={selectedChumashScreen}
+                src={selectedChumashScreen.imageUrl || dailyStudyData.defaultUrl}
                 alt="Chayenu Mobile"
                 height={297}
                 width={132}
