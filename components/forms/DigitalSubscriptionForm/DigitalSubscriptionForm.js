@@ -1,13 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 import Select from 'react-select';
 import Image from 'next/image';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
 import { validateCreditCard } from '/util';
-import { initializeCustomBraintree } from '/components/common';
-import { PlanCard, PlanLoadingSkeleton } from '/components/cards';
+import {
+  initializeCustomBraintree,
+  Popup,
+  toastTemplate,
+} from '/components/common';
+import {
+  PlanCard,
+  PlanLoadingSkeleton,
+  SuccessfulSubscription,
+} from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
 import { getAllPlans, addNewSubscription } from '/api';
 import * as Yup from 'yup';
@@ -15,7 +24,7 @@ import * as Yup from 'yup';
 export function DigitalSubscriptionForm({ selectedProduct }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
-  const [braintreeInstance, setBraintreeInstance] = useState(undefined);
+  const [popup, setPopup] = useState('');
   const [coupon, setCoupon] = useState(undefined);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [hostedFields, setHostedFields] = useState();
@@ -211,9 +220,14 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
     };
     try {
       const response = await addNewSubscription(finalValues);
+      setPopup('successfulSubscription');
       setLoading(false);
     } catch (error) {
       console.log(error);
+      toastTemplate(
+        toast.error,
+        'Something went wrong! Please try again later'
+      );
       setLoading(false);
     }
   };
@@ -256,6 +270,14 @@ export function DigitalSubscriptionForm({ selectedProduct }) {
   return (
     <div className={Styles.formWrapper}>
       {!allPlans.length && <PlanLoadingSkeleton />}
+      {popup === 'successfulSubscription' && (
+        <Popup setPopupState={setPopup}>
+          <SuccessfulSubscription
+            setPopupState={setPopup}
+            selectedPlan={selectedPlan}
+          />
+        </Popup>
+      )}
       {allPlans.length > 0 && (
         <Formik
           initialValues={initialValues}

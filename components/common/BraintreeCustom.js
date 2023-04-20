@@ -9,7 +9,7 @@ export const initializeCustomBraintree = async (
       styles: {
         input: {
           'font-size': '14px',
-          'font-family': 'brandon-grotesque',
+          'font-family': 'Brandon Grotesque',
           color: 'black',
         },
         '.valid': {
