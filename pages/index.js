@@ -38,6 +38,7 @@ export default function Home() {
 
   useEffect(()=>{
 
+    if(width >= 800){
     const combinedStudyData = [...dailyStudyData.data, ...weeklyStudyData.data]
     const lengthOfCombinedStudyData = combinedStudyData.length
     
@@ -56,8 +57,9 @@ export default function Home() {
     return () => {
       window.clearInterval(interval)
     }
+  }
 
-  }, [])
+  }, [width])
 
   return (
     <main>
