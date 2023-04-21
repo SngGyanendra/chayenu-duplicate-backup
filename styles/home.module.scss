@@ -820,8 +820,8 @@ $height: 30rem;
     display: grid;
     justify-content: center;
     align-items: center;
-    // background: transparent linear-gradient(180deg, #FFFFFF 0%, #FFFFFF0A 80%, var(--website-color-banner) 100%) 0% 0% no-repeat padding-box;
-    background: transparent linear-gradient(180deg, rgb(117, 178, 230, 0.3) 0%, #FFFFFF 80%, rgb(117, 178, 230, 0.2) 100%) 0% 0% no-repeat padding-box;
+    // background: transparent linear-gradient(180deg, rgb(117, 178, 230, 0.3) 0%, #FFFFFF 80%, rgb(117, 178, 230, 0.2) 100%) 0% 0% no-repeat padding-box;
+    background-color: var(--blue-gray);
      .card{
       grid-template-columns: repeat(3, 1fr);
       grid-column-gap: 1rem;
@@ -843,6 +843,10 @@ $height: 30rem;
 
             text-align: center;
             padding-bottom: 30px;
+          }
+
+          h2, p{
+            color: var(--dark)
           }
 
           button{

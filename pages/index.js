@@ -25,6 +25,7 @@ import dailyStudyData from '../data/dailyStudy.json';
 import weeklyStudyData from '../data/weeklyStudy.json';
 import { useWindowDimensions } from './../hooks/useWindow';
 import Link  from 'next/link';
+import SignUp from '../components/forms/SignUp/SignUp';
 
 
 export default function Home() {
@@ -32,6 +33,7 @@ export default function Home() {
     dailyStudyData
   );
   const [openPopup, setOpenPopup] = useState(false);
+  const [openSignUpForm, setOpenSignUpForm] = useState(false);
   const [borderColor, setBorderColor] = useState(dailyStudyData.defaultBorderColor);
   const studyIndexRef = useRef(0)
   const { width } = useWindowDimensions();
@@ -358,7 +360,7 @@ export default function Home() {
                 Signup to our newsletter to be in the loop about anything
                 Chayenu related
               </p>
-              <button>SIGNUP</button>
+              <button onClick={()=>setOpenSignUpForm(true)}>SIGNUP</button>
             </div>
 
             <div>
@@ -418,6 +420,13 @@ export default function Home() {
       </Popup>
       </div>
       }
+
+      {
+        openSignUpForm && <Popup setPopupState={setOpenSignUpForm}>
+          <SignUp/>
+        </Popup>
+      }
+
     </main>
   );
 }
