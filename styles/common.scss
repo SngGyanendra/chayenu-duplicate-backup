@@ -27,13 +27,13 @@
     &:hover {
       background-color: var(--website-color);
       color: #ffffff;
-      transition: background-color 0.5s;
+      transition: background-color 0.25s;
     }
   } @else {
     &:hover {
       background-color: var(--dark);
       color: #ffffff;
-      transition: background-color 0.5s;
+      transition: background-color 0.25s;
     }
   }
 }
