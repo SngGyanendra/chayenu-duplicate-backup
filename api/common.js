@@ -12,6 +12,7 @@ export async function getAllProducts() {
           { is_on_subscription_page: { _eq: true } },
         ],
       },
+      sort: 'order',
     },
   });
   return data;
