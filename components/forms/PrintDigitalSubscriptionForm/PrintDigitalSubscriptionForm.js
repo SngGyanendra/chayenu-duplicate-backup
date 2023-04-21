@@ -81,7 +81,7 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
       ];
       setCountriesList(uniqueCountries);
       if (uniqueCountries.length === 1) {
-        selectedCountry(uniqueCountries[0]);
+        setSelectedCountry(uniqueCountries[0]);
       }
     })();
 
