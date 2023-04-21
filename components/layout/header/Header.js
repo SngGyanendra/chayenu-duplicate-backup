@@ -6,6 +6,7 @@ import { logoutUser } from '/store/authSlice';
 import Styles from './header.module.scss';
 import { useRef, useState, useEffect } from 'react';
 import { PortalHeader } from '../portal-header/PortalHeader';
+import {Logo} from '../../common/Logo/logo';
 
 export function Header() {
   const router = useRouter();
@@ -126,13 +127,7 @@ export function Header() {
           </div>
           <div>
             <Link href="/">
-              <Image
-                src="/logo.svg"
-                alt="logo"
-                height={50}
-                width={80}
-                loading="lazy"
-              />
+              <Logo/>
             </Link>
           </div>
         </div>
@@ -145,20 +140,7 @@ export function Header() {
           <div className={Styles.headerContainer} ref={menu}>
             <div>
               <Link href="/">
-                <Image
-                  src="/logo.svg"
-                  alt="logo"
-                  height={50}
-                  width={80}
-                  loading="lazy"
-                  onMouseEnter={(e) => {
-                    e.target.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/logodarker.svg`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.src = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/logo.svg`;
-                  }}
-                  onClick={handleMenu}
-                />
+                <Logo/>
               </Link>
             </div>
             <div>
