@@ -7,10 +7,32 @@ export async function getAllProducts() {
       fields: '*.*.*',
       filter: {
         _and: [
-          // { student_only: { _eq: false } },
           { status: { _eq: 'published' } },
           { is_on_subscription_page: { _eq: true } },
+          // {
+          //   plans: {
+          //     student_only: {
+          //       _eq: false,
+          //     }
+          //   }
+          // },
+          // {
+          //   plans: {
+          //     is_military_only: {
+          //       _eq: false,
+          //     }
+          //   }
+          // }
         ],
+      },
+      deep: {
+        plans: {
+          _filter: {
+            status: {
+              _eq: 'published'
+            },
+          },
+        },
       },
       sort: 'order',
     },
