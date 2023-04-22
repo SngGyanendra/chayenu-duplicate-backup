@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 import { NextHead } from "/components/common";
 import Styles from "/styles/subscribe.module.scss";
 import { getAllProducts } from "../api/common";
@@ -7,9 +8,10 @@ import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
 } from "/components/forms";
-import { useRouter } from "next/router";
 
-export default function Subscribe() {
+export default function Subscribe({
+  query
+}) {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -17,13 +19,7 @@ export default function Subscribe() {
 
   async function getData() {
     try {
-      const query = {};
       const productQuery = {}
-
-      const searchParams = new URLSearchParams(window.location.search);
-      for (const param of searchParams) {
-        query[param[0]] = param[1];
-      }
 
       if (query.student_only === 'true') productQuery.student_only = true
       if (query.is_military_only === 'true') productQuery.is_military_only = true
@@ -37,16 +33,59 @@ export default function Subscribe() {
       setError("A error occured, please try after some time");
     }
   }
+
   useEffect(() => {
     getData();
   }, []);
+
+  function getContentHeader() {
+    if (query.is_military_only) {
+      return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: '24px',
+      }}>
+        <Image
+          src="/us-army.svg"
+          alt="logo"
+          height={40}
+          width={68}
+          loading="lazy"
+        />
+        <p>Special Chayenu subscription rates exclusively for members of the Military</p>
+      </div>
+    }
+
+    if (query.student_only) {
+      return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: '24px',
+      }}>
+          <Image
+            src="/chabad-on-campus.svg"
+            alt="logo"
+            height={40}
+            width={68}
+            loading="lazy"
+          />
+        <p>Special Chayenu Subscription Rates Exclusively for Students</p>
+      </div>
+    }
+
+    return <div className={Styles.subscribe}>Subscribe to Chayenu</div>;
+  }
 
   return (
     <>
       <NextHead title="Chayenu | Subscribe" />
       {!error && (
         <>
-          <div className={Styles.subscribe}>Subscribe to Chayenu</div>
+          {getContentHeader()}
           <div className={Styles.selectProduct}>Select Product</div>
           <div className={Styles.products}>
             {loading
@@ -83,12 +122,18 @@ export default function Subscribe() {
           {(() => {
             if (selectedProduct.product_type.toLowerCase() === "digital") {
               return (
-                <DigitalSubscriptionForm selectedProduct={selectedProduct} />
+                <DigitalSubscriptionForm
+                  selectedProduct={selectedProduct}
+                  is_military_only={query.is_military_only}
+                  student_only={query.student_only}
+                />
               );
             } else {
               return (
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}
+                  is_military_only={query.is_military_only}
+                  student_only={query.student_only}
                 />
               );
             }
@@ -97,4 +142,12 @@ export default function Subscribe() {
       )}
     </>
   );
+}
+
+export function getServerSideProps(context) {
+  return {
+    props: {
+      query: context.query,
+    },
+  };
 }

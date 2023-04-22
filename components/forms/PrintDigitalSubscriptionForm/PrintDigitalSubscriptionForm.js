@@ -21,7 +21,11 @@ import { Summary, Coupon } from '/components/forms';
 import { getAllPlans, addNewSubscription } from '/api';
 import * as Yup from 'yup';
 
-export function PrintDigitalSubscriptionForm({ selectedProduct }) {
+export function PrintDigitalSubscriptionForm({
+    selectedProduct,
+    student_only,
+    is_military_only,
+}) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [countriesList, setCountriesList] = useState([]);
@@ -69,7 +73,9 @@ export function PrintDigitalSubscriptionForm({ selectedProduct }) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await getAllPlans(selectedProduct.id);
+      const { data } = await getAllPlans(selectedProduct.id, {
+        is_military_only, student_only,
+      });
       setAllPlans(data);
 
       let countryList = data.map((plan) => plan.country);
