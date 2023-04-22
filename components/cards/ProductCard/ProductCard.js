@@ -26,11 +26,14 @@ export function ProductCard({ product }) {
           }
         })()}
       </div>
-      {console.log(product)}
-      <div className={Styles.price}>{product?.pricing_text}</div>
-      <div className={Styles.price_description}>
-        {product?.price_description}
-      </div>
+      <div
+        className={Styles.price}
+        dangerouslySetInnerHTML={{ __html: product?.pricing_text }}
+      />
+      <div
+        className={Styles.price_description}
+        dangerouslySetInnerHTML={{ __html: product?.price_description }}
+      />
       <div className={Styles.description}>
         <span>{product?.description}</span>
       </div>
