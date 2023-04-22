@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import { NextHead } from '/components/common';
-import Styles from '/styles/subscribe.module.scss';
-import { getAllProducts } from '../api/common';
-import { ProductCard, ProductCardSkeleton } from '../components/cards';
+import { useEffect, useState } from "react";
+import { NextHead } from "/components/common";
+import Styles from "/styles/subscribe.module.scss";
+import { getAllProducts } from "../api/common";
+import { ProductCard, ProductCardSkeleton } from "../components/cards";
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
-} from '/components/forms';
+} from "/components/forms";
+import { useRouter } from "next/router";
 
 export default function Subscribe() {
   const [allProducts, setAllProducts] = useState([]);
@@ -16,12 +17,24 @@ export default function Subscribe() {
 
   async function getData() {
     try {
-      const { data } = await getAllProducts();
+      const query = {};
+      const productQuery = {}
+
+      const searchParams = new URLSearchParams(window.location.search);
+      for (const param of searchParams) {
+        query[param[0]] = param[1];
+      }
+
+      if (query.student_only === 'true') productQuery.student_only = true
+      if (query.is_military_only === 'true') productQuery.is_military_only = true
+
+      const { data } = await getAllProducts(productQuery);
       setLoading(false);
       setAllProducts(data);
     } catch (error) {
+      console.error(error);
       setLoading(false);
-      setError('A error occured, please try after some time');
+      setError("A error occured, please try after some time");
     }
   }
   useEffect(() => {
@@ -48,13 +61,16 @@ export default function Subscribe() {
                   return (
                     <div
                       key={product.id}
-                      className={`${Styles.productCard} ${selectedProduct?.id===product?.id?Styles.selectedCard:""}`}
+                      className={`${Styles.productCard} ${
+                        selectedProduct?.id === product?.id
+                          ? Styles.selectedCard
+                          : ""
+                      }`}
                       onClick={() => {
                         setSelectedProduct(product);
-               
                       }}
                     >
-                      <ProductCard  product={product} />
+                      <ProductCard product={product} />
                     </div>
                   );
                 })}
@@ -65,12 +81,11 @@ export default function Subscribe() {
       {selectedProduct && (
         <>
           {(() => {
-            if (selectedProduct.product_type.toLowerCase() === 'digital') {
+            if (selectedProduct.product_type.toLowerCase() === "digital") {
               return (
                 <DigitalSubscriptionForm selectedProduct={selectedProduct} />
-
               );
-            } else{
+            } else {
               return (
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}
