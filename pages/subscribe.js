@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
-import { NextHead } from '/components/common';
-import Styles from '/styles/subscribe.module.scss';
-import { getAllProducts } from '../api/common';
-import { ProductCard, ProductCardSkeleton } from '../components/cards';
+import { useEffect, useState } from "react";
+import Image from 'next/image';
+import { NextHead } from "/components/common";
+import Styles from "/styles/subscribe.module.scss";
+import { getAllProducts } from "../api/common";
+import { ProductCard, ProductCardSkeleton } from "../components/cards";
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
-} from '/components/forms';
+} from "/components/forms";
 
-export default function Subscribe() {
+export default function Subscribe({
+  query
+}) {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -16,24 +19,73 @@ export default function Subscribe() {
 
   async function getData() {
     try {
-      const { data } = await getAllProducts();
+      const productQuery = {}
+
+      if (query.student_only === 'true') productQuery.student_only = true
+      if (query.is_military_only === 'true') productQuery.is_military_only = true
+
+      const { data } = await getAllProducts(productQuery);
       setLoading(false);
       setAllProducts(data);
     } catch (error) {
+      console.error(error);
       setLoading(false);
-      setError('A error occured, please try after some time');
+      setError("A error occured, please try after some time");
     }
   }
+
   useEffect(() => {
     getData();
   }, []);
+
+  function getContentHeader() {
+    if (query.is_military_only) {
+      return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: '24px',
+      }}>
+        <Image
+          src="/us-army.svg"
+          alt="logo"
+          height={40}
+          width={68}
+          loading="lazy"
+        />
+        <p>Special Chayenu subscription rates exclusively for members of the Military</p>
+      </div>
+    }
+
+    if (query.student_only) {
+      return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: '24px',
+      }}>
+          <Image
+            src="/chabad-on-campus.svg"
+            alt="logo"
+            height={40}
+            width={68}
+            loading="lazy"
+          />
+        <p>Special Chayenu Subscription Rates Exclusively for Students</p>
+      </div>
+    }
+
+    return <div className={Styles.subscribe}>Subscribe to Chayenu</div>;
+  }
 
   return (
     <>
       <NextHead title="Chayenu | Subscribe" />
       {!error && (
         <>
-          <div className={Styles.subscribe}>Subscribe to Chayenu</div>
+          {getContentHeader()}
           <div className={Styles.selectProduct}>Select Product</div>
           <div className={Styles.products}>
             {loading
@@ -48,13 +100,16 @@ export default function Subscribe() {
                   return (
                     <div
                       key={product.id}
-                      className={`${Styles.productCard} ${selectedProduct?.id===product?.id?Styles.selectedCard:""}`}
+                      className={`${Styles.productCard} ${
+                        selectedProduct?.id === product?.id
+                          ? Styles.selectedCard
+                          : ""
+                      }`}
                       onClick={() => {
                         setSelectedProduct(product);
-               
                       }}
                     >
-                      <ProductCard  product={product} />
+                      <ProductCard product={product} />
                     </div>
                   );
                 })}
@@ -65,15 +120,20 @@ export default function Subscribe() {
       {selectedProduct && (
         <>
           {(() => {
-            if (selectedProduct.product_type.toLowerCase() === 'digital') {
+            if (selectedProduct.product_type.toLowerCase() === "digital") {
               return (
-                <DigitalSubscriptionForm selectedProduct={selectedProduct} />
-
+                <DigitalSubscriptionForm
+                  selectedProduct={selectedProduct}
+                  is_military_only={query.is_military_only}
+                  student_only={query.student_only}
+                />
               );
-            } else{
+            } else {
               return (
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}
+                  is_military_only={query.is_military_only}
+                  student_only={query.student_only}
                 />
               );
             }
@@ -82,4 +142,12 @@ export default function Subscribe() {
       )}
     </>
   );
+}
+
+export function getServerSideProps(context) {
+  return {
+    props: {
+      query: context.query,
+    },
+  };
 }

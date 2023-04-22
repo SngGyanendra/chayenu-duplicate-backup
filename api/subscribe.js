@@ -1,20 +1,41 @@
 import axios from 'axios';
 import { directusUrl, backendUrl } from './config';
 
-export async function getAllPlans(id) {
+export async function getAllPlans(id, {
+  is_military_only = false,
+  student_only = false,
+}) {
   try {
+    const filter = {
+      _and: [
+        { status: { _eq: 'published' } },
+        { product: { id: { _eq: id } } },
+      ],
+    };
+
+    if (is_military_only) {
+      filter._and.push({
+        is_military_only: {
+          _eq: true,
+        }
+      })
+    }
+
+    if (student_only) {
+      filter._and.push({
+        student_only: {
+          _eq: true,
+        }
+      })
+    }
+
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
       params: {
         fields: '*.*.*.*',
-        filter: {
-          _and: [
-            // { student_only: { _eq: false } },
-            { status: { _eq: 'published' } },
-            { product: { id: { _eq: id } } },
-          ],
-        },
+        filter,
       },
     });
+
     return data;
   } catch (error) {
     throw error;
