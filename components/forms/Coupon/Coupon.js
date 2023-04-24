@@ -1,6 +1,6 @@
 import Styles from './coupon.module.scss';
 import { validateCoupon } from '/api';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 export function Coupon({
@@ -13,6 +13,14 @@ export function Coupon({
 }) {
   const [error, setError] = useState(undefined);
   const [isCouponVerified, setIsCouponVerified] = useState(false);
+
+  useEffect(() => {
+    if (selectedPlan?.default_coupon) {
+      setIsCouponVerified(true);
+      setCoupon(selectedPlan?.default_coupon);
+      values.coupon = selectedPlan?.default_coupon;
+    }
+  }, [selectedPlan]);
 
   const verifyCoupon = async () => {
     setError(undefined);

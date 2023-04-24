@@ -22,16 +22,16 @@ import { getAllPlans, addNewSubscription } from '/api';
 import * as Yup from 'yup';
 
 export function PrintDigitalSubscriptionForm({
-    selectedProduct,
-    student_only,
-    is_military_only,
+  selectedProduct,
+  student_only,
+  is_military_only,
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [countriesList, setCountriesList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
   const [deliveryType, setDeliveryType] = useState(undefined);
-  const [distributor, setDistributor] = useState(undefined);
+  const [distributor, setDistributor] = useState([]);
   const [hostedFields, setHostedFields] = useState();
   const [coupon, setCoupon] = useState(undefined);
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -74,7 +74,8 @@ export function PrintDigitalSubscriptionForm({
   useEffect(() => {
     (async () => {
       const { data } = await getAllPlans(selectedProduct.id, {
-        is_military_only, student_only,
+        is_military_only,
+        student_only,
       });
       setAllPlans(data);
 
@@ -392,112 +393,122 @@ export function PrintDigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <div className={Styles.form}>
-                {countriesList.find((country) => country.name === 'USA') &&
-                  countriesList.length > 1 && (
-                    <>
-                      <div className={Styles.country}>
-                        <div className={Styles.selectCountry}>
-                          ENTER YOUR LOCATION
-                        </div>
-                        <div className={Styles.location}>
-                          <div
-                            className={`${Styles.countryType} ${
-                              selectedCountry?.name === 'USA'
-                                ? Styles.selectCountry
-                                : ''
-                            }`}
-                            onClick={() => {
-                              setSelectedCountry(
-                                countriesList?.find(
-                                  (country) => country.name === 'USA'
-                                )
-                              );
-                            }}
-                          >
-                            USA
+              {countriesList.find((country) => country.name === 'USA') &&
+                countriesList.length > 1 && (
+                  <div className={Styles.form}>
+                    {
+                      <>
+                        <div className={Styles.country}>
+                          <div className={Styles.selectCountry}>
+                            ENTER YOUR LOCATION
                           </div>
-                          <div
-                            className={`${Styles.countryType} ${
-                              selectedCountry?.name !== 'USA' &&
-                              selectedCountry !== undefined
-                                ? Styles.selectCountry
-                                : ''
-                            }`}
-                            onClick={() => {
-                              setSelectedCountry('others');
-                            }}
-                          >
-                            International
+                          <div className={Styles.location}>
+                            <div
+                              className={`${Styles.countryType} ${
+                                selectedCountry?.name === 'USA'
+                                  ? Styles.selectCountry
+                                  : ''
+                              }`}
+                              onClick={() => {
+                                setSelectedCountry(
+                                  countriesList?.find(
+                                    (country) => country.name === 'USA'
+                                  )
+                                );
+                              }}
+                            >
+                              USA
+                            </div>
+                            <div
+                              className={`${Styles.countryType} ${
+                                selectedCountry?.name !== 'USA' &&
+                                selectedCountry !== undefined
+                                  ? Styles.selectCountry
+                                  : ''
+                              }`}
+                              onClick={() => {
+                                setSelectedCountry('others');
+                              }}
+                            >
+                              International
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </>
-                  )}
-                {selectedCountry && selectedCountry?.name !== 'USA' && (
-                  <div className={Styles.selectCountry}>
-                    <select
-                      name="country"
-                      onChange={(e) => {
-                        const country = countriesList.find((country) => {
-                          return country.id == e.target.value;
-                        });
-                        setSelectedCountry(country);
-                      }}
-                    >
-                      <option value="default" hidden={true}>
-                        Select a country
-                      </option>
-                      {countriesList
-                        .filter((country) => country.name !== 'USA')
-                        .map((country) => (
-                          <option key={country.id} value={country.id}>
-                            {country.name}
+                      </>
+                    }
+                    {selectedCountry && selectedCountry?.name !== 'USA' && (
+                      <div className={Styles.selectCountry}>
+                        <select
+                          name="country"
+                          onChange={(e) => {
+                            const country = countriesList.find((country) => {
+                              return country.id == e.target.value;
+                            });
+                            setSelectedCountry(country);
+                          }}
+                        >
+                          <option value="default" hidden={true}>
+                            Select a country
                           </option>
-                        ))}
-                    </select>
+                          {countriesList
+                            .filter((country) => country.name !== 'USA')
+                            .map((country) => (
+                              <option key={country.id} value={country.id}>
+                                {country.name}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+                    )}
+                    {selectedCountry &&
+                      selectedCountry?.name !== 'USA' &&
+                      selectedCountry.has_distributors && (
+                        <div className={Styles.selectDistributor}>
+                          <select
+                            name="distributor"
+                            onChange={(e) => {
+                              values.distributor = e.target.value;
+                              setDistributor(e.target.value);
+                            }}
+                          >
+                            <option value="default" hidden={true}>
+                              Choose a distributor
+                            </option>
+                            {selectedCountry?.distributors?.map(
+                              (distributor) => (
+                                <option
+                                  key={distributor.id}
+                                  value={distributor.id}
+                                >
+                                  {`${distributor.first_name} ${
+                                    distributor.last_name
+                                  } - ${
+                                    distributor?.address_1
+                                      ? `${distributor?.address_1},`
+                                      : ''
+                                  } ${
+                                    distributor?.address_2
+                                      ? `${distributor?.address_2},`
+                                      : ''
+                                  } ${
+                                    distributor?.city
+                                      ? `${distributor?.city},`
+                                      : ''
+                                  } ${
+                                    distributor?.state
+                                      ? `${distributor?.state},`
+                                      : ''
+                                  } ${distributor?.country?.name}`}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        </div>
+                      )}
                   </div>
                 )}
-                {selectedCountry &&
-                  selectedCountry?.name !== 'USA' &&
-                  selectedCountry.has_distributors && (
-                    <div className={Styles.selectDistributor}>
-                      <select
-                        name="distributor"
-                        onChange={(e) => {
-                          values.distributor = e.target.value;
-                          setDistributor(e.target.value);
-                        }}
-                      >
-                        <option value="default" hidden={true}>
-                          Choose a distributor
-                        </option>
-                        {selectedCountry?.distributors?.map((distributor) => (
-                          <option key={distributor.id} value={distributor.id}>
-                            {`${distributor.first_name} ${
-                              distributor.last_name
-                            } - ${
-                              distributor?.address_1
-                                ? `${distributor?.address_1},`
-                                : ''
-                            } ${
-                              distributor?.address_2
-                                ? `${distributor?.address_2},`
-                                : ''
-                            } ${
-                              distributor?.city ? `${distributor?.city},` : ''
-                            } ${
-                              distributor?.state ? `${distributor?.state},` : ''
-                            } ${distributor?.country?.name}`}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-              </div>
-
-              {selectedCountry &&
-                selectedCountry !== 'others' &&
+              {(countriesList?.length <= 1 ||
+                (selectedCountry !== 'others' && selectedCountry)) &&
                 (deliveryType === 'shipping' || distributor) && (
                   <div className={Styles.form}>
                     <div className={Styles.plan}>
