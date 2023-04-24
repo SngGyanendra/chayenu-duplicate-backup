@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { NextHead } from "/components/common";
-import Styles from "/styles/subscribe.module.scss";
-import { getAllProducts } from "../api/common";
-import { ProductCard, ProductCardSkeleton } from "../components/cards";
+import { NextHead } from '/components/common';
+import Styles from '/styles/subscribe.module.scss';
+import { getAllProducts } from '../api/common';
+import { ProductCard, ProductCardSkeleton } from '../components/cards';
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
-} from "/components/forms";
+} from '/components/forms';
 
-export default function Subscribe({
-  query
-}) {
+export default function Subscribe({ query }) {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -19,10 +17,11 @@ export default function Subscribe({
 
   async function getData() {
     try {
-      const productQuery = {}
+      const productQuery = {};
 
-      if (query.student_only === 'true') productQuery.student_only = true
-      if (query.is_military_only === 'true') productQuery.is_military_only = true
+      if (query.student_only === 'true') productQuery.student_only = true;
+      if (query.is_military_only === 'true')
+        productQuery.is_military_only = true;
 
       const { data } = await getAllProducts(productQuery);
       setLoading(false);
@@ -30,7 +29,7 @@ export default function Subscribe({
     } catch (error) {
       console.error(error);
       setLoading(false);
-      setError("A error occured, please try after some time");
+      setError('A error occured, please try after some time');
     }
   }
 
@@ -66,13 +65,16 @@ export default function Subscribe({
     }
 
     if (query.student_only) {
-      return <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        marginTop: '24px',
-      }}>
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            marginTop: '24px',
+          }}
+        >
           <Image
             src="/chabad-on-campus.svg"
             alt="logo"
@@ -80,8 +82,11 @@ export default function Subscribe({
             width={162.22}
             loading="lazy"
           />
-        <p className={Styles.studentmilitaryline}>Special Chayenu Subscription Rates Exclusively for Students</p>
-      </div>
+          <p className={Styles.studentmilitaryline}>
+            Special Chayenu Subscription Rates Exclusively for Students
+          </p>
+        </div>
+      );
     }
 
     return <div className={Styles.subscribe}>Subscribe to Chayenu</div>;
@@ -110,7 +115,7 @@ export default function Subscribe({
                       className={`${Styles.productCard} ${
                         selectedProduct?.id === product?.id
                           ? Styles.selectedCard
-                          : ""
+                          : ''
                       }`}
                       onClick={() => {
                         setSelectedProduct(product);
@@ -127,7 +132,7 @@ export default function Subscribe({
       {selectedProduct && (
         <>
           {(() => {
-            if (selectedProduct.product_type.toLowerCase() === "digital") {
+            if (selectedProduct.product_type.toLowerCase() === 'digital') {
               return (
                 <DigitalSubscriptionForm
                   selectedProduct={selectedProduct}

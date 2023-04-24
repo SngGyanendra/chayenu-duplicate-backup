@@ -27,6 +27,7 @@ export function Summary({
           {!coupon
             ? `$${selectedPlan.price}`
             : `$${calculateDiscountedPrice(selectedPlan.price, coupon)}`}
+          {selectedPlan.recurring.toLowerCase() === 'monthly' ? '/mo' : '/yr'}
         </span>
       </div>
       {/* <div className={Styles.additional}>

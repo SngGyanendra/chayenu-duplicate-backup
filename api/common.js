@@ -147,3 +147,17 @@ export async function getAllSupportIssues() {
     throw error;
   }
 }
+
+
+export async function getAllColleges() {
+  try {
+    const { data } = await axios.get(`${directusUrl}/items/colleges`, {
+      params: {
+        fields: '*.*',
+      },
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
