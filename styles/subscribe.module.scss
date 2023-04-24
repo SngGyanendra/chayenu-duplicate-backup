@@ -10,6 +10,10 @@
   margin-top: 2rem;
   font: fontvalue(15, 17, 400);
 }
+.studentmilitaryline {
+  font: fontvalue(16, 16, 400);
+  margin-top: 1rem;
+}
 .products {
   margin: 1rem auto 3rem auto;
   width: var(--container-width);
@@ -20,8 +24,7 @@
   .productCard {
     grid-column: span 2;
   }
-  .selectedCard{
-
+  .selectedCard {
     border: 3px solid var(--website-color);
     border-radius: 10px;
   }

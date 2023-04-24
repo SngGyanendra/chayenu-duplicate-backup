@@ -36,26 +36,33 @@ export default function Subscribe({
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [query]);
 
   function getContentHeader() {
     if (query.is_military_only) {
-      return <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        marginTop: '24px',
-      }}>
-        <Image
-          src="/us-army.svg"
-          alt="logo"
-          height={40}
-          width={68}
-          loading="lazy"
-        />
-        <p>Special Chayenu subscription rates exclusively for members of the Military</p>
-      </div>
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            marginTop: '24px',
+          }}
+        >
+          <Image
+            src="/us-army.svg"
+            alt="logo"
+            height={100}
+            width={75.6}
+            loading="lazy"
+          />
+          <p className={Styles.studentmilitaryline}>
+            Special Chayenu subscription rates exclusively for members of the
+            Military
+          </p>
+        </div>
+      );
     }
 
     if (query.student_only) {
@@ -69,11 +76,11 @@ export default function Subscribe({
           <Image
             src="/chabad-on-campus.svg"
             alt="logo"
-            height={40}
-            width={68}
+            height={100}
+            width={162.22}
             loading="lazy"
           />
-        <p>Special Chayenu Subscription Rates Exclusively for Students</p>
+        <p className={Styles.studentmilitaryline}>Special Chayenu Subscription Rates Exclusively for Students</p>
       </div>
     }
 
