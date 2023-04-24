@@ -4,7 +4,7 @@ Frontend
 
 ## Software Requirements
 
-- NodeJS: 16
+- NodeJS: 18
 
 ## Branches
 
