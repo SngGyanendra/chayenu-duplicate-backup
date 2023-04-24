@@ -7,6 +7,7 @@ import Styles from './header.module.scss';
 import { useRef, useState, useEffect } from 'react';
 import { PortalHeader } from '../portal-header/PortalHeader';
 import {Logo} from '../../common/Logo/logo';
+import { useWindowDimensions } from '../../../hooks/useWindow';
 
 export function Header() {
   const router = useRouter();
