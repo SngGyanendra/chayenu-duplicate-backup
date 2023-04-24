@@ -369,7 +369,10 @@ export default function Home() {
                 Join our WhatsApp list to receive a daily summary of Chumash,
                 Tanya & Rambam
               </p>
-              <button>JOIN</button>
+              
+              <Link href="https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0" target="_blank">
+                <button>JOIN</button>
+              </Link>
             </div>
 
             <div>
@@ -378,7 +381,11 @@ export default function Home() {
                 We will send you a box so you can return Chayenus for proper
                 disposal
               </p>
-              <button>BUY</button>
+             
+              <Link href="https://chayenu.org/product/shaimos-box/" target="_blank">
+                <button>BUY</button>
+              </Link>
+              
             </div>
           </div>
           <div className={`${Styles.testimonials}`}>
