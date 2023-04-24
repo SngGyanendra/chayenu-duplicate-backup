@@ -18,7 +18,7 @@ export function Coupon({
     if (selectedPlan?.default_coupon) {
       setIsCouponVerified(true);
       setCoupon(selectedPlan?.default_coupon);
-      values.coupon = selectedPlan?.default_coupon;
+      values.coupon = selectedPlan?.default_coupon.code;
     }
   }, [selectedPlan]);
 

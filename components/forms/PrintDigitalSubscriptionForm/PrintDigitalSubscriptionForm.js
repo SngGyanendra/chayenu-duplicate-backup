@@ -18,7 +18,7 @@ import {
   SuccessfulSubscription,
 } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
-import { getAllPlans, addNewSubscription } from '/api';
+import { getAllPlans, getAllColleges, addNewSubscription } from '/api';
 import * as Yup from 'yup';
 
 export function PrintDigitalSubscriptionForm({
@@ -38,6 +38,7 @@ export function PrintDigitalSubscriptionForm({
   const [allPaymentMethods, setAllPaymentMethods] = useState();
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState('');
+  const [allColleges, setAllColleges] = useState([]);
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -77,6 +78,8 @@ export function PrintDigitalSubscriptionForm({
         is_military_only,
         student_only,
       });
+      const { data: colleges } = await getAllColleges();
+      setAllColleges(colleges);
       setAllPlans(data);
 
       let countryList = data.map((plan) => plan.country);
@@ -114,6 +117,8 @@ export function PrintDigitalSubscriptionForm({
       } else {
         setDeliveryType('shipping');
       }
+    } else {
+      setDeliveryType('shipping');
     }
   }, [selectedCountry]);
 
@@ -156,6 +161,15 @@ export function PrintDigitalSubscriptionForm({
       ...defaultStyles,
       marginTop: '0px',
       top: '75%',
+    }),
+  };
+
+  const collegesStyle = {
+    ...style,
+    menu: (defaultStyles) => ({
+      ...defaultStyles,
+      marginTop: '0px',
+      top: '110%',
     }),
   };
 
@@ -214,6 +228,14 @@ export function PrintDigitalSubscriptionForm({
         </div>
       );
     }
+  }
+
+  function formatCollegeName(college) {
+    return (
+      <div className={Styles.stylePaymentMethods}>
+        {`${college.college_name} (Rabbi & ${college.last_name})`}
+      </div>
+    );
   }
 
   const initialValues = {
@@ -316,29 +338,29 @@ export function PrintDigitalSubscriptionForm({
       }),
     address_1: Yup.string().when('mobile', {
       is: () =>
-        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry.name === 'USA',
+        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry?.name === 'USA',
       then: () => Yup.string().trim().required('Street address is required'),
     }),
     address_2: Yup.string().trim(),
     city: Yup.string().when({
       is: () =>
-        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry.name === 'USA',
+        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry?.name === 'USA',
       then: () => Yup.string().trim().required('City is required'),
     }),
     state: Yup.number().when({
       is: () =>
-        (selectedCountry.has_shipping &&
+        (selectedCountry?.has_shipping &&
           deliveryType === 'shipping' &&
-          selectedCountry.states.length > 0) ||
-        selectedCountry.name === 'USA',
+          selectedCountry?.states?.length > 0) ||
+        selectedCountry?.name === 'USA',
       then: () => Yup.number().required('state is required'),
     }),
     zip_code: Yup.string().when({
       is: () =>
-        (selectedCountry.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry.name === 'USA',
+        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry?.name === 'USA',
       then: () => Yup.string().trim().required('postal code is required'),
     }),
   });
@@ -530,170 +552,193 @@ export function PrintDigitalSubscriptionForm({
                     </div>
                   </div>
                 )}
-
-              {selectedPlan && selectedCountry !== 'others' && (
+              {selectedPlan?.student_only && (
                 <div className={Styles.form}>
-                  <div className={Styles.selectCountry}>SHIPPING INFO</div>
-
-                  <div className={Styles.nameSection}>
-                    <label>
-                      <input
-                        type="text"
-                        placeholder="First Name"
-                        name="first_name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.first_name}
-                      />
-                      <span className={Styles.error}>
-                        {errors.first_name &&
-                          touched.first_name &&
-                          errors.first_name}
-                      </span>
-                    </label>
-                    <label>
-                      <input
-                        type="text"
-                        name="last_name"
-                        placeholder="Last Name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.last_name}
-                      />
-                      <span className={Styles.error}>
-                        {errors.last_name &&
-                          touched.last_name &&
-                          errors.last_name}
-                      </span>
-                    </label>
-                  </div>
-                  <>
-                    {deliveryType === 'shipping' && (
-                      <>
-                        <label>
-                          <input
-                            type="text"
-                            name="address_1"
-                            placeholder="Street Address"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.address_1}
-                          />
-                          <span className={Styles.error}>
-                            {errors.address_1 &&
-                              touched.address_1 &&
-                              errors.address_1}
-                          </span>
-                        </label>
-                        <label>
-                          <input
-                            type="text"
-                            name="address_2"
-                            placeholder="Apt, Floor, Unit, etc. (optional)"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.address_2}
-                          />
-                          <span className={Styles.error}>
-                            {errors.address_2 &&
-                              touched.address_2 &&
-                              errors.address_2}
-                          </span>
-                        </label>
-
-                        <div className={Styles.location}>
-                          <label>
-                            <input
-                              type="text"
-                              name="city"
-                              placeholder="City"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              value={values.city}
-                            />
-                            <span className={Styles.error}>
-                              {errors.city && touched.city && errors.city}
-                            </span>
-                          </label>
-                          {selectedCountry?.states?.length > 0 && (
-                            <label>
-                              <select
-                                name="state"
-                                id=""
-                                placeholder="State"
-                                value={values.state}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                              >
-                                <option value="" hidden={true}>
-                                  State
-                                </option>
-                                {selectedCountry?.states?.map((state) => (
-                                  <option key={state.id} value={state.id}>
-                                    {state.name}
-                                  </option>
-                                ))}
-                              </select>
-                              <span className={Styles.error}>
-                                {errors.state && touched.state && errors.state}
-                              </span>
-                            </label>
-                          )}
-                        </div>
-                      </>
-                    )}
-                    <div className={Styles.location}>
-                      {deliveryType === 'shipping' && (
-                        <label>
-                          <input
-                            type="text"
-                            name="zip_code"
-                            placeholder="Postal Code"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.zip_code}
-                          />
-                          <span className={Styles.error}>
-                            {errors.zip_code &&
-                              touched.zip_code &&
-                              errors.zip_code}
-                          </span>
-                        </label>
-                      )}
+                  <div className={Styles.college}>College</div>
+                  <Select
+                    name="colleges"
+                    options={allColleges}
+                    styles={collegesStyle}
+                    placeholder={'Select a college'}
+                    className={Styles.selectCollegesDropdown}
+                    getOptionValue={(option) => option.id}
+                    id="colleges"
+                    formatOptionLabel={(card) => formatCollegeName(card)}
+                    components={{
+                      IndicatorSeparator: () => null,
+                    }}
+                    onChange={(value) => {
+                      values.college = value;
+                    }}
+                  />
+                </div>
+              )}
+              {(!selectedPlan?.student_only || values.college) &&
+                selectedPlan &&
+                selectedCountry !== 'others' && (
+                  <div className={Styles.form}>
+                    <div className={Styles.selectCountry}>SHIPPING INFO</div>
+                    <div className={Styles.nameSection}>
                       <label>
                         <input
-                          type="email"
-                          name="email"
-                          placeholder="Email Address"
-                          label="Email"
+                          type="text"
+                          placeholder="First Name"
+                          name="first_name"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.email}
+                          value={values.first_name}
                         />
                         <span className={Styles.error}>
-                          {errors.email && touched.email && errors.email}
+                          {errors.first_name &&
+                            touched.first_name &&
+                            errors.first_name}
+                        </span>
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          name="last_name"
+                          placeholder="Last Name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.last_name}
+                        />
+                        <span className={Styles.error}>
+                          {errors.last_name &&
+                            touched.last_name &&
+                            errors.last_name}
                         </span>
                       </label>
                     </div>
-                    <label>
-                      <PhoneInput
-                        name="mobile"
-                        mask="#"
-                        placeholder="Mobile Number"
-                        countrySelectProps={{ unicodeFlags: false }}
-                        withCountryCallingCode={false}
-                        className={Styles.phoneInput}
-                        onChange={(value) => {
-                          values.mobile = value;
-                        }}
-                      />
-                      <span className={Styles.error}>
-                        {errors.mobile && touched.mobile && errors.mobile}
-                      </span>
-                    </label>
-                  </>
-                </div>
-              )}
+                    <>
+                      {deliveryType === 'shipping' && (
+                        <>
+                          <label>
+                            <input
+                              type="text"
+                              name="address_1"
+                              placeholder="Street Address"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.address_1}
+                            />
+                            <span className={Styles.error}>
+                              {errors.address_1 &&
+                                touched.address_1 &&
+                                errors.address_1}
+                            </span>
+                          </label>
+                          <label>
+                            <input
+                              type="text"
+                              name="address_2"
+                              placeholder="Apt, Floor, Unit, etc. (optional)"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.address_2}
+                            />
+                            <span className={Styles.error}>
+                              {errors.address_2 &&
+                                touched.address_2 &&
+                                errors.address_2}
+                            </span>
+                          </label>
+
+                          <div className={Styles.location}>
+                            <label>
+                              <input
+                                type="text"
+                                name="city"
+                                placeholder="City"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.city}
+                              />
+                              <span className={Styles.error}>
+                                {errors.city && touched.city && errors.city}
+                              </span>
+                            </label>
+                            {selectedCountry?.states?.length > 0 && (
+                              <label>
+                                <select
+                                  name="state"
+                                  id=""
+                                  placeholder="State"
+                                  value={values.state}
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                >
+                                  <option value="" hidden={true}>
+                                    State
+                                  </option>
+                                  {selectedCountry?.states?.map((state) => (
+                                    <option key={state.id} value={state.id}>
+                                      {state.name}
+                                    </option>
+                                  ))}
+                                </select>
+                                <span className={Styles.error}>
+                                  {errors.state &&
+                                    touched.state &&
+                                    errors.state}
+                                </span>
+                              </label>
+                            )}
+                          </div>
+                        </>
+                      )}
+                      <div className={Styles.location}>
+                        {deliveryType === 'shipping' && (
+                          <label>
+                            <input
+                              type="text"
+                              name="zip_code"
+                              placeholder="Postal Code"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.zip_code}
+                            />
+                            <span className={Styles.error}>
+                              {errors.zip_code &&
+                                touched.zip_code &&
+                                errors.zip_code}
+                            </span>
+                          </label>
+                        )}
+                        <label>
+                          <input
+                            type="email"
+                            name="email"
+                            placeholder="Email Address"
+                            label="Email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.email}
+                          />
+                          <span className={Styles.error}>
+                            {errors.email && touched.email && errors.email}
+                          </span>
+                        </label>
+                      </div>
+                      <label>
+                        <PhoneInput
+                          name="mobile"
+                          mask="#"
+                          placeholder="Mobile Number"
+                          countrySelectProps={{ unicodeFlags: false }}
+                          withCountryCallingCode={false}
+                          className={Styles.phoneInput}
+                          onChange={(value) => {
+                            values.mobile = value;
+                          }}
+                        />
+                        <span className={Styles.error}>
+                          {errors.mobile && touched.mobile && errors.mobile}
+                        </span>
+                      </label>
+                    </>
+                  </div>
+                )}
               {selectedPlan && (
                 <>
                   <div className={`${Styles.form} ${Styles.paymentInfo}`}>

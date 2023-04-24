@@ -12,6 +12,15 @@
     flex-direction: column;
   }
   .form {
+    .college {
+      font: fontvalue(18, 18, 700);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .selectCollegesDropdown{
+      // margin-top: 1rem;
+    }
     .creditCard {
       display: grid;
       grid-template-rows: repeat(2, 1fr);
@@ -157,11 +166,9 @@
       margin-bottom: 2rem;
       .selectPlan {
         color: #003652;
-        font-family: 'Brandon Grotesque', sans-serif;
-        font-weight: bold;
         text-align: center;
         margin: 1rem 0;
-        font-size: 1rem;
+        font: fontvalue(18, 18, 700);
       }
       .plansContainer {
         display: flex;

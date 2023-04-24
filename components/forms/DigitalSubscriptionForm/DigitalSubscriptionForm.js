@@ -69,7 +69,7 @@ export function DigitalSubscriptionForm({
 
   useEffect(() => {
     (async () => {
-      const { data } = await getAllPlans(selectedProduct.id, { 
+      const { data } = await getAllPlans(selectedProduct.id, {
         is_military_only,
         student_only,
       });
@@ -241,21 +241,21 @@ export function DigitalSubscriptionForm({
 
   const validationSchema = Yup.object().shape({
     first_name: Yup.string()
-      .trim()
       .min(2, 'Too short!')
       .max(50, 'Too long')
       .required('First name is required')
-      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for first name.'),
+      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for first name.')
+      .trim(),
     last_name: Yup.string()
-      .trim()
       .min(2, 'Too short!')
       .max(50, 'Too long')
       .required('Last Name is required')
-      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for last name.'),
+      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for last name.')
+      .trim(),
     email: Yup.string()
-      .trim()
       .email('Enter valid email')
-      .required('Email is required'),
+      .required('Email is required')
+      .trim(),
     mobile: Yup.string()
       .required('Phone is required')
       .test('phone is valid', 'Invalid contact', (value) => {
