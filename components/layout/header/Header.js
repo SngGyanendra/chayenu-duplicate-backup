@@ -14,14 +14,17 @@ export function Header() {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { user_details } = useSelector((state) => state.user);
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const { width } = useWindowDimensions();
 
   const handleMenu = () => {
-    const element = document.getElementsByClassName('menu')[0];
-    element.classList.toggle('menuClose');
-    if (element.classList.contains('menuClose')) {
-      document.body.style.overflowY = 'visible';
-    } else {
-      document.body.style.overflowY = 'hidden';
+    if (width < 1000) {
+      const element = document.getElementsByClassName("menu")[0];
+      element.classList.toggle("menuClose");
+      if (element.classList.contains("menuClose")) {
+        document.body.style.overflowY = "visible";
+      } else {
+        document.body.style.overflowY = "hidden";
+      }
     }
   };
   const handleClickedOutside = (e) => {
@@ -108,6 +111,12 @@ export function Header() {
     return () => {};
   }, []);
 
+  useEffect(() => {
+    if (width > 800) {
+      document.body.style.overflowY = "auto";
+    }
+  }, [width]);
+
   const menu = useRef();
   const chayenuLogo = useRef();
 
@@ -138,7 +147,7 @@ export function Header() {
           }}
         >
           <div className={Styles.headerContainer} ref={menu}>
-            <div>
+            <div onClick={handleMenu}>
               <Link href="/">
                 <Logo/>
               </Link>
