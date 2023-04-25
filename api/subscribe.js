@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { directusUrl, backendUrl } from './config';
 
-export async function getAllPlans(id, {
-  is_military_only = false,
-  student_only = false,
-}) {
+export async function getAllPlans(
+  id,
+  { is_military_only = false, student_only = false }
+) {
   try {
     const filter = {
       _and: [
@@ -17,16 +17,16 @@ export async function getAllPlans(id, {
       filter._and.push({
         is_military_only: {
           _eq: true,
-        }
-      })
+        },
+      });
     }
 
     if (student_only) {
       filter._and.push({
         student_only: {
           _eq: true,
-        }
-      })
+        },
+      });
     }
 
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
@@ -53,6 +53,7 @@ export async function addNewSubscription(values) {
         email: values.email.toLowerCase(),
         mobile: values.mobile,
       },
+      ...(values.college && { college: values.college }),
       ...(values.coupon && { coupon: values.coupon }),
       is_trial: values.is_trial,
       plan: values.plan,

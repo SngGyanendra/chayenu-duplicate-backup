@@ -39,6 +39,7 @@ export function PrintDigitalSubscriptionForm({
   const [loading, setLoading] = useState(false);
   const [popup, setPopup] = useState('');
   const [allColleges, setAllColleges] = useState([]);
+  const [selectedCollege, setSelectedCollege] = useState();
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -282,6 +283,7 @@ export function PrintDigitalSubscriptionForm({
       quantity: parseInt(values.quantity),
       plan: selectedPlan?.id,
       coupon: coupon?.code,
+      ...(selectedCollege && { college: selectedCollege?.id }),
       country: selectedCountry?.id,
       ...(require_cc && { card_nonce: nonce }),
       ...(values.state && { state: parseInt(values.state) }),
@@ -383,8 +385,14 @@ export function PrintDigitalSubscriptionForm({
           validationSchema={validationSchema}
           onSubmit={async (values) => {
             setLoading(true);
+            if(!paymentMethod){
+              toastTemplate(toast.error, 'Please select a payment method');
+              setLoading(false);
+              return;
+            }
             if (hostedFields) {
               if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
+                setLoading(false);
                 return;
               }
               let cardNonce;
@@ -568,12 +576,12 @@ export function PrintDigitalSubscriptionForm({
                       IndicatorSeparator: () => null,
                     }}
                     onChange={(value) => {
-                      values.college = value;
+                      setSelectedCollege(value);
                     }}
                   />
                 </div>
               )}
-              {(!selectedPlan?.student_only || values.college) &&
+              {(!selectedPlan?.student_only || selectedCollege) &&
                 selectedPlan &&
                 selectedCountry !== 'others' && (
                   <div className={Styles.form}>
@@ -739,112 +747,115 @@ export function PrintDigitalSubscriptionForm({
                     </>
                   </div>
                 )}
-              {selectedPlan && (
-                <>
-                  <div className={`${Styles.form} ${Styles.paymentInfo}`}>
-                    <div className={Styles.selectCountry}>PAYMENT INFO</div>
-                    <div className={Styles.selectPaymentMethod}>
-                      <Select
-                        name="payment_method"
-                        options={allPaymentMethods}
-                        styles={style}
-                        placeholder={
-                          isLoggedIn
-                            ? 'Choose payment method'
-                            : 'Login to see saved cards'
-                        }
-                        className={Styles.selectPaymentMethodDropdown}
-                        getOptionValue={(option) => option.cardToken}
-                        id="payment_method"
-                        isDisabled={!isLoggedIn}
-                        formatOptionLabel={(card) => formatPaymentMethods(card)}
-                        components={{
-                          IndicatorSeparator: () => null,
-                        }}
-                        onChange={(value) => {
-                          if (value.label === 'other') {
-                            setPaymentMethod(value.id);
-                          } else {
-                            setPaymentMethod(value.cardToken);
+              {(!selectedPlan?.student_only || selectedCollege) &&
+                selectedPlan && (
+                  <>
+                    <div className={`${Styles.form} ${Styles.paymentInfo}`}>
+                      <div className={Styles.selectCountry}>PAYMENT INFO</div>
+                      <div className={Styles.selectPaymentMethod}>
+                        <Select
+                          name="payment_method"
+                          options={allPaymentMethods}
+                          styles={style}
+                          placeholder={
+                            isLoggedIn
+                              ? 'Choose payment method'
+                              : 'Login to see saved cards'
                           }
-                        }}
-                      />
-                      <Coupon
+                          className={Styles.selectPaymentMethodDropdown}
+                          getOptionValue={(option) => option.cardToken}
+                          id="payment_method"
+                          isDisabled={!isLoggedIn}
+                          formatOptionLabel={(card) =>
+                            formatPaymentMethods(card)
+                          }
+                          components={{
+                            IndicatorSeparator: () => null,
+                          }}
+                          onChange={(value) => {
+                            if (value.label === 'other') {
+                              setPaymentMethod(value.id);
+                            } else {
+                              setPaymentMethod(value.cardToken);
+                            }
+                          }}
+                        />
+                        <Coupon
+                          values={values}
+                          handleChange={handleChange}
+                          handleBlur={handleBlur}
+                          selectedPlan={selectedPlan}
+                          coupon={coupon}
+                          setCoupon={setCoupon}
+                        />
+                      </div>
+                      {require_cc &&
+                        (paymentMethod === 'other' || !isLoggedIn) && (
+                          <div className={Styles.creditCard}>
+                            <div className={Styles.ccnumber}>
+                              <label for="cc-number">Credit Number</label>
+                              <div
+                                id="cc-number"
+                                className={Styles.hostedFields}
+                              ></div>
+                              {cardErrors && (
+                                <span className={Styles.error}>
+                                  {cardErrors.number}
+                                </span>
+                              )}
+                            </div>
+                            <div className={Styles.expirycvv}>
+                              <div>
+                                <label for="cc-expiry">Expiry</label>
+                                <div
+                                  id="cc-expiry"
+                                  className={Styles.hostedFields}
+                                ></div>
+                                {cardErrors && (
+                                  <span className={Styles.error}>
+                                    {cardErrors.expiry}
+                                  </span>
+                                )}
+                              </div>
+                              <div>
+                                <label for="cc-cvv">CVV</label>
+                                <div
+                                  id="cc-cvv"
+                                  className={Styles.hostedFields}
+                                ></div>
+                                {cardErrors && (
+                                  <span className={Styles.error}>
+                                    {cardErrors.cvv}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                    </div>
+                    <div className={`${Styles.form} ${Styles.subscribe}`}>
+                      <div className={Styles.selectCountry}>SUMMARY</div>
+                      <Summary
+                        selectedPlan={selectedPlan}
+                        autoRenewal={values.auto_renew}
                         values={values}
                         handleChange={handleChange}
                         handleBlur={handleBlur}
-                        selectedPlan={selectedPlan}
                         coupon={coupon}
-                        setCoupon={setCoupon}
                       />
-                    </div>
-                    {require_cc &&
-                      (paymentMethod === 'other' || !isLoggedIn) && (
-                        <div className={Styles.creditCard}>
-                          <div className={Styles.ccnumber}>
-                            <label for="cc-number">Credit Number</label>
-                            <div
-                              id="cc-number"
-                              className={Styles.hostedFields}
-                            ></div>
-                            {cardErrors && (
-                              <span className={Styles.error}>
-                                {cardErrors.number}
-                              </span>
-                            )}
-                          </div>
-                          <div className={Styles.expirycvv}>
-                            <div>
-                              <label for="cc-expiry">Expiry</label>
-                              <div
-                                id="cc-expiry"
-                                className={Styles.hostedFields}
-                              ></div>
-                              {cardErrors && (
-                                <span className={Styles.error}>
-                                  {cardErrors.expiry}
-                                </span>
-                              )}
-                            </div>
-                            <div>
-                              <label for="cc-cvv">CVV</label>
-                              <div
-                                id="cc-cvv"
-                                className={Styles.hostedFields}
-                              ></div>
-                              {cardErrors && (
-                                <span className={Styles.error}>
-                                  {cardErrors.cvv}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                  </div>
-                  <div className={`${Styles.form} ${Styles.subscribe}`}>
-                    <div className={Styles.selectCountry}>SUMMARY</div>
-                    <Summary
-                      selectedPlan={selectedPlan}
-                      autoRenewal={values.auto_renew}
-                      values={values}
-                      handleChange={handleChange}
-                      handleBlur={handleBlur}
-                      coupon={coupon}
-                    />
 
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className={`${Styles.submit} ${
-                        loading ? `${Styles.disabled}` : ''
-                      }`}
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </>
-              )}
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className={`${Styles.submit} ${
+                          loading ? `${Styles.disabled}` : ''
+                        }`}
+                      >
+                        Subscribe
+                      </button>
+                    </div>
+                  </>
+                )}
             </form>
           )}
         </Formik>
