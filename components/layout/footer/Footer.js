@@ -26,8 +26,14 @@ export function Footer() {
           <li>
             <Link href="/explore">Explore</Link>
           </li>
-          <li>Library</li>
-          <li>Chayus</li>
+          <li>
+            {' '}
+            <Link href="/comingsoon">Library</Link>
+          </li>
+          <li>
+            {' '}
+            <Link href="/comingsoon">Chayus</Link>
+          </li>
           <li
             onClick={() => {
               setPopup('newsletter');

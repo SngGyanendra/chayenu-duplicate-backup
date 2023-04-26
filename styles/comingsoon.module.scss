@@ -1,0 +1,18 @@
+@import 'common.scss';
+
+.page {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  .text {
+    font: fontvalue(20, 20, 300);
+    text-align: center;
+  }
+  .link {
+    font: fontvalue(20, 20, 300);
+    margin-left: 10px;
+    color: var(--website-color);
+    cursor: pointer;
+  }
+}
