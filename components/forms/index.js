@@ -11,3 +11,4 @@ export * from './EditPaymentMethod/EditPaymentMethod';
 export * from './AddPaymentMethod/AddPaymentMethod';
 export * from './CreditCardInput/CreditCardInput';
 export * from './ChangePaymentMethod/ChangePaymentMethod';
+export * from './NewsLetter/NewsLetter';
