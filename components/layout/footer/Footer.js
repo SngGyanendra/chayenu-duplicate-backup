@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import Styles from './footer.module.scss';
 import Image from 'next/image';
+import { NewsLetter } from '/components/forms';
+import { Popup } from '/components/common';
+import { useState } from 'react';
 
 export function Footer() {
+  const [popup, setPopup] = useState('');
   return (
     <footer className={Styles.footer}>
       <div className={Styles.upperLayer}>
@@ -16,11 +20,21 @@ export function Footer() {
           />
         </div>
         <ul>
-          <li><Link href="/subscribe">Subscribe</Link></li>
-          <li><Link href="/explore">Explore</Link></li>
+          <li>
+            <Link href="/subscribe">Subscribe</Link>
+          </li>
+          <li>
+            <Link href="/explore">Explore</Link>
+          </li>
           <li>Library</li>
           <li>Chayus</li>
-          <li>Newsletter</li>
+          <li
+            onClick={() => {
+              setPopup('newsletter');
+            }}
+          >
+            Newsletter
+          </li>
         </ul>
       </div>
       <div className={Styles.lowerLayer}>
@@ -31,6 +45,15 @@ export function Footer() {
         </ul>
         <div>Copyright © 2022 CHAYENU. All rights reserved.</div>
       </div>
+      {(() => {
+        if (popup === 'newsletter') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <NewsLetter setPopupState={setPopup} />
+            </Popup>
+          );
+        }
+      })()}
     </footer>
   );
 }
