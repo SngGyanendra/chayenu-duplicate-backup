@@ -5,6 +5,7 @@ import { useWindowDimensions } from '../../hooks/useWindow';
 import Image from 'next/image';
 import GOTMobileImage1 from '/public/images/homepage/GOTM1@2x.png';
 import GOTMobileImage2 from '/public/images/homepage/GOTM2@2x.png';
+import { Popup } from '/components/common';
 
 const ChayenuMobileApp = ({Styles}) => {
     const [borderColor, setBorderColor] = useState(dailyStudyData.defaultBorderColor);
