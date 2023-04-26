@@ -1,0 +1,27 @@
+.carouselContainer{
+    width: calc(var(--container-width) + 4rem);
+    margin: 0 auto;
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+
+}
+
+.carouselButton{
+    border: none;
+    border-radius: 1rem;
+    height: 2rem;
+    color: #ffffff;
+    width: 2rem;
+    background-color: var(--dark);
+    position: relative;
+}
+
+.left{
+    left: 1rem;
+}
+
+.right{
+    right: 1rem;
+}
