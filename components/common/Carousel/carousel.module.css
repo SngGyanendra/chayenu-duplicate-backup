@@ -5,7 +5,6 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-
 }
 
 .carouselButton{
@@ -24,4 +23,28 @@
 
 .right{
     right: 1rem;
+}
+
+.currentIndicatorContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-self: center;
+    grid-column: 2;
+    padding: 10px;
+
+}
+
+.indicator{
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #bfbfbf;
+    
+}
+
+.currentIndicator{
+    background-color: var(--dark);
+
 }

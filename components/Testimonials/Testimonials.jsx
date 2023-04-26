@@ -7,7 +7,6 @@ const Testimonials = ({listOfTestimonials}) => {
         listOfTestimonials && listOfTestimonials && listOfTestimonials.length > 0 && <Carousel 
             totalItems={listOfTestimonials.length}
             renderTemplate={(index)=>{
-                console.log(listOfTestimonials)
                 return (
                     <div className={Styles.testimonials}>
                         <p>

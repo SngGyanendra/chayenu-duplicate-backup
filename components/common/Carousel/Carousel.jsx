@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Styles from './carousel.module.css';
 import {rightArrow} from '/public/icons/arrow.js';
 import {leftArrow} from '/public/icons/leftarrow.js';
@@ -8,13 +8,27 @@ export const Carousel = ({totalItems, renderTemplate }) => {
 
   const lastIndex = totalItems - 1;
 
-  const next = () => {
+  const next = useCallback(() => {
     setIndex(index === lastIndex ? 0 : index + 1);
-  };
+  }, [index, lastIndex]);
 
   const prev = () => {
     setIndex(index === 0 ? lastIndex : index - 1);
   };
+
+  const createIndicator = () => {
+    return new Array(totalItems).fill(0).map((_, i) => (<div onClick={()=>setIndex(i)} className={`${Styles.indicator} ${i == index && Styles.currentIndicator}`} key={i}></div>));
+  }
+
+  useEffect(() => {
+
+   const interval =  setInterval(() => {
+      next();
+    }, 5000);
+
+    return () => clearInterval(interval);
+
+  }, [next, index]);
 
   return (
     <div className={Styles.carouselContainer}>
@@ -25,6 +39,9 @@ export const Carousel = ({totalItems, renderTemplate }) => {
             renderTemplate(index)
         }
       <button className={`${Styles.carouselButton} ${Styles.right}`} onClick={next}>{rightArrow}</button>
+      <div className={Styles.currentIndicatorContainer}>
+        {createIndicator()}
+      </div>
     </div>
   );
 }
