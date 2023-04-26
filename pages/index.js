@@ -4,7 +4,6 @@ import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
 import Image from 'next/image';
 import { Popup } from '../components/common';
-import ChayenuAppImage from '/public/images/homepage/ChayenuBlue.png';
 import GOTBookImage from '/public/images/homepage/GOT@2x.png';
 import GOTMobileImage1 from '/public/images/homepage/GOTM1@2x.png';
 import GOTMobileImage2 from '/public/images/homepage/GOTM2@2x.png';
@@ -14,60 +13,17 @@ import TalmudM3 from '/public/images/homepage/TalmudM3.png';
 import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
-import Alan from '/public/images/homepage/Alan.png';
-import Lisa from '/public/images/homepage/woman@2x.png';
-import Alice from '/public/images/homepage/Testimonials/1.png';
-import Bob from '/public/images/homepage/Testimonials/DrBobShor.png';
-import Arnie from '/public/images/homepage/Testimonials/3.png';
-import Esther from '/public/images/homepage/Testimonials/4.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
-import dailyStudyData from '../data/dailyStudy.json';
-import weeklyStudyData from '../data/weeklyStudy.json';
-import { useWindowDimensions } from './../hooks/useWindow';
-import Link from 'next/link';
+import Link  from 'next/link';
+import { testimonials1, testimonials2 } from '../data/testimonials';
+import Testimonials from '../components/Testimonials/Testimonials';
+import ChayenuMobileApp from '../components/ChayenuMobileApp/ChayenuMobileApp';
 import { NewsLetter } from '/components/forms';
 
+
 export default function Home() {
-  const [selectedChumashScreen, setselectedChumashScreen] =
-    useState(dailyStudyData);
-  const [openPopup, setOpenPopup] = useState(false);
   const [openSignUpForm, setOpenSignUpForm] = useState(false);
-  const [borderColor, setBorderColor] = useState(
-    dailyStudyData.defaultBorderColor
-  );
-  const studyIndexRef = useRef(0);
-  const { width } = useWindowDimensions();
-
-  useEffect(() => {
-    if (width >= 800) {
-      const combinedStudyData = [
-        ...dailyStudyData.data,
-        ...weeklyStudyData.data,
-      ];
-      const lengthOfCombinedStudyData = combinedStudyData.length;
-
-      const interval = setInterval(() => {
-        if (studyIndexRef.current >= lengthOfCombinedStudyData) {
-          studyIndexRef.current = 0;
-        } else {
-          setselectedChumashScreen(combinedStudyData[studyIndexRef.current]);
-          setBorderColor(combinedStudyData[studyIndexRef.current].textColor);
-          ++studyIndexRef.current;
-        }
-      }, 2000);
-
-      return () => {
-        window.clearInterval(interval);
-      };
-    }
-  }, [width]);
-
-  useEffect(() => {
-    if (width > 800 && openPopup) {
-      setOpenPopup(false);
-    }
-  }, [width, openPopup]);
-
+  
   return (
     <main>
       <NextHead title="Chayenu" />
@@ -110,131 +66,15 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          <div className={Styles.card}>
-            <p>
-              “As a subscriber of Chayenu I am thrilled to finally have a weekly
-              study guide. On the road traveling often and constantly on the go,
-              Chayenu has provided me an easy way to learn. Written in English
-              that is perfect for the beginner to the more advanced. I strongly
-              recommend Chayenu to anyone looking for that one booklet to assist
-              you with your personal growth in Torah Study”
-            </p>
-
-            <p>
-              Alan “Shlomo” Veingrad, former NFL offensive lineman with the
-              Green Bay Packers & Dallas Cowboys Super Bowl XXVII championship
-              team
-            </p>
-
-            <div>
-              <Image src={Alan} alt="Alan's Image" height={120} width={80} />
-            </div>
-          </div>
+          
+          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials1}/>}
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section3}>
-          <div className={Styles.card}>
-            <div className={Styles.head}>
-              <h2>Chayenu App</h2>
-            </div>
+          <ChayenuMobileApp Styles={Styles}/>
 
-            <div className={Styles.cardContentLeft}>
-              <div>
-                <p className={Styles.subtitle}>DAILY STUDY</p>
+          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials2}/>}
 
-                <div className={Styles.childCard}>
-                  {dailyStudyData.data.map((data) => (
-                    <div
-                      className={Styles.dailyStudyCards}
-                      style={{
-                        backgroundColor: data.backgroundColor,
-                        border:
-                          data.textColor === borderColor && width > 800
-                            ? `2px solid ${borderColor}`
-                            : '',
-                      }}
-                      key={data.title}
-                      onMouseOver={() => {
-                        width <= 800 && setOpenPopup(true);
-                        setselectedChumashScreen(data);
-                        setBorderColor(selectedChumashScreen.textColor);
-                        studyIndexRef.current = data.id;
-                      }}
-                    >
-                      <p style={{ color: data.textColor }}>{data.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className={Styles.subtitle}>Weekly STUDY</p>
-                <div>
-                  <div className={Styles.childCard}>
-                    {weeklyStudyData.data.map((data, index) => (
-                      <div
-                        style={{
-                          backgroundColor: data.backgroundColor,
-                          border:
-                            data.textColor === borderColor && width > 800
-                              ? `2px solid ${borderColor}`
-                              : '',
-                        }}
-                        className={Styles.dailyStudyCards}
-                        key={data.title}
-                        onMouseOver={() => {
-                          width <= 800 && setOpenPopup(true);
-                          setselectedChumashScreen(data);
-                          setBorderColor(selectedChumashScreen.textColor);
-                          studyIndexRef.current = data.id;
-                        }}
-                        // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
-                      >
-                        <p style={{ color: data.textColor }}>{data.title}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className={Styles.cardContentRight}>
-              <Image
-                src={GOTMobileImage1}
-                className={Styles.mobileWrapper}
-                alt="Chayenu Mobile"
-                height={328}
-                width={155}
-                objectFit="contain"
-              />
-              <Image
-                className={Styles.screen}
-                src={
-                  selectedChumashScreen.imageUrl || dailyStudyData.defaultUrl
-                }
-                alt="Chayenu Mobile"
-                height={297}
-                width={132}
-                objectFit="contain"
-              />
-            </div>
-          </div>
-
-          <div className={Styles.card}>
-            <p>
-              I am grateful that Chayenu has transformed into a super accessible
-              app. I use the print, and now with the app, it is such a
-              convenient way for me to get in some quick Torah study no matter
-              where I am. The new Chayenu app makes it easy for me to share
-              snippets of the Torah I learn with my family & friends.
-            </p>
-
-            <p>Lisa Melkin. Melbourne, Australia</p>
-
-            <div>
-              <Image src={Lisa} alt="Alan's Image" height={130} width={120} />
-            </div>
-          </div>
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section4}>
@@ -267,20 +107,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`${Styles.testimonials}`}>
-            <p>
-              I love my Chayenu app! The app, on the front page of my phone,
-              helps me feel my connection to HaShem as part of my morning
-              routine. Besides the daily portion, my favorite reads are the
-              “Name of the Parsha” and the Chassidic Story.”
-            </p>
-
-            <p>Alice Harron, San Francisco, CA</p>
-
-            <div>
-              <Image src={Alice} alt="Alice's Image" height={130} width={120} />
-            </div>
-          </div>
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section5}>
@@ -310,20 +136,7 @@ export default function Home() {
               <Image src={Section5Mobile} alt="" width={343} height={325} />
             </div>
           </div>
-
-          <div className={`${Styles.testimonials}`}>
-            <p>
-              I am a huge fan. I read the app every day. It has been life
-              transforming and gives me the critical daily study I need for the
-              day in an easily accessible way.
-            </p>
-
-            <p>Arnie Herz,Port Washington, NY </p>
-
-            <div>
-              <Image src={Arnie} alt="Alice's Image" height={130} width={120} />
-            </div>
-          </div>
+                
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section6}>
@@ -352,20 +165,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`${Styles.testimonials}`}>
-            <p>
-              I usually make time for learning on Shabbat. I really enjoy the
-              Ein Yaakov. Certain things I think I would never have studied if
-              it wasn’t in Chayenu, like Rambam. The Chassidic story is
-              interesting to me. And they added a letter from the Rebbe.
-            </p>
-
-            <p>Dr. Bob Shorr, Ventura, California</p>
-
-            <div>
-              <Image src={Bob} alt="Alice's Image" height={130} width={130} />
-            </div>
-          </div>
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section7}>
@@ -409,57 +208,15 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className={`${Styles.testimonials}`}>
-            <p>
-              {`Chayenu makes it easier for me to learn Torah on a daily basis, especially when I am traveling on my concert tours.
-            There are so many blessings that come from it. It's enhanced my life in so many ways.`}
-            </p>
 
-            <p>Esther Freeman</p>
-
-            <div>
-              <Image
-                src={Esther}
-                alt="Alice's Image"
-                height={130}
-                width={120}
-              />
-            </div>
-          </div>
         </ContainerCard>
       </section>
-      {openPopup && (
-        <div className={Styles.popUp}>
-          <Popup
-            setPopupState={setOpenPopup}
-            additionalStyles={{ alignItems: 'flex-start', paddingTop: '2rem' }}
-          >
-            <div>
-              <Image
-                src={GOTMobileImage1}
-                alt="Chayenu Mobile"
-                height={584}
-                width={269}
-                objectFit="contain"
-              />
-              <Image
-                className={Styles.modalScreen}
-                src={selectedChumashScreen.imageUrl}
-                alt="Chayenu Mobile"
-                height={560}
-                width={250}
-                objectFit="contain"
-              />
-            </div>
-          </Popup>
-        </div>
-      )}
-
-      {openSignUpForm && (
-        <Popup setPopupState={setOpenSignUpForm}>
-          <NewsLetter setPopupState={setOpenSignUpForm} />
+     
+      {
+        openSignUpForm && <Popup setPopupState={setOpenSignUpForm}>
+          <NewsLetter setPopupState={setOpenSignUpForm}/>
         </Popup>
-      )}
+      }
     </main>
   );
 }
