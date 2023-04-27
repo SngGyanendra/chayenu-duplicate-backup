@@ -51,6 +51,26 @@ const ChayenuMobileApp = ({Styles}) => {
     
       }, [width, openPopup])
 
+
+      const setMobileScreenData = (data) => {
+          setselectedChumashScreen(data);
+          setBorderColor(selectedChumashScreen.textColor)
+          studyIndexRef.current = data.id;
+      }
+
+      const changeOnMouseOver = (data) => {
+        if(width >=800){  
+          setMobileScreenData(data)
+        }
+      }
+
+      const changeOnClick = (data) => {
+        if(width <= 800){
+            setOpenPopup(true);
+            setMobileScreenData(data);
+        }
+      }
+
     return (
         <div className={Styles.card}>
             <div className={Styles.head}>
@@ -68,10 +88,10 @@ const ChayenuMobileApp = ({Styles}) => {
                       style={{ backgroundColor: data.backgroundColor, border: data.textColor === borderColor && width > 800 ? `2px solid ${borderColor}`: '' }}
                       key={data.title}
                       onMouseOver={() => {
-                        width <=800 && setOpenPopup(true);
-                        setselectedChumashScreen(data);
-                        setBorderColor(selectedChumashScreen.textColor)
-                        studyIndexRef.current = data.id
+                        changeOnMouseOver(data);
+                      }}
+                      onClick={()=>{
+                        changeOnClick(data);
                       }}
                     >
                       <p style={{ color: data.textColor }}>{data.title}</p>
@@ -89,10 +109,10 @@ const ChayenuMobileApp = ({Styles}) => {
                         className={Styles.dailyStudyCards}
                         key={data.title}
                         onMouseOver={() => {
-                          width <=800 && setOpenPopup(true);
-                          setselectedChumashScreen(data);
-                          setBorderColor(selectedChumashScreen.textColor)
-                          studyIndexRef.current = data.id;
+                          changeOnMouseOver(data);
+                        }}
+                        onClick={()=>{
+                          changeOnClick(data);
                         }}
                         // onMouseLeave={()=>{setselectedChumashScreen(dailyStudyData.defaultUrl)}}
                       >

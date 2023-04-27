@@ -2,13 +2,13 @@ import Image from "next/image";
 import { Carousel } from "../common/Carousel/Carousel";
 import Styles from "./testimonials.module.scss";
 
-const Testimonials = ({listOfTestimonials}) => {
+const Testimonials = ({listOfTestimonials, additionalStyles}) => {
     return (
         listOfTestimonials && listOfTestimonials && listOfTestimonials.length > 0 && <Carousel 
             totalItems={listOfTestimonials.length}
             renderTemplate={(index)=>{
                 return (
-                    <div className={Styles.testimonials}>
+                    <div className={Styles.testimonials} style={{...additionalStyles}}>
                         <p>
                             {listOfTestimonials[index].statement}
                         </p>

@@ -67,13 +67,13 @@ export default function Home() {
             </div>
           </div>
           
-          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials1}/>}
+          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials1} additionalStyles={{backgroundColor: 'var(--blue-gray)'}}/>}
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section3}>
           <ChayenuMobileApp Styles={Styles}/>
 
-          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials2}/>}
+          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials2} additionalStyles={{backgroundColor: '#ffffff'}}/>}
 
         </ContainerCard>
 
