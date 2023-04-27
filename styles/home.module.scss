@@ -337,10 +337,8 @@ $height: 30rem;
     background-color: #e3f0fa;
 
     .card{
-      height: 448px;
       padding-top: 75px;
       grid-template-columns: 1fr auto;
-      grid-template-rows: repeat(3, 1fr);
 
       .head{
         display: grid;
@@ -601,12 +599,12 @@ $height: 30rem;
 
     @media screen  and (max-width: 800px){
       & {
-        min-height: 75rem;
+        min-height: 50rem;
         height: auto;
 
 
         .card{
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(2, 1fr) !important;
           justify-content: center;
           grid-column-gap: 5px;
 
@@ -657,6 +655,7 @@ $height: 30rem;
       padding-top: 100px;
       justify-content: center;
       margin-bottom: 2rem;
+      grid-column-gap: 12px;
 
       .column1{ 
         h2{
@@ -669,8 +668,7 @@ $height: 30rem;
         }
 
         :nth-child(2){
-          font: normal normal normal 30px/20px var(--website-font-family);
-          font: fontvalue(23,15,normal);
+          font: fontvalue(23,30,normal);
 
         }
 
