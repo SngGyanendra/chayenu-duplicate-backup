@@ -73,7 +73,7 @@
 
     .error {
       color: red;
-      font: fontvalue(12, 12, 300);
+      font: fontvalue(14, 14, 300);
       min-width: 1px;
       min-height: 12px;
       font-family: 'Brandon Grotesque', sans-serif;
@@ -147,15 +147,18 @@
           align-items: center;
           font: fontvalue(16, 16, 500);
           font-family: 'Brandon Grotesque', sans-serif;
+          border-radius: 3px;
+          margin: 2px;
           color: black;
           cursor: pointer;
+          &:hover{
+            border: 2px solid #00365233;
+          }
         }
         .selectCountry {
           background-color: #75b2e6;
           transition: background-color ease 0.25s;
           color: white;
-          margin: 2px;
-          border-radius: 3px;
         }
         @media screen and (max-width: 70rem) {
           width: 100%;
@@ -192,10 +195,8 @@
       height: 2rem;
       border-radius: 5px;
       padding: 0px 10px;
-      font-size: 1rem;
-      font-weight: 300;
       width: 100%;
-      font: fontvalue(14, 14, 300);
+      font: fontvalue(16, 16, 300);
       border: 0px solid rgb(206, 212, 218);
       box-shadow: none;
       margin-top: 0.2rem;
@@ -208,9 +209,7 @@
       border-radius: 5px;
       padding: 0px 10px;
       margin-top: 0.2rem;
-      font-size: 1rem;
-      font-weight: 300;
-      font: fontvalue(14, 14, 300);
+      font: fontvalue(16, 16, 300);
       width: 100%;
       border: 0px solid rgb(206, 212, 218);
       box-shadow: none;
