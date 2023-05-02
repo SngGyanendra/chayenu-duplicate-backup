@@ -41,6 +41,12 @@
     .processing {
       color: #c49e00;
     }
+    .expiringSubscriptionWarning {
+      color: red;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      text-align: center;
+    }
     @media screen and (max-width: 48.125rem) {
       grid-template-columns: repeat(1, 1fr);
     }

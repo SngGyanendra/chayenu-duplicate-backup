@@ -235,6 +235,13 @@ export function SubscriptionCard({ subscription, setLoading }) {
             )},1fr)`,
           }}
         >
+          {!subscription.auto_renew &&
+            new Date().toISOString() < subscription.next_bill_date && (
+              <div className={Styles.expiringSubscriptionWarning}>
+                Your subscription will end on{' '}
+                {formatDate(subscription.next_bill_date)}
+              </div>
+            )}
           {Object.entries(filteredSubscriptionData).map(([key, value]) =>
             formatSubscriptionDetail(key, value, filteredSubscriptionData)
           )}
