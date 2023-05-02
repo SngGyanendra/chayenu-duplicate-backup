@@ -9,6 +9,7 @@
   grid-template-columns: 2fr repeat(4, 1fr);
   .success {
     color: green;
+    font-weight: 600;
   }
   .failed {
     color: red;

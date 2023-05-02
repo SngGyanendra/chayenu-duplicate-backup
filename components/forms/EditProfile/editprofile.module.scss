@@ -63,7 +63,7 @@
     border-radius: 5px;
     padding: 0px 10px;
     font-size: 1rem;
-    font: fontvalue(14, 14, 500);
+    font: fontvalue(16, 16, 500);
     width: 100%;
     border: none;
     border: 1px solid rgb(206, 212, 218);
@@ -73,7 +73,7 @@
     background-color: var(--website-color);
   }
   .error {
-    font: fontvalue(12, 12, 300);
+    font: fontvalue(14, 14, 300);
     color: red;
     text-align: left;
   }

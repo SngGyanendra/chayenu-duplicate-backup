@@ -112,16 +112,15 @@ export default function Subscribe({ query }) {
                   return (
                     <div
                       key={product.id}
-                      className={`${Styles.productCard} ${
-                        selectedProduct?.id === product?.id
-                          ? Styles.selectedCard
-                          : ''
-                      }`}
+                      className={Styles.productCard}
                       onClick={() => {
                         setSelectedProduct(product);
                       }}
                     >
-                      <ProductCard product={product} />
+                      <ProductCard
+                        product={product}
+                        selected={selectedProduct?.id === product?.id}
+                      />
                     </div>
                   );
                 })}

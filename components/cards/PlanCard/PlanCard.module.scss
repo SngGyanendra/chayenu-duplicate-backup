@@ -17,6 +17,7 @@
   grid-template-rows: repeat(3, 1fr);
   color: #003652;
   row-gap: 1rem;
+  border: 3px solid transparent;
 
   .planType {
     text-align: center;
@@ -31,11 +32,14 @@
   @media screen and (min-width: 55.938rem) and (max-width: 85.313rem) {
     &:nth-child(2n + 1) {
       margin-left: 0;
-      margin-right: 1rem;
+      margin-right: .5rem;
     }
     &:nth-child(2n + 2) {
-      margin-left: 1rem;
+      margin-left: .5rem;
       margin-right: 0rem;
     }
+  }
+  &:hover {
+    border: 3px solid #00365233;
   }
 }
