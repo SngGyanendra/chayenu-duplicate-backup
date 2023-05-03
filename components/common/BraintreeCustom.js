@@ -13,10 +13,10 @@ export const initializeCustomBraintree = async (
           color: 'black',
         },
         '.valid': {
-          color: 'green',
+          color: '#00AC7D',
         },
         '.invalid': {
-          color: 'red',
+          color: '#BE1550',
         },
       },
       fields: {
