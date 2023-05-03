@@ -119,7 +119,6 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
       },
     };
     const loadingToast = toastTemplate(toast.loading, 'Transferring...');
-    console.log(loadingToast);
     try {
       const response = await APIs.transferSubscription(finalValues);
       toastTemplate(

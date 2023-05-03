@@ -36,7 +36,7 @@ export function ConfirmCancellation({
           try {
             const response = await APIs.toggleAutoRenew(
               subscription.id,
-              // reasonList
+              reasonList
             );
             toastTemplate(
               toast.success,

@@ -36,6 +36,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     auto_renew,
     countries,
     zip_code,
+    next_bill_date,
   }) => ({
     plans,
     status,
@@ -49,6 +50,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     city,
     states,
     countries,
+    next_bill_date,
     zip_code,
   }))(subscription);
 
@@ -75,7 +77,17 @@ export function SubscriptionCard({ subscription, setLoading }) {
         count++;
       } else if (key === 'status' && obj[key] !== null) {
         count++;
-      } else if (key === 'end_date' && obj[key] !== null) {
+      } else if (
+        key === 'end_date' &&
+        obj[key] !== null &&
+        filteredSubscriptionData.auto_renew === false
+      ) {
+        count++;
+      } else if (
+        key === 'next_bill_date' &&
+        obj[key] !== null &&
+        filteredSubscriptionData.auto_renew === true
+      ) {
         count++;
       } else if (key === 'first_name' && obj[key] !== null) {
         count++;
@@ -129,9 +141,19 @@ export function SubscriptionCard({ subscription, setLoading }) {
         );
         break;
       case 'end_date':
+        if (filteredSubscriptionData.auto_renew === true) break;
         html = (
           <div>
             <span className={Styles.keys}>End Date:</span>
+            <span className={Styles.value}>{formatDate(value)}</span>
+          </div>
+        );
+        break;
+      case 'next_bill_date':
+        if (filteredSubscriptionData.auto_renew === false) break;
+        html = (
+          <div>
+            <span className={Styles.keys}>Next Bill Date:</span>
             <span className={Styles.value}>{formatDate(value)}</span>
           </div>
         );
@@ -229,7 +251,8 @@ export function SubscriptionCard({ subscription, setLoading }) {
     <>
       <div className={Styles.subscriptionCard}>
         {!subscription.auto_renew &&
-          new Date().toISOString() < subscription.end_date && (
+          new Date().toISOString() < subscription.end_date &&
+          subscription.status !== 'Expired' && (
             <div className={Styles.expiringSubscriptionWarning}>
               Your subscription will end on {formatDate(subscription.end_date)}
             </div>
@@ -258,7 +281,15 @@ export function SubscriptionCard({ subscription, setLoading }) {
                 );
                 try {
                   setDisabled(true);
-                  const response = await APIs.toggleAutoRenew(subscription.id);
+                  if (filteredSubscriptionData.status === 'Expired') {
+                    const response = await APIs.reactivateSubscription(
+                      subscription.id
+                    );
+                  } else {
+                    const response = await APIs.toggleAutoRenew(
+                      subscription.id
+                    );
+                  }
                   toastTemplate(
                     toast.success,
                     'Subscription reactivated successfully',

@@ -2,7 +2,6 @@ import Styles from './productcard.module.scss';
 import { directusUrl } from '/api/config';
 
 export function ProductCard({ product, selected }) {
-  console.log(selected);
   return (
     <div className={`${Styles.card} ${selected ? Styles.selectedCard : ''}`}>
       <div className={Styles.name}>{product?.name}</div>
