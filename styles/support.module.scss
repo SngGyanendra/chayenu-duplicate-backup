@@ -32,7 +32,8 @@
     text-transform: uppercase;
   }
   .active {
-    color: green;
+    color: #00AC7D;
+    font-weight: 600;
   }
   .expired {
     color: red;
@@ -44,8 +45,8 @@
     color: #c49e00;
   }
   .error {
-    font: fontvalue(12, 12, 300);
-    color: red;
+    font: fontvalue(12, 12, 600);
+    color: #BE1550;
   }
   .disabled {
     background-color: grey;

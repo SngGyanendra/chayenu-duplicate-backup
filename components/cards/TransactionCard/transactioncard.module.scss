@@ -8,14 +8,14 @@
   display: grid;
   grid-template-columns: 2fr repeat(4, 1fr);
   .success {
-    color: green;
+    color: #00AC7D;
     font-weight: 600;
   }
   .failed {
     color: red;
   }
   .successDot{
-    background-color: green;
+    background-color: #00AC7D;
   }
   .failedDot{
     background-color: red;

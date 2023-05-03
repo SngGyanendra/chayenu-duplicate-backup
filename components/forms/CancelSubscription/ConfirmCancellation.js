@@ -34,9 +34,9 @@ export function ConfirmCancellation({
         onClick={async () => {
           const loadingToast = toastTemplate(toast.loading, 'Cancelling');
           try {
-            const response = await APIs.cancelSubscription(
+            const response = await APIs.toggleAutoRenew(
               subscription.id,
-              reasonList
+              // reasonList
             );
             toastTemplate(
               toast.success,
