@@ -68,6 +68,18 @@ export class AuthencticatedUserAPI {
     } catch (error) {}
   }
 
+  async toggleAutoRenew(id) {
+    try {
+      const { data } = await this.requestInstance.post(
+        `${backendUrl}/subscription/toggleautorenew`,
+        {
+          id: id,
+        }
+      );
+      return data;
+    } catch (error) {}
+  }
+
   async updatePaymentMethod(values) {
     try {
       const response = await this.requestInstance.post(

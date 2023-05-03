@@ -33,6 +33,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     address_2,
     city,
     states,
+    auto_renew,
     countries,
     zip_code,
   }) => ({
@@ -40,7 +41,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     status,
     next_bill_date,
     paymentMethod,
-
+    auto_renew,
     first_name,
     last_name,
     address_1,
@@ -247,8 +248,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
           )}
         </div>
         <div className={Styles.subscritpionButtons}>
-          {filteredSubscriptionData?.status === 'Expired' ||
-          filteredSubscriptionData?.status === 'Cancelled' ? (
+          {!filteredSubscriptionData?.auto_renew ? (
             <button
               disabled={disabled}
               className={disabled ? `${Styles.disabled}` : ''}
@@ -259,9 +259,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
                 );
                 try {
                   setDisabled(true);
-                  const response = await APIs.reactivateSubscription(
-                    subscription.id
-                  );
+                  const response = await APIs.toggleAutoRenew(subscription.id);
                   toastTemplate(
                     toast.success,
                     'Subscription reactivated successfully',
