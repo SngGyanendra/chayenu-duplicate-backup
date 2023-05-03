@@ -25,7 +25,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
   const filteredSubscriptionData = (({
     plans,
     status,
-    next_bill_date,
+    end_date,
     paymentMethod,
     first_name,
     last_name,
@@ -39,7 +39,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
   }) => ({
     plans,
     status,
-    next_bill_date,
+    end_date,
     paymentMethod,
     auto_renew,
     first_name,
@@ -75,7 +75,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
         count++;
       } else if (key === 'status' && obj[key] !== null) {
         count++;
-      } else if (key === 'next_bill_date' && obj[key] !== null) {
+      } else if (key === 'end_date' && obj[key] !== null) {
         count++;
       } else if (key === 'first_name' && obj[key] !== null) {
         count++;
@@ -128,10 +128,10 @@ export function SubscriptionCard({ subscription, setLoading }) {
           </div>
         );
         break;
-      case 'next_bill_date':
+      case 'end_date':
         html = (
           <div>
-            <span className={Styles.keys}>Next Bill Date:</span>
+            <span className={Styles.keys}>End Date:</span>
             <span className={Styles.value}>{formatDate(value)}</span>
           </div>
         );
@@ -228,6 +228,12 @@ export function SubscriptionCard({ subscription, setLoading }) {
   return (
     <>
       <div className={Styles.subscriptionCard}>
+        {!subscription.auto_renew &&
+          new Date().toISOString() < subscription.end_date && (
+            <div className={Styles.expiringSubscriptionWarning}>
+              Your subscription will end on {formatDate(subscription.end_date)}
+            </div>
+          )}
         <div
           className={Styles.subscriptionDetails}
           style={{
@@ -236,13 +242,6 @@ export function SubscriptionCard({ subscription, setLoading }) {
             )},1fr)`,
           }}
         >
-          {!subscription.auto_renew &&
-            new Date().toISOString() < subscription.next_bill_date && (
-              <div className={Styles.expiringSubscriptionWarning}>
-                Your subscription will end on{' '}
-                {formatDate(subscription.next_bill_date)}
-              </div>
-            )}
           {Object.entries(filteredSubscriptionData).map(([key, value]) =>
             formatSubscriptionDetail(key, value, filteredSubscriptionData)
           )}
