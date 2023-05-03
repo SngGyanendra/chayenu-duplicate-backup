@@ -4,7 +4,7 @@
   width: 50%;
   margin: auto;
   .error {
-    color: #BE1550;
+    color: #be1550;
     min-width: 10px;
     font-family: 'Poppins', sans-serif;
     font: fontvalue(14, 14, 600);
@@ -23,6 +23,8 @@
       background-color: white;
       border-radius: 0px 5px 5px 0px;
       margin-top: 0.2rem;
+      text-transform: uppercase;
+      font: fontvalue(16,16,400);
       cursor: pointer;
     }
   }
