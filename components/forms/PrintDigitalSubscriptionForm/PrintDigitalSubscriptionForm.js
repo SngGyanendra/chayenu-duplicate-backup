@@ -31,7 +31,7 @@ export function PrintDigitalSubscriptionForm({
   const [countriesList, setCountriesList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
   const [deliveryType, setDeliveryType] = useState(undefined);
-  const [distributor, setDistributor] = useState([]);
+  const [distributor, setDistributor] = useState();
   const [hostedFields, setHostedFields] = useState();
   const [coupon, setCoupon] = useState(undefined);
   const [paymentMethod, setPaymentMethod] = useState('');
