@@ -6,7 +6,7 @@ import { logoutUser } from '/store/authSlice';
 import Styles from './header.module.scss';
 import { useRef, useState, useEffect } from 'react';
 import { PortalHeader } from '../portal-header/PortalHeader';
-import {Logo} from '../../common/Logo/logo';
+import { Logo } from '../../common/Logo/logo';
 import { useWindowDimensions } from '../../../hooks/useWindow';
 
 export function Header() {
@@ -19,12 +19,12 @@ export function Header() {
 
   const handleMenu = () => {
     if (width < 1000) {
-      const element = document.getElementsByClassName("menu")[0];
-      element.classList.toggle("menuClose");
-      if (element.classList.contains("menuClose")) {
-        document.body.style.overflowY = "visible";
+      const element = document.getElementsByClassName('menu')[0];
+      element.classList.toggle('menuClose');
+      if (element.classList.contains('menuClose')) {
+        document.body.style.overflowY = 'visible';
       } else {
-        document.body.style.overflowY = "hidden";
+        document.body.style.overflowY = 'hidden';
       }
     }
   };
@@ -114,7 +114,7 @@ export function Header() {
 
   useEffect(() => {
     if (width > 800) {
-      document.body.style.overflowY = "auto";
+      document.body.style.overflowY = 'auto';
     }
   }, [width]);
 
@@ -167,16 +167,15 @@ export function Header() {
                 </li>
               </ul>
             </div>
-            <div
-              ref={dropDown}
-              className={`${Styles.userDetails} ${
-                isDropDownOpen && !mobileScreen
-                  ? `${Styles.backgroundLight}`
-                  : ''
-              }`}
-            >
+            <div ref={dropDown} className={`${Styles.userDetails} `}>
               {isLoggedIn ? (
-                <div className={Styles.login}>
+                <div
+                  className={`${Styles.login} ${
+                    isDropDownOpen && !mobileScreen
+                      ? `${Styles.backgroundLight}`
+                      : ''
+                  }`}
+                >
                   <div
                     onClick={() =>
                       setIsDropDownOpen((previousState) => !previousState)
@@ -192,7 +191,6 @@ export function Header() {
                       height={16}
                       width={16}
                     />
-
                     <span
                       className={
                         isDropDownOpen && !mobileScreen

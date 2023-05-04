@@ -50,11 +50,14 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      min-width: 7.5rem;
       .login {
-        width: 100%;
+        // min-width: 7.5rem;
+        // width: 100%;
         display: flex;
         align-items: center;
+        height: 100%;
+        padding: 0 10px;
+        justify-content: center;
         flex-direction: column;
         text-transform: uppercase;
         position: relative;
@@ -75,7 +78,7 @@
           z-index: 1;
           list-style: none;
           position: absolute;
-          top: 40px;
+          top: 60px;
           width: 100%;
           font: fontvalue(12, 12, 300);
           text-transform: initial;
