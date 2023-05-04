@@ -55,6 +55,9 @@ export function DigitalSubscriptionForm({
     } else {
       setHostedFields(undefined);
     }
+    if (isLoggedIn === false) {
+      setPaymentMethod('other');
+    }
   }, [selectedPlan, require_cc, paymentMethod, isLoggedIn]);
 
   useEffect(() => {
