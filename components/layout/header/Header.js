@@ -137,7 +137,7 @@ export function Header() {
           </div>
           <div>
             <Link href="/">
-              <Logo/>
+              <Logo />
             </Link>
           </div>
         </div>
@@ -148,9 +148,9 @@ export function Header() {
           }}
         >
           <div className={Styles.headerContainer} ref={menu}>
-            <div onClick={handleMenu}>
+            <div onClick={handleMenu} className={Styles.logo}>
               <Link href="/">
-                <Logo/>
+                <Logo />
               </Link>
             </div>
             <div>
@@ -235,7 +235,10 @@ export function Header() {
                   )}
                 </div>
               ) : (
-                <div className={`${Styles.loggedOut} ${Styles.portalLink}`}>
+                <div
+                  className={`${Styles.loggedOut} ${Styles.portalLink}`}
+                  onClick={handleMenu}
+                >
                   <Link
                     href="/login"
                     onMouseEnter={() => {
