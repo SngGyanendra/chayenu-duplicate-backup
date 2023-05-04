@@ -553,7 +553,7 @@ $height: 30rem;
   }
 
   .section4{
-    min-height: 545px;
+    min-height: 420px;
 
     .card{
       grid-template-columns: 27% 1fr 1fr 1fr;
@@ -585,7 +585,6 @@ $height: 30rem;
 
       .column1 p:nth-child(4){
         font: fontvalue(17,24,500);
-        font-style: italic;
 
         color: var(--website-color);
         padding-top: 18px;
@@ -647,7 +646,7 @@ $height: 30rem;
   }
 
   .section5{
-    height: 610px;
+    height: 510px;
     background-color: #e3f0fa;
 
     .card{
@@ -743,7 +742,7 @@ $height: 30rem;
   }
 
   .section6{
-    height: 860px;
+    height: 790px;
      .card{
       padding-top: 100px;
       grid-template-columns: 1fr 10px 1fr;
@@ -814,7 +813,7 @@ $height: 30rem;
 
   
   .section7{
-    height: 543px;
+    height: 450px;
     display: grid;
     justify-content: center;
     align-items: center;

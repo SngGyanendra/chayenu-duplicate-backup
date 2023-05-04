@@ -16,7 +16,7 @@ const Testimonials = ({listOfTestimonials, additionalStyles}) => {
                         <p>{listOfTestimonials[index].designation}</p>
 
                         <div>
-                            <Image src={listOfTestimonials[index].imageUrl} alt="Alice's Image" height={130} width={120} />
+                            <Image src={listOfTestimonials[index].imageUrl} alt="Alice's Image" height={130} width={130} />
                         </div>
                     </div>
                 )

@@ -88,7 +88,12 @@ export default function Home() {
                 Positivity, Poise, And Purpose.
               </p>
               <p>In the Chayenu app or in book form</p>
-              <p>BUY THE BOOK</p>
+              <p>
+                <Link href="https://store.kehotonline.com/prodinfo.asp?number=EO-SHAAH" target='_blan'>
+                  BUY THE BOOK
+                </Link>
+              </p>
+            
             </div>
 
             <div>

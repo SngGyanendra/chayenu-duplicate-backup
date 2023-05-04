@@ -13,16 +13,8 @@
     height: 2rem;
     color: #ffffff;
     width: 2rem;
-    background-color: var(--dark);
+    background: none;
     position: relative;
-}
-
-.left{
-    left: 1rem;
-}
-
-.right{
-    right: 1rem;
 }
 
 .currentIndicatorContainer{

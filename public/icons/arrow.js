@@ -6,7 +6,7 @@ export const rightArrow = (
     id="arrow"
   >
     <path
-      fill="#ffffff"
+      fill="#003652"
       d="m-210.9-289-2-2 11.8-11.7-11.8-11.7 2-2 13.8 13.7-13.8 13.7"
       transform="translate(237 335)"
     ></path>

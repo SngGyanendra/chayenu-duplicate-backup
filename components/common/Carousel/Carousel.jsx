@@ -20,15 +20,6 @@ export const Carousel = ({totalItems, renderTemplate }) => {
     return new Array(totalItems).fill(0).map((_, i) => (<div onClick={()=>setIndex(i)} className={`${Styles.indicator} ${i == index && Styles.currentIndicator}`} key={i}></div>));
   }
 
-  useEffect(() => {
-
-   const interval =  setInterval(() => {
-      next();
-    }, 5000);
-
-    return () => clearInterval(interval);
-
-  }, [next, index]);
 
   return (
     <div className={Styles.carouselContainer}>
