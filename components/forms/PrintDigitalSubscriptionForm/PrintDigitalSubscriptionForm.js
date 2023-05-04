@@ -59,6 +59,9 @@ export function PrintDigitalSubscriptionForm({
     } else {
       setHostedFields(undefined);
     }
+    if (isLoggedIn === false) {
+      setPaymentMethod('other');
+    }
   }, [selectedPlan, require_cc, paymentMethod, isLoggedIn]);
 
   useEffect(() => {
@@ -385,7 +388,7 @@ export function PrintDigitalSubscriptionForm({
           validationSchema={validationSchema}
           onSubmit={async (values) => {
             setLoading(true);
-            if(!paymentMethod){
+            if (!paymentMethod) {
               toastTemplate(toast.error, 'Please select a payment method');
               setLoading(false);
               return;
