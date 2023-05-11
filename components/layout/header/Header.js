@@ -165,6 +165,24 @@ export function Header() {
                     EXPLORE
                   </Link>
                 </li>
+                <li className={Styles.portalLink}>
+                  <Link
+                    href="https://chayenu.givingfuel.com/partner"
+                    target="_blank"
+                    onClick={handleMenu}
+                  >
+                    PARTNER
+                  </Link>
+                </li>
+                <li className={Styles.portalLink}>
+                  <Link
+                    href="https://chayenu.givingfuel.com/donate"
+                    target="_blank"
+                    onClick={handleMenu}
+                  >
+                    DONATE
+                  </Link>
+                </li>
               </ul>
             </div>
             <div ref={dropDown} className={`${Styles.userDetails} `}>
