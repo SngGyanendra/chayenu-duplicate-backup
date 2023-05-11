@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import ContainerCard from '../components/cards/ContainerCard/ContainerCard';
 import Styles from '../styles/home.module.scss';
 import { NextHead } from '/components/common';
@@ -14,16 +14,16 @@ import Chayus from '/public/images/homepage/Chayus.png';
 import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
-import Link  from 'next/link';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { testimonials1, testimonials2 } from '../data/testimonials';
 import Testimonials from '../components/Testimonials/Testimonials';
 import ChayenuMobileApp from '../components/ChayenuMobileApp/ChayenuMobileApp';
 import { NewsLetter } from '/components/forms';
 
-
 export default function Home() {
   const [openSignUpForm, setOpenSignUpForm] = useState(false);
-  
+
   return (
     <main>
       <NextHead title="Chayenu" />
@@ -35,8 +35,8 @@ export default function Home() {
               <h1>Daily Torah Study</h1>
               <h3>More Accesible Than Ever! </h3>
               <div className={Styles.cardMobileImage}></div>
-              <Link href="/subscribe">
-              <button type="button">SUBSCRIBE</button>
+              <Link href="/subscribe" className={Styles.subscribeButton}>
+                <button type="button">SUBSCRIBE</button>
               </Link>
             </div>
             <div className={Styles.cardContentRight}></div>
@@ -68,15 +68,24 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          
-          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials1} additionalStyles={{backgroundColor: 'var(--blue-gray)'}}/>}
+
+          {testimonials1 && testimonials1.length && (
+            <Testimonials
+              listOfTestimonials={testimonials1}
+              additionalStyles={{ backgroundColor: 'var(--blue-gray)' }}
+            />
+          )}
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section3}>
-          <ChayenuMobileApp Styles={Styles}/>
+          <ChayenuMobileApp Styles={Styles} />
 
-          {testimonials1 && testimonials1.length && <Testimonials listOfTestimonials={testimonials2} additionalStyles={{backgroundColor: '#ffffff'}}/>}
-
+          {testimonials1 && testimonials1.length && (
+            <Testimonials
+              listOfTestimonials={testimonials2}
+              additionalStyles={{ backgroundColor: '#ffffff' }}
+            />
+          )}
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section4}>
@@ -89,11 +98,13 @@ export default function Home() {
               </p>
               <p>In the Chayenu app or in book form</p>
               <p>
-                <Link href="https://store.kehotonline.com/prodinfo.asp?number=EO-SHAAH" target='_blan'>
+                <Link
+                  href="https://store.kehotonline.com/prodinfo.asp?number=EO-SHAAH"
+                  target="_blan"
+                >
                   BUY THE BOOK
                 </Link>
               </p>
-            
             </div>
 
             <div>
@@ -113,7 +124,6 @@ export default function Home() {
               <p>BUY THE BOOK</p>
             </div>
           </div>
-
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section5}>
@@ -143,7 +153,6 @@ export default function Home() {
               <Image src={Section5Mobile} alt="" width={343} height={325} />
             </div>
           </div>
-                
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section6}>
@@ -155,7 +164,12 @@ export default function Home() {
                 content, in your inbox
               </p>
               <Image src={Chayus} alt="" width={338} height={270} />
-              <p className={Styles.sample}>Sample | Browse Archive</p>
+              <p className={Styles.sample}>
+                Sample |{' '}
+                <Link href="https://torahtable.com/Chayus" target="_blank">
+                  Browse Archive
+                </Link>
+              </p>
               <button>SUBSCRIBE TO CHAYUS</button>
             </div>
 
@@ -171,7 +185,6 @@ export default function Home() {
               <Image src={Chitas} alt="" width={225} height={293} />
             </div>
           </div>
-
         </ContainerCard>
 
         <ContainerCard propClasses={Styles.section7}>
@@ -215,15 +228,14 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
         </ContainerCard>
       </section>
-     
-      {
-        openSignUpForm && <Popup setPopupState={setOpenSignUpForm}>
-          <NewsLetter setPopupState={setOpenSignUpForm}/>
+
+      {openSignUpForm && (
+        <Popup setPopupState={setOpenSignUpForm}>
+          <NewsLetter setPopupState={setOpenSignUpForm} />
         </Popup>
-      }
+      )}
     </main>
   );
 }
