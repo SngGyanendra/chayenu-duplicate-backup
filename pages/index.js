@@ -100,7 +100,7 @@ export default function Home() {
               <p>
                 <Link
                   href="https://store.kehotonline.com/prodinfo.asp?number=EO-SHAAH"
-                  target="_blan"
+                  target="_blank"
                 >
                   BUY THE BOOK
                 </Link>
@@ -165,7 +165,8 @@ export default function Home() {
               </p>
               <Image src={Chayus} alt="" width={338} height={270} />
               <p className={Styles.sample}>
-                Sample |{' '}
+                <Link href="/pdfs/CHAYUS-Behar-Bechukosai-5783-135.pdf" target='_blank'>
+                Sample |{' '}</Link>
                 <Link href="https://torahtable.com/Chayus" target="_blank">
                   Browse Archive
                 </Link>
