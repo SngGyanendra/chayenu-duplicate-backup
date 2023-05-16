@@ -25,6 +25,7 @@ export function DigitalSubscriptionForm({
   selectedProduct,
   student_only,
   is_military_only,
+  autoScroll,
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
@@ -355,7 +356,7 @@ export function DigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form className={Styles.formWrapper} onSubmit={handleSubmit}>
-              <div className={Styles.form}>
+              <div className={Styles.form} ref={autoScroll}>
                 <div className={Styles.plan}>
                   <div className={Styles.selectPlan}>Select a Plan</div>
                   <div className={Styles.plansContainer}>

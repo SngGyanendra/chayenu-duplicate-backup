@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { NextHead } from '/components/common';
 import Styles from '/styles/subscribe.module.scss';
@@ -14,6 +14,15 @@ export default function Subscribe({ query }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [selectedProduct, setSelectedProduct] = useState(undefined);
+
+  const autoScroll = useCallback(
+    (node) => {
+      if (node != null) {
+        node.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    [selectedProduct]
+  );
 
   async function getData() {
     try {
@@ -137,6 +146,7 @@ export default function Subscribe({ query }) {
                   selectedProduct={selectedProduct}
                   is_military_only={query.is_military_only}
                   student_only={query.student_only}
+                  autoScroll={autoScroll}
                 />
               );
             } else {
@@ -145,6 +155,7 @@ export default function Subscribe({ query }) {
                   selectedProduct={selectedProduct}
                   is_military_only={query.is_military_only}
                   student_only={query.student_only}
+                  autoScroll={autoScroll}
                 />
               );
             }
