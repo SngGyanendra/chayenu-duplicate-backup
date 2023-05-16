@@ -25,6 +25,7 @@ export function PrintDigitalSubscriptionForm({
   selectedProduct,
   student_only,
   is_military_only,
+  autoScroll,
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
@@ -98,9 +99,8 @@ export function PrintDigitalSubscriptionForm({
         setSelectedCountry(uniqueCountries[0]);
       }
     })();
-
     setSelectedPlan(undefined);
-  }, [selectedProduct]);
+  }, [selectedProduct, student_only, is_military_only]);
 
   useEffect(() => {
     if (typeof coupon === 'object') {
@@ -431,7 +431,10 @@ export function PrintDigitalSubscriptionForm({
                   <div className={Styles.form}>
                     {
                       <>
-                        <div className={Styles.country}>
+                        <div
+                          className={Styles.country}
+                          ref={autoScroll}
+                        >
                           <div className={Styles.selectCountry}>
                             ENTER YOUR LOCATION
                           </div>
