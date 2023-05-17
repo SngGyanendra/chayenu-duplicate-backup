@@ -15,7 +15,6 @@ import Chitas from '/public/images/homepage/Chitas.png';
 import SteinsaltzLogo from '/public/images/homepage/SteinsaltzLogo.png';
 import Section5Mobile from '/public/images/homepage/Section5Mobile.png';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { testimonials1, testimonials2 } from '../data/testimonials';
 import Testimonials from '../components/Testimonials/Testimonials';
 import ChayenuMobileApp from '../components/ChayenuMobileApp/ChayenuMobileApp';
@@ -26,7 +25,10 @@ export default function Home() {
 
   return (
     <main>
-      <NextHead title="Chayenu" />
+      <NextHead
+        title="Chayenu"
+        content="Chayenu is a weekly subscription-based publication focused on the daily study cycles of Chumash, Rambam, Tanya and more, and features fresh content from a ..."
+      />
 
       <section className={Styles.main}>
         <ContainerCard propClasses={Styles.section1}>
@@ -165,8 +167,12 @@ export default function Home() {
               </p>
               <Image src={Chayus} alt="" width={338} height={270} />
               <p className={Styles.sample}>
-                <Link href="/pdfs/CHAYUS-Behar-Bechukosai-5783-135.pdf" target='_blank'>
-                Sample |{' '}</Link>
+                <Link
+                  href="/pdfs/CHAYUS-Behar-Bechukosai-5783-135.pdf"
+                  target="_blank"
+                >
+                  Sample |{' '}
+                </Link>
                 <Link href="https://torahtable.com/Chayus" target="_blank">
                   Browse Archive
                 </Link>
