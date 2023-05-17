@@ -103,7 +103,10 @@ export default function Subscribe({ query }) {
 
   return (
     <>
-      <NextHead title="Chayenu | Subscribe" />
+      <NextHead
+        title="Chayenu | Subscribe"
+        content="Subscribe to Chayenu, Chayenu is delivered in print or digital formats."
+      />
       {!error && (
         <>
           {getContentHeader()}
