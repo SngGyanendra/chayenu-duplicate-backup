@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { NextHead } from '/components/common';
 import Styles from '/styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
+import { useWindowDimensions } from '../hooks';
+
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
 import {
   DigitalSubscriptionForm,
@@ -14,6 +16,8 @@ export default function Subscribe({ query }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [selectedProduct, setSelectedProduct] = useState(undefined);
+
+  const { width } = useWindowDimensions();
 
   const autoScroll = useCallback(
     (node) => {
@@ -45,6 +49,8 @@ export default function Subscribe({ query }) {
   useEffect(() => {
     getData();
   }, [query]);
+
+  const centerCardStyles = { transform: 'scale(1.1)' };
 
   function getContentHeader() {
     if (query.is_military_only) {
@@ -120,7 +126,7 @@ export default function Subscribe({ query }) {
                     </div>
                   );
                 })
-              : allProducts.map((product) => {
+              : allProducts.map((product, index) => {
                   return (
                     <div
                       key={product.id}
@@ -128,10 +134,20 @@ export default function Subscribe({ query }) {
                       onClick={() => {
                         setSelectedProduct(product);
                       }}
+                      style={
+                        !query.student_only &&
+                        !query.is_military_only &&
+                        width > 1300
+                          ? index === 1
+                            ? centerCardStyles
+                            : {}
+                          : {}
+                      }
                     >
                       <ProductCard
                         product={product}
                         selected={selectedProduct?.id === product?.id}
+                        selectedProduct={selectedProduct}
                       />
                     </div>
                   );

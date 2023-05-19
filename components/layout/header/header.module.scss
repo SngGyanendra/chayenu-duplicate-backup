@@ -57,10 +57,10 @@
       align-items: center;
       justify-content: flex-end;
       .login {
-        min-width: 7.5rem;
+        min-width: 9rem;
         // width: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         height: 100%;
         justify-content: center;
         flex-direction: column;
@@ -83,23 +83,58 @@
           z-index: 1;
           list-style: none;
           position: absolute;
-          top: 60px;
+          top: 64px;
+          background-color: var(--dropdown-color);
+          left: 30px;
           width: 100%;
           font: fontvalue(12, 12, 300);
           text-transform: initial;
-          background-color: var(--website-color-light);
-          padding: 8px 5px 0px 5px;
+          // background-color: var(--website-color-light);
           color: #003652;
-          li {
-            display: flex;
-            align-items: center;
+          div {
+            .user_details {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              .name {
+                height: 15px;
+                width: 7rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              .email {
+                margin-top: 10px;
+                font: fontvalue(10, 10, 300);
+                height: 15px;
+                width: 7rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
             width: 100%;
-            a {
+            li {
               display: flex;
               align-items: center;
-              color: inherit;
+              padding: 15px 15px 15px 15px;
+              font-weight: 500;
+              width: 100%;
+              a {
+                display: flex;
+                align-items: center;
+                color: inherit;
+              }
             }
-            margin-bottom: 0.7rem;
+            &:hover {
+              background-color: var(--website-color-light);
+            }
+            &:first-child {
+              cursor: auto;
+              &:hover {
+                background-color: var(--dropdown-color);
+              }
+            }
           }
         }
       }
@@ -227,8 +262,15 @@
             font-weight: normal;
             font-size: 14px;
             padding: 0;
-            li {
-              margin-top: 20px;
+            div {
+              margin-top: 0;
+              li {
+                padding: 0 !important;
+                margin-top: 28px;
+              }
+              &:hover{
+                background-color: inherit;
+              }
             }
           }
         }

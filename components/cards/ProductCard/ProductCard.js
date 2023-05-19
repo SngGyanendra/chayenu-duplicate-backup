@@ -1,9 +1,16 @@
 import Styles from './productcard.module.scss';
 import { directusUrl } from '/api/config';
 
-export function ProductCard({ product, selected }) {
+export function ProductCard({ product, selected, selectedProduct }) {
+  const notSelectedStyles = { backgroundColor: '#F1F7FC' };
+
   return (
-    <div className={`${Styles.card} ${selected ? Styles.selectedCard : ''}`}>
+    <div
+      className={`${Styles.card} ${selected ? Styles.selectedCard : ''}`}
+      style={
+        selectedProduct !== product && selectedProduct ? notSelectedStyles : {}
+      }
+    >
       <div className={Styles.name}>{product?.name}</div>
       <div
         className={Styles.image}
