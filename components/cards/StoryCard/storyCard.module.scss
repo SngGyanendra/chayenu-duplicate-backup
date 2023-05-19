@@ -13,16 +13,16 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
     width: 110px;
     height: 100%;
     padding: 15px;
   }
 
   .image {
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
   }
 
   .cardContent {
