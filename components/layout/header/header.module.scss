@@ -86,7 +86,7 @@
           background-color: var(--dropdown-color);
           left: 30px;
           width: 100%;
-          font: fontvalue(12, 12, 300);
+          font: fontvalue(14, 14, 300);
           text-transform: initial;
           // background-color: var(--website-color-light);
           color: #003652;
@@ -104,7 +104,7 @@
               }
               .email {
                 margin-top: 10px;
-                font: fontvalue(10, 10, 300);
+                font: fontvalue(12, 12, 300);
                 height: 15px;
                 width: 7rem;
                 white-space: nowrap;
@@ -139,6 +139,10 @@
       }
       .loggedOut {
         margin-left: 0;
+        min-width: 9rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         a {
           display: flex;
           align-items: center;
