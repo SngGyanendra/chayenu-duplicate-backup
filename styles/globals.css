@@ -18,6 +18,7 @@ body {
   --color-secondary-header: #5d8cb5;
   --container-width-75: min(75rem, 75vw);
   --container-width: min(56rem, 56vw);
+  --dropdown-color: #b7cfe8;
   --container-portal-width: min(50rem, 70vw);
   --website-font-family: brandon-grotesque, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;

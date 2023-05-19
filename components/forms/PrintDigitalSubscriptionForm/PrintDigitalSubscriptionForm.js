@@ -436,7 +436,7 @@ export function PrintDigitalSubscriptionForm({
                           ref={autoScroll}
                         >
                           <div className={Styles.selectCountry}>
-                            ENTER YOUR LOCATION
+                            SELECT LOCATION
                           </div>
                           <div className={Styles.location}>
                             <div

@@ -98,6 +98,7 @@ export function Header() {
     }
   }, []);
 
+  const userName = useRef();
   const dropDown = useRef();
 
   useEffect(() => {
@@ -120,6 +121,25 @@ export function Header() {
 
   const menu = useRef();
   const chayenuLogo = useRef();
+
+  function handleOnMouseLeave(event) {
+    event.stopPropagation();
+
+    const parentElement = userName?.current;
+    const childElement = dropDown?.current;
+
+    if (event.relatedTarget instanceof Window) {
+      setIsDropDownOpen(false);
+      return;
+    }
+
+    const isMouseInsideParent = parentElement?.contains(event.relatedTarget);
+    const isMouseInsideChild =
+      childElement && childElement.contains(event.relatedTarget);
+    if (!isMouseInsideParent && !isMouseInsideChild) {
+      setIsDropDownOpen(false);
+    }
+  }
 
   return (
     <>
@@ -185,20 +205,14 @@ export function Header() {
                 </li>
               </ul>
             </div>
-            <div ref={dropDown} className={`${Styles.userDetails} `}>
+            <div
+              ref={userName}
+              className={`${Styles.userDetails} `}
+              onMouseLeave={(e) => handleOnMouseLeave(e)}
+            >
               {isLoggedIn ? (
-                <div
-                  className={`${Styles.login} ${
-                    isDropDownOpen && !mobileScreen
-                      ? `${Styles.backgroundLight}`
-                      : ''
-                  }`}
-                >
-                  <div
-                    onClick={() =>
-                      setIsDropDownOpen((previousState) => !previousState)
-                    }
-                  >
+                <div className={Styles.login}>
+                  <div onMouseEnter={() => setIsDropDownOpen(true)}>
                     <Image
                       src={
                         isDropDownOpen && !mobileScreen
@@ -216,36 +230,55 @@ export function Header() {
                           : ''
                       }
                     >
-                      {user_details?.first_name}
+                      ACCOUNT
                     </span>
                   </div>
                   {(isDropDownOpen || mobileScreen) && (
-                    <ul>
+                    <ul
+                      ref={dropDown}
+                      onMouseLeave={(e) => handleOnMouseLeave(e)}
+                    >
+                      {width>1000&&<div>
+                        <li className={Styles.user_details}>
+                          <span className={Styles.name}>
+                            {user_details?.first_name} {user_details?.last_name}
+                          </span>
+                          <span className={Styles.email}>
+                            {user_details?.email}
+                          </span>
+                        </li>
+                      </div>}
                       {dropDownOptions.map((e, index) => (
-                        <li
+                        <div
                           key={index}
                           onClick={() => {
                             setIsDropDownOpen(false);
                             if (e.label === 'Logout') {
                               dispatch(logoutUser());
                               router.push(e.link);
+                            } else {
+                              router.push(e.link);
                             }
                           }}
                         >
-                          <Link
-                            href={e.link}
-                            aria-disabled={e.label === 'Logout' ? true : false}
-                            onClick={handleMenu}
-                          >
-                            <Image
-                              src={mobileScreen ? e?.img_mb : e?.img}
-                              alt={e?.alt || ''}
-                              height={16}
-                              width={16}
-                            />
-                            {e?.label}
-                          </Link>
-                        </li>
+                          <li>
+                            <Link
+                              href={e.link}
+                              aria-disabled={
+                                e.label === 'Logout' ? true : false
+                              }
+                              onClick={handleMenu}
+                            >
+                              <Image
+                                src={mobileScreen ? e?.img_mb : e?.img}
+                                alt={e?.alt || ''}
+                                height={16}
+                                width={16}
+                              />
+                              {e?.label}
+                            </Link>
+                          </li>
+                        </div>
                       ))}
                     </ul>
                   )}

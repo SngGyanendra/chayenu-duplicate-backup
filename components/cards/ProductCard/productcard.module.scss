@@ -11,6 +11,7 @@
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
   .name {
     color: #003652;
     font: fontvalue(21, 23, 500);
@@ -64,6 +65,7 @@
   }
   &:hover {
     border: 3px solid #00365234;
+    background-color: #d5e8f7;
   }
 }
 

@@ -37,10 +37,10 @@ export function PortalHeader() {
       imageUrl: '/header/support.svg',
       url: 'support',
     },
-    {
-      name: 'LOGOUT',
-      imageUrl: '/header/logout.svg',
-    },
+    // {
+    //   name: 'LOGOUT',
+    //   imageUrl: '/header/logout.svg',
+    // },
   ];
 
   const checkCurrentRoute = () => {
