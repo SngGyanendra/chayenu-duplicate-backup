@@ -238,16 +238,19 @@ export function Header() {
                       ref={dropDown}
                       onMouseLeave={(e) => handleOnMouseLeave(e)}
                     >
-                      {width>1000&&<div>
-                        <li className={Styles.user_details}>
-                          <span className={Styles.name}>
-                            {user_details?.first_name} {user_details?.last_name}
-                          </span>
-                          <span className={Styles.email}>
-                            {user_details?.email}
-                          </span>
-                        </li>
-                      </div>}
+                      {width > 1000 && (
+                        <div>
+                          <li className={Styles.user_details}>
+                            <span className={Styles.name}>
+                              {user_details?.first_name}{' '}
+                              {user_details?.last_name}
+                            </span>
+                            <span className={Styles.email}>
+                              {user_details?.email}
+                            </span>
+                          </li>
+                        </div>
+                      )}
                       {dropDownOptions.map((e, index) => (
                         <div
                           key={index}
