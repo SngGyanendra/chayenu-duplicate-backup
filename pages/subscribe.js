@@ -111,7 +111,7 @@ export default function Subscribe({ query }) {
     <>
       <NextHead
         title="Chayenu | Subscribe"
-        content="Subscribe to Chayenu, Chayenu is delivered in print or digital formats."
+        description="Subscribe to Chayenu, Chayenu is delivered in print or digital formats."
       />
       {!error && (
         <>
