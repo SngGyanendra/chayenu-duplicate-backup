@@ -1,6 +1,6 @@
 import Styles from '/styles/story.module.scss';
 import { NextHead } from '/components/common';
-import { getStoryById } from '../../api/common';
+import { getStoriesBySlug } from '../../api/common';
 import { Print } from '../../components/common/Print.svg';
 import { Digital } from '../../components/common/Digital.svg';
 import { addIdToHeadings, convertTextToId } from '../../util/htmlProcessor';
@@ -51,8 +51,9 @@ export default function Story({ story, ids }) {
   );
 }
 
-export async function getServerSideProps({ query: { id } }) {
-  const story = await getStoryById(id);
+export async function getServerSideProps({ query: { slug } }) {
+  const stories = await getStoriesBySlug(slug);
+  const story = stories[0];
   const { html, ids } = addIdToHeadings(story.content);
   story.content = html;
 

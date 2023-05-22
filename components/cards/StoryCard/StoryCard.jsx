@@ -30,7 +30,7 @@ export function StoryCard({ story }) {
         </div>
         <p className={Styles.description}>{story.description}</p>
         <div className={Styles.learnMoreDigitalPrintWrapper}>
-          <Link className={Styles.learnMore} href={`/stories/${story.id}`}>
+          <Link className={Styles.learnMore} href={`/stories/${story.slug}`}>
             Learn More
           </Link>
           <div className={Styles.digitalPrintWrapper}>

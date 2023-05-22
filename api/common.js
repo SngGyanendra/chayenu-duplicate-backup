@@ -126,6 +126,25 @@ export async function getStoryById(id) {
   return data;
 }
 
+export async function getStoriesBySlug(slug) {
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/stories`, {
+    params: {
+      fields: "*.*",
+      filter: {
+        status: {
+          _eq: "published",
+        },
+        slug: {
+          _eq: slug,
+        }
+      },
+    },
+  });
+  return data;
+}
+
 export async function getAllCancelReasons() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/cancel_reasons`);

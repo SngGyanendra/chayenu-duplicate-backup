@@ -16,7 +16,7 @@ export function StoriesNav() {
         <ul className={Styles.ul}>
           {stories.map((story) => (
             <li className={Styles.li} key={story.id}>
-              <Link className={Styles.link} href={`/stories/${story.id}`}>
+              <Link className={Styles.link} href={`/stories/${story.slug}`}>
                 {story.title}
               </Link>
             </li>
