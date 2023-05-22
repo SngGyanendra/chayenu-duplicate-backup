@@ -27,7 +27,7 @@ export default function Home() {
     <main>
       <NextHead
         title="Chayenu"
-        content="Chayenu is a weekly subscription-based publication focused on the daily study cycles of Chumash, Rambam, Tanya and more, and features fresh content from a ..."
+        description="Chayenu is a weekly subscription-based publication focused on the daily study cycles of Chumash, Rambam, Tanya and more, and features fresh content from a ..."
       />
 
       <section className={Styles.main}>
