@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getAllStories } from "../api/common";
+import { getAllStories } from "../../api/common";
 import { NextHead } from "/components/common";
-import Styles from "../styles/explore.module.scss";
-import SubscribeStyles from "../styles/subscribe.module.scss";
-import { StoryCard } from "../components/cards/StoryCard/StoryCard";
-import { StoryCardSkeleton } from "../components/cards/StoryCard/StoryCardSkeleton";
-import { StoriesNav } from "../components/common/StoriesNav/StoriesNav";
+import Styles from "../../styles/explore.module.scss";
+import SubscribeStyles from "../../styles/subscribe.module.scss";
+import { StoryCard } from "../../components/cards/StoryCard/StoryCard";
+import { StoryCardSkeleton } from "../../components/cards/StoryCard/StoryCardSkeleton";
+import { StoriesNav } from "../../components/common/StoriesNav/StoriesNav";
 import { useSelector, useDispatch } from "react-redux";
-import { updateStories } from "../store/storiesSlice";
+import { updateStories } from "../../store/storiesSlice";
 
 export default function Explore() {
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,10 @@ export default function Explore() {
 
   return (
     <>
-      <NextHead title="Chayenu | Explore" />
+      <NextHead
+        title="Chayenu | Explore"
+        describe="Explore Chayenu Learn about each section of Chayenu below or subscribe now.Chayenu is your daily Torah study delivered every two weeks in print or digital"
+      />
       {!error && (
         <>
           <StoriesNav />
