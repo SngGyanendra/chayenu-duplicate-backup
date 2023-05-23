@@ -81,7 +81,47 @@ export default function Home() {
 
         <ContainerCard propClasses={Styles.section3}>
           <ChayenuMobileApp Styles={Styles} />
-
+          <div className={Styles.appLinks}>
+            <Link
+              href="https://apps.apple.com/in/app/chayenu-daily-torah-study/id1165498202"
+              target="_blank"
+            >
+              <div>
+                <Image
+                  src="/images/OS/apple.svg"
+                  alt="apple"
+                  width={20}
+                  height={24}
+                />
+                <span>iOS</span>
+              </div>
+            </Link>
+            <Link
+              href="https://play.google.com/store/apps/details?id=com.ionicframework.chayenu504086"
+              target="_blank"
+            >
+              <div>
+                <Image
+                  src="/images/OS/android.svg"
+                  alt="apple"
+                  width={20}
+                  height={24}
+                />
+                <span>Android</span>
+              </div>
+            </Link>
+            <Link href="https://web.chayenu.org/" target="_blank">
+              <div>
+                <Image
+                  src="/images/OS/web.svg"
+                  alt="apple"
+                  width={20}
+                  height={24}
+                />
+                <span>Web</span>
+              </div>
+            </Link>
+          </div>
           {testimonials1 && testimonials1.length && (
             <Testimonials
               listOfTestimonials={testimonials2}
