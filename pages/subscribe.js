@@ -116,7 +116,7 @@ export default function Subscribe({ query }) {
       {!error && (
         <>
           {getContentHeader()}
-          <div className={Styles.selectProduct}>Select Product</div>
+          <h1 className={Styles.selectProduct}>Select Product</h1>
           <div className={Styles.products}>
             {loading
               ? Array.apply(0, Array(3)).map(function (_, i) {

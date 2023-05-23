@@ -7,7 +7,7 @@ export default function Comingsoon() {
   return (
     <div className={Styles.page}>
       <NextHead title="Chayenu | Coming Soon" />
-      <div className={Styles.text}>
+      <h1 className={Styles.text}>
         This page will be coming soon.
         <span className={Styles.link}
           onClick={() => {
@@ -16,7 +16,7 @@ export default function Comingsoon() {
         >
           Go back
         </span>
-      </div>
+      </h1>
     </div>
   );
 }
