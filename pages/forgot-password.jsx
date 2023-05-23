@@ -68,7 +68,7 @@ export default function ForgotPassword() {
       <NextHead title="Chayenu | Forgot Password" />
       {forgotPasswordStage === 'OTP' ? (
         <>
-          <div className={Styles.emailText}>Enter your email</div>
+          <h1 className={Styles.emailText}>Enter your email</h1>
           <Formik
             initialValues={initialValuesSendOTP}
             initialErrors={initialErrorsSendOTP}

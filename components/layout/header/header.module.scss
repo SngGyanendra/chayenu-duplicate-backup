@@ -20,7 +20,7 @@
     height: 100%;
     margin: auto;
     .logo {
-      width: 9rem;
+      width: 9.5rem;
     }
     div:nth-child(2) {
       flex-grow: 1;
@@ -56,7 +56,7 @@
       align-items: center;
       justify-content: flex-end;
       .login {
-        min-width: 9rem;
+        min-width: 9.5rem;
         // width: 100%;
         display: flex;
         align-items: flex-end;
@@ -84,7 +84,7 @@
           position: absolute;
           top: 64px;
           background-color: var(--dropdown-color);
-          left: 30px;
+          left: 35px;
           width: 100%;
           font: fontvalue(14, 14, 300);
           text-transform: initial;
@@ -101,10 +101,11 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                font: fontvalue(16, 16, 300);
               }
               .email {
                 margin-top: 10px;
-                font: fontvalue(12, 12, 300);
+                font: fontvalue(14, 14, 300);
                 height: 15px;
                 width: 7rem;
                 white-space: nowrap;
@@ -139,7 +140,7 @@
       }
       .loggedOut {
         margin-left: 0;
-        min-width: 9rem;
+        min-width: 9.5rem;
         display: flex;
         justify-content: flex-end;
         align-items: center;
