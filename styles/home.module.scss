@@ -149,7 +149,7 @@ $height: 30rem;
         @media screen and (max-width: 800px) {
           .cardMobileImage {
             background: transparent
-              url('/images/homepage/ChayenuHomeTopRight.png') center 0 no-repeat
+              url('/images/homepage/ChayenuHomeTopRight.webp') center 0 no-repeat
               padding-box;
             background-size: contain;
             height: 12rem;
@@ -178,7 +178,7 @@ $height: 30rem;
       }
 
       .cardContentRight {
-        background: transparent url('/images/homepage/ChayenuHomeTopRight.png')
+        background: transparent url('/images/homepage/ChayenuHomeTopRight.webp')
           0% 100px no-repeat padding-box;
         background-size: 100% 270px;
 
