@@ -53,6 +53,17 @@ export default function Story({ story, ids }) {
 
 export async function getServerSideProps({ query: { slug } }) {
   const stories = await getStoriesBySlug(slug);
+
+  if (stories.length === 0) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props:{},
+    };
+  }
+
   const story = stories[0];
   const { html, ids } = addIdToHeadings(story.content);
   story.content = html;
