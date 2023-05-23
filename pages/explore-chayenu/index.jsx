@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getAllStories } from "../api/common";
+import { getAllStories } from "../../api/common";
 import { NextHead } from "/components/common";
-import Styles from "../styles/explore.module.scss";
-import SubscribeStyles from "../styles/subscribe.module.scss";
-import { StoryCard } from "../components/cards/StoryCard/StoryCard";
-import { StoryCardSkeleton } from "../components/cards/StoryCard/StoryCardSkeleton";
-import { StoriesNav } from "../components/common/StoriesNav/StoriesNav";
+import Styles from "../../styles/explore.module.scss";
+import SubscribeStyles from "../../styles/subscribe.module.scss";
+import { StoryCard } from "../../components/cards/StoryCard/StoryCard";
+import { StoryCardSkeleton } from "../../components/cards/StoryCard/StoryCardSkeleton";
+import { StoriesNav } from "../../components/common/StoriesNav/StoriesNav";
 import { useSelector, useDispatch } from "react-redux";
-import { updateStories } from "../store/storiesSlice";
+import { updateStories } from "../../store/storiesSlice";
 
 export default function Explore() {
   const [loading, setLoading] = useState(true);

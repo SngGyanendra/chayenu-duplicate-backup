@@ -181,7 +181,7 @@ export function Header() {
                   </Link>
                 </li>
                 <li className={Styles.portalLink}>
-                  <Link href="/explore" onClick={handleMenu}>
+                  <Link href="/explore-chayenu" onClick={handleMenu}>
                     EXPLORE
                   </Link>
                 </li>

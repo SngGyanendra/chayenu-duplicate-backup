@@ -24,7 +24,7 @@ export function Footer() {
             <Link href="/subscribe">Subscribe</Link>
           </li>
           <li>
-            <Link href="/explore">Explore</Link>
+            <Link href="/explore-chayenu">Explore</Link>
           </li>
           <li>
             {' '}
