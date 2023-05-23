@@ -37,7 +37,10 @@ export default function Explore() {
 
   return (
     <>
-      <NextHead title="Chayenu | Explore" />
+      <NextHead
+        title="Chayenu | Explore"
+        describe="Explore Chayenu Learn about each section of Chayenu below or subscribe now.Chayenu is your daily Torah study delivered every two weeks in print or digital"
+      />
       {!error && (
         <>
           <StoriesNav />
