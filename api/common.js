@@ -100,6 +100,7 @@ export async function getAllStories() {
       filter: {
         _and: [{ status: { _eq: "published" } }],
       },
+      sort: "order",
     },
   });
   return data;
