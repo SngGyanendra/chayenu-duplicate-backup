@@ -156,7 +156,7 @@ export function Header() {
             />
           </div>
           <div>
-            <Link href="/">
+            <Link href="/" aria-label="Homepage">
               <Logo />
             </Link>
           </div>
@@ -169,7 +169,7 @@ export function Header() {
         >
           <div className={Styles.headerContainer} ref={menu}>
             <div onClick={handleMenu} className={Styles.logo}>
-              <Link href="/">
+              <Link href="/" aria-label="Homepage">
                 <Logo />
               </Link>
             </div>
