@@ -82,15 +82,15 @@ export function Header() {
   ];
   const [mobileScreen, setMobileScreen] = useState(false);
   useEffect(() => {
-    window.matchMedia('(max-width: 1000px)').addEventListener('change', (e) => {
-      setMobileScreen(e.matches);
-    });
-  }, []);
-  useEffect(() => {
-    if (typeof window != undefined) {
-      setMobileScreen(window.matchMedia('(max-width: 1000px)').matches);
+    // window.matchMedia('(max-width: 1000px)').addEventListener('change', (e) => {
+    //   setMobileScreen(e.matches);
+    // });
+    if (width < 1000) {
+      setMobileScreen(true);
+    } else {
+      setMobileScreen(false);
     }
-  }, []);
+  }, [width]);
   useEffect(() => {
     const element = document.getElementsByClassName('menu')[0];
     if (element.classList.contains('menuClose')) {
