@@ -23,13 +23,13 @@ export const Carousel = ({totalItems, renderTemplate }) => {
 
   return (
     <div className={Styles.carouselContainer}>
-      <button className={`${Styles.carouselButton} ${Styles.left}`} onClick={prev}>{leftArrow}</button>
+      <button className={`${Styles.carouselButton} ${Styles.left}`} onClick={prev} aria-label="Previous">{leftArrow}</button>
         {
             //pass a template that renders data with current index
             //Usage - <Carousel totalItems={5} renderTemplate={(data, index) => <div>{data[index]}<div>} />
             renderTemplate(index)
         }
-      <button className={`${Styles.carouselButton} ${Styles.right}`} onClick={next}>{rightArrow}</button>
+      <button className={`${Styles.carouselButton} ${Styles.right}`} onClick={next}  aria-label="Next">{rightArrow}</button>
       <div className={Styles.currentIndicatorContainer}>
         {createIndicator()}
       </div>

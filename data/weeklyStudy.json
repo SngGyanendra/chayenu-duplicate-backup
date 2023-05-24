@@ -1,15 +1,15 @@
 {
     "data": [
-        {"id":10, "title": "CHASSIDUS", "textColor":"#002464", "backgroundColor": "#0352DD33", "imageUrl":"/images/homepage/AppScreenshots/Chassidus.png"},
-        {"id":11, "title": "PARSHA SNAPSHOT", "textColor":"#100B46", "backgroundColor": "#2B229033", "imageUrl":"/images/homepage/AppScreenshots/Parsha Snapshot.png"},
-        {"id":12, "title": "RASHI IN-DEPTH", "textColor":"#262664", "backgroundColor": "#5758BB33", "imageUrl":"/images/homepage/AppScreenshots/Rashi In-Depth.png"},
-        {"id":13, "title": "NAME OF THE PARSHA", "textColor":"#402E86", "backgroundColor": "#9980FA33", "imageUrl":"/images/homepage/AppScreenshots/Name of Parsha.png"},
-        {"id":14, "title": "WEEKLY WISDOM","textColor":"#612976", "backgroundColor": "#D980FA33", "imageUrl":"/images/homepage/AppScreenshots/Weekly Wisdom.png"},
-        {"id":15, "title": "KESSER SHEM TOV", "textColor":"#651623","backgroundColor": "#ED4C6734", "imageUrl":"/images/homepage/AppScreenshots/Kesser Shem Tov.png"},
-        {"id":16, "title": "REBBE RESPONSA","textColor":"#65153B", "backgroundColor": "#B5347133", "imageUrl":"/images/homepage/AppScreenshots/Rebbe Responsa.png"},
-        {"id":17, "title": "THE GATE OF TRUST", "textColor":"#520034","backgroundColor": "#8D005934", "imageUrl":"/images/homepage/AppScreenshots/The Gate of Trust.png"},
-        {"id":18, "title": "TORAH OHR", "textColor":"#000000", "backgroundColor": "#4E4E4E33", "imageUrl":"/images/homepage/AppScreenshots/Torah Ohr.png"},
-        {"id":19, "title": "MISHNAH", "textColor":"#01483F", "backgroundColor": "#08938233", "imageUrl":"/images/homepage/AppScreenshots/Weekly Mishnah.png"}
+        {"id":10, "title": "CHASSIDUS", "textColor":"#002464", "backgroundColor": "#0352DD33", "imageUrl":"/images/homepage/AppScreenshots/Chassidus.webp"},
+        {"id":11, "title": "PARSHA SNAPSHOT", "textColor":"#100B46", "backgroundColor": "#2B229033", "imageUrl":"/images/homepage/AppScreenshots/Parsha Snapshot.webp"},
+        {"id":12, "title": "RASHI IN-DEPTH", "textColor":"#262664", "backgroundColor": "#5758BB33", "imageUrl":"/images/homepage/AppScreenshots/Rashi In-Depth.webp"},
+        {"id":13, "title": "NAME OF THE PARSHA", "textColor":"#402E86", "backgroundColor": "#9980FA33", "imageUrl":"/images/homepage/AppScreenshots/Name of Parsha.webp"},
+        {"id":14, "title": "WEEKLY WISDOM","textColor":"#612976", "backgroundColor": "#D980FA33", "imageUrl":"/images/homepage/AppScreenshots/Weekly Wisdom.webp"},
+        {"id":15, "title": "KESSER SHEM TOV", "textColor":"#651623","backgroundColor": "#ED4C6734", "imageUrl":"/images/homepage/AppScreenshots/Kesser Shem Tov.webp"},
+        {"id":16, "title": "REBBE RESPONSA","textColor":"#65153B", "backgroundColor": "#B5347133", "imageUrl":"/images/homepage/AppScreenshots/Rebbe Responsa.webp"},
+        {"id":17, "title": "THE GATE OF TRUST", "textColor":"#520034","backgroundColor": "#8D005934", "imageUrl":"/images/homepage/AppScreenshots/The Gate of Trust.webp"},
+        {"id":18, "title": "TORAH OHR", "textColor":"#000000", "backgroundColor": "#4E4E4E33", "imageUrl":"/images/homepage/AppScreenshots/Torah Ohr.webp"},
+        {"id":19, "title": "MISHNAH", "textColor":"#01483F", "backgroundColor": "#08938233", "imageUrl":"/images/homepage/AppScreenshots/Weekly Mishnah.webp"}
     ]
 
 
