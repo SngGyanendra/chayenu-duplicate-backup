@@ -200,13 +200,13 @@ export default function Home() {
         <ContainerCard propClasses={Styles.section6}>
           <div className={Styles.card}>
             <div>
-              <h2>Chayus</h2>
+              <h2>Chayenu Slip Cover</h2>
               <p>
-                Free weekly Torah digest. Curated snippets of great Torah
-                content, in your inbox
+                Beautiful and sturdy PU Leather slip cover for your weekly
+                Chayenu. 3 colors.
               </p>
               <Image src={Chayus} alt="" width={338} height={270} />
-              <p className={Styles.sample}>
+              {/* <p className={Styles.sample}>
                 <Link
                   href="/pdfs/CHAYUS-Behar-Bechukosai-5783-135.pdf"
                   target="_blank"
@@ -216,8 +216,15 @@ export default function Home() {
                 <Link href="https://torahtable.com/Chayus" target="_blank">
                   Browse Archive
                 </Link>
-              </p>
-              <button>SUBSCRIBE TO CHAYUS</button>
+              </p> */}
+              <button>
+                <Link
+                  target="_blank"
+                  href="https://checkout.stripe.com/c/pay/cs_live_b1BF3a85m5jyIiGOAJrbdNZiQWHJDYOY9oqLLf8Ay6UCBPesYM87shV4G3#fidkdWxOYHwnPyd1blppbHNgWjA0Sz11QWJAMFF%2FSXU3YzBoQmBnaHJHa2pUbGRoMjcyPElKU2JOT3Z8cUR%2FUm8wYzJQTjJHREQyZ059dGo2VkhqcWZESDRkV2t9fTJiMnNrV19dUWJpVVdLNTVTdnRGTDBLUicpJ3VpbGtuQH11anZgYUxhJz8nZEBQN2RJMmFBMTRPPXwxZEBJJ3gl"
+                >
+                  BUY NOW
+                </Link>
+              </button>
             </div>
 
             <div className={Styles.verticalBar}></div>
@@ -230,6 +237,11 @@ export default function Home() {
               </p>
               <p className={Styles.sample}>COMING SOON</p>
               <Image src={Chitas} alt="" width={225} height={293} />
+              <button>
+                <Link href="https://www.chitas.org/" target="_blank">
+                  VISIT CHITAS.ORG
+                </Link>
+              </button>
             </div>
           </div>
         </ContainerCard>
