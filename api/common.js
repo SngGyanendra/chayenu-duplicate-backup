@@ -181,3 +181,22 @@ export async function getAllColleges() {
     throw error;
   }
 }
+
+export async function getPageBySlug(slug) {
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/pages`, {
+    params: {
+      fields: "*.*",
+      filter: {
+        status: {
+          _eq: "published",
+        },
+        slug: {
+          _eq: slug,
+        }
+      },
+    },
+  });
+  return data[0];
+}
