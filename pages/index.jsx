@@ -205,7 +205,12 @@ export default function Home() {
                 Beautiful and sturdy PU Leather slip cover for your weekly
                 Chayenu. 3 colors.
               </p>
-              <Image src={Chayus} alt="" width={338} height={270} />
+              <Image
+                src="/images/homepage/ChayenuCover.png"
+                alt=""
+                width={338}
+                height={270}
+              />
               {/* <p className={Styles.sample}>
                 <Link
                   href="/pdfs/CHAYUS-Behar-Bechukosai-5783-135.pdf"
