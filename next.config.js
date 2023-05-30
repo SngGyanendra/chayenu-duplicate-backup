@@ -15,8 +15,18 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/military',
+        destination: '/subscribe?is_military_only=true',
+        permanent: false,
+      },
+      {
         source: '/product-category/military',
         destination: '/subscribe?is_military_only=true',
+        permanent: false,
+      },
+      {
+        source: '/student',
+        destination: '/subscribe?student_only=true',
         permanent: false,
       },
       {
