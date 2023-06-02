@@ -6,7 +6,7 @@ export function NextHead({ title, description }) {
 
   const metaTitle = title || "Daily Torah Study | Chayenu";
   const metaDescription = description || "Chayenu is a weekly subscription-based publication focused on the daily study cycles of Chumash, Rambam, Tanya & more, & features fresh content from a variety of Torah sources";
-  const openGraphImage = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/logodarker.png`;
+  const openGraphImage = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/images/opengraph.png`;
 
   return (
     <Head>
