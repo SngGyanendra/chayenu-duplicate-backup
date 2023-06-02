@@ -1,0 +1,20 @@
+.wrapper {
+    display: flex;
+    .contentWrapper {
+        padding-inline-end: 30px;
+
+        .headline {
+            letter-spacing: var(--unnamed-character-spacing-0);
+            text-align: left;
+            font-size: 40px;
+            letter-spacing: 0px;
+            color: #003652;
+            text-transform: capitalize;
+            opacity: 1;    
+        }
+    }
+
+    .img {
+        height: auto;
+    }
+}

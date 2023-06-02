@@ -1,0 +1,14 @@
+.main {
+    width: var(--container-width);
+    font-family: var(--website-font-family);
+    margin: 0 auto;
+    overflow: hidden;
+    margin-block-start: 40px;
+
+    .title {
+        margin-block-start: 30px;
+        text-align: center;
+        font-size: 36px;
+        font-weight: 600;
+    }
+}

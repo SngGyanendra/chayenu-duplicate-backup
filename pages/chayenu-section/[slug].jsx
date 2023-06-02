@@ -1,4 +1,5 @@
 import Styles from '/styles/story.module.scss';
+import ContentStyles from '../../styles/content.module.scss';
 import { NextHead } from '/components/common';
 import { getStoriesBySlug } from '../../api/common';
 import { Print } from '../../components/common/Print.svg';
@@ -42,7 +43,7 @@ export default function Story({ story, ids }) {
             )}
           </div>
           <div
-            className={Styles.content}
+            className={ContentStyles.content}
             dangerouslySetInnerHTML={{ __html: story.content }}
           />
         </section>
