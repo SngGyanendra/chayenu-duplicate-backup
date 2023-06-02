@@ -185,9 +185,9 @@ export async function getAllColleges() {
 export async function getPageBySlug(slug) {
   const {
     data: { data },
-  } = await axios.get(`${directusUrl}/items/pages`, {
+  } = await axios.get(`${directusUrl}/items/Pages`, {
     params: {
-      fields: "*.*",
+      fields: "*.*.*.*",
       filter: {
         status: {
           _eq: "published",

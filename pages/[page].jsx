@@ -1,16 +1,30 @@
 import { getPageBySlug } from '../api/common';
 import { NextHead } from '../components/common';
-import styles from '../styles/page.module.scss';
+import Styles from '../styles/page.module.scss';
+import ContentStyles from '../styles/content.module.scss';
+import Hero from '../components/pages/Hero'
 
 export default function Page({ page }) {
     return (<>
         <NextHead title={page.title} description={page.description} />
-        <main className={styles.main}>
-            <h1 className={styles.title} id={page.title}>
-                {page.title}
-            </h1>
+        <main className={Styles.main}>
+            {page.blocks.map((block) => {
+                let content = '';
+                switch(block.collection) {
+                    case 'block_hero':
+                        content = <Hero hero={block.item} />
+                        break;
+                    case 'block_richtext':
+                        content = <div
+                            className={ContentStyles.content}
+                            dangerouslySetInnerHTML={{ __html: block.item.content }}
+                        />
+                        break;
+                }
+                return content;
+            })}
             <div
-                className={styles.content}
+                className={ContentStyles.content}
                 dangerouslySetInnerHTML={{ __html: page.content }}
             />
         </main>
