@@ -17,6 +17,12 @@ export async function getServerSideProps({
     try {
         const page = await getPageBySlug(slug);
 
+        if (page === undefined) {
+            return {
+                notFound: true,
+            };    
+        }
+        
         return {
             props: {
                 page,
