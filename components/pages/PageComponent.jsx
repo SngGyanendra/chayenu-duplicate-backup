@@ -1,7 +1,7 @@
 import Hero from './Hero';
 import RichText from './RichText';
 import CardGroup from './CardGroup';
-import Styles from '../styles/hero.module.scss';
+import Styles from '../../styles/page.module.scss';
 
 export default function Page({ page }) {
     return <main className={Styles.main}>
