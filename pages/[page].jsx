@@ -1,8 +1,8 @@
 import { getPageBySlug } from '../api/common';
 import { NextHead } from '../components/common';
 import Styles from '../styles/page.module.scss';
-import ContentStyles from '../styles/content.module.scss';
 import Hero from '../components/pages/Hero'
+import RichText from '../components/pages/RichText';
 
 export default function Page({ page }) {
     return (<>
@@ -15,18 +15,11 @@ export default function Page({ page }) {
                         content = <Hero hero={block.item} />
                         break;
                     case 'block_richtext':
-                        content = <div
-                            className={ContentStyles.content}
-                            dangerouslySetInnerHTML={{ __html: block.item.content }}
-                        />
+                        content = <RichText richText={block.item} />
                         break;
                 }
                 return content;
             })}
-            <div
-                className={ContentStyles.content}
-                dangerouslySetInnerHTML={{ __html: page.content }}
-            />
         </main>
     </>)
 }
@@ -38,13 +31,13 @@ export async function getServerSideProps({
 }) {
     try {
         const page = await getPageBySlug(slug);
+
         return {
             props: {
                 page,
             }
         }
     } catch (e) {
-        console.error(e.message)
         return {
             notFound: true,
         };
