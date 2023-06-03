@@ -1,12 +1,9 @@
-import { useRouter } from 'next/router'
 import { getDirectusAssetUrl } from '../../api/util';
 import ContentStyles from '../../styles/content.module.scss';
 import HeroStyles from '../../styles/hero.module.scss';
-import Button from './Button';
+import Buttons from './Buttons';
 
 export default function Hero({ hero }) {
-    const router = useRouter();
-
     return <div className={HeroStyles.wrapper}>
         <div className={HeroStyles.contentWrapper}>
             <h2 className={HeroStyles.headline}>{hero.headline}</h2>
@@ -14,19 +11,7 @@ export default function Hero({ hero }) {
                 className={ContentStyles.content}
                 dangerouslySetInnerHTML={{ __html: hero.content }}
             />
-            {
-                hero.buttons && hero.buttons.length && <div className={HeroStyles.buttonsWrapper}>
-                    {hero.buttons.map(button => {
-                        return <Button
-                            type={button.style}
-                            key={button.label}
-                            onClick={() => router.push(button.url)}
-                            label={button.label}
-                        />
-                    })}
-                </div>
-            }
-
+            <Buttons buttons={hero.buttons} />
         </div>
         {hero.image && <div className={HeroStyles.imageWrapper}>
             <img

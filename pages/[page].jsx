@@ -3,6 +3,7 @@ import { NextHead } from '../components/common';
 import Styles from '../styles/page.module.scss';
 import Hero from '../components/pages/Hero'
 import RichText from '../components/pages/RichText';
+import CardGroup from '../components/pages/CardGroup';
 
 export default function Page({ page }) {
     return (<>
@@ -16,6 +17,9 @@ export default function Page({ page }) {
                         break;
                     case 'block_richtext':
                         content = <RichText richText={block.item} />
+                        break;
+                    case 'block_cardgroup':
+                        content = <CardGroup cardGroup={block.item} />
                         break;
                 }
                 return content;

@@ -1,0 +1,21 @@
+.cardGroupWrapper {
+    margin-block: 30px;
+}
+
+.headline {
+    text-align: center;
+    font-size: 32px;
+    color: #003652;
+    text-transform: capitalize;
+}
+
+.subtitle {
+    text-align: center;
+    margin-block: 10px;
+    margin-block-end: 15px;
+}
+
+.cardsWrapper {
+    display: flex;
+    gap: 20px;
+}

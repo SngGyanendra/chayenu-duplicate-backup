@@ -1,0 +1,20 @@
+.cardWrapper {
+    flex: 1;
+}
+
+.headline {
+    font-size: 20px;
+    color: #003652;
+    text-transform: capitalize;
+}
+
+.image {
+    max-height: auto;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.content {
+    padding-top: 10px;
+}

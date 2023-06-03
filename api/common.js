@@ -187,7 +187,7 @@ export async function getPageBySlug(slug) {
     data: { data },
   } = await axios.get(`${directusUrl}/items/Pages`, {
     params: {
-      fields: "*.*.*.*",
+      fields: "*.*.*.*.*.*",
       filter: {
         status: {
           _eq: "published",
