@@ -1,4 +1,4 @@
-import { getAllStories } from "../api/common";
+import { getAllStories, getAllPages } from "../api/common";
 
 function generateSiteMap(baseUrl, links) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -27,8 +27,12 @@ export async function getServerSideProps({ res }) {
   ];
 
   // Stories
-  const { data: stories } = await getAllStories();
+  const { data: stories } = await getAllStories(true);
   stories.forEach(({ slug }) => links.push(`chayenu-section/${slug}`))
+
+  // Pages
+  const { data: pages } = await getAllPages();
+  pages.forEach(({ slug }) => links.push(slug))
 
   res.setHeader("Content-Type", "text/xml");
   res.write(generateSiteMap(baseUrl, links));

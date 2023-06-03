@@ -93,14 +93,26 @@ export async function getAllCountries() {
   return data;
 }
 
-export async function getAllStories() {
+export async function getAllStories(forSiteMap = false) {
   const { data } = await axios.get(`${directusUrl}/items/stories`, {
     params: {
-      fields: "*.*.*",
+      fields: forSiteMap ? "slug" : "*.*.*",
       filter: {
         _and: [{ status: { _eq: "published" } }],
       },
       sort: "order",
+    },
+  });
+  return data;
+}
+
+export async function getAllPages() {
+  const { data } = await axios.get(`${directusUrl}/items/Pages`, {
+    params: {
+      fields: "slug",
+      filter: {
+        _and: [{ status: { _eq: "published" } }],
+      },
     },
   });
   return data;
