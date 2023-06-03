@@ -1,7 +1,20 @@
 .wrapper {
     display: flex;
+    flex-direction: row;
+    color: #003652;
+    margin-block: 50px;
+
+    @media screen and (max-width: 45rem) {
+        flex-direction: column-reverse;
+
+        .imageWrapper {
+            margin-bottom: 20px;
+        }
+    }
+
     .contentWrapper {
         padding-inline-end: 30px;
+        flex: 1;
 
         .headline {
             letter-spacing: var(--unnamed-character-spacing-0);
@@ -14,7 +27,21 @@
         }
     }
 
-    .img {
-        height: auto;
+    .imageWrapper {
+        flex: 1;
+
+        .img {
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+    }
+
+    .buttonsWrapper {
+        margin-top: 15px;
+        display: flex;
+        gap: 20px;
     }
 }
