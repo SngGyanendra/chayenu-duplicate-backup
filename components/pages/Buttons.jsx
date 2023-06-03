@@ -7,10 +7,11 @@ export default function Buttons({ buttons }) {
 
     return buttons && buttons.length && <div className={Styles.buttonsWrapper}>
         {buttons.map(button => {
+            console.log(button);
             return <Button
                 type={button.style}
                 key={button.label}
-                onClick={() => router.push(button.link)}
+                onClick={() => router.push(button.link ?? button.url)}
                 label={button.label}
             />
         })}
