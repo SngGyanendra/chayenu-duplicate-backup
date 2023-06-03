@@ -5,7 +5,7 @@ import Styles from '../../styles/page.module.scss';
 
 export default function Page({ page }) {
     return <main className={Styles.main}>
-        {page.blocks.map((block) => {
+        {page.blocks && page.blocks.map((block) => {
             let content = '';
             switch(block.collection) {
                 case 'block_hero':
