@@ -3,8 +3,6 @@ import Styles from '../../styles/card.module.scss';
 import { getDirectusAssetUrl } from '../../api/util';
 
 export default function Card({ card: { block_card_id: card } }) {
-    console.log(card);
-
     return <div className={Styles.cardWrapper}>
         <img
             className={Styles.image}

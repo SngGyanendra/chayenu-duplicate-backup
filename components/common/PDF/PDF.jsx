@@ -37,7 +37,7 @@ const PDF = ({pdfPath, ...props}) => {
             const iframeDoc = instance.UI.iframeWindow.document;
             const container = iframeDoc.querySelector('.DocumentContainer');
             container.style.backgroundColor = "#F1F7FD";
-            console.log("C", container)
+            // console.log("C", container)
     
             instance.UI.setHeaderItems((header) => {
               header.getHeader('default').push({
@@ -57,7 +57,7 @@ const PDF = ({pdfPath, ...props}) => {
     
             // adding an event listener for when the page number has changed
             Core.documentViewer.addEventListener('pageNumberUpdated', (pageNumber) => {
-              console.log(`Page number is: ${pageNumber}`);
+              // console.log(`Page number is: ${pageNumber}`);
             });
           });})
         }

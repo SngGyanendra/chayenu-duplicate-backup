@@ -13,13 +13,13 @@ export default function Page({ page }) {
                 let content = '';
                 switch(block.collection) {
                     case 'block_hero':
-                        content = <Hero hero={block.item} />
+                        content = <Hero key={block.id} hero={block.item} />
                         break;
                     case 'block_richtext':
-                        content = <RichText richText={block.item} />
+                        content = <RichText key={block.id} richText={block.item} />
                         break;
                     case 'block_cardgroup':
-                        content = <CardGroup cardGroup={block.item} />
+                        content = <CardGroup key={block.id} cardGroup={block.item} />
                         break;
                 }
                 return content;

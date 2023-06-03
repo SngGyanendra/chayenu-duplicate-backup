@@ -10,7 +10,7 @@ export default function Buttons({ buttons }) {
             return <Button
                 type={button.style}
                 key={button.label}
-                onClick={() => router.push(button.url)}
+                onClick={() => router.push(button.link)}
                 label={button.label}
             />
         })}
