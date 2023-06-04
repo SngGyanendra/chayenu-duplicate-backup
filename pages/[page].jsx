@@ -16,6 +16,7 @@ export default function Page({ page }) {
             ogTitle={page.OG_title}
             ogDescription={page.OG_description}
             ogImage={ogImage}
+            ogType='article'
         />
         <PageComponent page={page} />
     </>)

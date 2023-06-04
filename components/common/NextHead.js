@@ -7,6 +7,7 @@ export function NextHead({
   ogTitle,
   ogDescription,
   ogImage,
+  ogType
 }) {
   const router = useRouter();
 
@@ -22,7 +23,7 @@ export function NextHead({
 
       <meta property="og:title" content={ogTitle || metaTitle} />
       <meta property="og:description" content={ogDescription || metaDescription} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={ogType ?? 'website'} />
       <meta
         property="og:image"
         content={ogImage || openGraphImage}
