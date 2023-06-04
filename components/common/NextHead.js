@@ -1,7 +1,13 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router'
 
-export function NextHead({ title, description }) {
+export function NextHead({
+  title,
+  description,
+  ogTitle,
+  ogDescription,
+  ogImage,
+}) {
   const router = useRouter();
 
   const metaTitle = title || "Daily Torah Study | Chayenu";
@@ -12,23 +18,24 @@ export function NextHead({ title, description }) {
     <Head>
       <title>{metaTitle}</title>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
+      <meta name="description" content={metaDescription} />
+
+      <meta property="og:title" content={ogTitle || metaTitle} />
+      <meta property="og:description" content={ogDescription || metaDescription} />
       <meta property="og:type" content="website" />
       <meta
         property="og:image"
-        content={openGraphImage}
+        content={ogImage || openGraphImage}
       />
-      <meta name="description" content={metaDescription} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:domain" content={process.env.NEXT_PUBLIC_FRONTEND_URL} />
       <meta property="twitter:url" content={`${process.env.NEXT_PUBLIC_FRONTEND_URL}${router.asPath}`} />
-      <meta name="twitter:title" content={metaTitle} />
-      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:title" content={ogTitle || metaTitle} />
+      <meta name="twitter:description" content={ogDescription || metaDescription} />
       <meta
         name="twitter:image"
-        content={openGraphImage}
+        content={ogImage || openGraphImage}
       />
     </Head>
   );

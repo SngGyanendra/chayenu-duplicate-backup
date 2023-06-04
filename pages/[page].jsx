@@ -1,10 +1,22 @@
 import { getPageBySlug } from '../api/common';
+import { getDirectusAssetUrl } from '../api/util';
 import { NextHead } from '../components/common';
 import PageComponent from '../components/pages/PageComponent'
 
 export default function Page({ page }) {
+    let ogImage = undefined;
+    if (page.image) {
+        ogImage = getDirectusAssetUrl(page.image.id);
+    }
+
     return (<>
-        <NextHead title={page.title} description={page.description} />
+        <NextHead
+            title={page.title}
+            description={page.description}
+            ogTitle={page.OG_title}
+            ogDescription={page.OG_description}
+            ogImage={ogImage}
+        />
         <PageComponent page={page} />
     </>)
 }
