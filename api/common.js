@@ -194,21 +194,26 @@ export async function getAllColleges() {
   }
 }
 
-export async function getPageBySlug(slug) {
-  const {
-    data: { data },
-  } = await axios.get(`${directusUrl}/items/Pages`, {
+export async function getPageBySlug(slug, includeDraft = false) {
+  const filter = {
+    slug: {
+      _eq: slug,
+    }
+  }
+
+  if (includeDraft === false) {
+    filter.status = {
+      _eq: "published",
+    }
+  }
+
+  const axiosParams = {
     params: {
       fields: "*.*.*.*.*.*",
-      filter: {
-        status: {
-          _eq: "published",
-        },
-        slug: {
-          _eq: slug,
-        }
-      },
+      filter,
     },
-  });
+  };
+
+  const { data: { data } } = await axios.get(`${directusUrl}/items/Pages`, axiosParams);
   return data[0];
 }

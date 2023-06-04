@@ -11,11 +11,12 @@ export default function Page({ page }) {
 
 export async function getServerSideProps({
     query: {
-        page: slug
+        page: slug,
+        includeDraft,
     }
 }) {
     try {
-        const page = await getPageBySlug(slug);
+        const page = await getPageBySlug(slug, includeDraft === 'true');
 
         if (page === undefined) {
             return {
