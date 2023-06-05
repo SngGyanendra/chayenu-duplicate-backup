@@ -9,10 +9,11 @@ export default function Page({ page }) {
         ogImage = getDirectusAssetUrl(page.image.id);
     }
 
+    console.log(page);
     return (<>
         <NextHead
             title={page.meta_title || page.title}
-            description={page.description}
+            description={page.meta_description}
             ogTitle={page.OG_title}
             ogDescription={page.OG_description}
             ogImage={ogImage}
