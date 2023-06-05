@@ -11,7 +11,7 @@ export default function Page({ page }) {
 
     return (<>
         <NextHead
-            title={page.title}
+            title={page.meta_title || page.title}
             description={page.description}
             ogTitle={page.OG_title}
             ogDescription={page.OG_description}
