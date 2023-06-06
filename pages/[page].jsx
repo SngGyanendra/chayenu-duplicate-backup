@@ -9,7 +9,6 @@ export default function Page({ page }) {
         ogImage = getDirectusAssetUrl(page.image.id);
     }
 
-    console.log(page);
     return (<>
         <NextHead
             title={page.meta_title || page.title}

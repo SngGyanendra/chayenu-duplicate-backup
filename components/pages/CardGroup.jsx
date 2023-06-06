@@ -6,7 +6,9 @@ export default function CardGroup({ cardGroup }) {
         <h2 className={Styles.headline}>{cardGroup.headline}</h2>
         <p className={Styles.subtitle}>{cardGroup.subtitle}</p>
         <div className={Styles.cardsWrapper}>
-            {cardGroup.cards.map(card => <Card key={card.id} card={card} />)}
+            {cardGroup.cards
+                .filter(card => !!card.block_card_id.image)
+                .map(card => <Card key={card.id} card={card} />)}
         </div>
     </div>
 }
