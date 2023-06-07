@@ -1,0 +1,25 @@
+.faqSectionWrapper {
+    padding: 20px 40px;
+    border: #DFECF7 solid 1px;
+    border-radius: 10px;
+    margin-block: 20px;
+
+    .title {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .qaWrapper {
+        margin-block-start: 30px;
+
+        .question {
+            font-weight: 700;
+        }
+
+        .answer {
+            position: relative;
+            top: -20px;
+        }
+    }
+
+}
