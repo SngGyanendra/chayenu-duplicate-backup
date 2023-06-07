@@ -44,6 +44,11 @@ const nextConfig = {
         destination: '/subscribe',
         permanent: false,
       },
+      {
+        source: '/faq/:slug',
+        destination: '/faq',
+        permanent: false,
+      },
     ];
   },
 };

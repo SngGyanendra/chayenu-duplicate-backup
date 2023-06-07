@@ -217,3 +217,14 @@ export async function getPageBySlug(slug, includeDraft = false) {
   const { data: { data } } = await axios.get(`${directusUrl}/items/Pages`, axiosParams);
   return data[0];
 }
+
+export async function getFaqSectionsWithFAQs() {
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/faq_sections`, {
+    params: {
+      fields: "*.*",
+    },
+  });
+  return data;
+}

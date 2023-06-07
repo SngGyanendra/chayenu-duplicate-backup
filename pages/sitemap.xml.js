@@ -24,6 +24,7 @@ export async function getServerSideProps({ res }) {
     'forgot-password',
     'comingsoon',
     'explore-chayenu',
+    'faq',
   ];
 
   // Stories

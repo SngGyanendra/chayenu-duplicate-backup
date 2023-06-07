@@ -1,0 +1,42 @@
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    width: var(--container-width);
+    font-family: var(--website-font-family);
+    color: #003652;    
+    margin: 0 auto;
+    margin-top: 40px;
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .outlineWrapper {
+        background-color: #e3f0fa;
+        border-radius: 10px;
+        position: sticky;
+        height: 100%;
+        min-width: 200px;
+        top: 20px;
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: 600;
+    }
+}
+
+.outlineWrapper a {
+    color: #00222B;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.outlineWrapper ul {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px;
+    list-style-type: none;
+}

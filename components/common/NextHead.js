@@ -7,7 +7,8 @@ export function NextHead({
   ogTitle,
   ogDescription,
   ogImage,
-  ogType
+  ogType,
+  extraNode,
 }) {
   const router = useRouter();
 
@@ -38,6 +39,7 @@ export function NextHead({
         name="twitter:image"
         content={ogImage || openGraphImage}
       />
+      {!!extraNode && extraNode}
     </Head>
   );
 }

@@ -1,4 +1,4 @@
-import * as config from './config';
+import * as config from "./config";
 
 /**
  * Generate directus URL from asset id
@@ -6,5 +6,15 @@ import * as config from './config';
  * @returns URL of directs
  */
 export const getDirectusAssetUrl = (id) => {
-    return `${config.directusUrl}/assets/${id}`;
-}
+  return `${config.directusUrl}/assets/${id}`;
+};
+
+export const slugify = (str) => {
+  str = str.replace(/^\s+|\s+$/g, ""); // trim leading/trailing white space
+  str = str.toLowerCase(); // convert string to lowercase
+  str = str
+    .replace(/[^a-z0-9 -]/g, "") // remove any non-alphanumeric characters
+    .replace(/\s+/g, "-") // replace spaces with hyphens
+    .replace(/-+/g, "-"); // remove consecutive hyphens
+  return str;
+};
