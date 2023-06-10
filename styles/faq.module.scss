@@ -25,6 +25,19 @@
         font-size: 32px;
         font-weight: 600;
     }
+
+    @media screen and (max-width: 85.313rem) {
+        flex-direction: column;
+        margin-top: 40px;
+
+        .outlineWrapper {
+            position: static;
+        }
+
+        .title {
+            margin-block-start: 0px;
+        }
+    }
 }
 
 .outlineWrapper a {
