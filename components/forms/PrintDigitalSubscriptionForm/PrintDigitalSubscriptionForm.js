@@ -26,6 +26,7 @@ export function PrintDigitalSubscriptionForm({
   student_only,
   is_military_only,
   autoScroll,
+  is_trial = false,
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
@@ -253,7 +254,11 @@ export function PrintDigitalSubscriptionForm({
     email: undefined,
     mobile: undefined,
     coupon: undefined,
-    is_trial: false,
+    is_trial: is_trial
+      && selectedPlan
+      && selectedPlan.recurring === 'Yearly'
+      && selectedPlan.country
+      && selectedPlan.country.name === 'USA',
     quantity: 1,
     plan: undefined,
     city: undefined,
@@ -292,6 +297,11 @@ export function PrintDigitalSubscriptionForm({
       ...(values.state && { state: parseInt(values.state) }),
       ...(paymentMethod &&
         paymentMethod !== 'other' && { card_token: paymentMethod }),
+      is_trial: is_trial
+        && selectedPlan
+        && selectedPlan.recurring === 'Yearly'
+        && selectedPlan.country
+        && selectedPlan.country.name === 'USA',
     };
     try {
       const response = await addNewSubscription(finalValues);
