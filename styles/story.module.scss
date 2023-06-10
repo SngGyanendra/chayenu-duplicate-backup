@@ -12,7 +12,7 @@
     }
 
     .outlineWrapper {
-        background-color: #e3f0fa;
+        background-color: var(--blue-gray);
         border-radius: 10px;
         position: sticky;
         height: 100%;
@@ -53,7 +53,7 @@
 
 .page {
     max-width: 680px;
-    color: #003652;
+    color: var(--dark);
 }
 
 .digitalPrintIndicatorWrapper>* {

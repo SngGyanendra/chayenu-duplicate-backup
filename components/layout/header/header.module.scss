@@ -69,7 +69,7 @@
           align-items: flex-start;
         }
         .colorDark {
-          color: #003652;
+          color: var(--dark);
         }
         div {
           display: flex;
@@ -89,7 +89,7 @@
           font: fontvalue(14, 14, 300);
           text-transform: initial;
           // background-color: var(--website-color-light);
-          color: #003652;
+          color: var(--dark);
           div {
             .user_details {
               display: flex;

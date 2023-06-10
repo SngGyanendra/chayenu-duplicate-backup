@@ -1,6 +1,6 @@
 .navWrapper {
     font-family: var(--website-font-family);
-    background: #5e8eb8;
+    background: var(--color-secondary-header);
 }
 
 .nav {
@@ -12,7 +12,6 @@
     align-items: center;
     color: white;
     position: relative;
-    transition: background 1s;
 }
 
 .indexButtonWrapper {
@@ -50,7 +49,7 @@
 
 .ul {
     margin: 0 auto;
-    background: #75b2e6;
+    background: var(--website-color);
     width: 237px;
     display: none;
     top: 40px;

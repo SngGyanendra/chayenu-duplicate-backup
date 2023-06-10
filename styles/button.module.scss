@@ -10,7 +10,7 @@
 }
 
 .main {
-    background-color: #043750;
+    background-color: var(--dark);
 }
 
 .main:hover {
@@ -18,7 +18,7 @@
 }
 
 .secondary {
-    background-color: #64a2d2;
+    background-color: var(--website-color);
 }
 
 .secondary:hover {

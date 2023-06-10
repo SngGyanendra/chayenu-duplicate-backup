@@ -3,10 +3,16 @@ import "../styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { store } from "../store";
-import { HydrateToken, CheckAuth } from "/util";
+import { HydrateToken, CheckAuth, randomColors } from "../util";
 import Head from "next/head";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+
+  useEffect(() => {
+    randomColors()
+  }, [])
+
   return (
     <>
       <Head>

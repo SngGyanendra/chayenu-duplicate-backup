@@ -2,7 +2,7 @@
 .paymentMethod {
   width: var(--container-portal-width);
   background-color: var(--website-color-opacity-low);
-  color: #003652;
+  color: var(--dark);
   margin: 1rem auto;
   border-radius: 10px;
   padding: 30px;
@@ -11,7 +11,7 @@
     display: grid;
     flex-grow: 1;
     grid-template-columns: 1fr 80px;
-    color: #003652;
+    color: var(--dark);
     .cardAddressDetail {
       .error {
         font: fontvalue(12, 12, 600);
@@ -90,7 +90,7 @@
         }
       }
       .defaultCardId {
-        color: #003652;
+        color: var(--dark);
         text-align: end;
         label {
           display: flex !important;

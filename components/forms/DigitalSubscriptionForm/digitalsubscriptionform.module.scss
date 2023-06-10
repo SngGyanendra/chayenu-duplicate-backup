@@ -71,7 +71,7 @@
     }
     
     .selectCountry {
-      color: #003652;
+      color: var(--dark);
       text-align: center;
       font: fontvalue(18, 20, 300);
       font-family: 'Brandon Grotesque', sans-serif;
@@ -148,7 +148,7 @@
           }
         }
         .selectCountry {
-          background-color: #75b2e6;
+          background-color: var(--website-color);
           transition: background-color ease 0.25s;
           color: white;
         }
@@ -160,7 +160,7 @@
     .plan {
       margin-bottom: 2rem;
       .selectPlan {
-        color: #003652;
+        color: var(--dark);
         font-family: 'Brandon Grotesque', sans-serif;
         font-weight: bold;
         text-align: center;

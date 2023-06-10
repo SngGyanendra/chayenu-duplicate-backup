@@ -338,7 +338,7 @@ $height: 30rem;
 
   .section3 {
     height: 760px;
-    background-color: #e3f0fa;
+    background-color: var(--blue-gray);
 
     .card {
       padding-top: 75px;
@@ -661,7 +661,7 @@ $height: 30rem;
 
   .section5 {
     height: 510px;
-    background-color: #e3f0fa;
+    background-color: var(--blue-gray);
 
     .card {
       grid-template-columns: 35% repeat(3, 22%);

@@ -1,7 +1,7 @@
 @import 'common.scss';
 
 .selectedPlan {
-  background-color: #75b2e6;
+  background-color: var(--website-color);
   color: white !important;
   font: fontvalue(16, 16, 600) !important;
   margin: 2px !important;
@@ -15,7 +15,7 @@
   border-radius: 3px;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  color: #003652;
+  color: var(--dark);
   row-gap: 1rem;
   border: 3px solid transparent;
 

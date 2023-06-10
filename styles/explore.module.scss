@@ -47,7 +47,7 @@
 .introWrapper {
   margin: 2.5rem auto;
   text-align: center;
-  color: #003652;
+  color: var(--dark);
 }
 
 .introParagraph {
@@ -58,7 +58,7 @@
 
 .introParagraphLinks {
   font-weight: 600;
-  color: #003652;
+  color: var(--dark);
   text-decoration: underline;
 }
 

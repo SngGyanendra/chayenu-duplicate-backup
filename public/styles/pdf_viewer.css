@@ -35,7 +35,7 @@
 }
 
 .Button .Icon svg path{
-    fill: #003652 !important;
+    fill: var(--dark) !important;
   }
 
 .OverlayContainer{
