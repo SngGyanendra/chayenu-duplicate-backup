@@ -45,6 +45,11 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: '/trial',
+        destination: '/subscribe?trial=true',
+        permanent: false,
+      },
+      {
         source: '/faq/:slug',
         destination: '/faq',
         permanent: false,

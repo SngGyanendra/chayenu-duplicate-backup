@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { NextHead } from '/components/common';
-import Styles from '/styles/subscribe.module.scss';
+import { NextHead } from '../components/common';
+import Styles from '../styles/subscribe.module.scss';
 import { getAllProducts } from '../api/common';
 import { useWindowDimensions } from '../hooks';
 
@@ -9,7 +9,7 @@ import { ProductCard, ProductCardSkeleton } from '../components/cards';
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
-} from '/components/forms';
+} from '../components/forms';
 
 export default function Subscribe({ query }) {
   const [allProducts, setAllProducts] = useState([]);
@@ -27,6 +27,8 @@ export default function Subscribe({ query }) {
     },
     [selectedProduct]
   );
+
+  const isTrial = query.trial === 'true';
 
   async function getData() {
     try {
@@ -175,6 +177,7 @@ export default function Subscribe({ query }) {
                   is_military_only={query.is_military_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
+                  is_trial={isTrial}
                 />
               );
             }
