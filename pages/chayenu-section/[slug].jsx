@@ -1,4 +1,4 @@
-import Styles from '/styles/story.module.scss';
+import Styles from '../../styles/story.module.scss';
 import ContentStyles from '../../styles/content.module.scss';
 import { NextHead } from '/components/common';
 import { getStoriesBySlug } from '../../api/common';
