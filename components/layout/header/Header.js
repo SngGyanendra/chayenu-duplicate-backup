@@ -205,7 +205,7 @@ export function Header() {
                 </li>
                 <li className={Styles.portalLink}>
                   <Link
-                    href="https://store.chayenu,.org"
+                    href="https://store.chayenu.org"
                     target="_blank"
                     onClick={handleMenu}
                   >
