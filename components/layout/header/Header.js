@@ -203,6 +203,15 @@ export function Header() {
                     DONATE
                   </Link>
                 </li>
+                <li className={Styles.portalLink}>
+                  <Link
+                    href="https://store.chayenu,.org"
+                    target="_blank"
+                    onClick={handleMenu}
+                  >
+                    STORE
+                  </Link>
+                </li>
               </ul>
             </div>
             <div
