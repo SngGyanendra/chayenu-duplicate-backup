@@ -286,7 +286,7 @@ export async function getTrialProduct() {
 
   const { data } = await axios.get(`${directusUrl}/items/products`, {
     params: {
-      fields: "*.*.*",
+      fields: "*.*.*.*",
       filter,
       deep,
       sort: "order",
