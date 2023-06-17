@@ -1,0 +1,22 @@
+.paymentCardsWrapper {
+  display: flex;
+  flex-direction: column;
+  color: var(--dark);
+  margin-block-start: 32px;
+  font-family: var(--website-font-family);
+
+  .headline {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-weight: 500;
+    .subtitleBlock {
+      display: block;
+    }
+  }
+}

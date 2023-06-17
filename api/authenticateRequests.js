@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAllSupportIssues } from '/api/common';
+import { getAllSupportIssues } from '../api/common';
 import { directusUrl, backendUrl } from './config';
 
 export class AuthencticatedUserAPI {
