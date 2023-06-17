@@ -4,6 +4,7 @@ import { directusUrl } from "./config";
 export async function getAllProducts({
   student_only = false,
   is_military_only = false,
+  isTrial = false,
 }) {
   const filter = {
     _and: [
@@ -20,7 +21,7 @@ export async function getAllProducts({
         },
       },
     },
-  }
+  };
 
   if (student_only === false && is_military_only === false) {
     filter._and.push({
@@ -51,7 +52,7 @@ export async function getAllProducts({
 
     deep.plans._filter.student_only = {
       _eq: true,
-    }
+    };
   }
 
   if (is_military_only) {
@@ -65,7 +66,15 @@ export async function getAllProducts({
 
     deep.plans._filter.is_military_only = {
       _eq: true,
-    }
+    };
+  }
+
+  if (isTrial) {
+    filter._and.push({
+      product_type: {
+        _neq: "Digital",
+      },
+    });
   }
 
   const { data } = await axios.get(`${directusUrl}/items/products`, {
@@ -78,6 +87,7 @@ export async function getAllProducts({
   });
   return data;
 }
+
 export async function getAllCountries() {
   const { data } = await axios.get(`${directusUrl}/items/countries`, {
     params: {
@@ -151,7 +161,7 @@ export async function getStoriesBySlug(slug) {
         },
         slug: {
           _eq: slug,
-        }
+        },
       },
     },
   });
@@ -180,12 +190,11 @@ export async function getAllSupportIssues() {
   }
 }
 
-
 export async function getAllColleges() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/colleges`, {
       params: {
-        fields: '*.*',
+        fields: "*.*",
       },
     });
     return data;
@@ -198,13 +207,13 @@ export async function getPageBySlug(slug, includeDraft = false) {
   const filter = {
     slug: {
       _eq: slug,
-    }
-  }
+    },
+  };
 
   if (includeDraft === false) {
     filter.status = {
       _eq: "published",
-    }
+    };
   }
 
   const axiosParams = {
@@ -214,7 +223,9 @@ export async function getPageBySlug(slug, includeDraft = false) {
     },
   };
 
-  const { data: { data } } = await axios.get(`${directusUrl}/items/Pages`, axiosParams);
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/Pages`, axiosParams);
   return data[0];
 }
 
@@ -224,6 +235,70 @@ export async function getFaqSectionsWithFAQs() {
   } = await axios.get(`${directusUrl}/items/faq_sections`, {
     params: {
       fields: "*.*",
+    },
+  });
+  return data;
+}
+
+export async function getTrialProduct() {
+  const filter = {
+    _and: [
+      {
+        status: {
+          _eq: "published",
+        },
+      },
+      {
+        is_on_subscription_page: {
+          _eq: true,
+        },
+      },
+      {
+        product_type: {
+          _eq: "Both",
+        },
+      },
+      {
+        plans: {
+          student_only: {
+            _eq: false,
+          },
+        },
+      },
+      {
+        plans: {
+          is_military_only: {
+            _eq: false,
+          },
+        },
+      },
+    ],
+  };
+
+  const deep = {
+    plans: {
+      _filter: {
+        status: {
+          _eq: "published",
+        },
+        recurring: {
+          _eq: "Yearly",
+        },
+        country: {
+          name: {
+            _eq: "USA",
+          },
+        },
+      },
+    },
+  };
+
+  const { data } = await axios.get(`${directusUrl}/items/products`, {
+    params: {
+      fields: "*.*.*",
+      filter,
+      deep,
+      sort: "order",
     },
   });
   return data;

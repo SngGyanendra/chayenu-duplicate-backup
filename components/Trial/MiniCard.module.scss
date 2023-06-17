@@ -1,0 +1,35 @@
+.wrapper {
+  width: 128px;
+  height: 115px;
+  background-color: var(--blue-gray);
+  border-radius: 5px;
+  flex-direction: column;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .iconWrapper {
+    display: flex;
+    flex: 1;
+    resize: both;
+    height: 25px;
+    width: 25px;
+    align-items: center;
+
+    .img {
+      margin-top: 20px;
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex: 1;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+}

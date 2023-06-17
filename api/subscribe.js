@@ -3,7 +3,11 @@ import { directusUrl, backendUrl } from './config';
 
 export async function getAllPlans(
   id,
-  { is_military_only = false, student_only = false }
+  {
+    is_military_only = false,
+    student_only = false,
+    is_trial = false,
+  }
 ) {
   try {
     const filter = {

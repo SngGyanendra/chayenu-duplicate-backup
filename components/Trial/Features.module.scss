@@ -1,0 +1,35 @@
+.features {
+  width: var(--container-width);
+  margin-inline: auto;
+  margin-block-start: 48px;
+  color: var(--dark);
+
+  .headline {
+    font-size: 32px;
+    text-align: center;
+    margin-block-end: 24px;
+
+    .thin {
+      font-weight: 400;
+    }
+
+    .fat {
+      font-weight: 600;
+      display: block;
+      line-height: 20px;
+    }
+  }
+
+  .description {
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .miniCardWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-block-start: 20px;
+  }
+}

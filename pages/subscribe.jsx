@@ -37,6 +37,7 @@ export default function Subscribe({ query }) {
       if (query.student_only === 'true') productQuery.student_only = true;
       if (query.is_military_only === 'true')
         productQuery.is_military_only = true;
+      if (isTrial) productQuery.isTrial = true;
 
       const { data } = await getAllProducts(productQuery);
       setLoading(false);

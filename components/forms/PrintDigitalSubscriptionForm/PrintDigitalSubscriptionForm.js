@@ -18,7 +18,7 @@ import {
   SuccessfulSubscription,
 } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
-import { getAllPlans, getAllColleges, addNewSubscription } from '/api';
+import { getAllPlans, getAllColleges, addNewSubscription, getTrialProduct } from '../../../api';
 import * as Yup from 'yup';
 
 export function PrintDigitalSubscriptionForm({
@@ -80,10 +80,19 @@ export function PrintDigitalSubscriptionForm({
 
   useEffect(() => {
     (async () => {
-      const { data } = await getAllPlans(selectedProduct.id, {
-        is_military_only,
-        student_only,
-      });
+      let data = [];
+      if (is_trial) {
+        const { data: products } = await getTrialProduct();
+        const product = products[0];
+        data = product.plans;
+      } else {
+        const { data: plans } = await getAllPlans(selectedProduct.id, {
+          is_military_only,
+          student_only,
+          is_trial,
+        });
+        data = plans;
+      }
       const { data: colleges } = await getAllColleges();
       setAllColleges(colleges);
       setAllPlans(data);
@@ -126,6 +135,12 @@ export function PrintDigitalSubscriptionForm({
       setDeliveryType('shipping');
     }
   }, [selectedCountry]);
+
+  useEffect(() => {
+    if (allPlans.length === 1) {
+      setSelectedPlan(allPlans[0]);
+    }
+  }, [allPlans])
 
   const style = {
     control: (provided, state) => ({
@@ -556,7 +571,7 @@ export function PrintDigitalSubscriptionForm({
               {(countriesList?.length <= 1 ||
                 (selectedCountry !== 'others' && selectedCountry)) &&
                 (deliveryType === 'shipping' || distributor) && (
-                  <div className={Styles.form}>
+                  (allPlans.length > 1 && <div className={Styles.form}>
                     <div className={Styles.plan}>
                       <div className={Styles.selectPlan}>SELECT PLAN</div>
                       <div className={Styles.plansContainer}>
@@ -574,8 +589,10 @@ export function PrintDigitalSubscriptionForm({
                           ))}
                       </div>
                     </div>
-                  </div>
-                )}
+                  </div>)
+                )
+              }
+
               {selectedPlan?.student_only && (
                 <div className={Styles.form}>
                   <div className={Styles.college}>College</div>
@@ -597,6 +614,7 @@ export function PrintDigitalSubscriptionForm({
                   />
                 </div>
               )}
+
               {(!selectedPlan?.student_only || selectedCollege) &&
                 selectedPlan &&
                 selectedCountry !== 'others' && (
