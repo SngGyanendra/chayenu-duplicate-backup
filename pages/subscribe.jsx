@@ -28,8 +28,6 @@ export default function Subscribe({ query }) {
     [selectedProduct]
   );
 
-  const isTrial = query.trial === 'true';
-
   async function getData() {
     try {
       const productQuery = {};
@@ -37,7 +35,6 @@ export default function Subscribe({ query }) {
       if (query.student_only === 'true') productQuery.student_only = true;
       if (query.is_military_only === 'true')
         productQuery.is_military_only = true;
-      if (isTrial) productQuery.isTrial = true;
 
       const { data } = await getAllProducts(productQuery);
       setLoading(false);
@@ -178,7 +175,6 @@ export default function Subscribe({ query }) {
                   is_military_only={query.is_military_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
-                  is_trial={isTrial}
                 />
               );
             }

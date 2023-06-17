@@ -4,7 +4,6 @@ import { directusUrl } from "./config";
 export async function getAllProducts({
   student_only = false,
   is_military_only = false,
-  isTrial = false,
 }) {
   const filter = {
     _and: [
@@ -67,14 +66,6 @@ export async function getAllProducts({
     deep.plans._filter.is_military_only = {
       _eq: true,
     };
-  }
-
-  if (isTrial) {
-    filter._and.push({
-      product_type: {
-        _neq: "Digital",
-      },
-    });
   }
 
   const { data } = await axios.get(`${directusUrl}/items/products`, {
