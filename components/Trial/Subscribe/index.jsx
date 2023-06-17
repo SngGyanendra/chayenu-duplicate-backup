@@ -3,7 +3,7 @@ import { PrintDigitalSubscriptionForm } from '../../../components/forms';
 
 export default function Subscribe({ product }) {
   return (
-    <div className={Styles.paymentCardsWrapper}>
+    <div className={Styles.paymentCardsWrapper} id="payment-section">
       <h3 className={Styles.headline}>Subscribe - free 1 month trial</h3>
       <p className={Styles.subtitle}>
         <span className={Styles.subtitleBlock}>Your billing will only start in 1 month. You may cancel at anytime.</span>

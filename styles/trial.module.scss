@@ -1,3 +1,6 @@
+.wrapper {
+  font-family: var(--website-font-family);  
+}
 @import 'common.scss';
 
 @mixin general-container {
@@ -9,8 +12,6 @@
     width: var(--container-width-75);
   }
 }
-
-$height: 30rem;
 
 .testimonialsHeader {
   text-align: center;
@@ -91,103 +92,6 @@ $height: 30rem;
 .main {
   font-family: var(--website-font-family);
 
-  .section1 {
-    height: $height;
-    background: var(--website-color-banner)
-      url('/images/homepage/LinesBackground.webp') 0 0 no-repeat;
-    background-size: cover;
-    .card {
-      height: $height;
-      grid-template-columns: 1fr 28rem;
-
-      .cta {
-        text-transform: uppercase;
-        min-width: fit-content;
-        padding: 8px 16px;
-      }
-
-      .trialDetails {
-        list-style-type: none;
-        font-size: 24px;
-        color: white;
-        font-weight: 400;
-      }
-
-      .cardContentLeft {
-        align-self: center;
-
-        h1 {
-          font: fontvalue(45, 60, 700);
-        }
-
-        h3 {
-          font: fontvalue(30, 43, normal);
-        }
-
-        h1,
-        h3 {
-          color: #fff;
-        }
-
-        button {
-          @include buttonState(#ffffff, var(--dark));
-          width: 10rem;
-          height: 3rem;
-          border: none;
-          opacity: 1;
-          border-radius: 10px;
-          font: fontvalue(20, 24, bold);
-          margin: 0 auto;
-          margin-top: 3rem;
-        }
-
-        @media screen and (max-width: 800px) {
-          .cardMobileImage {
-            background: transparent
-              url('/images/homepage/ChayenuHomeTopRight.webp') center 0 no-repeat
-              padding-box;
-            background-size: contain;
-            height: 12rem;
-            margin-top: 1rem;
-          }
-
-          & {
-            margin: 0 auto;
-            display: grid;
-            width: 100%;
-
-            h1,
-            h3 {
-              text-align: center;
-            }
-
-            h1 {
-              font: fontvalue(35, 60, 700);
-            }
-
-            h3 {
-              font: fontvalue(20, 43, normal);
-            }
-          }
-        }
-      }
-
-      .cardContentRight {
-        background: transparent url('/images/homepage/ChayenuHomeTopRight.webp')
-          0% 100px no-repeat padding-box;
-        background-size: 100% 270px;
-
-        @media screen and (max-width: 800px) {
-          display: none;
-        }
-      }
-    }
-
-    @media screen and (max-width: 800px) {
-      height: 30rem;
-    }
-  }
-
   .card {
     @media screen and (max-width: 800px) {
       grid-template-columns: 1fr !important;
@@ -200,22 +104,3 @@ $height: 30rem;
     padding-bottom: 2rem;
   }
 }
-
-.popUp {
-  display: none;
-}
-
-@media only screen and (max-width: 800px) {
-  .popUp {
-    display: block;
-  }
-
-  .modalScreen {
-    margin-left: -259px;
-    color: transparent;
-    border-radius: 1rem;
-    position: absolute;
-    margin-top: 10px;
-  }
-}
-
