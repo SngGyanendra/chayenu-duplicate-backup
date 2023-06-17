@@ -1,0 +1,65 @@
+.wrapper {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  background-size: cover;
+  background: var(--website-color-banner)
+    url("/images/homepage/LinesBackground.webp") repeat-y;
+
+  .main {
+    width: var(--container-width);
+    margin: auto;
+    display: flex;
+
+    @media screen and (max-width: 1099px) {
+      width: var(--container-width-75);
+    }
+
+    .cardContentLeft {
+      flex: 1;
+      color: white;
+
+      .title {
+        font-size: 48px;
+      }
+
+      .featureList {
+        list-style-type: none;
+        font-size: 24px;
+        color: white;
+        font-weight: 400;
+      }
+
+      .cta {
+        display: inline-block;
+        text-transform: uppercase;
+        min-width: fit-content;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 2rem;
+        background-color: white;
+        color: var(--dark);
+        font-weight: 600;
+        font-size: 20px;
+
+        &:hover {
+          background-color: var(--dark);
+          color: #ffffff;
+          transition: background-color 0.25s;
+        }
+      }
+    }
+
+    .cardContentRight {
+      flex: 1;
+      @media screen and (max-width: 800px) {
+        display: none;
+      }
+
+      .img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
