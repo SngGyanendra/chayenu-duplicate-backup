@@ -1,12 +1,10 @@
-import ContainerCard from "../components/cards/ContainerCard/ContainerCard";
 import Styles from "../styles/trial.module.scss";
 import { NextHead } from "/components/common";
-import { testimonials1 } from "../data/testimonials";
-import Testimonials from "../components/Testimonials/Testimonials";
-import Features from "../components/Trial/Features";
 import { getTrialProduct } from "../api/common";
+import Features from "../components/Trial/Features";
 import Subscribe from "../components/Trial/Subscribe";
 import Hero from "../components/Trial/Hero";
+import Testimonials from "../components/Trial/Testimonials";
 
 export default function Trial({ products }) {
   const product = products.data[0];
@@ -21,19 +19,10 @@ export default function Trial({ products }) {
       <section className={Styles.wrapper}>
         <Hero />
         <Features />
+        <Testimonials />
+        <Subscribe product={product} />
       </section>
 
-      <section className={Styles.main}>
-        <h3 className={Styles.testimonialsHeader}>Testimonials</h3>
-        {testimonials1 && testimonials1.length && (
-          <Testimonials
-            listOfTestimonials={testimonials1}
-            additionalStyles={{ backgroundColor: "var(--blue-gray)" }}
-          />
-        )}
-      </section>
-
-      <Subscribe product={product} />
     </main>
   );
 }
