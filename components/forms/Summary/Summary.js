@@ -1,16 +1,20 @@
 import Styles from './summary.module.scss';
-import { useState } from 'react';
 
 export function Summary({
   selectedPlan,
-  autoRenewal,
-  values,
-  handleChange,
-  handleBlur,
   coupon,
+  showTrialMessage
 }) {
-  const [isDisabled, setIsDisabled] = useState(true);
-  const optionsList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const getPricingMessage = () => {
+    const pricingMessage = !coupon
+      ? selectedPlan.price
+      : calculateDiscountedPrice(selectedPlan.price, coupon);    
+  
+    const tenure = selectedPlan.recurring.toLowerCase() === 'monthly' ? 'mo' : 'yr';
+    const pricing = `$${pricingMessage}/${tenure}`
+    return showTrialMessage ? `1st month FREE then ${pricing}`: pricing 
+  }
 
   const calculateDiscountedPrice = (price, coupon) => {
     if (coupon?.amount_type?.toLowerCase() === 'percentage') {
@@ -23,42 +27,8 @@ export function Summary({
     <div className={Styles.summary}>
       <div className={Styles.planType}>
         <span>{selectedPlan?.name}</span>
-        <span>
-          {!coupon
-            ? `$${selectedPlan.price}`
-            : `$${calculateDiscountedPrice(selectedPlan.price, coupon)}`}
-          {selectedPlan.recurring.toLowerCase() === 'monthly' ? '/mo' : '/yr'}
-        </span>
+        <span>{getPricingMessage()}</span>
       </div>
-      {/* <div className={Styles.additional}>
-        <div>
-          Quantity:
-          <select
-            name="quantity"
-            disabled={isDisabled}
-            value={values.quantity}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          >
-            {optionsList.map(function (x) {
-              return (
-                <option key={x} value={x}>
-                  {x}
-                </option>
-              );
-            })}
-          </select>
-          <span
-            className={Styles.change}
-            onClick={() => {
-              setIsDisabled(!isDisabled);
-            }}
-          >
-            {isDisabled ? 'Change' : 'Update'}
-          </span>
-        </div>
-        <div>{autoRenewal ? 'Auto renewal on' : 'Auto renewal off'}</div>
-      </div> */}
     </div>
   );
 }

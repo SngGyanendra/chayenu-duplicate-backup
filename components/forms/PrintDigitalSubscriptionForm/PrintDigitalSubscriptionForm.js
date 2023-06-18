@@ -4,7 +4,7 @@ import {
   initializeCustomBraintree,
   Popup,
   toastTemplate,
-} from '/components/common';
+} from '../../../components/common';
 import Select from 'react-select';
 import { Formik } from 'formik';
 import { validateCreditCard } from '/util';
@@ -16,8 +16,8 @@ import {
   PlanCard,
   CountryLoadingSkeleton,
   SuccessfulSubscription,
-} from '/components/cards';
-import { Summary, Coupon } from '/components/forms';
+} from '../../../components/cards';
+import { Summary, Coupon } from '../../../components/forms';
 import { getAllPlans, getAllColleges, addNewSubscription, getTrialProduct } from '../../../api';
 import * as Yup from 'yup';
 
@@ -876,6 +876,7 @@ export function PrintDigitalSubscriptionForm({
                         handleChange={handleChange}
                         handleBlur={handleBlur}
                         coupon={coupon}
+                        showTrialMessage={is_trial}
                       />
 
                       <button
