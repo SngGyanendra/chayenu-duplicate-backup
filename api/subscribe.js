@@ -3,12 +3,9 @@ import { directusUrl, backendUrl } from './config';
 
 export async function getAllPlans(
   id,
-  {
-    is_military_only = false,
-    student_only = false,
-    is_trial = false,
-  }
+  { is_military_only = false, student_only = false, is_trial = false }
 ) {
+  console.log(is_military_only, student_only);
   try {
     const filter = {
       _and: [
@@ -23,12 +20,24 @@ export async function getAllPlans(
           _eq: true,
         },
       });
+    } else {
+      filter._and.push({
+        is_military_only: {
+          _eq: false,
+        },
+      });
     }
 
     if (student_only) {
       filter._and.push({
         student_only: {
           _eq: true,
+        },
+      });
+    } else {
+      filter._and.push({
+        student_only: {
+          _eq: false,
         },
       });
     }
