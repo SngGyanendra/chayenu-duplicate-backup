@@ -38,6 +38,14 @@ export async function getAllProducts({
         },
       },
     });
+
+    deep.plans._filter.student_only = {
+      _eq: true,
+    };
+
+    deep.plans._filter.is_military_only = {
+      _eq: true,
+    };
   }
 
   if (student_only) {
