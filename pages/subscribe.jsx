@@ -127,7 +127,6 @@ export default function Subscribe({ query }) {
                   );
                 })
               : allProducts.map((product, index) => {
-                  if (product?.plans?.length === 0) return null;
                   return (
                     <div
                       key={product.id}
