@@ -1,5 +1,5 @@
-import axios from "axios";
-import { directusUrl } from "./config";
+import axios from 'axios';
+import { directusUrl } from './config';
 
 export async function getAllProducts({
   student_only = false,
@@ -7,7 +7,7 @@ export async function getAllProducts({
 }) {
   const filter = {
     _and: [
-      { status: { _eq: "published" } },
+      { status: { _eq: 'published' } },
       { is_on_subscription_page: { _eq: true } },
     ],
   };
@@ -16,7 +16,7 @@ export async function getAllProducts({
     plans: {
       _filter: {
         status: {
-          _eq: "published",
+          _eq: 'published',
         },
       },
     },
@@ -70,10 +70,10 @@ export async function getAllProducts({
 
   const { data } = await axios.get(`${directusUrl}/items/products`, {
     params: {
-      fields: "*.*.*",
+      fields: '*.*.*',
       filter,
       deep,
-      sort: "order",
+      sort: 'order',
     },
   });
   return data;
@@ -82,11 +82,11 @@ export async function getAllProducts({
 export async function getAllCountries() {
   const { data } = await axios.get(`${directusUrl}/items/countries`, {
     params: {
-      fields: "*.*",
+      fields: '*.*',
       filter: {
         _or: [
-          { has_distributors: { _eq: "true" } },
-          { has_shipping: { _eq: "true" } },
+          { has_distributors: { _eq: 'true' } },
+          { has_shipping: { _eq: 'true' } },
         ],
       },
     },
@@ -97,11 +97,11 @@ export async function getAllCountries() {
 export async function getAllStories(forSiteMap = false) {
   const { data } = await axios.get(`${directusUrl}/items/stories`, {
     params: {
-      fields: forSiteMap ? "slug" : "*.*.*",
+      fields: forSiteMap ? 'slug' : '*.*.*',
       filter: {
-        _and: [{ status: { _eq: "published" } }],
+        _and: [{ status: { _eq: 'published' } }],
       },
-      sort: "order",
+      sort: 'order',
     },
   });
   return data;
@@ -110,9 +110,9 @@ export async function getAllStories(forSiteMap = false) {
 export async function getAllPages() {
   const { data } = await axios.get(`${directusUrl}/items/Pages`, {
     params: {
-      fields: "slug",
+      fields: 'slug',
       filter: {
-        _and: [{ status: { _eq: "published" } }],
+        _and: [{ status: { _eq: 'published' } }],
       },
     },
   });
@@ -129,10 +129,10 @@ export async function getStoryById(id) {
     data: { data },
   } = await axios.get(`${directusUrl}/items/stories/${id}`, {
     params: {
-      fields: "*.*",
+      fields: '*.*',
       filter: {
         status: {
-          _eq: "published",
+          _eq: 'published',
         },
       },
     },
@@ -145,10 +145,10 @@ export async function getStoriesBySlug(slug) {
     data: { data },
   } = await axios.get(`${directusUrl}/items/stories`, {
     params: {
-      fields: "*.*",
+      fields: '*.*',
       filter: {
         status: {
-          _eq: "published",
+          _eq: 'published',
         },
         slug: {
           _eq: slug,
@@ -172,7 +172,7 @@ export async function getAllSupportIssues() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/support_issues`, {
       params: {
-        fields: "*.*",
+        fields: '*.*',
       },
     });
     return data;
@@ -185,7 +185,7 @@ export async function getAllColleges() {
   try {
     const { data } = await axios.get(`${directusUrl}/items/colleges`, {
       params: {
-        fields: "*.*",
+        fields: '*.*',
       },
     });
     return data;
@@ -203,13 +203,13 @@ export async function getPageBySlug(slug, includeDraft = false) {
 
   if (includeDraft === false) {
     filter.status = {
-      _eq: "published",
+      _eq: 'published',
     };
   }
 
   const axiosParams = {
     params: {
-      fields: "*.*.*.*.*.*",
+      fields: '*.*.*.*.*.*',
       filter,
     },
   };
@@ -225,7 +225,7 @@ export async function getFaqSectionsWithFAQs() {
     data: { data },
   } = await axios.get(`${directusUrl}/items/faq_sections`, {
     params: {
-      fields: "*.*",
+      fields: '*.*',
     },
   });
   return data;
@@ -236,7 +236,7 @@ export async function getTrialProduct() {
     _and: [
       {
         status: {
-          _eq: "published",
+          _eq: 'published',
         },
       },
       {
@@ -246,7 +246,7 @@ export async function getTrialProduct() {
       },
       {
         product_type: {
-          _eq: "Both",
+          _eq: 'Both',
         },
       },
       {
@@ -263,6 +263,11 @@ export async function getTrialProduct() {
           },
         },
       },
+      {
+        name: {
+          _eq: 'Chayenu',
+        },
+      },
     ],
   };
 
@@ -270,14 +275,14 @@ export async function getTrialProduct() {
     plans: {
       _filter: {
         status: {
-          _eq: "published",
+          _eq: 'published',
         },
         recurring: {
-          _eq: "Yearly",
+          _eq: 'Yearly',
         },
         country: {
           name: {
-            _eq: "USA",
+            _eq: 'USA',
           },
         },
       },
@@ -286,10 +291,10 @@ export async function getTrialProduct() {
 
   const { data } = await axios.get(`${directusUrl}/items/products`, {
     params: {
-      fields: "*.*.*.*",
+      fields: '*.*.*.*',
       filter,
       deep,
-      sort: "order",
+      sort: 'order',
     },
   });
   return data;
