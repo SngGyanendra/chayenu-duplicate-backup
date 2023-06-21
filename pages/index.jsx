@@ -222,14 +222,12 @@ export default function Home() {
                   Browse Archive
                 </Link>
               </p> */}
-              <button>
-                <Link
-                  target="_blank"
-                  href="https://checkout.stripe.com/c/pay/cs_live_b1BF3a85m5jyIiGOAJrbdNZiQWHJDYOY9oqLLf8Ay6UCBPesYM87shV4G3#fidkdWxOYHwnPyd1blppbHNgWjA0Sz11QWJAMFF%2FSXU3YzBoQmBnaHJHa2pUbGRoMjcyPElKU2JOT3Z8cUR%2FUm8wYzJQTjJHREQyZ059dGo2VkhqcWZESDRkV2t9fTJiMnNrV19dUWJpVVdLNTVTdnRGTDBLUicpJ3VpbGtuQH11anZgYUxhJz8nZEBQN2RJMmFBMTRPPXwxZEBJJ3gl"
-                >
-                  BUY NOW
-                </Link>
-              </button>
+              <Link
+                target="_blank"
+                href="https://checkout.stripe.com/c/pay/cs_live_b1BF3a85m5jyIiGOAJrbdNZiQWHJDYOY9oqLLf8Ay6UCBPesYM87shV4G3#fidkdWxOYHwnPyd1blppbHNgWjA0Sz11QWJAMFF%2FSXU3YzBoQmBnaHJHa2pUbGRoMjcyPElKU2JOT3Z8cUR%2FUm8wYzJQTjJHREQyZ059dGo2VkhqcWZESDRkV2t9fTJiMnNrV19dUWJpVVdLNTVTdnRGTDBLUicpJ3VpbGtuQH11anZgYUxhJz8nZEBQN2RJMmFBMTRPPXwxZEBJJ3gl"
+              >
+                <button>BUY NOW</button>
+              </Link>
             </div>
 
             <div className={Styles.verticalBar}></div>
