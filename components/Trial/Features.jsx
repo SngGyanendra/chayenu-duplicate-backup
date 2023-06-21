@@ -1,6 +1,6 @@
 import Styles from "./Features.module.scss";
 import MiniCard from "./MiniCard";
-import FeatureList from "./features";
+import FeatureList from "./features1";
 
 export default function Features() {
   return (
