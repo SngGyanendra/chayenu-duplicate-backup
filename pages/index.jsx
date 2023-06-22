@@ -224,7 +224,7 @@ export default function Home() {
               </p> */}
               <Link
                 target="_blank"
-                href="https://checkout.stripe.com/c/pay/cs_live_b1BF3a85m5jyIiGOAJrbdNZiQWHJDYOY9oqLLf8Ay6UCBPesYM87shV4G3#fidkdWxOYHwnPyd1blppbHNgWjA0Sz11QWJAMFF%2FSXU3YzBoQmBnaHJHa2pUbGRoMjcyPElKU2JOT3Z8cUR%2FUm8wYzJQTjJHREQyZ059dGo2VkhqcWZESDRkV2t9fTJiMnNrV19dUWJpVVdLNTVTdnRGTDBLUicpJ3VpbGtuQH11anZgYUxhJz8nZEBQN2RJMmFBMTRPPXwxZEBJJ3gl"
+                href="https://www.store.chayenu.org/shop/slip-covers"
               >
                 <button>BUY NOW</button>
               </Link>
