@@ -56,7 +56,7 @@ export default function Home() {
                   {' '}
                   Daily study cycles; Chumash, Rambam, Tanya & much more{' '}
                 </li>
-                <li> Studied by over 20,000 people in 35 countries </li>
+                <li> Studied by over 30,000 people in 35 countries </li>
                 <li>
                   {' '}
                   Take the guesswork out of establishing a daily study routine{' '}
