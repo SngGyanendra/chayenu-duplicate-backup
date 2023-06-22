@@ -276,7 +276,7 @@ export default function Home() {
             </div>
 
             <div>
-              <h2>Sheimos</h2>
+              <h2>Shaimos</h2>
               <p>
                 We will send you a box so you can return Chayenus for proper
                 disposal
