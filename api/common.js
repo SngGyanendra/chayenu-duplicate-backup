@@ -40,11 +40,11 @@ export async function getAllProducts({
     });
 
     deep.plans._filter.student_only = {
-      _eq: true,
+      _eq: false,
     };
 
     deep.plans._filter.is_military_only = {
-      _eq: true,
+      _eq: false,
     };
   }
 
