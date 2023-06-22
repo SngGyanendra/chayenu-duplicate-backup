@@ -32,7 +32,7 @@ export function Footer() {
           </li>
           <li>
             {' '}
-            <Link href="/comingsoon">Chayus</Link>
+            <Link href="https://old.chayenu.org/weekly-digest/" target="_blank">Chayus</Link>
           </li>
           <li
             onClick={() => {
