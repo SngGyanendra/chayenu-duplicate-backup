@@ -243,7 +243,7 @@ export default function ForgotPassword() {
             </h3>
             <p>
               {"If you made a Chayenu account using Chayenu's old system "}
-              <Link target="_blank" href="https://chayenu.org/my-account/">
+              <Link target="_blank" href="https://old.chayenu.org/my-account/">
                 <span className={Styles.link}>click here</span>
               </Link>
               {' to manage your account'}
