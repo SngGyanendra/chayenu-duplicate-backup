@@ -293,6 +293,12 @@ export async function getTrialProduct() {
             _eq: 'USA',
           },
         },
+        student_only: {
+          _eq: false,
+        },
+        is_military_only: {
+          _eq: false,
+        },
       },
     },
   };
