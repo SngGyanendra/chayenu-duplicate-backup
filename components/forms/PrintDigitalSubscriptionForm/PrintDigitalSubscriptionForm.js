@@ -18,7 +18,12 @@ import {
   SuccessfulSubscription,
 } from '../../../components/cards';
 import { Summary, Coupon } from '../../../components/forms';
-import { getAllPlans, getAllColleges, addNewSubscription, getTrialProduct } from '../../../api';
+import {
+  getAllPlans,
+  getAllColleges,
+  addNewSubscription,
+  getTrialProduct,
+} from '../../../api';
 import * as Yup from 'yup';
 
 export function PrintDigitalSubscriptionForm({
@@ -140,7 +145,7 @@ export function PrintDigitalSubscriptionForm({
     if (allPlans.length === 1) {
       setSelectedPlan(allPlans[0]);
     }
-  }, [allPlans])
+  }, [allPlans]);
 
   const style = {
     control: (provided, state) => ({
@@ -269,11 +274,12 @@ export function PrintDigitalSubscriptionForm({
     email: undefined,
     mobile: undefined,
     coupon: undefined,
-    is_trial: is_trial
-      && selectedPlan
-      && selectedPlan.recurring === 'Yearly'
-      && selectedPlan.country
-      && selectedPlan.country.name === 'USA',
+    is_trial:
+      is_trial &&
+      selectedPlan &&
+      selectedPlan.recurring === 'Yearly' &&
+      selectedPlan.country &&
+      selectedPlan.country.name === 'USA',
     quantity: 1,
     plan: undefined,
     city: undefined,
@@ -312,11 +318,12 @@ export function PrintDigitalSubscriptionForm({
       ...(values.state && { state: parseInt(values.state) }),
       ...(paymentMethod &&
         paymentMethod !== 'other' && { card_token: paymentMethod }),
-      is_trial: is_trial
-        && selectedPlan
-        && selectedPlan.recurring === 'Yearly'
-        && selectedPlan.country
-        && selectedPlan.country.name === 'USA',
+      is_trial:
+        is_trial &&
+        selectedPlan &&
+        selectedPlan.recurring === 'Yearly' &&
+        selectedPlan.country &&
+        selectedPlan.country.name === 'USA',
     };
     try {
       const response = await addNewSubscription(finalValues);
@@ -456,10 +463,7 @@ export function PrintDigitalSubscriptionForm({
                   <div className={Styles.form}>
                     {
                       <>
-                        <div
-                          className={Styles.country}
-                          ref={autoScroll}
-                        >
+                        <div className={Styles.country} ref={autoScroll}>
                           <div className={Styles.selectCountry}>
                             SELECT LOCATION
                           </div>
@@ -570,8 +574,9 @@ export function PrintDigitalSubscriptionForm({
                 )}
               {(countriesList?.length <= 1 ||
                 (selectedCountry !== 'others' && selectedCountry)) &&
-                (deliveryType === 'shipping' || distributor) && (
-                  (allPlans.length > 1 && <div className={Styles.form}>
+                (deliveryType === 'shipping' || distributor) &&
+                allPlans.length > 1 && (
+                  <div className={Styles.form}>
                     <div className={Styles.plan}>
                       <div className={Styles.selectPlan}>SELECT PLAN</div>
                       <div className={Styles.plansContainer}>
@@ -589,9 +594,8 @@ export function PrintDigitalSubscriptionForm({
                           ))}
                       </div>
                     </div>
-                  </div>)
-                )
-              }
+                  </div>
+                )}
 
               {selectedPlan?.student_only && (
                 <div className={Styles.form}>
@@ -619,7 +623,11 @@ export function PrintDigitalSubscriptionForm({
                 selectedPlan &&
                 selectedCountry !== 'others' && (
                   <div className={Styles.form}>
-                    <div className={Styles.selectCountry}>SHIPPING INFO</div>
+                    <div className={Styles.selectCountry}>
+                      {selectedCountry.has_distributors
+                        ? 'CONTACT INFO'
+                        : 'SHIPPING INFO'}
+                    </div>
                     <div className={Styles.nameSection}>
                       <label>
                         <input
