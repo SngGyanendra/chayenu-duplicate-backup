@@ -76,12 +76,14 @@ export async function getAllProducts({
     };
   }
 
+
+  var isMobile = window.matchMedia("(max-width: 65rem)");
   const { data } = await axios.get(`${directusUrl}/items/products`, {
     params: {
       fields: '*.*.*',
       filter,
       deep,
-      sort: 'order',
+      sort: isMobile.matches ? 'mobile_order' : 'order',
     },
   });
   return data;
