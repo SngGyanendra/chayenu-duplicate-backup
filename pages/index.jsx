@@ -239,11 +239,9 @@ export default function Home() {
                 and retain blessings from Hashem.
               </p>
               <Image src={Chitas} alt="" width={225} height={293} />
-              <button>
-                <Link href="https://www.chitas.org/" target="_blank">
-                  VISIT CHITAS.ORG
-                </Link>
-              </button>
+              <Link href="https://www.chitas.org/" target="_blank">
+                <button>VISIT CHITAS.ORG</button>
+              </Link>
             </div>
           </div>
         </ContainerCard>
