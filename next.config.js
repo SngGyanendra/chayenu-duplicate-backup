@@ -49,6 +49,11 @@ const nextConfig = {
         destination: '/faq',
         permanent: false,
       },
+      {
+        source: '/shaimos',
+        destination: 'https://old.chayenu.org/shaimos',
+        permanent: false,
+      }
     ];
   },
 };
