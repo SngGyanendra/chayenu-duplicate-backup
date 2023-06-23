@@ -238,7 +238,6 @@ export default function Home() {
                 Join the movement to study Chitas daily, and in turn, receive
                 and retain blessings from Hashem.
               </p>
-              <p className={Styles.sample}>COMING SOON</p>
               <Image src={Chitas} alt="" width={225} height={293} />
               <button>
                 <Link href="https://www.chitas.org/" target="_blank">
