@@ -5,7 +5,6 @@ export async function getAllPlans(
   id,
   { is_military_only = false, student_only = false, is_trial = false }
 ) {
-  console.log(is_military_only, student_only);
   try {
     const filter = {
       _and: [
@@ -68,6 +67,7 @@ export async function addNewSubscription(values) {
       },
       ...(values.college && { college: values.college }),
       ...(values.coupon && { coupon: values.coupon }),
+      ...(values.distributor && { distributor: parseInt(values.distributor) }),
       is_trial: values.is_trial,
       plan: values.plan,
       quantity: values.quantity,
