@@ -41,6 +41,10 @@ export function Footer() {
           >
             Newsletter
           </li>
+          <li>
+            {' '}
+            <Link href="https://old.chayenu.org/contact/" target="_blank">Contact Us</Link>
+          </li>
         </ul>
       </div>
       <div className={Styles.lowerLayer}>
