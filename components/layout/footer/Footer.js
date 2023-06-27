@@ -34,16 +34,16 @@ export function Footer() {
             {' '}
             <Link href="https://old.chayenu.org/weekly-digest/" target="_blank">Chayus</Link>
           </li>
+          <li>
+            {' '}
+            <Link href="https://old.chayenu.org/contact/" target="_blank">Contact</Link>
+          </li>
           <li
             onClick={() => {
               setPopup('newsletter');
             }}
           >
             Newsletter
-          </li>
-          <li>
-            {' '}
-            <Link href="https://old.chayenu.org/contact/" target="_blank">Contact Us</Link>
           </li>
         </ul>
       </div>
