@@ -58,6 +58,11 @@ const nextConfig = {
         source: '/specialorders',
         destination: 'https://www.chshippingcenter.com/chayenu/special-order-chayenu/',
         permanent: false,
+      }, 
+      {
+        source: '/chayus',
+        destination: 'https://old.chayenu.org/weekly-digest',
+        permanent: false,
       }
     ];
   },
