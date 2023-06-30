@@ -315,3 +315,23 @@ export async function getTrialProduct() {
   });
   return data;
 }
+
+export async function getUploadBySlug(slug) {
+  const filter = {
+    slug: {
+      _eq: slug,
+    },
+  };
+
+  const axiosParams = {
+    params: {
+      fields: '*.*.*',
+      filter,
+    },
+  };
+
+  const {
+    data: { data },
+  } = await axios.get(`${directusUrl}/items/uploads`, axiosParams);
+  return data[0];
+}
