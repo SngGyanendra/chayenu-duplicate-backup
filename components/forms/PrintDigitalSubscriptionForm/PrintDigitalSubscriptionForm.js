@@ -331,10 +331,16 @@ export function PrintDigitalSubscriptionForm({
       setPopup('successfulSubscription');
     } catch (error) {
       console.log(error);
-      toastTemplate(
-        toast.error,
-        'Something went wrong! Please try again later'
-      );
+      let message = 'Something went wrong! Please try again later';
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message &&
+        error.response.data.message === "server.trial.is_used"
+      ) {
+        message = 'You have alread used a trial before';
+      }
+      toastTemplate(toast.error, message);
       setLoading(false);
     }
   };

@@ -201,6 +201,7 @@ export function UpdateShippingInfo({ subscription, setPopupState }) {
               className={`${!values.country ? Styles.defaultOption : ''}`}
               defaultValue="country"
               value={values.country}
+              disabled
             >
               <option value="country" disabled={true} hidden={true}>
                 Country
