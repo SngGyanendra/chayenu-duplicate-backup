@@ -25,6 +25,7 @@ export default function Subscribe({ query }) {
         node.scrollIntoView({ behavior: 'smooth' });
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
     [selectedProduct]
   );
 
@@ -48,6 +49,7 @@ export default function Subscribe({ query }) {
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
   }, [query]);
 
   const centerCardStyles = { transform: 'scale(1.1)' };
