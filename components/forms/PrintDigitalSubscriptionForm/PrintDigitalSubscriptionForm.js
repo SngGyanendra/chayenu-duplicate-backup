@@ -335,11 +335,15 @@ export function PrintDigitalSubscriptionForm({
       if (
         error.response &&
         error.response.data &&
-        error.response.data.message &&
-        error.response.data.message === "server.trial.is_used"
-      ) {
-        message = 'You have alread used a trial before';
+        error.response.data.message 
+        ) {
+          if (error.response.data.message === "server.trial.is_used") {
+            message = 'You have alread used a trial before';
+          } else {
+            message = error.response.data.message
+          }
       }
+
       toastTemplate(toast.error, message);
       setLoading(false);
     }
