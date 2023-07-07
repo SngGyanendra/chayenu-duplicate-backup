@@ -257,10 +257,11 @@ export function DigitalSubscriptionForm({
       setLoading(false);
     } catch (error) {
       console.log(error);
-      toastTemplate(
-        toast.error,
-        'Something went wrong! Please try again later'
-      );
+      let message = 'Something went wrong! Please try again later';
+      if (error.response && error.response.data && error.response.data.message) {
+        message = error.response.data.message;
+      }
+      toastTemplate(toast.error, message);
       setLoading(false);
     }
   };
