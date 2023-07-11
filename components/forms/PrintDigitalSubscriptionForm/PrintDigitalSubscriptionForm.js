@@ -258,7 +258,7 @@ export function PrintDigitalSubscriptionForm({
   function formatCollegeName(college) {
     return (
       <div className={Styles.stylePaymentMethods}>
-        {`${college.college_name} (Rabbi & ${college.last_name})`}
+        {`${college.college_name} (Rabbi & Mrs. ${college.last_name})`}
       </div>
     );
   }
