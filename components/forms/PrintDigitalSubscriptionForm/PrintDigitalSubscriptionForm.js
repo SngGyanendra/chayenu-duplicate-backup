@@ -258,7 +258,7 @@ export function PrintDigitalSubscriptionForm({
   function formatCollegeName(college) {
     return (
       <div className={Styles.stylePaymentMethods}>
-        {`${college.college_name} (Rabbi & ${college.last_name})`}
+        {`${college.college_name} (Rabbi & Mrs. ${college.last_name})`}
       </div>
     );
   }
@@ -616,7 +616,8 @@ export function PrintDigitalSubscriptionForm({
                     styles={collegesStyle}
                     placeholder={'Select a college'}
                     className={Styles.selectCollegesDropdown}
-                    getOptionValue={(option) => option.id}
+                    getOptionValue={(option) => option.college_name}
+                    isSearchable={true}
                     id="colleges"
                     formatOptionLabel={(card) => formatCollegeName(card)}
                     components={{
