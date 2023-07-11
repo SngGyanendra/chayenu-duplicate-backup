@@ -258,7 +258,11 @@ export function DigitalSubscriptionForm({
     } catch (error) {
       console.log(error);
       let message = 'Something went wrong! Please try again later';
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         message = error.response.data.message;
       }
       toastTemplate(toast.error, message);
@@ -381,8 +385,9 @@ export function DigitalSubscriptionForm({
                     styles={collegesStyle}
                     placeholder={'Select a college'}
                     className={Styles.selectCollegesDropdown}
-                    getOptionValue={(option) => option.id}
+                    getOptionValue={(option) => option.college_name}
                     id="colleges"
+                    isSearchable={true}
                     formatOptionLabel={(card) => formatCollegeName(card)}
                     components={{
                       IndicatorSeparator: () => null,

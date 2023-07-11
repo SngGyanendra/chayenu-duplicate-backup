@@ -616,7 +616,8 @@ export function PrintDigitalSubscriptionForm({
                     styles={collegesStyle}
                     placeholder={'Select a college'}
                     className={Styles.selectCollegesDropdown}
-                    getOptionValue={(option) => option.id}
+                    getOptionValue={(option) => option.college_name}
+                    isSearchable={true}
                     id="colleges"
                     formatOptionLabel={(card) => formatCollegeName(card)}
                     components={{
