@@ -11,6 +11,15 @@
     display: flex;
     justify-content: space-between;
   }
+  .quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    justify-content: space-between;
+  }
+  .quantity > select {
+    width: 50px;
+  }
   .additional {
     display: flex;
     justify-content: space-between;
