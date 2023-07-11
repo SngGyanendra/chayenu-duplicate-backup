@@ -63,7 +63,17 @@ const nextConfig = {
         source: '/chayus',
         destination: 'https://old.chayenu.org/weekly-digest',
         permanent: false,
-      }
+      },
+      {
+        source: '/schools',
+        destination: 'https://www.chshippingcenter.com/chayenu/schools/',
+        permanent: false,
+      },
+      {
+        source: '/camps',
+        destination: 'https://www.chshippingcenter.com/chayenu/camps/',
+        permanent: false,
+      },
     ];
   },
 };
