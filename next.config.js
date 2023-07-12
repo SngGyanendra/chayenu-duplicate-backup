@@ -74,6 +74,11 @@ const nextConfig = {
         destination: 'https://www.chshippingcenter.com/chayenu/camps/',
         permanent: false,
       },
+      {
+        source:'/weekly-digest',
+        destination: 'https://old.chayenu.org/weekly-digest',
+        permanent: false,
+      }
     ];
   },
 };
