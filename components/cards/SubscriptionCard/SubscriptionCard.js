@@ -37,6 +37,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     countries,
     zip_code,
     next_bill_date,
+    quantity,
   }) => ({
     plans,
     status,
@@ -48,6 +49,7 @@ export function SubscriptionCard({ subscription, setLoading }) {
     address_1,
     address_2,
     city,
+    quantity,
     states,
     countries,
     next_bill_date,
@@ -93,10 +95,12 @@ export function SubscriptionCard({ subscription, setLoading }) {
         count++;
       } else if (key === 'paymentMethod' && obj[key] !== null) {
         count++;
+      } else if (key === 'quantity' && obj[key] !== null) {
+        count++;
       }
     }
     if (width > 770) {
-      if (count > 5) return 5;
+      if (count > 6) return 6;
     }
     return count;
   }
@@ -238,6 +242,14 @@ export function SubscriptionCard({ subscription, setLoading }) {
             >
               CHANGE
             </span>
+          </div>
+        );
+        break;
+      case 'quantity':
+        html = (
+          <div>
+            <span className={Styles.keys}>Quantity:</span>
+            <span className={Styles.value}>{value}</span>
           </div>
         );
         break;
