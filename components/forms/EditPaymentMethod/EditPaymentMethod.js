@@ -22,10 +22,15 @@ export function EditPaymentMethod({
   const APIs = new AuthencticatedUserAPI();
   const dispatch = useDispatch();
   const { countries: countriesList } = useSelector((state) => state.user);
-
+  const [states, setStates] = useState([]);
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState();
+
+  useEffect(() => {
+    const stateList = [...(selectedCountry?.states || [])];
+    setStates(stateList);
+  }, [selectedCountry]);
 
   useEffect(() => {
     const countryObject = countries.find((value) => value.id === country);
@@ -130,8 +135,8 @@ export function EditPaymentMethod({
           }
           setLoading(false);
           setEditingState(false);
-          const userDetails = await APIs.getUser()
-          dispatch(updateUserDetails(userDetails))
+          const userDetails = await APIs.getUser();
+          dispatch(updateUserDetails(userDetails));
           const newPaymentMethods = await APIs.getAllPaymentMethods();
           dispatch(updatePaymentMethods(newPaymentMethods));
         } catch (error) {
@@ -204,11 +209,13 @@ export function EditPaymentMethod({
                   >
                     State
                   </option>
-                  {selectedCountry?.states?.map((country) => (
-                    <option value={country.id} key={country.id}>
-                      {country.name}
-                    </option>
-                  ))}
+                  {states
+                    ?.sort((a, b) => a.name.localeCompare(b.name))
+                    ?.map((country) => (
+                      <option value={country.id} key={country.id}>
+                        {country.name}
+                      </option>
+                    ))}
                 </select>
                 <span className={Styles.error}>
                   {errors.state && touched.state && errors.state}
