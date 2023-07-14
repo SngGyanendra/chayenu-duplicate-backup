@@ -12,3 +12,4 @@ export * from './Skeleteons/TransactionsSkeleton/TransactionsSkeleton';
 export * from './Skeleteons/CountryLoadingSkeleton/CountryLoadingSkeleton';
 export * from './Skeleteons/PlanLoadingSkeleton/PlanLoadingSkeleton';
 export * from './SuccessfulSubscription/SuccessfulSubscription';
+export * from './SupportRequestSubmitted/SupportRequestSubmitted'

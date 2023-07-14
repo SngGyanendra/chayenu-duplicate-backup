@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { NextHead } from '/components/common';
+import { NextHead, PageLoadFailed, Popup } from '/components/common';
 import { Formik } from 'formik';
 import Select from 'react-select';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { getAllSupportIssues } from '/api/common';
-import { Popup } from '/components/common';
 import { updateSubscriptions, updateSupportIssues } from '/store/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouter } from 'next/router';
-import { PageLoadFailed } from '/components/common';
+import { SupportRequestSubmitted } from '/components/cards';
 import Styles from '/styles/support.module.scss';
 
 export default function Support() {
@@ -244,7 +242,10 @@ export default function Support() {
             if (popup === 'requestProcessed') {
               return (
                 <Popup setPopupState={setPopup}>
-                  <SupportRequestSubmitted requestError={requestError} />
+                  <SupportRequestSubmitted
+                    requestError={requestError}
+                    redirectToPortal={true}
+                  />
                 </Popup>
               );
             }
@@ -252,25 +253,5 @@ export default function Support() {
         </>
       )}
     </>
-  );
-}
-function SupportRequestSubmitted({ requestError }) {
-  const router = useRouter();
-
-  return (
-    <div className={Styles.card}>
-      {requestError ? (
-        requestError
-      ) : (
-        <div>We got your message. We will respond as soon as possible.</div>
-      )}
-      <button
-        onClick={() => {
-          router.push('/portal/my-subscriptions');
-        }}
-      >
-        Ok
-      </button>
-    </div>
   );
 }
