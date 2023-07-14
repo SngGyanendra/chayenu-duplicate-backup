@@ -1,0 +1,73 @@
+@import 'common.scss';
+
+.contact {
+  width: var(--container-width-75);
+  background-color: var(--website-color-opacity-low);
+  padding: 1.5rem;
+  margin: 2rem auto;
+  border-radius: 10px;
+  .form {
+    input {
+      border-radius: 5px;
+      margin-top: 5px;
+      padding: 0px 10px;
+      font: fontvalue(13, 13, 300);
+      border: none;
+      width: 100%;
+      box-shadow: none;
+      height: 2rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    textarea {
+      border-radius: 5px;
+      margin-top: 5px;
+      padding: 0px 10px;
+      font: fontvalue(13, 13, 300);
+      border: none;
+      box-shadow: none;
+      padding: 10px 10px;
+      resize: none;
+      height: 10rem;
+      margin-top: 1rem;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      height: 2rem;
+      border-radius: 5px;
+      padding: 0px 10px;
+      font-size: 1rem;
+      margin: 0 auto;
+      font: fontvalue(12, 12, 500);
+      border: none;
+      color: white;
+      background-color: var(--website-color);
+    }
+  }
+  .nameAndEmail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+  }
+  .submitButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .error {
+    font: fontvalue(12, 12, 600);
+    color: #be1550;
+    text-align: left;
+    display: inline-block;
+    min-width: 1px;
+    height: 12px;
+  }
+  .disabled {
+    background-color: grey !important;
+    cursor: auto;
+  }
+}

@@ -77,7 +77,7 @@
     }
   }
   @media screen and (max-width: 71.875rem) {
-    height: 18rem;
+    height: 20rem;
     .upperLayer {
       flex-wrap: wrap;
       justify-content: center;
@@ -93,13 +93,12 @@
         flex-wrap: wrap;
         text-align: center;
         justify-content: space-between;
-        height: 5rem;
+        height: 6rem;
         li {
           text-transform: initial;
           font-size: 0.875rem;
         }
-        li:first-child,
-        :nth-child(2) {
+        li {
           width: 50%;
         }
       }
