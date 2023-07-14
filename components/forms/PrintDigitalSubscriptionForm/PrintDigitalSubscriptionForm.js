@@ -732,11 +732,15 @@ export function PrintDigitalSubscriptionForm({
                                   <option value="" hidden={true}>
                                     State
                                   </option>
-                                  {selectedCountry?.states?.map((state) => (
-                                    <option key={state.id} value={state.id}>
-                                      {state.name}
-                                    </option>
-                                  ))}
+                                  {selectedCountry?.states
+                                    ?.sort((a, b) =>
+                                      a.name.localeCompare(b.name)
+                                    )
+                                    .map((state) => (
+                                      <option key={state.id} value={state.id}>
+                                        {state.name}
+                                      </option>
+                                    ))}
                                 </select>
                                 <span className={Styles.error}>
                                   {errors.state &&

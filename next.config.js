@@ -78,7 +78,12 @@ const nextConfig = {
         source:'/weekly-digest',
         destination: 'https://old.chayenu.org/weekly-digest',
         permanent: false,
-      }
+      },
+      {
+        source: '/shluchim',
+        destination: 'https://old.chayenu.org/shluchim/',
+        permanent: false,
+      },
     ];
   },
 };

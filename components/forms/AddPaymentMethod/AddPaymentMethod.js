@@ -19,6 +19,7 @@ export function AddPaymentMethod({ setEditingState }) {
 
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [states, setStates] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState();
   const [hostedFields, setHostedFields] = useState();
   const [cardErrors, setCardErrors] = useState({
@@ -39,6 +40,11 @@ export function AddPaymentMethod({ setEditingState }) {
       setCountries(countriesList);
     }
   }, [countriesList]);
+
+  useEffect(() => {
+    const stateList = [...(selectedCountry?.states || [])];
+    setStates(stateList);
+  }, [selectedCountry]);
 
   const initialValues = {
     address_1: undefined,
@@ -187,11 +193,13 @@ export function AddPaymentMethod({ setEditingState }) {
                     >
                       State
                     </option>
-                    {selectedCountry?.states?.map((country) => (
-                      <option value={country.id} key={country.id}>
-                        {country.name}
-                      </option>
-                    ))}
+                    {states
+                      ?.sort((a, b) => a.name.localeCompare(b.name))
+                      ?.map((state) => (
+                        <option value={state.id} key={state.id}>
+                          {state.name}
+                        </option>
+                      ))}
                   </select>
                   <span className={Styles.error}>
                     {errors.state && touched.state && errors.state}
