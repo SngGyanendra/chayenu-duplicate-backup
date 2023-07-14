@@ -17,6 +17,7 @@ export default function Subscribe({ product }) {
         <PrintDigitalSubscriptionForm
           selectedProduct={product}
           is_military_only={false}
+          is_shluchim_only={false}
           student_only={false}
           is_trial
         />
