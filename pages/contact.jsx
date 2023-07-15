@@ -4,6 +4,7 @@ import { SupportRequestSubmitted } from '/components/cards';
 import { Popup } from '/components/common';
 import { Formik } from 'formik';
 import Styles from '../styles/contact.module.scss';
+import { sendContactUsEmail } from "../api/contact-us";
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -11,19 +12,19 @@ export default function Contact() {
   const [popup, setPopup] = useState();
 
   const initialValues = {
-    full_name: '',
+    fullName: '',
     email: '',
     message: '',
   };
 
   const initialErrors = {
-    full_name: '',
+    fullName: '',
     email: '',
     message: '',
   };
 
   const validationSchema = Yup.object().shape({
-    full_name: Yup.string().required('Name is required'),
+    fullName: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     message: Yup.string().required('Message is Required'),
   });
@@ -34,9 +35,10 @@ export default function Contact() {
         initialValues={initialValues}
         initialErrors={initialErrors}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           setLoading(true);
           try {
+            await sendContactUsEmail(values);
             console.log('send mail here', values);
           } catch (error) {
             setRequestError('Unable to send message. Please try again later.');
@@ -59,13 +61,13 @@ export default function Contact() {
                 <input
                   type="text"
                   placeholder="Full Name *"
-                  name="full_name"
-                  value={values.full_name}
+                  name="fullName"
+                  value={values.fullName}
                   onChange={handleChange}
                   onBlur={handleBlur}
                 />
                 <span className={Styles.error}>
-                  {errors.full_name && touched.full_name && errors.full_name}
+                  {errors.fullName && touched.fullName && errors.fullName}
                 </span>
               </div>
               <div>
