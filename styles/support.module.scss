@@ -83,26 +83,3 @@
     color: #BE1550;
   }
 }
-
-.card {
-  background-color: var(--website-color-light);
-  font: fontvalue(14, 14, 500);
-  text-align: center;
-  padding: 20px;
-  border-radius: 10px;
-  width: min(18rem, 90vw);
-  display: grid;
-  row-gap: 1rem;
-  button {
-    height: 2rem;
-    border-radius: 5px;
-    padding: 0px 10px;
-    font-size: 1rem;
-    font: fontvalue(14, 14, 500);
-    border: none;
-    width: 3rem;
-    margin: 0 auto;
-    color: white;
-    background-color: var(--website-color);
-  }
-}

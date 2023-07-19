@@ -37,7 +37,7 @@ export function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="https://old.chayenu.org/contact/" target="_blank">
+            <Link href="/contact">
               Contact
             </Link>
           </li>

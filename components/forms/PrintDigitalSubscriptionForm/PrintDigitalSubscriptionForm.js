@@ -30,6 +30,7 @@ export function PrintDigitalSubscriptionForm({
   selectedProduct,
   student_only,
   is_military_only,
+  is_shluchim_only,
   autoScroll,
   is_trial = false,
 }) {
@@ -93,8 +94,8 @@ export function PrintDigitalSubscriptionForm({
       } else {
         const { data: plans } = await getAllPlans(selectedProduct.id, {
           is_military_only,
+          is_shluchim_only,
           student_only,
-          is_trial,
         });
         data = plans;
       }
@@ -115,7 +116,13 @@ export function PrintDigitalSubscriptionForm({
       }
     })();
     setSelectedPlan(undefined);
-  }, [selectedProduct, student_only, is_military_only]);
+  }, [
+    selectedProduct,
+    student_only,
+    is_military_only,
+    is_shluchim_only,
+    is_trial
+  ]);
 
   useEffect(() => {
     if (typeof coupon === 'object') {
