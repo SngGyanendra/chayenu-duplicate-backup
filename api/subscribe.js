@@ -2,8 +2,11 @@ import axios from 'axios';
 import { directusUrl, backendUrl } from './config';
 
 export async function getAllPlans(
-  id,
-  { is_military_only = false, student_only = false, is_trial = false }
+  id, {
+    is_military_only = false,
+    is_shluchim_only = false,
+    student_only = false,
+  }
 ) {
   try {
     const filter = {
@@ -13,33 +16,23 @@ export async function getAllPlans(
       ],
     };
 
-    if (is_military_only) {
-      filter._and.push({
-        is_military_only: {
-          _eq: true,
-        },
-      });
-    } else {
-      filter._and.push({
-        is_military_only: {
-          _eq: false,
-        },
-      });
-    }
+    filter._and.push({
+      is_military_only: {
+        _eq: is_military_only,
+      },
+    });
 
-    if (student_only) {
-      filter._and.push({
-        student_only: {
-          _eq: true,
-        },
-      });
-    } else {
-      filter._and.push({
-        student_only: {
-          _eq: false,
-        },
-      });
-    }
+    filter._and.push({
+      is_shluchim_only: {
+        _eq: is_shluchim_only,
+      },
+    });
+
+    filter._and.push({
+      student_only: {
+        _eq: student_only,
+      },
+    });
 
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
       params: {

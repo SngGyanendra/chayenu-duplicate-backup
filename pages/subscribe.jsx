@@ -33,11 +33,20 @@ export default function Subscribe({ query }) {
     try {
       const productQuery = {};
 
-      if (query.student_only === 'true') productQuery.student_only = true;
-      if (query.is_military_only === 'true')
+      if (query.student_only === 'true') {
+        productQuery.student_only = true;
+      }
+
+      if (query.is_military_only === 'true') {
         productQuery.is_military_only = true;
+      }
+
+      if (query.is_shluchim_only === 'true') {
+        productQuery.is_shluchim_only = true;
+      }
 
       const { data } = await getAllProducts(productQuery);
+
       setLoading(false);
       setAllProducts(data);
     } catch (error) {
@@ -167,6 +176,7 @@ export default function Subscribe({ query }) {
                 <DigitalSubscriptionForm
                   selectedProduct={selectedProduct}
                   is_military_only={query.is_military_only}
+                  is_shluchim_only={query.is_shluchim_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
                 />
@@ -176,6 +186,7 @@ export default function Subscribe({ query }) {
                 <PrintDigitalSubscriptionForm
                   selectedProduct={selectedProduct}
                   is_military_only={query.is_military_only}
+                  is_shluchim_only={query.is_shluchim_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
                 />

@@ -4,6 +4,7 @@ import { directusUrl } from './config';
 export async function getAllProducts({
   student_only = false,
   is_military_only = false,
+  is_shluchim_only = false,
 }) {
   const filter = {
     _and: [
@@ -22,7 +23,10 @@ export async function getAllProducts({
     },
   };
 
-  if (student_only === false && is_military_only === false) {
+  if (student_only === false
+    && is_military_only === false
+    && is_shluchim_only === false
+  ) {
     filter._and.push({
       plans: {
         student_only: {
@@ -39,11 +43,23 @@ export async function getAllProducts({
       },
     });
 
+    filter._and.push({
+      plans: {
+        is_shluchim_only: {
+          _eq: false,
+        },
+      },
+    });
+
     deep.plans._filter.student_only = {
       _eq: false,
     };
 
     deep.plans._filter.is_military_only = {
+      _eq: false,
+    };
+
+    deep.plans._filter.is_shluchim_only = {
       _eq: false,
     };
   }
@@ -76,6 +92,19 @@ export async function getAllProducts({
     };
   }
 
+  if (is_shluchim_only) {
+    filter._and.push({
+      plans: {
+        is_shluchim_only: {
+          _eq: true,
+        },
+      },
+    });
+
+    deep.plans._filter.is_shluchim_only = {
+      _eq: true,
+    };
+  }
 
   var isMobile = window.matchMedia("(max-width: 65rem)");
   const { data } = await axios.get(`${directusUrl}/items/products`, {
@@ -101,6 +130,7 @@ export async function getAllCountries() {
       },
     },
   });
+
   return data;
 }
 
@@ -114,6 +144,7 @@ export async function getAllStories(forSiteMap = false) {
       sort: 'order',
     },
   });
+
   return data;
 }
 
@@ -126,6 +157,7 @@ export async function getAllPages() {
       },
     },
   });
+
   return data;
 }
 
@@ -147,6 +179,7 @@ export async function getStoryById(id) {
       },
     },
   });
+
   return data;
 }
 
@@ -166,6 +199,7 @@ export async function getStoriesBySlug(slug) {
       },
     },
   });
+
   return data;
 }
 
@@ -274,6 +308,13 @@ export async function getTrialProduct() {
         },
       },
       {
+        plans: {
+          is_shluchim_only: {
+            _eq: false,
+          },
+        },
+      },
+      {
         name: {
           _eq: 'Chayenu',
         },
@@ -299,6 +340,9 @@ export async function getTrialProduct() {
           _eq: false,
         },
         is_military_only: {
+          _eq: false,
+        },
+        is_shluchim_only: {
           _eq: false,
         },
       },

@@ -81,7 +81,7 @@ const nextConfig = {
       },
       {
         source: '/shluchim',
-        destination: 'https://old.chayenu.org/shluchim/',
+        destination: '/subscribe?is_shluchim_only=true',
         permanent: false,
       },
     ];

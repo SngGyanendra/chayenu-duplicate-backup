@@ -25,6 +25,7 @@ export function DigitalSubscriptionForm({
   selectedProduct,
   student_only,
   is_military_only,
+  is_shluchim_only,
   autoScroll,
 }) {
   const [allPlans, setAllPlans] = useState([]);
@@ -77,6 +78,7 @@ export function DigitalSubscriptionForm({
     (async () => {
       const { data } = await getAllPlans(selectedProduct.id, {
         is_military_only,
+        is_shluchim_only,
         student_only,
       });
       const { data: colleges } = await getAllColleges();
@@ -84,7 +86,7 @@ export function DigitalSubscriptionForm({
       setAllPlans(data);
     })();
     setSelectedPlan(undefined);
-  }, [selectedProduct, is_military_only, student_only]);
+  }, [selectedProduct, is_military_only, student_only, is_shluchim_only]);
 
   useEffect(() => {
     if (typeof coupon === 'object') {
