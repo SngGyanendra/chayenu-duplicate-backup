@@ -49,7 +49,7 @@ export default function Subscribe({ query }) {
 
   useEffect(() => {
     getData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
   }, [query]);
 
   const centerCardStyles = { transform: 'scale(1.1)' };
@@ -139,6 +139,7 @@ export default function Subscribe({ query }) {
                       style={
                         !query.student_only &&
                         !query.is_military_only &&
+                        allProducts?.length === 3 &&
                         width > 1300
                           ? index === 1
                             ? centerCardStyles
