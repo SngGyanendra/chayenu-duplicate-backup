@@ -642,7 +642,7 @@ export function PrintDigitalSubscriptionForm({
                 selectedCountry !== 'others' && (
                   <div className={Styles.form}>
                     <div className={Styles.selectCountry}>
-                      {selectedCountry.has_distributors
+                      {selectedCountry?.has_distributors
                         ? 'CONTACT INFO'
                         : 'SHIPPING INFO'}
                     </div>
