@@ -90,6 +90,24 @@ export default function Subscribe({ query }) {
       );
     }
 
+    if (query.is_shluchim_only) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            marginTop: '24px',
+          }}
+        >
+          <p className={Styles.studentmilitaryline}>
+          Special Chayenu subscription rates exclusively for Shluchim.
+          </p>
+        </div>
+      );
+    }
+
     if (query.student_only) {
       return (
         <div
