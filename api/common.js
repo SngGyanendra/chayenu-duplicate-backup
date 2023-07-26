@@ -227,7 +227,7 @@ export async function getAllSupportIssues() {
 
 export async function getAllColleges() {
   try {
-    const { data } = await axios.get(`${directusUrl}/items/colleges`, {
+    const { data } = await axios.get(`${directusUrl}/items/colleges?limit=-1`, {
       params: {
         fields: '*.*',
       },
