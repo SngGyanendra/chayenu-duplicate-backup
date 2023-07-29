@@ -29,7 +29,7 @@ export function Coupon({
     }
     const couponFilter = {
       _and: [
-        { code: { _eq: values?.coupon } },
+        { code: { _icontains: values?.coupon } },
         { plans: { plans_id: { _eq: selectedPlan?.id?.toString() } } },
         { status: { _neq: 'archived' } },
       ],
@@ -37,13 +37,17 @@ export function Coupon({
     try {
       const { data } = await validateCoupon(couponFilter);
       if (!data.length) throw Error('Invalid coupon');
-      if (data[0].is_used) throw Error('Coupon already used');
+
+      const coupon = data.find(c => c.code.toLowerCase() === values?.coupon.toLowerCase())
+      if (!coupon) throw Error('Invalid coupon')
+
+      if (coupon.is_used) throw Error('Coupon already used');
       const currentDate = Date.now();
-      if (new Date(data[0].expiry_date).getTime() < currentDate)
+      if (new Date(coupon.expiry_date).getTime() < currentDate)
         throw Error('Coupon has expired');
       setIsCouponVerified(true);
-      setCoupon(data[0]);
-      values.coupon = data[0].code;
+      setCoupon(coupon);
+      values.coupon = coupon.code;
     } catch (err) {
       values.coupon = undefined;
       setCoupon(undefined);
