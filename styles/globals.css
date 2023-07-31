@@ -102,3 +102,6 @@ button {
 .react-tel-input .form-control {
   padding: 0;
 }
+.react-tel-input .selected-flag.open:before {
+  border: 0;
+}
