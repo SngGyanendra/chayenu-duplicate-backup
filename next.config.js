@@ -84,6 +84,56 @@ const nextConfig = {
         destination: '/subscribe?is_shluchim_only=true',
         permanent: false,
       },
+      {
+        source: '/chumash',
+        destination: 'chayenu-section/chumash',
+        permanent: false,
+      },
+      {
+        source: '/tehillim',
+        destination: '/chayenu-section/tehillim',
+        permanent: false,
+      },
+      {
+        source: '/tanya',
+        destination: '/chayenu-section/tanya',
+        permanent: false,
+      },
+      {
+        source: '/rambamtracks',
+        destination: '/chayenu-sections/rambam',
+        permanent: false,
+      },
+      {
+        source: '/3',
+        destination: 'https://old.chayeny.org/chayenu3/',
+        permanent: false,
+      },
+      {
+        source: '/app',
+        destination: 'https://old.chayenu.org/app/',
+        permanent: false,
+      },
+      {
+        source: '/the-three-tracks',
+        destination: '/chayenu-section/rambam',
+        permanent: false,
+      },
+      {
+        source: '/LLY',
+        destination: 'https://old.chayenu.org/LLY/',
+        permanent: false,
+      },
+      {
+        source: '/chayus-archives',
+        destination: 'https://old.chayenu.org/chayus-archives/',
+        permanent: false,
+      },
+      {
+        source: '/ChofAv',
+        destination: 'http://chayenu.givingfuel.com/20-av',
+        permanent: false,
+      },
     ];
   },
 };
