@@ -5,10 +5,12 @@ import {
   Popup,
   toastTemplate,
 } from '../../../components/common';
+import PhoneInput from 'react-phone-input-2';
 import Select from 'react-select';
 import { Formik } from 'formik';
 import { validateCreditCard } from '/util';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-input-2/lib/bootstrap.css';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import Styles from './printdigitalsubscriptionform.module.scss';
@@ -25,6 +27,7 @@ import {
   getTrialProduct,
 } from '../../../api';
 import * as Yup from 'yup';
+import { countryCodes } from '../../../util/countryCodes';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -121,7 +124,7 @@ export function PrintDigitalSubscriptionForm({
     student_only,
     is_military_only,
     is_shluchim_only,
-    is_trial
+    is_trial,
   ]);
 
   useEffect(() => {
@@ -342,13 +345,13 @@ export function PrintDigitalSubscriptionForm({
       if (
         error.response &&
         error.response.data &&
-        error.response.data.message 
-        ) {
-          if (error.response.data.message === "server.trial.is_used") {
-            message = 'You have alread used a trial before';
-          } else {
-            message = error.response.data.message
-          }
+        error.response.data.message
+      ) {
+        if (error.response.data.message === 'server.trial.is_used') {
+          message = 'You have alread used a trial before';
+        } else {
+          message = error.response.data.message;
+        }
       }
 
       toastTemplate(toast.error, message);
@@ -794,15 +797,27 @@ export function PrintDigitalSubscriptionForm({
                       </div>
                       <label>
                         <PhoneInput
-                          name="mobile"
-                          mask="#"
-                          placeholder="Mobile Number"
-                          countrySelectProps={{ unicodeFlags: false }}
-                          withCountryCallingCode={false}
                           className={Styles.phoneInput}
-                          onChange={(value) => {
-                            values.mobile = value;
+                          country={
+                            selectedCountry?.name
+                              ? countryCodes[selectedCountry?.name]
+                              : 'us'
+                          }
+                          countryCodeEditable={false}
+                          placeholder={'Mobile Number'}
+                          onChange={(value, country) => {
+                            const countryCode = value.slice(
+                              0,
+                              country.dialCode.length
+                            );
+                            const actualNumber = value.slice(
+                              country.dialCode.length
+                            );
+                            const formattedOutput = `+${countryCode} ${actualNumber}`;
+
+                            values.mobile = formattedOutput;
                           }}
+                          onBlur={handleBlur}
                         />
                         <span className={Styles.error}>
                           {errors.mobile && touched.mobile && errors.mobile}
