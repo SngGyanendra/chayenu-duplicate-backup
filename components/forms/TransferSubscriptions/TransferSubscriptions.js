@@ -7,7 +7,8 @@ import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { toastTemplate } from '/components/common';
 import toast from 'react-hot-toast';
 import { getAllCountries } from '/api';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput from 'react-phone-input-2';
 import Styles from './transfersubscriptions.module.scss';
 
 export function TransferSubscriptions({ subscription, setPopupState }) {
@@ -213,15 +214,16 @@ export function TransferSubscriptions({ subscription, setPopupState }) {
               {errors.email && touched.email && errors.email}
             </span>
             <PhoneInput
-              name="mobile"
-              mask="#"
-              useNationalFormatForDefaultCountryValue={true}
-              countrySelectProps={{ unicodeFlags: false }}
-              withCountryCallingCode={false}
-              placeholder="Phone"
               className={Styles.phoneInput}
-              onChange={(value) => {
-                values.mobile = value;
+              country={'us'}
+              countryCodeEditable={false}
+              placeholder={'Mobile Number'}
+              onChange={(value, country) => {
+                const countryCode = value.slice(0, country.dialCode.length);
+                const actualNumber = value.slice(country.dialCode.length);
+                const formattedOutput = `+${countryCode} ${actualNumber}`;
+
+                values.mobile = formattedOutput;
               }}
               onBlur={handleBlur}
             />
