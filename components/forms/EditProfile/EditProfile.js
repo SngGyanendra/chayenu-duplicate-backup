@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
 import { useState } from 'react';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput from 'react-phone-input-2';
 import { useDispatch } from 'react-redux';
 import { updateUserDetails } from '/store/userSlice';
 import * as Yup from 'yup';
@@ -72,7 +73,11 @@ export function EditProfile({ userProfile, setPopupState }) {
           localStorage.setItem('first_name', data?.first_name);
           localStorage.setItem('last_name', data?.last_name);
         } catch (error) {
-          toastTemplate(toast.error, 'Profile update failed\n please try again laster', loadingToast);
+          toastTemplate(
+            toast.error,
+            'Profile update failed\n please try again laster',
+            loadingToast
+          );
           setPopupState(undefined);
           setLoading(false);
         }
@@ -112,15 +117,16 @@ export function EditProfile({ userProfile, setPopupState }) {
             {errors.last_name && touched.last_name && errors.last_name}
           </span>
           <PhoneInput
-            name="mobile"
-            mask="#"
-            countrySelectProps={{ unicodeFlags: false }}
-            withCountryCallingCode={false}
-            placeholder="Phone"
             className={Styles.phoneInput}
-            value={values.mobile}
-            onChange={(e) => {
-              values.mobile = e;
+            country={'us'}
+            countryCodeEditable={false}
+            placeholder={'Mobile Number'}
+            onChange={(value, country) => {
+              const countryCode = value.slice(0, country.dialCode.length);
+              const actualNumber = value.slice(country.dialCode.length);
+              const formattedOutput = `+${countryCode} ${actualNumber}`;
+
+              values.mobile = formattedOutput;
             }}
             onBlur={handleBlur}
           />

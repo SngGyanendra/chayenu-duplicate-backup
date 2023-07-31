@@ -99,3 +99,6 @@ button {
   box-shadow: none !important;
   border: 0;
 }
+.react-tel-input .form-control {
+  padding: 0;
+}

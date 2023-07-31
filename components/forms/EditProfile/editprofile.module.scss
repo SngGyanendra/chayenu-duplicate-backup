@@ -10,37 +10,24 @@
   row-gap: 0.5rem;
   width: min(20rem, 90vw);
   .phoneInput {
-    display: flex;
-    align-items: center;
-    outline: none;
-    width: 100%;
     input {
-      // margin-left: 1rem;
+      padding-left: 60px;
+      width: 100%;
     }
-    & > div {
-      display: none;
-      align-items: center;
-      height: 100%;
-      position: relative;
-      margin-top: 0.5rem;
-      & > select {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 56px;
-        z-index: 1;
-        border: 0;
-        opacity: 0;
-        cursor: pointer;
-      }
-      & > div:nth-child(2) {
-        width: 42px;
-        height: 26px;
-        & > img {
-          height: 100%;
-        }
-      }
+    input:focus {
+      box-shadow: none;
+      border: 1px solid rgb(206, 212, 218);
+    }
+    & > input {
+      box-shadow: none;
+    }
+    div {
+      box-shadow: none;
+    }
+    div:nth-of-type(2) {
+      height: 2rem;
+      bottom: 0;
+      top: unset;
     }
   }
   input {
@@ -74,7 +61,7 @@
   }
   .error {
     font: fontvalue(14, 14, 600);
-    color: #BE1550;
+    color: #be1550;
     text-align: left;
   }
   .disabled {
