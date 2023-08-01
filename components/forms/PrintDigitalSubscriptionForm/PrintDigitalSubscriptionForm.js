@@ -73,7 +73,7 @@ export function PrintDigitalSubscriptionForm({
     if (isLoggedIn === false) {
       setPaymentMethod('other');
     }
-  }, [selectedPlan, require_cc, paymentMethod, isLoggedIn]);
+  }, [selectedPlan, require_cc, paymentMethod, isLoggedIn, selectedCollege]);
 
   useEffect(() => {
     if (payment_methods && isLoggedIn) {
