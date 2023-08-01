@@ -139,6 +139,21 @@ const nextConfig = {
         destination: 'https://chayenu.givingfuel.com/partner',
         permanent: false,
       },
+      {
+        source: '/3/dedicate',
+        destination: 'https://chayenu.givingfuel.com/chayenu3',
+        permanent: false,
+      },
+      {
+        source: '/rambam-sefer-hamitzvos',
+        destination: '/chayenu-section/sefer-hamitzvos',
+        permanent: false,
+      },
+      {
+        source: '/sefer-hamitzvos',
+        destination: 'chayenu-section/sefer-hamitzvos',
+        permanent: false,
+      },
     ];
   },
 };
