@@ -59,7 +59,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
@@ -67,8 +67,7 @@ button {
   cursor: pointer;
 }
 
-
-.webviewer{
+.webviewer {
   position: relative;
   width: 100%;
   max-width: 1200px;
@@ -82,9 +81,27 @@ button {
   }
 }
 
-@media screen and (max-width: 50rem){
-  
-  .innerDiv{
+@media screen and (max-width: 50rem) {
+  .innerDiv {
     width: 100%;
   }
+}
+
+.react-tel-input .selected-flag:focus:before {
+  box-shadow: none;
+  border: 0;
+}
+.selected-flag:before {
+  box-shadow: none;
+  border: 0;
+}
+.react-tel-input .selected-flag:before {
+  box-shadow: none !important;
+  border: 0;
+}
+.react-tel-input .form-control {
+  padding: 0;
+}
+.react-tel-input .selected-flag.open:before {
+  border: 0;
 }

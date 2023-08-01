@@ -3,8 +3,9 @@ import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import Select from 'react-select';
+import PhoneInput from 'react-phone-input-2';
 import Image from 'next/image';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
 import { validateCreditCard } from '/util';
 import {
@@ -452,16 +453,23 @@ export function DigitalSubscriptionForm({
                       </label>
                       <label>
                         <PhoneInput
-                          placeholder="Mobile"
-                          name="mobile"
-                          mask="#"
-                          useNationalFormatForDefaultCountryValue={true}
-                          countrySelectProps={{ unicodeFlags: false }}
-                          withCountryCallingCode={false}
                           className={Styles.phoneInput}
-                          onChange={(value) => {
-                            values.mobile = value;
+                          country={'us'}
+                          countryCodeEditable={false}
+                          placeholder={'Mobile Number'}
+                          onChange={(value, country) => {
+                            const countryCode = value.slice(
+                              0,
+                              country.dialCode.length
+                            );
+                            const actualNumber = value.slice(
+                              country.dialCode.length
+                            );
+                            const formattedOutput = `+${countryCode} ${actualNumber}`;
+
+                            values.mobile = formattedOutput;
                           }}
+                          onBlur={handleBlur}
                         />
                         <span className={Styles.error}>
                           {errors.mobile && touched.mobile && errors.mobile}
