@@ -134,6 +134,11 @@ const nextConfig = {
         destination: 'http://chayenu.givingfuel.com/20-av',
         permanent: false,
       },
+      {
+        source: '/dedicate',
+        destination: 'https://chayenu.givingfuel.com/partner',
+        permanent: false,
+      },
     ];
   },
 };
