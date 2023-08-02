@@ -100,13 +100,13 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source: '/rambamtracks',
-        destination: '/chayenu-sections/rambam',
+        source: '/RambamTracks',
+        destination: '/chayenu-section/rambam',
         permanent: false,
       },
       {
         source: '/3',
-        destination: 'https://old.chayeny.org/chayenu3/',
+        destination: 'https://old.chayenu.org/chayenu3/',
         permanent: false,
       },
       {
@@ -151,7 +151,7 @@ const nextConfig = {
       },
       {
         source: '/sefer-hamitzvos',
-        destination: 'chayenu-section/sefer-hamitzvos',
+        destination: '/chayenu-section/sefer-hamitzvos',
         permanent: false,
       },
     ];
