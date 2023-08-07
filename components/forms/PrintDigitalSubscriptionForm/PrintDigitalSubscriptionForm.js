@@ -866,6 +866,7 @@ export function PrintDigitalSubscriptionForm({
                           selectedPlan={selectedPlan}
                           coupon={coupon}
                           setCoupon={setCoupon}
+                          isTrial={is_trial}
                         />
                       </div>
                       {require_cc &&

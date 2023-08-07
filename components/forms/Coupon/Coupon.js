@@ -10,6 +10,7 @@ export function Coupon({
   handleBlur,
   coupon,
   setCoupon,
+  isTrial,
 }) {
   const [error, setError] = useState(undefined);
   const [isCouponVerified, setIsCouponVerified] = useState(false);
@@ -62,8 +63,15 @@ export function Coupon({
               value={values.coupon}
               onChange={handleChange}
               onBlur={handleBlur}
+              className={isTrial ? Styles.trial : ''}
+              disabled={isTrial ? Styles.trial : ''}
             />
-            <div className={Styles.apply} onClick={verifyCoupon}>
+            <div
+              onClick={verifyCoupon}
+              className={
+                isTrial ? `${Styles.trial} ${Styles.apply}` : Styles.apply
+              }
+            >
               Apply
             </div>
           </div>
