@@ -154,6 +154,16 @@ const nextConfig = {
         destination: '/chayenu-section/sefer-hamitzvos',
         permanent: false,
       },
+      {
+        source: '/chumash',
+        destination: '/chayenu-section/chumash',
+        permanent: false,
+      },
+      {
+        source: '/bereishis-5784',
+        destination: '/uploads/bereishis-5784',
+        permanent: false,
+      },
     ];
   },
 };
