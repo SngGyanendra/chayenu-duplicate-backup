@@ -831,7 +831,13 @@ export function PrintDigitalSubscriptionForm({
                   <>
                     <div className={`${Styles.form} ${Styles.paymentInfo}`}>
                       <div className={Styles.selectCountry}>PAYMENT INFO</div>
-                      <div className={Styles.selectPaymentMethod}>
+                      <div
+                        className={
+                          !is_trial
+                            ? Styles.selectPaymentMethod
+                            : `${Styles.selectPaymentMethod} ${Styles.isTrial}`
+                        }
+                      >
                         <Select
                           name="payment_method"
                           options={allPaymentMethods}
