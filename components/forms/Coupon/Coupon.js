@@ -53,48 +53,48 @@ export function Coupon({
   };
   return (
     <>
-      <label className={Styles.couponLabel}>
-        {!isCouponVerified ? (
-          <div className={Styles.coupon}>
-            <input
-              type="text"
-              name="coupon"
-              placeholder="Coupon"
-              value={values.coupon}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={isTrial ? Styles.trial : ''}
-              disabled={isTrial ? Styles.trial : ''}
-            />
-            <div
-              onClick={verifyCoupon}
-              className={
-                isTrial ? `${Styles.trial} ${Styles.apply}` : Styles.apply
-              }
-            >
-              Apply
+      {!isTrial && (
+        <label className={Styles.couponLabel}>
+          {!isCouponVerified ? (
+            <div className={Styles.coupon}>
+              <input
+                type="text"
+                name="coupon"
+                placeholder="Coupon"
+                value={values.coupon}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <div onClick={verifyCoupon} className={Styles.apply}>
+                Apply
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className={Styles.couponVerified}>
-            <span>
-              {coupon?.amount_type.toLowerCase() === 'percentage'
-                ? `${coupon?.amount}% COUPON APPLIED`
-                : `$${coupon?.amount} COUPON APPLIED`}
-            </span>
-            <span
-              onClick={() => {
-                setCoupon(undefined);
-                values.coupon = undefined;
-                setIsCouponVerified(false);
-              }}
-            >
-              <Image src="/trash.svg" alt="delet icon" height={20} width={20} />
-            </span>
-          </div>
-        )}
-        <div className={Styles.error}>{error}</div>
-      </label>
+          ) : (
+            <div className={Styles.couponVerified}>
+              <span>
+                {coupon?.amount_type.toLowerCase() === 'percentage'
+                  ? `${coupon?.amount}% COUPON APPLIED`
+                  : `$${coupon?.amount} COUPON APPLIED`}
+              </span>
+              <span
+                onClick={() => {
+                  setCoupon(undefined);
+                  values.coupon = undefined;
+                  setIsCouponVerified(false);
+                }}
+              >
+                <Image
+                  src="/trash.svg"
+                  alt="delet icon"
+                  height={20}
+                  width={20}
+                />
+              </span>
+            </div>
+          )}
+          <div className={Styles.error}>{error}</div>
+        </label>
+      )}
     </>
   );
 }

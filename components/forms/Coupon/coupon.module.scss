@@ -12,9 +12,6 @@
   .coupon {
     width: 100%;
     display: flex;
-    .trial{
-      background-color: #c8c5c5 !important;
-    }
     input {
       border-radius: 5px 0 0 5px !important;
     }
@@ -27,7 +24,7 @@
       border-radius: 0px 5px 5px 0px;
       margin-top: 0.2rem;
       text-transform: uppercase;
-      font: fontvalue(16,16,400);
+      font: fontvalue(16, 16, 400);
       cursor: pointer;
     }
   }
