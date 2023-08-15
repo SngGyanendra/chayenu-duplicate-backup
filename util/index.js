@@ -14,3 +14,4 @@ export * from './date.js';
 export * from './HydrateToken';
 export * from './CheckAuth'
 export * from './validateCreditCard.js'
+export * from './autoScroll.js'
