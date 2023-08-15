@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import {
   initializeCustomBraintree,
@@ -8,7 +8,7 @@ import {
 import PhoneInput from 'react-phone-input-2';
 import Select from 'react-select';
 import { Formik } from 'formik';
-import { validateCreditCard } from '/util';
+import { validateCreditCard, autoScrollToPlan, autoScrollToForm } from '/util';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-input-2/lib/bootstrap.css';
 import { useSelector } from 'react-redux';
@@ -60,6 +60,35 @@ export function PrintDigitalSubscriptionForm({
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { payment_methods } = useSelector((state) => state.user);
+
+  const autoScrollToPlanRef = useCallback(
+    (node) => {
+      if (node != null) {
+        autoScrollToPlan(selectedCountry, node, distributor);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    [selectedCountry, distributor]
+  );
+  const autoScrollToFormRef = useCallback(
+    (node) => {
+      if (node != null) {
+        autoScrollToForm(selectedPlan, node);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    [selectedPlan]
+  );
+
+  const autoScrollToCollegeRef = useCallback(
+    (node) => {
+      if (node != null) {
+        node.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    [selectedCollege]
+  );
 
   useEffect(() => {
     async function getData() {
@@ -149,6 +178,10 @@ export function PrintDigitalSubscriptionForm({
     } else {
       setDeliveryType('shipping');
     }
+
+    // autoScrollToPlan(selectedCountry, selectPlanRef, distributor);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCountry]);
 
   useEffect(() => {
@@ -554,6 +587,11 @@ export function PrintDigitalSubscriptionForm({
                             onChange={(e) => {
                               values.distributor = e.target.value;
                               setDistributor(e.target.value);
+                              // autoScrollToPlan(
+                              //   selectedCountry,
+                              //   selectPlanRef,
+                              //   e.target.value
+                              // );
                             }}
                           >
                             <option value="default" hidden={true}>
@@ -596,7 +634,7 @@ export function PrintDigitalSubscriptionForm({
                 (selectedCountry !== 'others' && selectedCountry)) &&
                 (deliveryType === 'shipping' || distributor) &&
                 allPlans.length > 1 && (
-                  <div className={Styles.form}>
+                  <div className={Styles.form} ref={autoScrollToPlanRef}>
                     <div className={Styles.plan}>
                       <div className={Styles.selectPlan}>SELECT PLAN</div>
                       <div className={Styles.plansContainer}>
@@ -618,7 +656,7 @@ export function PrintDigitalSubscriptionForm({
                 )}
 
               {selectedPlan?.student_only && (
-                <div className={Styles.form}>
+                <div className={Styles.form} ref={autoScrollToCollegeRef}>
                   <div className={Styles.college}>College</div>
                   <Select
                     name="colleges"
@@ -643,7 +681,7 @@ export function PrintDigitalSubscriptionForm({
               {(!selectedPlan?.student_only || selectedCollege) &&
                 selectedPlan &&
                 selectedCountry !== 'others' && (
-                  <div className={Styles.form}>
+                  <div className={Styles.form} ref={autoScrollToFormRef}>
                     <div className={Styles.selectCountry}>
                       {selectedCountry?.has_distributors
                         ? 'CONTACT INFO'
