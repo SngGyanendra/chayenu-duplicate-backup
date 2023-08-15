@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -7,7 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 import Image from 'next/image';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
-import { validateCreditCard } from '/util';
+import { validateCreditCard, autoScrollToForm } from '/util';
 import {
   initializeCustomBraintree,
   Popup,
@@ -100,6 +100,26 @@ export function DigitalSubscriptionForm({
       setRequire_cc(true);
     }
   }, [coupon]);
+
+  const autoScrollToFormRef = useCallback(
+    (node) => {
+      if (node != null) {
+        autoScrollToForm(selectedPlan, node);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    [selectedPlan]
+  );
+
+  const autoScrollToCollegeRef = useCallback(
+    (node) => {
+      if (node != null) {
+        node.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+    [selectedCollege]
+  );
 
   const style = {
     control: (provided, state) => ({
@@ -380,7 +400,7 @@ export function DigitalSubscriptionForm({
                 </div>
               </div>
               {selectedPlan?.student_only && (
-                <div className={Styles.form}>
+                <div className={Styles.form} ref={autoScrollToCollegeRef}>
                   <div className={Styles.college}>College</div>
                   <Select
                     name="colleges"
@@ -404,7 +424,7 @@ export function DigitalSubscriptionForm({
               {(!selectedPlan?.student_only || selectedCollege) &&
                 selectedPlan && (
                   <>
-                    <div className={Styles.form}>
+                    <div className={Styles.form} ref={autoScrollToFormRef}>
                       <div className={Styles.selectCountry}>SHIPPING INFO</div>
                       <div className={Styles.nameSection}>
                         <label>
