@@ -140,6 +140,11 @@ const nextConfig = {
         permanent: false,
       },
       {
+        source: '/partner',
+        destination: 'https://chayenu.givingfuel.com/partner',
+        permanent: false,
+      },
+      {
         source: '/3/dedicate',
         destination: 'https://chayenu.givingfuel.com/chayenu3',
         permanent: false,
