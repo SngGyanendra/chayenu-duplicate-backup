@@ -72,7 +72,7 @@ const ChayenuMobileApp = ({Styles}) => {
       }
 
     return (
-        <div className={Styles.card}>
+        <div id="mobile-app" className={Styles.card}>
             <div className={Styles.head}>
               <h2>Chayenu App</h2>
             </div>
