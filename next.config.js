@@ -51,7 +51,7 @@ const nextConfig = {
       },
       {
         source: '/shaimos',
-        destination: 'https://old.chayenu.org/shaimos',
+        destination: 'https://www.store.chayenu.org/shop/p/o75qtgpj5kvhwfpar5kinwew0p74ii',
         permanent: false,
       },
       {
