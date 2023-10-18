@@ -280,7 +280,7 @@ export default function Home() {
               </p>
 
               <Link
-                href="https://old.chayenu.org/product/shaimos-box/"
+                href="https://www.store.chayenu.org/shop/p/o75qtgpj5kvhwfpar5kinwew0p74ii"
                 target="_blank"
               >
                 <button>BUY</button>
