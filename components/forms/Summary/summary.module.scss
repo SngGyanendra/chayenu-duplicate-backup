@@ -11,15 +11,46 @@
     display: flex;
     justify-content: space-between;
   }
-  .quantity {
+  .total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    .totalPrice {
+      font: fontvalue(16, 16, 300);
+      font-family: 'Poppins', sans-serif;
+    }
+  }
+  .quantitySection {
     display: flex;
     align-items: center;
     margin-top: 1rem;
     justify-content: space-between;
+    position: relative;
+    .quantity {
+      display: flex;
+      align-items: center;
+      .tooltipSymbol {
+        cursor: help;
+        margin-left: 5px;
+      }
+    }
+
+    .tooltip {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 180px;
+      font-size: 0.8rem;
+      background-color: white;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    select {
+      width: 50px;
+    }
   }
-  .quantity > select {
-    width: 50px;
-  }
+
   .additional {
     display: flex;
     justify-content: space-between;
