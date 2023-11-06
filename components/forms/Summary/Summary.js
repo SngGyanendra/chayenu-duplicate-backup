@@ -74,8 +74,16 @@ export function Summary({ selectedPlan, coupon, showTrialMessage, values }) {
                 ? `$${
                     calculateDiscountedPrice(selectedPlan.price, coupon) *
                     quantity
+                  }/${
+                    selectedPlan.recurring.toLowerCase() === 'monthly'
+                      ? 'mo'
+                      : 'yr'
                   }`
-                : `$${selectedPlan.price * quantity}`}
+                : `$${selectedPlan.price * quantity}/${
+                    selectedPlan.recurring.toLowerCase() === 'monthly'
+                      ? 'mo'
+                      : 'yr'
+                  }`}
             </span>
           </div>
         )}
