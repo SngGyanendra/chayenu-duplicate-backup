@@ -12,6 +12,7 @@ import { validateCreditCard, autoScrollToPlan, autoScrollToForm } from '/util';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-input-2/lib/bootstrap.css';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import Styles from './printdigitalsubscriptionform.module.scss';
 import {
@@ -60,6 +61,8 @@ export function PrintDigitalSubscriptionForm({
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { payment_methods } = useSelector((state) => state.user);
+
+  const router = useRouter();
 
   const autoScrollToPlanRef = useCallback(
     (node) => {
@@ -370,8 +373,9 @@ export function PrintDigitalSubscriptionForm({
     };
     try {
       const response = await addNewSubscription(finalValues);
+      router.push('/login');
       setLoading(false);
-      setPopup('successfulSubscription');
+      // setPopup('successfulSubscription');
     } catch (error) {
       console.log(error);
       let message = 'Something went wrong! Please try again later';
