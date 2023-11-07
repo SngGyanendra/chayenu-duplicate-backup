@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import Select from 'react-select';
 import PhoneInput from 'react-phone-input-2';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 import Styles from './digitalsubscriptionform.module.scss';
 import { validateCreditCard, autoScrollToForm } from '/util';
@@ -48,6 +49,8 @@ export function DigitalSubscriptionForm({
 
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { payment_methods } = useSelector((state) => state.user);
+
+  const router = useRouter();
 
   useEffect(() => {
     async function getData() {
@@ -276,7 +279,8 @@ export function DigitalSubscriptionForm({
     };
     try {
       const response = await addNewSubscription(finalValues);
-      setPopup('successfulSubscription');
+      // setPopup('successfulSubscription');
+      router.push('/login');
       setLoading(false);
     } catch (error) {
       console.log(error);
