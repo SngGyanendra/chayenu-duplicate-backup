@@ -279,8 +279,8 @@ export function DigitalSubscriptionForm({
     };
     try {
       const response = await addNewSubscription(finalValues);
+      router.push(`/thank-you?product_name=${selectedPlan?.product?.name}`);
       // setPopup('successfulSubscription');
-      router.push('/login');
       setLoading(false);
     } catch (error) {
       console.log(error);
