@@ -373,7 +373,7 @@ export function PrintDigitalSubscriptionForm({
     };
     try {
       const response = await addNewSubscription(finalValues);
-      router.push('/login');
+      router.push(`/thank-you?product_name=${selectedPlan?.product?.name}`);
       setLoading(false);
       // setPopup('successfulSubscription');
     } catch (error) {
