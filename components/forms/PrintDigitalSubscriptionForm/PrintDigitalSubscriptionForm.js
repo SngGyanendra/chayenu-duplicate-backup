@@ -356,6 +356,7 @@ export function PrintDigitalSubscriptionForm({
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
+      auto_renew: selectedPlan?.student_only ? false : values.auto_renew,
       plan: selectedPlan?.id,
       coupon: coupon?.code,
       ...(selectedCollege && { college: selectedCollege?.id }),

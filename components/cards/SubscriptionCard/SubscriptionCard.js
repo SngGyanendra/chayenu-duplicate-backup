@@ -283,52 +283,54 @@ export function SubscriptionCard({ subscription, setLoading }) {
         </div>
         <div className={Styles.subscritpionButtons}>
           {!filteredSubscriptionData?.auto_renew ? (
-            <button
-              disabled={disabled}
-              className={disabled ? `${Styles.disabled}` : ''}
-              onClick={async () => {
-                const loadingToast = toastTemplate(
-                  toast.loading,
-                  'Reactivating'
-                );
-                try {
-                  setDisabled(true);
-                  if (filteredSubscriptionData.status === 'Expired') {
-                    const response = await APIs.reactivateSubscription(
-                      subscription.id
+            !filteredSubscriptionData.plans.student_only && (
+              <button
+                disabled={disabled}
+                className={disabled ? `${Styles.disabled}` : ''}
+                onClick={async () => {
+                  const loadingToast = toastTemplate(
+                    toast.loading,
+                    'Reactivating'
+                  );
+                  try {
+                    setDisabled(true);
+                    if (filteredSubscriptionData.status === 'Expired') {
+                      const response = await APIs.reactivateSubscription(
+                        subscription.id
+                      );
+                    } else {
+                      const response = await APIs.toggleAutoRenew(
+                        subscription.id
+                      );
+                    }
+                    toastTemplate(
+                      toast.success,
+                      'Subscription reactivated successfully',
+                      loadingToast
                     );
-                  } else {
-                    const response = await APIs.toggleAutoRenew(
-                      subscription.id
+                    setLoading(true);
+                    const newSubscriptionsList =
+                      await APIs.getAllUserSubscriptions();
+                    dispatch(updateSubscriptions(newSubscriptionsList));
+                    setLoading(false);
+                    setDisabled(false);
+                    const newTransactionList =
+                      await APIs.getAllUserTransactions();
+                    dispatch(updateTransactions(newTransactionList));
+                  } catch (error) {
+                    toastTemplate(
+                      toast.error,
+                      'Reactivation failed\n try updating credit card',
+                      loadingToast
                     );
+                    setDisabled(false);
+                    setLoading(false);
                   }
-                  toastTemplate(
-                    toast.success,
-                    'Subscription reactivated successfully',
-                    loadingToast
-                  );
-                  setLoading(true);
-                  const newSubscriptionsList =
-                    await APIs.getAllUserSubscriptions();
-                  dispatch(updateSubscriptions(newSubscriptionsList));
-                  setLoading(false);
-                  setDisabled(false);
-                  const newTransactionList =
-                    await APIs.getAllUserTransactions();
-                  dispatch(updateTransactions(newTransactionList));
-                } catch (error) {
-                  toastTemplate(
-                    toast.error,
-                    'Reactivation failed\n try updating credit card',
-                    loadingToast
-                  );
-                  setDisabled(false);
-                  setLoading(false);
-                }
-              }}
-            >
-              REACTIVATE SUBSCRIPTION
-            </button>
+                }}
+              >
+                REACTIVATE SUBSCRIPTION
+              </button>
+            )
           ) : (
             <>
               <button
