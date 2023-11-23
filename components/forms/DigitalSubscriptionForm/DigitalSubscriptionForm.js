@@ -270,6 +270,7 @@ export function DigitalSubscriptionForm({
     const finalValues = {
       ...values,
       quantity: parseInt(values.quantity),
+      auto_renew: selectedPlan?.student_only ? false : values.auto_renew,
       plan: selectedPlan?.id,
       ...(selectedCollege && { college: selectedCollege?.id }),
       coupon: coupon?.code,
