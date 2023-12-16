@@ -30,63 +30,52 @@ export function Summary({ selectedPlan, coupon, showTrialMessage, values }) {
         <span>{selectedPlan?.name}</span>
         <span>{getPricingMessage()}</span>
       </div>
-      {selectedPlan?.country?.has_shipping &&
-        selectedPlan?.product?.product_type !== 'digital' && (
-          <div className={Styles.quantitySection}>
-            <div className={Styles.quantity}>
-              Quantity
-              <Image
-                src="/icons/question.svg"
-                alt="question"
-                height={20}
-                width={20}
-                className={Styles.tooltipSymbol}
-                onMouseEnter={() => setIsToolTipVisible(true)}
-                onMouseLeave={() => setIsToolTipVisible(false)}
-              />
-            </div>
-            <div
-              className={Styles.tooltip}
-              style={{ display: isToolTipVisible ? 'block' : 'none' }}
-            >
-              The total number of subscription copies you want
-            </div>
-            <select
-              name="quantity"
-              onChange={(e) => {
-                values.quantity = e.target.value;
-                setQuantity(e.target.value);
-              }}
-            >
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-        )}
-      {selectedPlan?.country?.has_shipping &&
-        selectedPlan?.product?.product_type !== 'digital' && (
-          <div className={Styles.total}>
-            Total
-            <span className={Styles.totalPrice}>
-              {coupon
-                ? `$${
-                    calculateDiscountedPrice(selectedPlan.price, coupon) *
-                    quantity
-                  }/${
-                    selectedPlan.recurring.toLowerCase() === 'monthly'
-                      ? 'mo'
-                      : 'yr'
-                  }`
-                : `$${selectedPlan.price * quantity}/${
-                    selectedPlan.recurring.toLowerCase() === 'monthly'
-                      ? 'mo'
-                      : 'yr'
-                  }`}
-            </span>
-          </div>
-        )}
+      <div className={Styles.quantitySection}>
+        <div className={Styles.quantity}>
+          Quantity
+          <Image
+            src="/icons/question.svg"
+            alt="question"
+            height={20}
+            width={20}
+            className={Styles.tooltipSymbol}
+            onMouseEnter={() => setIsToolTipVisible(true)}
+            onMouseLeave={() => setIsToolTipVisible(false)}
+          />
+        </div>
+        <div
+          className={Styles.tooltip}
+          style={{ display: isToolTipVisible ? 'block' : 'none' }}
+        >
+          The total number of subscription copies you want
+        </div>
+        <select
+          name="quantity"
+          onChange={(e) => {
+            values.quantity = e.target.value;
+            setQuantity(e.target.value);
+          }}
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+      <div className={Styles.total}>
+        Total
+        <span className={Styles.totalPrice}>
+          {coupon
+            ? `$${
+                calculateDiscountedPrice(selectedPlan.price, coupon) * quantity
+              }/${
+                selectedPlan.recurring.toLowerCase() === 'monthly' ? 'mo' : 'yr'
+              }`
+            : `$${selectedPlan.price * quantity}/${
+                selectedPlan.recurring.toLowerCase() === 'monthly' ? 'mo' : 'yr'
+              }`}
+        </span>
+      </div>
     </div>
   );
 }
