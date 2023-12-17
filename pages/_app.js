@@ -11,7 +11,8 @@ import { useEffect } from 'react';
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     LogRocket.init('v2bczr/chayenu');
-    LogRocket.identify('rtdrsrts54wwedyt', {
+    LogRocket.identify(localStorage.getItem('id'), {
+      name: localStorage.getItem('first_name'),
     });
   }, []);
 
