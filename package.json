@@ -15,6 +15,7 @@
     "braintree-web-drop-in": "^1.38.1",
     "formik": "^2.4.2",
     "jwt-decode": "^3.1.2",
+    "logrocket": "^7.0.0",
     "next": "^13.4.6",
     "node-html-parser": "^6.1.5",
     "react": "18.2.0",
@@ -27,6 +28,7 @@
     "react-select": "^5.7.3",
     "sass": "^1.63.4",
     "sharp": "^0.32.1",
+    "ulid": "^2.3.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
