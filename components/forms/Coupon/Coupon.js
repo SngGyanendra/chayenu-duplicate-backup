@@ -20,6 +20,10 @@ export function Coupon({
       setIsCouponVerified(true);
       setCoupon(selectedPlan?.default_coupon);
       values.coupon = selectedPlan?.default_coupon.code;
+    } else {
+      setCoupon();
+      setIsCouponVerified(false);
+      values.coupon = undefined;
     }
   }, [selectedPlan]);
 
@@ -39,8 +43,10 @@ export function Coupon({
       const { data } = await validateCoupon(couponFilter);
       if (!data.length) throw Error('Invalid coupon');
 
-      const coupon = data.find(c => c.code.toLowerCase() === values?.coupon.toLowerCase())
-      if (!coupon) throw Error('Invalid coupon')
+      const coupon = data.find(
+        (c) => c.code.toLowerCase() === values?.coupon.toLowerCase()
+      );
+      if (!coupon) throw Error('Invalid coupon');
 
       if (coupon.is_used) throw Error('Coupon already used');
       const currentDate = Date.now();
