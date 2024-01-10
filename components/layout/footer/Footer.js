@@ -65,16 +65,17 @@ export function Footer() {
           <li>(718) 450-3277</li>
           <li>1526 Union St. Brooklyn, NY 11213</li>
         </ul>
-        <div>
-          Copyright © 2022 CHAYENU.{' '}
-          <Link href="https://gorinsystems.com/" target="_blank" className={Styles.developedBy}>
-              Developed By{' '}
-              <Image
-                src="/footer/gorinsystems.svg"
-                alt="gorinsystems"
-                height={14}
-                width={90}
-              />
+        <div>Copyright © 2022 CHAYENU. </div>
+
+        <div className={Styles.developedBy}>
+          <Link href="https://gorinsystems.com/" target="_blank">
+            Developed By{' '}
+            <Image
+              src="/footer/gorinsystems.svg"
+              alt="gorinsystems"
+              height={14}
+              width={90}
+            />
           </Link>
         </div>
       </div>
