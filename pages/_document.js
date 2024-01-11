@@ -10,7 +10,7 @@ export default function Document() {
           href="/dropin.css"
           id="braintree-dropin-stylesheet"
         />
-        <link rel="shortcut icon" href="/logodarker.svg" />
+        {/* <link rel="shortcut icon" href="/logodarker.svg" /> */}
       </Head>
       <body>
         <Main />
