@@ -123,12 +123,9 @@
   .developedBy {
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    @media screen and (max-width: 71.875rem) {
-      top: 160px;
-      right: unset;
+    justify-content: space-between;
+    img {
+      margin-left: 5px;
     }
   }
 
