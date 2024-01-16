@@ -23,31 +23,43 @@ export function Footer() {
         </div>
         <ul>
           <li>
-            <Link href="/subscribe">Subscribe</Link>
+            <Link href="/subscribe">SUBSCRIBE</Link>
           </li>
           <li>
-            <Link href="/explore-chayenu">Explore</Link>
+            <Link href="/explore-chayenu">EXPLORE</Link>
           </li>
           <li>
-            <Link href="/comingsoon">Library</Link>
+            <Link href="/comingsoon">LIBRARY</Link>
           </li>
           <li>
             <Link href="https://old.chayenu.org/weekly-digest/" target="_blank">
-              Chayus
+              CHAYUS
             </Link>
-          </li>
-          <li>
-            <Link href="/contact">Contact</Link>
           </li>
           <li
             onClick={() => {
               setPopup('newsletter');
             }}
           >
-            Newsletter
+            NEWSLETTER
+          </li>
+
+          <li className={Styles.instaMobile}>
+            <Link
+              href="https://www.instagram.com/chayenu/?hl=en"
+              target="_blank"
+            >
+              <Image
+                src="/footer/insta.svg"
+                alt="insta"
+                height={20}
+                width={20}
+                className={Styles.instaLogo}
+              />
+            </Link>
           </li>
         </ul>
-        <div>
+        <div className={Styles.instaDesktop}>
           <Link href="https://www.instagram.com/chayenu/?hl=en" target="_blank">
             <Image
               src="/footer/insta.svg"
@@ -62,9 +74,18 @@ export function Footer() {
       <div className={Styles.lowerLayer}>
         <div>© CHAYENU INC.</div>
         <ul>
+          <li>
+            <Link href="/contact">Contact us</Link>
+          </li>
           <li>info@chayenu.org</li>
           <li>(718) 450-3277</li>
           <li>1526 Union St. Brooklyn, NY 11213</li>
+          <li>
+            <Link href="/terms">Terms</Link>
+          </li>
+          <li>
+            <Link href="/privacy">Privacy</Link>
+          </li>
         </ul>
         <div className={Styles.developedBy}>
           <Link href="https://gorinsystems.com" target="_blank">

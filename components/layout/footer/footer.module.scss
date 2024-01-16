@@ -38,6 +38,9 @@
         font-weight: 300;
       }
     }
+    .instaMobile {
+      display: none;
+    }
   }
   .lowerLayer {
     display: flex;
@@ -46,14 +49,15 @@
     font-weight: 400;
     align-items: center;
     position: relative;
+    font-size: 0.8rem;
     ul {
       list-style: none;
       display: flex;
-      width: 45%;
+      width: 60%;
       justify-content: space-between;
       align-items: center;
       li {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
     }
     .instaLogo {
@@ -74,12 +78,12 @@
 
     @media screen and (min-width: 71.875rem) and (max-width: 81.25rem) {
       ul {
-        width: 50%;
+        width: 60%;
       }
     }
   }
   @media screen and (max-width: 71.875rem) {
-    height: 22rem;
+    height: 28rem;
     .upperLayer {
       flex-wrap: wrap;
       justify-content: center;
@@ -104,6 +108,15 @@
           width: 50%;
         }
       }
+      .instaMobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .instaDesktop{
+        display: none;
+      }
+      
     }
     .lowerLayer {
       flex-direction: column;
@@ -134,9 +147,9 @@
 
   @media screen and (max-width: 50rem) {
     .upperLayer {
-      & {
-        height: 11rem;
-      }
+      // & {
+      //   height: 11rem;
+      // }
 
       ul li {
         font-size: 1rem;
