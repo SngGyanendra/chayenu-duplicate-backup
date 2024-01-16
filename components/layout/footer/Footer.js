@@ -47,8 +47,6 @@ export function Footer() {
             Newsletter
           </li>
         </ul>
-      </div>
-      <div className={Styles.lowerLayer}>
         <div>
           <Link href="https://www.instagram.com/chayenu/?hl=en" target="_blank">
             <Image
@@ -60,22 +58,23 @@ export function Footer() {
             />
           </Link>
         </div>
+      </div>
+      <div className={Styles.lowerLayer}>
+        <div>© CHAYENU INC.</div>
         <ul>
           <li>info@chayenu.org</li>
           <li>(718) 450-3277</li>
           <li>1526 Union St. Brooklyn, NY 11213</li>
         </ul>
-        <div>Copyright © 2022 CHAYENU. </div>
-
         <div className={Styles.developedBy}>
-          <Link href="https://gorinsystems.com/" target="_blank">
-            Developed By{' '}
+          <Link href="https://gorinsystems.com" target="_blank">
+            Developed by{' '}
             <Image
-              src="/footer/gorinsystems.svg"
-              alt="gorinsystems"
-              height={14}
-              width={90}
-            />
+              src={'/footer/gorinsystems.svg'}
+              alt="gorin systems"
+              height={18}
+              width={100}
+            />{' '}
           </Link>
         </div>
       </div>

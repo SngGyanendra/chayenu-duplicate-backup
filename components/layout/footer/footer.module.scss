@@ -121,15 +121,15 @@
   }
 
   .developedBy {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    @media screen and (max-width: 71.875rem) {
-      top: 160px;
-      right: unset;
+    img {
+      margin-left: 5px;
     }
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    cursor: pointer;
   }
 
   @media screen and (max-width: 50rem) {
