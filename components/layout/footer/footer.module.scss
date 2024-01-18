@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 1rem;
+  position: relative;
   .upperLayer {
     height: 50%;
     display: flex;
@@ -25,17 +26,11 @@
         text-transform: uppercase;
         font-size: 0.8rem;
         cursor: pointer;
-      }
-      li:first-child,
-      :nth-child(2) {
-        font-weight: 700;
-      }
-      li:nth-child(3),
-      :nth-child(4),
-      :nth-child(5),
-      :nth-child(6) {
         font-weight: 300;
       }
+    }
+    .instaMobile {
+      display: none;
     }
   }
   .lowerLayer {
@@ -44,14 +39,16 @@
     justify-content: space-between;
     font-weight: 400;
     align-items: center;
+    position: relative;
+    font-size: 0.8rem;
     ul {
       list-style: none;
       display: flex;
-      width: 45%;
+      width: 60%;
       justify-content: space-between;
       align-items: center;
       li {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
     }
     .instaLogo {
@@ -72,12 +69,12 @@
 
     @media screen and (min-width: 71.875rem) and (max-width: 81.25rem) {
       ul {
-        width: 50%;
+        width: 60%;
       }
     }
   }
   @media screen and (max-width: 71.875rem) {
-    height: 20rem;
+    height: 28rem;
     .upperLayer {
       flex-wrap: wrap;
       justify-content: center;
@@ -102,6 +99,14 @@
           width: 50%;
         }
       }
+      .instaMobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .instaDesktop {
+        display: none;
+      }
     }
     .lowerLayer {
       flex-direction: column;
@@ -118,11 +123,23 @@
     }
   }
 
+  .developedBy {
+    img {
+      margin-left: 5px;
+    }
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 50rem) {
     .upperLayer {
-      & {
-        height: 11rem;
-      }
+      // & {
+      //   height: 11rem;
+      // }
 
       ul li {
         font-size: 1rem;

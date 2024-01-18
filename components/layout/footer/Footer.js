@@ -23,22 +23,17 @@ export function Footer() {
         </div>
         <ul>
           <li>
-            <Link href="/subscribe">Subscribe</Link>
+            <Link href="/subscribe">SUBSCRIBE</Link>
           </li>
           <li>
-            <Link href="/explore-chayenu">Explore</Link>
+            <Link href="/explore-chayenu">EXPLORE</Link>
           </li>
           <li>
-            <Link href="/comingsoon">Library</Link>
+            <Link href="/comingsoon">LIBRARY</Link>
           </li>
           <li>
             <Link href="https://old.chayenu.org/weekly-digest/" target="_blank">
-              Chayus
-            </Link>
-          </li>
-          <li>
-            <Link href="/contact">
-              Contact
+              CHAYUS
             </Link>
           </li>
           <li
@@ -46,12 +41,25 @@ export function Footer() {
               setPopup('newsletter');
             }}
           >
-            Newsletter
+            NEWSLETTER
+          </li>
+
+          <li className={Styles.instaMobile}>
+            <Link
+              href="https://www.instagram.com/chayenu/?hl=en"
+              target="_blank"
+            >
+              <Image
+                src="/footer/insta.svg"
+                alt="insta"
+                height={20}
+                width={20}
+                className={Styles.instaLogo}
+              />
+            </Link>
           </li>
         </ul>
-      </div>
-      <div className={Styles.lowerLayer}>
-        <div>
+        <div className={Styles.instaDesktop}>
           <Link href="https://www.instagram.com/chayenu/?hl=en" target="_blank">
             <Image
               src="/footer/insta.svg"
@@ -62,12 +70,39 @@ export function Footer() {
             />
           </Link>
         </div>
+      </div>
+      <div className={Styles.lowerLayer}>
+        <div>© CHAYENU INC.</div>
         <ul>
+          <li>
+            <Link href="/contact">Contact us</Link>
+          </li>
           <li>info@chayenu.org</li>
           <li>(718) 450-3277</li>
           <li>1526 Union St. Brooklyn, NY 11213</li>
+          <li>
+            <Link
+              href="https://old.chayenu.org/terms-and-conditions/"
+              target="_blank"
+            >
+              Terms
+            </Link>
+          </li>
+          <li>
+            <Link href="/privacy">Privacy</Link>
+          </li>
         </ul>
-        <div>Copyright © 2022 CHAYENU. All rights reserved.</div>
+        <div className={Styles.developedBy}>
+          <Link href="https://gorinsystems.com" target="_blank">
+            Developed by{' '}
+            <Image
+              src={'/footer/gorinsystems.svg'}
+              alt="gorin systems"
+              height={18}
+              width={100}
+            />{' '}
+          </Link>
+        </div>
       </div>
       {(() => {
         if (popup === 'newsletter') {
