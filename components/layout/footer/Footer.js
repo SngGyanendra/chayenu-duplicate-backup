@@ -81,7 +81,12 @@ export function Footer() {
           <li>(718) 450-3277</li>
           <li>1526 Union St. Brooklyn, NY 11213</li>
           <li>
-            <Link href="/terms">Terms</Link>
+            <Link
+              href="https://old.chayenu.org/terms-and-conditions/"
+              target="_blank"
+            >
+              Terms
+            </Link>
           </li>
           <li>
             <Link href="/privacy">Privacy</Link>
