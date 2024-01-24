@@ -1,62 +1,109 @@
 .wrapper {
-  padding-top: 96px;
-  padding-bottom: 96px;
-  background-size: cover;
+  background-size: cover !important;
   background: var(--website-color-banner)
     url("/images/homepage/LinesBackground.webp") repeat-y;
 
   .main {
-    width: var(--container-width);
-    margin: auto;
+    // width: var(--container-width);
+    // margin-left: 31rem;
     display: flex;
+    justify-content: end;
 
     @media screen and (max-width: 1099px) {
-      width: var(--container-width-75);
+      // width: var(--container-width-75);
+    }
+    @media screen and (min-width: 1536px) {
+      // width: var(--container-width-75);
     }
 
     .cardContentLeft {
-      flex: 1;
       color: white;
+      padding-bottom: 96px;
 
       .title {
         font-size: 48px;
+        padding-top:79px;
+      }
+      .subtitle{
+        padding-top: 45px;
+        text-align: left;
+        font-size: 22px;
+        letter-spacing: 0px;
+        color: #FFFFFF;
+        max-width: 450px;
       }
 
       .featureList {
+        margin-top: 60px;
         list-style-type: none;
-        font-size: 24px;
+        font-size: 22px;
         color: white;
-        font-weight: 400;
+        font-weight: 500;
+
+        li{
+          display: flex;
+
+          img{
+            width: 30px;
+            height: 30px;
+            margin-right: 16px;
+            margin-bottom: 8px;
+          }
+          p{
+            font-size: 22px;
+            font-weight: 500;
+          }
+        }
       }
 
       .cta {
         display: inline-block;
         text-transform: uppercase;
         min-width: fit-content;
-        padding: 12px 24px;
+        padding: 10px 18px;
         border: none;
         border-radius: 10px;
-        margin-top: 2rem;
+        margin-top: 60px;
         background-color: white;
         color: var(--dark);
-        font-weight: 600;
-        font-size: 20px;
+        font-weight: 500;
+        font-size: 17px;
 
         &:hover {
           background-color: var(--dark);
           color: #ffffff;
           transition: background-color 0.25s;
         }
+        strong{
+          font-weight: 900 !important;
+        }
       }
     }
 
     .cardContentRight {
-      flex: 1;
+      background-size: cover !important;
+      background: var(--website-color-banner)
+      url("/images/homepage/trialhero.webp") repeat-y;
+      width: 40%;
+      margin-left: 3%;
+
       @media screen and (max-width: 800px) {
         display: none;
       }
-
+      @media screen and (min-width: 1536px) {
+        width: 39.50%;
+        margin-left: 3%;
+      }
+      @media screen and (min-width: 1700px) {
+        width: 41%;
+        margin-left: 3%;
+      }
+      @media screen and (min-width: 1900px) {
+        width: 42%;
+        margin-left: 3%;
+      }
       .img {
+        visibility: hidden;
         width: 100%;
         height: auto;
       }

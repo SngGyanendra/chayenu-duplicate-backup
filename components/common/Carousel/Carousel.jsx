@@ -3,7 +3,7 @@ import Styles from './carousel.module.css';
 import {rightArrow} from '/public/icons/arrow.js';
 import {leftArrow} from '/public/icons/leftarrow.js';
 
-export const Carousel = ({totalItems, renderTemplate }) => {
+export const Carousel = ({totalItems, renderTemplate, additionalStyles }) => {
   const [index, setIndex] = useState(0);
 
   const lastIndex = totalItems - 1;
@@ -22,7 +22,7 @@ export const Carousel = ({totalItems, renderTemplate }) => {
 
 
   return (
-    <div className={Styles.carouselContainer}>
+    <div className={Styles.carouselContainer} style={{...additionalStyles}}>
       <button className={`${Styles.carouselButton} ${Styles.left}`} onClick={prev} aria-label="Previous">{leftArrow}</button>
         {
             //pass a template that renders data with current index

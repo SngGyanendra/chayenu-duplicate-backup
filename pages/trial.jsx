@@ -1,13 +1,13 @@
 import Styles from "../styles/trial.module.scss";
 import { NextHead } from "/components/common";
 import { getTrialProduct } from "../api/common";
+import About from "../components/Trial/About";
 import Features from "../components/Trial/Features";
-import Subscribe from "../components/Trial/Subscribe";
 import Hero from "../components/Trial/Hero";
 import Testimonials from "../components/Trial/Testimonials";
+import Steps from "../components/Trial/Steps";
 
 export default function Trial({ products }) {
-  const product = products.data[0];
 
   return (
     <main>
@@ -18,9 +18,10 @@ export default function Trial({ products }) {
 
       <section className={Styles.wrapper}>
         <Hero />
+        <About />
         <Features />
         <Testimonials />
-        <Subscribe product={product} />
+        <Steps />
       </section>
 
     </main>
