@@ -1,35 +1,183 @@
-.features {
+.about {
   width: var(--container-width);
   margin-inline: auto;
   margin-block-start: 48px;
   color: var(--dark);
+  .aboutBox{
+      display: flex;
+      margin-top: 80px;
+  }
+  .aboutsmallBox{
+      max-width: 311px;
+      min-width: 311px;
+      // margin-right: 17px;
+      text-align: center;
+      img{
+        width: 45px;
+        height: 30px;
+        margin-bottom: 10px;
+      }
+      h2{
+        font-size: 20px;
+        font-weight: bold;
+      }
+      p{
+          font-size: 16px;
+          margin-bottom: 15px;
+          font-weight: 400;
+          span{
+              font-weight: 900;
+          }
+      }
+  }
+}
+.MainSection2{
+  background: #e3f0fa 0% 0% no-repeat padding-box;
 
-  .headline {
-    font-size: 32px;
-    text-align: center;
-    margin-block-end: 24px;
+  .section2 {
+    width: var(--container-width);
+    margin-inline: auto;
+    -webkit-margin-before: 48px;
+    margin-block-start: 48px;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+    height: auto;
+    .card {
+      height: auto;
+      align-items: center;
+      grid-template-columns: 1fr 26rem;
+      padding-top: 2rem;
+      text-align: center;
 
-    .thin {
-      font-weight: 400;
+      h2{
+        font-size: 30px;
+        font-weight: bold;
+        color: #003652;
+      }
+      p{
+        font-size: 16px;
+        font-weight: 500;
+        color: #003652;
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+      .mainBox{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .box{
+          width: 203px;
+          height: 211px;
+          background: #FFFFFF 0% 0% no-repeat padding-box;
+          border-radius: 7px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin: 6px;
+
+          @media screen and (min-width: 1700px) {
+            width: 211px;
+          }
+  
+          .text{
+            font-size: 16px;
+            font-weight: bold;
+            color: #003652;
+            text-transform: uppercase;
+            margin-bottom: 29px;
+          }
+          .image{
+            width: 83px;
+            height: 94px;
+          }
+          .hoverText{
+            width: 165px;
+            min-height: 100px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #FFFFFF;
+            display: none;
+          }
+          &:hover {
+            background: #003652 0% 0% no-repeat padding-box;
+            transition: background-color 0.25s;
+            .text{
+              color: #FFFFFF;
+              margin-bottom: 20px;
+            }
+            .hoverText{
+              display: block;
+              margin: 0px;
+            }
+            .image {
+              display: none;
+            }
+          }
+        }
+      }
+
+     .links{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-top: 60px;
+      margin-bottom: 40px;
+
+      .cta {
+        text-transform: uppercase;
+        min-width: fit-content;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 7px;
+        background-color: var(--dark);
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 16px;
+        margin-right: 20px;
+
+  
+        &:hover {
+          background: #61A0D6 0% 0% no-repeat padding-box;
+          transition: background-color 0.25s;
+        }
+        strong{
+          font-weight: 900 !important;
+        }
+      }
+      .cta2{
+        background: #61A0D6 0% 0% no-repeat padding-box;
+        border-radius: 7px;
+        padding: 10px 18px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        text-align: center;
+
+        &:hover {
+          background: #003652 0% 0% no-repeat padding-box;
+          transition: background-color 0.25s;
+        }
+      }
+     }
     }
 
-    .fat {
-      font-weight: 600;
-      display: block;
-      line-height: 20px;
+
+    @media screen and (max-width: 800px) {
+      & {
+        height: auto;
+      }
+      .card {
+        height: auto;
+        justify-items: center;
+        grid-template-rows: repeat(2, min-content);
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+        grid-row-gap: 0;
+
     }
   }
-
-  .description {
-    text-align: center;
-    font-weight: 500;
-    font-size: 20px;
-  }
-
-  .miniCardWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-block-start: 20px;
-  }
+}
 }
