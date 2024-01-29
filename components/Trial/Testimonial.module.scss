@@ -9,6 +9,9 @@
     font-weight: bold;
     color: #003652;
     text-align: center;
+    br{
+      display: none;
+    }
   }
   .subhead{
     text-align: center;
@@ -51,6 +54,38 @@
       }
     }
   }
+  @media screen and (max-width: 800px) {
+    .head{
+      text-transform: capitalize;
+      br{
+        display: block;
+      }
+    }
+    .subhead{
+      font-size: 20px;
+      width: auto;
+      .strong{
+        font-weight: 900;
+      }
+    }
+    .startQuote{
+      width: 47px;
+      height: 40px;
+    }
+    .endQuote{
+      width: 47px;
+      height: 40px;
+    }
+    .linkDiv{
+
+      .link{
+          font-size: 12px;
+          padding: 7px 14px;
+          border-radius: 7px;
+          font-weight: 400;
+      }
+    }
+  }
 }
 .testimonials{
   height: 180px;
@@ -85,8 +120,21 @@
   }
 
   @media screen and (max-width: 800px) {
-    height: auto;
+    height: fit-content;
+    min-height: 360px;
     grid-template-rows: 1fr auto;
     padding-bottom: 0;
+
+    h2{
+      text-align: center;
+      font-size: 16px
+    }
+    p{
+      text-align: center;
+      font-size: 14px;
+    }
+    .auther{
+      text-align: center;
+    }
   }
 }

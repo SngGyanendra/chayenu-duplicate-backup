@@ -35,16 +35,18 @@ export default function About() {
         <div className={Styles.section2}>
           <div className={Styles.card}>
             <div className={Styles.cardContentLeft}>
-              <h2>Your spiritual anchor— right where you need it</h2>
               <div className={Styles.box}>
-              <p>
-                Elevate your Torah study effortlessly with curated teachings delivered to your doorstep each week. <strong>Whether you have 3 minutes or 3 hours</strong>, we fit seamlessly into your schedule.
-              </p>
-              <img
-                className={Styles.img}
-                src="/images/trial/section2.webp"
-                alt="Books"
-              />
+                <div>
+                  <h2>Your spiritual anchor— right where you need it</h2>
+                  <p>
+                    Elevate your Torah study effortlessly with curated teachings delivered to your doorstep each week. <strong>Whether you have 3 minutes or 3 hours</strong>, we fit seamlessly into your schedule.
+                  </p>
+                </div>
+                <img
+                  className={Styles.img}
+                  src="/images/trial/section2.webp"
+                  alt="Books"
+                />
               </div>
               <a href="#payment-section" className={Styles.cta}>
                 YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!

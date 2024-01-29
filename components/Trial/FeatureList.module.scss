@@ -1,0 +1,126 @@
+  .box,.mobileBox{
+    width: 203px;
+    height: 211px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 6px;
+
+    .arrowDown {
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      margin-top: -7px;
+      display: none;
+    }
+    .up {
+      transform: rotate(-135deg);
+      -webkit-transform: rotate(-135deg);
+      margin-top: 0px;
+    }
+
+    @media screen and (min-width: 1700px) {
+      width: 211px;
+    }
+
+    .text{
+      font-size: 16px;
+      font-weight: bold;
+      color: #003652;
+      text-transform: uppercase;
+      margin-bottom: 29px;
+      width: 164px;
+    }
+    .image{
+      width: 83px;
+      height: 94px;
+    }
+    .hoverText{
+      width: 165px;
+      min-height: 108px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #FFFFFF;
+      display: none;
+    }
+  }
+  .box:hover {
+    background: #003652 0% 0% no-repeat padding-box;
+    transition: background-color 0.25s;
+    .heading{
+      .text{
+        color: #FFFFFF;
+        margin-bottom: 20px;
+      }
+      .image {
+        display: none;
+      }
+    }
+    .hoverText{
+      display: block;
+      margin: 0px;
+      color: #FFFFFF;
+    }
+  }
+
+@media screen and (max-width: 800px) {
+
+  .mobileBox{
+    width: 100%;
+    height: 69px;
+    flex-direction: column;
+    margin: 15px 6px;
+
+    .heading{
+      display: flex;
+      flex-direction: row-reverse;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 30px;
+      width: 100%;
+      .image{
+        width: 26px;
+        height: 30px;
+      }
+      .text{
+        margin-bottom: 0px;
+        margin-top: 0px;
+      }
+      .arrowDown{
+        display: block;
+        height: 9.5px;
+      }
+    }
+    .hoverText{
+      color: #003652;
+    }
+  }
+  .active {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    transition: background-color 0.25s;
+    height: auto;
+    .heading{
+      margin: 20px 0px;
+      .text{
+        color: #003652;
+      }
+      .image {
+        display: block;
+      }
+    }
+    .hoverText{
+      display: block;
+      margin: 0px;
+      font-size: 17px;
+      width: 270px;
+      margin-bottom: 20px;
+    }
+  }
+}

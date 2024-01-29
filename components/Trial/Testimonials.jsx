@@ -5,9 +5,9 @@ import { testimonials3 } from "../../data/testimonials";
 export default function TrialTestimonials() {
   return (
     <div className={Styles.main}>
-      <h1 className={Styles.head}>So much to love. So much to share.</h1>
+      <h1 className={Styles.head}>So much to love.<br/> So much to share.</h1>
       <p className={Styles.subhead}>
-        When you join the Chayenu family, we’re all on the same page, literally and figuratively: In a world that often feels divided, Chayenu connects us in a deeper, more meaningful way through synchronized study, understanding, and purpose.
+        When you join the Chayenu family, we’re all <span className={Styles.strong}>on the same page, literally and figuratively</span>: In a world that often feels divided, Chayenu connects us in a deeper, more meaningful way through synchronized study, understanding, and purpose.
       </p>
     {testimonials3 && testimonials3 && testimonials3.length > 0 && <Carousel 
             totalItems={testimonials3.length}
