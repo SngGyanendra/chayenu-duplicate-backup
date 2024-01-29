@@ -38,9 +38,9 @@ export default function Features() {
                 <h2>Ditch the guesswork:<br/> Your ideal daily dose, delivered.</h2>
                 <p className={Styles.subhead}>Every edition includes all these selections, and more:</p>
                 <div className={Styles.mainBox}>
-                {features.map((feature) => {
+                {features.map((feature,index) => {
                   return(
-                  <FeatureList feature={feature} />
+                  <FeatureList feature={feature} key={index} />
                   )
                 })}
 
