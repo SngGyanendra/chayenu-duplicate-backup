@@ -1,6 +1,7 @@
 import Styles from "./Hero.module.scss";
 import { useWindowDimensions } from '../../hooks/useWindow';
 import {useState,useEffect} from 'react';
+import Link from 'next/link';
 
 export default function Hero() {
   const { width } = useWindowDimensions();
@@ -24,9 +25,9 @@ export default function Hero() {
           <img className={Styles.mobileImg} src="/images/trial/trialhero2.webp" alt="hero" />
           <p className={Styles.subtitle}>Sign up for a <strong>FREE 30-day</strong><strong className={Styles.strong}> trial</strong>, and join the <strong className={Styles.strong}>30,000+</strong> busy individuals worldwide who’ve made Chayenu their <strong className={Styles.strong}>daily Torah study companion.</strong></p>
           <div className={Styles.header}>
-            <a href="#payment-section" className={Styles.cta}>
-              YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
-            </a>
+            <Link href="/trial-form" className={Styles.cta}>
+                YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+            </Link>
             <ul className={Styles.featureList}>
               <li>
                 <img src="/images/trial/hero1.svg" alt="hero" />

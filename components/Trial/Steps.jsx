@@ -1,4 +1,5 @@
 import Styles from "./Steps.module.scss";
+import Link from 'next/link';
 
 export default function Steps() {
   return (
@@ -99,9 +100,12 @@ export default function Steps() {
               See for yourself why 30,000+ people<br></br> don’t let a day go by
               without their Chayenu.
             </h1>
-            <a href="#payment-section" className={Styles.cta}>
+            {/* <a href="#payment-section" className={Styles.cta}>
               YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
-            </a>
+            </a> */}
+            <Link href="/trial-form" className={Styles.cta}>
+                YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+            </Link>
             <p>
               Have questions? We’re just a friendly email away:{' '}
               <a href="mailto:info@chayenu.org" target="_blank">

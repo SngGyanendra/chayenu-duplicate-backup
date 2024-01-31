@@ -11,6 +11,32 @@
     display: flex;
     flex-direction: column;
   }
+  .trialSubmit {
+    width: 80%;
+    border-radius: 5px;
+    padding: 10px 18px;
+    margin: auto;
+    margin-top: 20px;
+    background-color: var(--website-color);
+    color: white;
+    border: none;
+    outline: none;
+    font: fontvalue(22, 22, 400);
+    font-family: 'Brandon Grotesque', sans-serif;
+    cursor: pointer;
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &:hover {
+      box-shadow: 0px 6px 12px #00000029;
+    }
+  }
+  .disabled {
+    background-color: grey !important;
+    cursor: auto;
+    &:hover {
+      box-shadow: none;
+    }
+  }
   .form {
     .college {
       font: fontvalue(18, 18, 700);

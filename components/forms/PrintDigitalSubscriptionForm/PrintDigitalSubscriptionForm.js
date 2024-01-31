@@ -881,6 +881,7 @@ export function PrintDigitalSubscriptionForm({
                             : `${Styles.selectPaymentMethod} ${Styles.isTrial}`
                         }
                       >
+                        { !is_trial ||  isLoggedIn ?
                         <Select
                           name="payment_method"
                           options={allPaymentMethods}
@@ -907,7 +908,8 @@ export function PrintDigitalSubscriptionForm({
                               setPaymentMethod(value.cardToken);
                             }
                           }}
-                        />
+                        />:''
+                        }
                         <Coupon
                           values={values}
                           handleChange={handleChange}
@@ -962,6 +964,7 @@ export function PrintDigitalSubscriptionForm({
                           </div>
                         )}
                     </div>
+                    {!is_trial ? 
                     <div className={`${Styles.form} ${Styles.subscribe}`}>
                       <div className={Styles.selectCountry}>SUMMARY</div>
                       <Summary
@@ -984,6 +987,17 @@ export function PrintDigitalSubscriptionForm({
                         Subscribe
                       </button>
                     </div>
+                    :
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className={`${Styles.trialSubmit} ${
+                          loading ? `${Styles.disabled}` : ''
+                        }`}
+                      >
+                        Subscribe
+                      </button>
+                    }
                   </>
                 )}
             </form>

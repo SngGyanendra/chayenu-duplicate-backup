@@ -1,4 +1,5 @@
 import Styles from "./About.module.scss";
+import Link from 'next/link';
 
 export default function About() {
   return (
@@ -48,9 +49,9 @@ export default function About() {
                   alt="Books"
                 />
               </div>
-              <a href="#payment-section" className={Styles.cta}>
-                YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
-              </a>
+              <Link href="/trial-form" className={Styles.cta}>
+                  YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+              </Link>
             </div>
             <div className={Styles.cardContentRight}>
               {/* <Link href="/pdfs/Chayenu-Sample.pdf" target="_blank">

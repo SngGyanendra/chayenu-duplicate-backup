@@ -45,9 +45,9 @@ export default function Features() {
                 })}
 
                 <div className={Styles.links}>
-                        <a href="#payment-section" className={Styles.cta}>
-                                YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
-                        </a>
+                        <Link href="/trial-form" className={Styles.cta}>
+                            YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+                        </Link>
                         <Link href="/pdfs/Chayenu-Sample.pdf" className={Styles.cta2} target="_blank">
                             VIEW SAMPLE
                         </Link>
