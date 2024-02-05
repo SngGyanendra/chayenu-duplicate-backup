@@ -33,15 +33,20 @@
   .agree{
     text-align: center;
     width: 600px;
-    @media screen and (max-width: 800px) {
-      max-width: var(--container-width);
-    }
 
     .agreeLable{
       font: normal normal 400 16px/16px var(--website-font-family);
       margin-left: 3.5%;
       a{
         font-weight: bold;
+      }
+    }
+    @media screen and (max-width: 800px) {
+      max-width: var(--container-width);
+
+      .agreeLable{
+        margin-left: 7.5%;
+        line-height: 23px;
       }
     }
     .error{
