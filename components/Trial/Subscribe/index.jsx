@@ -8,10 +8,10 @@ export default function Subscribe({ product }) {
         <h3 className={Styles.headline}>Subscribe - free 1 month trial</h3>
         <p className={Styles.subtitle}>
           <span className={Styles.subtitleBlock}>
-            Your billing will only start in 1 month. You may cancel at anytime.
+            Your billing of $180 (Annual Chayenu Subscription) will begin in 1 month.
           </span>
           <span className={Styles.subtitleBlock}>
-            Offer does not apply to Chayenu3 Edition
+            You may cancel anytime. Offer does not apply to Chayenu3 Edition
           </span>
         </p>
         <PrintDigitalSubscriptionForm

@@ -334,6 +334,7 @@ export function PrintDigitalSubscriptionForm({
     state: undefined,
     auto_renew: true,
     card_nonce: undefined,
+    is_agree: false,
   };
 
   const initialErrors = {
@@ -350,6 +351,7 @@ export function PrintDigitalSubscriptionForm({
     quantity: 1,
     plan: undefined,
     distributor: undefined,
+    is_agree: undefined,
   };
 
   const addSubscription = async (values, nonce) => {
@@ -477,6 +479,10 @@ export function PrintDigitalSubscriptionForm({
           initialErrors={initialErrors}
           validationSchema={validationSchema}
           onSubmit={async (values) => {
+            if(is_trial && !values.is_agree){
+              setCardErrors({is_agree:"Please accept the terms and conditions checkbox"})
+              return false;
+            }
             setLoading(true);
             if (!paymentMethod) {
               toastTemplate(toast.error, 'Please select a payment method');
@@ -988,15 +994,30 @@ export function PrintDigitalSubscriptionForm({
                       </button>
                     </div>
                     :
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className={`${Styles.trialSubmit} ${
-                          loading ? `${Styles.disabled}` : ''
-                        }`}
-                      >
-                        Subscribe
-                      </button>
+                      <div>
+                        <div className={Styles.agree}>
+                          <label className={Styles.container}>
+                            <input type="checkbox" id="is_agree" name="is_agree" onChange={handleChange} value={values.is_agree} />
+                            <span className={Styles.checkmark}></span>
+                          </label>
+                          <label for="is_agree" className={Styles.agreeLable}>I agree to Chayenu&apos;s <a href='https://old.chayenu.org/terms-and-conditions/' target='_blank'>terms and conditions</a> and understand that I will be billed $180 in 1 month for the Chayenu annual subscription.</label>
+                          {cardErrors.is_agree && !values.is_agree ? (
+                            <p className={Styles.error}>
+                              {cardErrors.is_agree}
+                            </p>
+                          ):''}
+                        </div>
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          className={`${Styles.trialSubmit} ${
+                            loading ? `${Styles.disabled}` : ''
+                          }`}
+                        >
+                          Subscribe
+                        </button>
+                      </div>
+                      
                     }
                   </>
                 )}
