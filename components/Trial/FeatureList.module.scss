@@ -32,7 +32,7 @@
     .text{
       font-size: 16px;
       font-weight: bold;
-      color: #003652;
+      color: rgba(48, 75, 69, 1);
       text-transform: uppercase;
       margin-bottom: 29px;
       width: 164px;
@@ -51,7 +51,7 @@
     }
   }
   .box:hover {
-    background: #003652 0% 0% no-repeat padding-box;
+    background: rgba(48, 75, 69, 1) 0% 0% no-repeat padding-box;
     transition: background-color 0.25s;
     .heading{
       .text{

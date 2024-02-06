@@ -50,7 +50,7 @@ export default function About() {
                 />
               </div>
               <Link href="/trial-form" className={Styles.cta}>
-                  YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+                  START MY <strong>FREE</strong> 30-DAY TRIAL
               </Link>
             </div>
             <div className={Styles.cardContentRight}>

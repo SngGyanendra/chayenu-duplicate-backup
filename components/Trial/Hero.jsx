@@ -26,7 +26,7 @@ export default function Hero() {
           <p className={Styles.subtitle}>Sign up for a <strong>FREE 30-day</strong><strong className={Styles.strong}> trial</strong>, and join the <strong className={Styles.strong}>30,000+</strong> busy individuals worldwide who’ve made Chayenu their <strong className={Styles.strong}>daily Torah study companion.</strong></p>
           <div className={Styles.header}>
             <Link href="/trial-form" className={Styles.cta}>
-                YES. I WANT MY <strong>FREE</strong> 30-DAY ACCESS NOW!
+              START MY <strong>FREE</strong> 30-DAY TRIAL
             </Link>
             <ul className={Styles.featureList}>
               <li>

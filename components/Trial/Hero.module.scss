@@ -1,7 +1,6 @@
 .wrapper {
   background-size: cover !important;
-  background: var(--website-color-banner)
-    url("/images/homepage/LinesBackground.webp") repeat-y;
+  background: rgba(97, 160, 214, 0.2) 0% 0% no-repeat padding-box;
 
   .main {
     // width: var(--container-width);
@@ -15,7 +14,7 @@
 
     .cardContentLeft {
       color: white;
-      padding-bottom: 96px;
+      padding-bottom: 75px;
 
       .mobileImg{
         display: none;
@@ -23,6 +22,7 @@
       .title {
         font-size: 48px;
         padding-top:79px;
+        color: #003652;
       }
       .tabTitle{
         font-size: 43px !important; 
@@ -32,15 +32,15 @@
         text-align: left;
         font-size: 22px;
         letter-spacing: 0px;
-        color: #FFFFFF;
-        max-width: 450px;
+        color: #003652;
+        max-width: 545px
       }
 
       .featureList {
-        margin-top: 60px;
+        margin-top: 30px;
         list-style-type: none;
         font-size: 22px;
-        color: white;
+        color: #003652;
         font-weight: 500;
 
         li{
@@ -50,7 +50,7 @@
             width: 30px;
             height: 30px;
             margin-right: 16px;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
           }
           p{
             font-size: 22px;
@@ -63,13 +63,13 @@
         display: inline-block;
         text-transform: uppercase;
         min-width: fit-content;
-        padding: 10px 18px;
+        padding: 8px 18px;
         border: none;
         border-radius: 10px;
-        margin-top: 60px;
-        background-color: white;
-        color: var(--dark);
-        font-weight: 500;
+        margin-top: 30px;
+        background: #61A0D6 0% 0% no-repeat padding-box;
+        color: #ffffff;
+        font-weight: 300;
         font-size: 17px;
 
         &:hover {
@@ -142,29 +142,38 @@
     }
 
     .cardContentRight {
-      background-size: cover !important;
-      background: var(--website-color-banner)
-      url("/images/trial/trialhero.webp") repeat-y;
       width: 42.50%;
 
+      .img {
+        position: relative;
+        bottom: -6px;
+        margin-top: 13%;
+        margin-left: 10%;
+        height: 525px;
+        width: 310px;
+      }
       @media screen and (max-width: 800px) {
         display: none;
       }
       @media screen and (min-width: 1536px) {
         width: 42.50%;
+        .img{
+          margin-top: 12%;
+        }
 
       }
       @media screen and (min-width: 1700px) {
         width: 44%;
+        .img{
+          margin-top: 10%;
+        }
 
       }
       @media screen and (min-width: 1900px) {
         width: 44.5%;
-      }
-      .img {
-        visibility: hidden;
-        width: 100%;
-        height: auto;
+        .img{
+          margin-top: 9%;
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="103.019" height="103" viewBox="0 0 103.019 103">
   <g id="Haftarah" transform="translate(101.519 1.498) rotate(90)">
-    <path id="Path_89072" data-name="Path 89072" d="M58.727,1006.249A10.053,10.053,0,0,1,60.956,1000H2.139a10.361,10.361,0,0,0,8.279,16.663H68.752a10.115,10.115,0,0,1-10.025-10.414Z" transform="translate(0 -916.686)" fill="none" stroke="#003652" stroke-linejoin="round" stroke-width="3"/>
-    <path id="Path_89073" data-name="Path 89073" d="M52.936,43h0Zm0-12.6h0Zm0-12.6h0Zm0-12.6h0Z" transform="translate(73.002 16.996) rotate(90)" fill="none" stroke="#003652" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-    <path id="Path_89074" data-name="Path 89074" d="M272.917,0H212.5A12.514,12.514,0,0,0,200,12.5l-.05,70.814h44.258s-4.608,6.793,0,12.5c3.729,5.384,14.452,4.039,14.452,4.039S263,98.9,265,95.811s1.662-5.12,1.662-8.331V10.414a6.25,6.25,0,0,1,12.5,0c-.034,1.481.662,2.827,2.187,2.827s1.985-1.624,1.98-2.827A10.43,10.43,0,0,0,272.917,0Z" transform="translate(-183.332)" fill="none" stroke="#003652" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_89072" data-name="Path 89072" d="M58.727,1006.249A10.053,10.053,0,0,1,60.956,1000H2.139a10.361,10.361,0,0,0,8.279,16.663H68.752a10.115,10.115,0,0,1-10.025-10.414Z" transform="translate(0 -916.686)" fill="none" stroke="#304b45" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_89073" data-name="Path 89073" d="M52.936,43h0Zm0-12.6h0Zm0-12.6h0Zm0-12.6h0Z" transform="translate(73.002 16.996) rotate(90)" fill="none" stroke="#304b45" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+    <path id="Path_89074" data-name="Path 89074" d="M272.917,0H212.5A12.514,12.514,0,0,0,200,12.5l-.05,70.814h44.258s-4.608,6.793,0,12.5c3.729,5.384,14.452,4.039,14.452,4.039S263,98.9,265,95.811s1.662-5.12,1.662-8.331V10.414a6.25,6.25,0,0,1,12.5,0c-.034,1.481.662,2.827,2.187,2.827s1.985-1.624,1.98-2.827A10.43,10.43,0,0,0,272.917,0Z" transform="translate(-183.332)" fill="none" stroke="#304b45" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
   </g>
 </svg>

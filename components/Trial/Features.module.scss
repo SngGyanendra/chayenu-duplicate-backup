@@ -20,11 +20,13 @@
       h2{
         font-size: 20px;
         font-weight: bold;
+        color: #444444;
       }
       p{
           font-size: 16px;
           margin-bottom: 15px;
           font-weight: 400;
+          color: #444444;
           span{
               font-weight: 900;
           }
@@ -51,7 +53,7 @@
 }
 
 .MainSection2{
-  background: #e3f0fa 0% 0% no-repeat padding-box;
+  background: rgba(106, 190, 172, 0.2) 0% 0% no-repeat padding-box;
 
   .section2 {
     width: var(--container-width);
@@ -71,7 +73,7 @@
       h2{
         font-size: 30px;
         font-weight: bold;
-        color: #003652;
+        color: rgba(48, 75, 69, 1);
         br{
           display: none;
         }
@@ -79,7 +81,7 @@
       .subhead{
         font-size: 16px;
         font-weight: 500;
-        color: #003652;
+        color: rgba(48, 75, 69, 1);
         margin-top: 10px;
         margin-bottom: 30px;
       }
@@ -100,18 +102,18 @@
       .cta {
         text-transform: uppercase;
         min-width: fit-content;
-        padding: 10px 18px;
+        padding: 8px 18px;
         border: none;
         border-radius: 7px;
-        background-color: var(--dark);
+        background: rgba(48, 75, 69, 1) 0% 0% no-repeat padding-box;
         color: #ffffff;
-        font-weight: 500;
+        font-weight: 400;
         font-size: 16px;
         margin-right: 20px;
 
   
         &:hover {
-          background: #61A0D6 0% 0% no-repeat padding-box;
+          background: rgba(106, 190, 172, 1) 0% 0% no-repeat padding-box;
           transition: background-color 0.25s;
         }
         strong{
@@ -119,17 +121,19 @@
         }
       }
       .cta2{
-        background: #61A0D6 0% 0% no-repeat padding-box;
+        background: transparent;
+        border: 2px solid rgba(48, 75, 69, 1);
         border-radius: 7px;
-        padding: 10px 18px;
+        padding: 7px 18px;
         font-size: 16px;
         font-weight: 500;
-        color: #FFFFFF;
+        color: rgba(48, 75, 69, 1);
         text-transform: uppercase;
         text-align: center;
 
         &:hover {
-          background: #003652 0% 0% no-repeat padding-box;
+          border: 2px solid rgba(106, 190, 172, 1);
+          color: rgba(106, 190, 172, 1);
           transition: background-color 0.25s;
         }
       }
