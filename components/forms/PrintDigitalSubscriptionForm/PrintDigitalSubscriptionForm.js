@@ -930,7 +930,7 @@ export function PrintDigitalSubscriptionForm({
                         (paymentMethod === 'other' || !isLoggedIn) && (
                           <div className={Styles.creditCard}>
                             <div className={Styles.ccnumber}>
-                              <label for="cc-number">Credit Number</label>
+                              <label for="cc-number">Credit Card Number</label>
                               <div
                                 id="cc-number"
                                 className={Styles.hostedFields}
@@ -943,7 +943,7 @@ export function PrintDigitalSubscriptionForm({
                             </div>
                             <div className={Styles.expirycvv}>
                               <div>
-                                <label for="cc-expiry">Expiry</label>
+                                <label for="cc-expiry">Expiration Date</label>
                                 <div
                                   id="cc-expiry"
                                   className={Styles.hostedFields}
@@ -1000,7 +1000,7 @@ export function PrintDigitalSubscriptionForm({
                             <input type="checkbox" id="is_agree" name="is_agree" onChange={handleChange} value={values.is_agree} />
                             <span className={Styles.checkmark}></span>
                           </label>
-                          <label for="is_agree" className={Styles.agreeLable}>I agree to Chayenu&apos;s <a href='https://old.chayenu.org/terms-and-conditions/' target='_blank'>terms and conditions</a> and understand that I will be billed $180 in 1 month for the Chayenu annual subscription.</label>
+                          <label for="is_agree" className={Styles.agreeLable}>I agree to the <a href='https://old.chayenu.org/terms-and-conditions/' target='_blank'>terms and conditions</a>, and I understand that if I do not cancel within one month, I will be billed $180 for the Chayenu annual subscription.</label>
                           {cardErrors.is_agree && !values.is_agree ? (
                             <p className={Styles.error}>
                               {cardErrors.is_agree}
