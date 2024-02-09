@@ -68,7 +68,7 @@ export default function ForgotPassword() {
       <NextHead title="Chayenu | Forgot Password" />
       {forgotPasswordStage === 'OTP' ? (
         <>
-          <h1 className={Styles.emailText}>Enter your email</h1>
+          <h1 className={Styles.emailText}>Reset Password</h1>
           <Formik
             initialValues={initialValuesSendOTP}
             initialErrors={initialErrorsSendOTP}
@@ -102,6 +102,7 @@ export default function ForgotPassword() {
             }) => (
               <form className={Styles.emailInput} onSubmit={handleSubmit}>
                 <label>
+                  <span className={Styles.inputLable}>Enter your email </span>
                   <input
                     type="email"
                     placeholder="Email"
@@ -115,7 +116,7 @@ export default function ForgotPassword() {
                     {error && <span className={Styles.error}>{error}</span>}
                   </span>
                 </label>
-                <input type="submit" value="SEND OTP" />
+                <input type="submit" value="SEND ONE-TIME PASSCODE" />
               </form>
             )}
           </Formik>
@@ -149,7 +150,7 @@ export default function ForgotPassword() {
                 console.log(error);
                 setLoading(false);
                 if (error?.response?.status === 404) {
-                  setError('Invalid OTP');
+                  setError('Invalid One-time Passcode');
                 } else {
                   setError('A error occured');
                 }
@@ -214,7 +215,7 @@ export default function ForgotPassword() {
                   <input
                     type="password"
                     name="otp"
-                    placeholder="OTP"
+                    placeholder="One-time Passcode"
                     value={values.otp}
                     onChange={handleChange}
                     onBlur={handleBlur}
