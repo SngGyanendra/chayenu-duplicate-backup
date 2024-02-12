@@ -65,7 +65,7 @@ export default function ForgotPassword() {
 
   return (
     <div className={Styles.forgotPasswordContainer}>
-      <NextHead title="Chayenu | Forgot Password" />
+      <NextHead title="Chayenu | Reset Password" />
       {forgotPasswordStage === 'OTP' ? (
         <>
           <h1 className={Styles.emailText}>Reset Password</h1>
