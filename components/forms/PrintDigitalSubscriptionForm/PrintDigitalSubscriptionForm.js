@@ -698,6 +698,13 @@ export function PrintDigitalSubscriptionForm({
                         ? 'CONTACT INFO'
                         : 'SHIPPING INFO'}
                     </div>
+                    <div
+                        className={
+                          !is_trial
+                            ? Styles.selectPaymentMethod
+                            : `${Styles.selectPaymentMethod} ${Styles.isTrial}`
+                        }
+                      ></div>
                     <div className={Styles.nameSection}>
                       <label>
                         <input
