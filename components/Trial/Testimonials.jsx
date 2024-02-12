@@ -33,9 +33,9 @@ export default function TrialTestimonials() {
 
         >
       </Carousel>}
-      <div className={Styles.linkDiv}>
+      {/* <div className={Styles.linkDiv}>
         <a className={Styles.link} href="#payment-section">READ MORE TESTIMONIALS</a>
-      </div>
+      </div> */}
       </div>
   );
 }
