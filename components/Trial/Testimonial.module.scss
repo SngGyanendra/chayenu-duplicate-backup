@@ -1,7 +1,143 @@
-.testimonialsHeader {
+.main{
+  width: var(--container-width);
+  margin-inline: auto;
+  -webkit-margin-before: 48px;
+  margin-block-start: 48px;
+
+  .head{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgba(92, 27, 49, 1);
     text-align: center;
-    font-size: 24px;
-    margin-block-start: 48px;
-    color: var(--dark);
+    br{
+      display: none;
+    }
   }
-  
+  .subhead{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(92, 27, 49, 1);
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 765px;
+  }
+  .startQuote{
+    position: relative;
+    top: 30px;
+    right: 15px;
+  }
+  .endQuote{
+    position: relative;
+    top: -25px;
+    left: 15px;
+    float: right;
+  }
+  .linkDiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    .link{
+      background: transparent;
+      border: 2px solid rgba(224, 69, 123, 1);
+      border-radius: 7px;
+      padding: 7px 18px;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(224, 69, 123, 1);
+      text-transform: uppercase;
+      text-align: center;
+
+      &:hover{
+        border: 2px solid rgba(92, 27, 49, 1);
+        color: rgba(92, 27, 49, 1);
+      }
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .head{
+      text-transform: capitalize;
+      br{
+        display: block;
+      }
+    }
+    .subhead{
+      font-size: 20px;
+      width: auto;
+      .strong{
+        font-weight: 900;
+      }
+    }
+    .startQuote{
+      width: 47px;
+      height: 40px;
+    }
+    .endQuote{
+      width: 47px;
+      height: 40px;
+    }
+    .linkDiv{
+
+      .link{
+          font-size: 12px;
+          padding: 7px 14px;
+          border-radius: 7px;
+          font-weight: 400;
+      }
+    }
+  }
+}
+.testimonials{
+  height: 180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;     
+  background: rgba(224, 69, 123, 0.1) 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  .carouselContainer
+  {
+    width: 100% !important;
+  }
+  h2{
+    font-size: 18px;
+    font-weight: 900;
+    height: fit-content;
+    width: 100%;
+    color: rgba(92, 27, 49, 1);
+  }
+  p{
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(92, 27, 49, 1);
+  }
+  .auther{
+    font-size: 14px;
+    font-style: italic;
+    color: #50430B;
+  }
+  .carousel_currentIndicatorContainer{
+    margin-top: -30px !important;
+  }
+
+  @media screen and (max-width: 800px) {
+    height: fit-content;
+    min-height: 360px;
+    grid-template-rows: 1fr auto;
+    padding-bottom: 0;
+
+    h2{
+      text-align: center;
+      font-size: 16px
+    }
+    p{
+      text-align: center;
+      font-size: 14px;
+    }
+    .auther{
+      text-align: center;
+    }
+  }
+}

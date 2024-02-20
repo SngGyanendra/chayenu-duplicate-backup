@@ -1,0 +1,234 @@
+.MainSection2{
+  background: rgba(236, 161, 84, 0.2) 0% 0% no-repeat padding-box;
+}
+.section2 {
+  width: var(--container-width);
+  height: 538px;
+  margin-inline: auto;
+  -webkit-margin-before: 48px;
+  margin-block-start: 48px;
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  height: auto;
+
+  h2{
+    font-size: 30px;
+    font-weight: 900;
+    margin-top: 4rem;
+    padding-bottom: 2rem;
+    color: rgba(96, 64, 30, 1);
+  }
+  .card {
+    height: auto;
+    align-items: center;
+    grid-template-columns: 1fr 26rem;
+    display: flex;
+
+    .cardContentLeft {
+      .mainSteps{
+        width: 465px;
+        .steps{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 30px;
+  
+          .image{
+            width: 45px;
+            height: 56px;
+            margin-right: 30px;
+            display: flex;
+            align-items: center;
+  
+            img{
+              width: 100%;
+            }
+          }
+          .text{
+            width: 504px;
+  
+            h3{
+              font-size: 18px;
+              font-weight: bold;
+              color: rgba(96, 64, 30, 1);
+              a{
+                text-decoration: underline;
+                background-color: transparent;
+                color: rgba(96, 64, 30, 1);
+                padding: 0px;
+                font-weight: 900;
+              }
+              img{
+                display: none;
+              }
+            }
+            p {
+              font-size: 14px;
+              color: rgba(96, 64, 30, 1);
+              width: 386px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .cardContentRight {
+    img{
+      width: 440px;
+      height: 245px;
+      margin-top: -30px;
+    }
+
+  }
+
+
+  @media screen and (max-width: 800px) {
+    & {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      height: auto;
+      justify-items: center;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+      flex-direction: column-reverse;
+      // width: 100%;
+      
+      .cardContentLeft {
+        width: 100%;
+
+        .mainSteps{
+          width: 100%;
+
+          .steps{
+            width: 100%;
+
+            .image{
+              display: none;
+            }
+
+            .text{
+              width: 100%;
+
+              h3{
+                display: flex;
+                align-items: center;
+                img{
+                  padding-right: 10px;
+                  width: 45px;
+                  height: 50px;
+                  display: block;
+                }
+              }
+
+              p{
+                width: 100%;
+                max-width: 386px;
+
+                br{
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+        h2 {
+          font: fontvalue(28, 39, bold);
+        }
+      }
+
+      .cardContentRight {
+        width: 100%;
+        margin-bottom: 10px;
+        img{
+          width: 302px;
+          height: 168px;
+        }
+      }
+    }
+  }
+}
+.section3 {
+  width: var(--container-width);
+  height: 538px;
+  margin-inline: auto;
+  -webkit-margin-before: 48px;
+  margin-block-start: 48px;
+  padding-bottom: 3rem;
+  padding-top: 1rem;
+  height: auto;
+  text-align: center;
+  .card {
+    height: auto;
+    align-items: center;
+    grid-template-columns: 1fr 26rem;
+    padding-top: 2rem;
+
+    .cta {
+      display: inline-block;
+      text-transform: uppercase;
+      min-width: fit-content;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 7px;
+      margin-top: 45px;
+      background-color: var(--dark);
+      color: #ffffff;
+      font-weight: 400;
+      font-size: 16px;
+
+      &:hover {
+        background: #61A0D6 0% 0% no-repeat padding-box;
+        transition: background-color 0.25s;
+      }
+      strong{
+        font-weight: 900 !important;
+      }
+    }
+
+    h1{
+      font-size: 35px;
+      font-weight: 900;
+    }
+    p{
+      margin-top: 45px;
+      margin-bottom: 25px;
+      font-size: 16px;
+      font-weight: 500;
+      a{
+        text-decoration: underline;
+      }
+    }
+
+  }
+
+
+  @media screen and (max-width: 800px) {
+    & {
+      height: auto;
+      padding-top: 0px;
+    }
+    .card {
+      height: auto;
+      justify-items: center;
+      margin-bottom: 1rem;
+
+      .cta{
+          font-size: 12px;
+          padding: 7px 14px;
+          border-radius: 7px;
+          font-weight: 400;
+      }
+      h1{
+        font-size: 30px;
+      }
+      p{
+        font-size: 18px;
+      }
+    }
+  }
+}

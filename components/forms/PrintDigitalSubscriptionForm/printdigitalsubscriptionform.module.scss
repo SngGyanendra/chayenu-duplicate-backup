@@ -11,6 +11,113 @@
     display: flex;
     flex-direction: column;
   }
+  .trialSubmit {
+    width: 80%;
+    border-radius: 5px;
+    padding: 10px 18px;
+    margin-left: 10%;
+    margin-top: 20px;
+    background-color: var(--website-color);
+    color: white;
+    border: none;
+    outline: none;
+    font: fontvalue(22, 22, 400);
+    // font-family: 'Brandon Grotesque', sans-serif;
+    cursor: pointer;
+    transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &:hover {
+      box-shadow: 0px 6px 12px #00000029;
+    }
+  }
+  .agree{
+    text-align: center;
+    width: 600px;
+
+    .agreeLable{
+      font: normal normal 400 16px/16px var(--website-font-family);
+      margin-left: 3.5%;
+      a{
+        font-weight: bold;
+      }
+    }
+    @media screen and (max-width: 800px) {
+      max-width: var(--container-width);
+
+      .agreeLable{
+        margin-left: 7.5%;
+        line-height: 23px;
+      }
+    }
+    .error{
+      color: #be1550;
+      font: normal normal 600 14px/14px var(--website-font-family);
+      min-width: 1px;
+      min-height: 14px;
+      font-family: "Brandon Grotesque", sans-serif;
+    }
+    .container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+
+        &:checked ~ .checkmark {
+          background-color: #75b2e6;
+          border: none;
+        }
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        border: 1px solid black;
+        border-radius: 3px;
+
+        &:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+      }
+      .checkmark:after {
+        left: 8px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+    }
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+  }
+  .disabled {
+    background-color: grey !important;
+    cursor: auto;
+    &:hover {
+      box-shadow: none;
+    }
+  }
   .form {
     .college {
       font: fontvalue(18, 18, 700);
@@ -26,7 +133,7 @@
       grid-template-rows: repeat(2, 1fr);
       row-gap: 1rem;
       label {
-        font: fontvalue(14, 14, 300);
+        font: fontvalue(16, 16, 300);
         margin-bottom: 5px;
       }
       .hostedFields {
@@ -88,8 +195,8 @@
     .selectCountry {
       color: #003652;
       text-align: center;
-      font: fontvalue(18, 20, 300);
-      font-family: 'Brandon Grotesque', sans-serif;
+      font: fontvalue(18, 20, 500);
+      // font-family: 'Brandon Grotesque', sans-serif;
       text-align: center;
       margin: 1rem 0;
       select {
