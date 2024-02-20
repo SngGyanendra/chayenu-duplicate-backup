@@ -118,6 +118,11 @@
       box-shadow: none;
     }
   }
+  .trialForm{
+    @media screen and (max-width: 500px) {
+      width: 76vw;
+    }
+  }
   .form {
     .college {
       font: fontvalue(18, 18, 700);
@@ -170,7 +175,7 @@
       width: 80vw;
     }
     @media screen and (max-width: 500px) {
-      width: 90vw;
+      width: 76vw;
     }
     .nameSection {
       display: flex;
