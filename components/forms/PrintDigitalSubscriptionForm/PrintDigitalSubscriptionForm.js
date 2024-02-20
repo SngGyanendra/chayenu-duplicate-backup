@@ -521,10 +521,10 @@ export function PrintDigitalSubscriptionForm({
             handleSubmit,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={Styles.trialForm}>
               {countriesList.find((country) => country.name === 'USA') &&
                 countriesList.length > 1 && (
-                  <div className={Styles.form}>
+                  <div className={ is_trial ? Styles.form:Styles.trialForm2 }>
                     {
                       <>
                         <div className={Styles.country} ref={autoScroll}>
