@@ -524,7 +524,7 @@ export function PrintDigitalSubscriptionForm({
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
               {countriesList.find((country) => country.name === 'USA') &&
                 countriesList.length > 1 && (
-                  <div className={ is_trial ? Styles.form:Styles.trialForm2 }>
+                  <div className={Styles.form}>
                     {
                       <>
                         <div className={Styles.country} ref={autoScroll}>
