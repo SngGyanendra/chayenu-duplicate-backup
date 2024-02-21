@@ -521,7 +521,7 @@ export function PrintDigitalSubscriptionForm({
             handleSubmit,
             isSubmitting,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={Styles.trialForm}>
               {countriesList.find((country) => country.name === 'USA') &&
                 countriesList.length > 1 && (
                   <div className={Styles.form}>
