@@ -6,6 +6,8 @@ import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './paymentmethod.module.scss';
 import { CreditCard } from '../CreditCard/CreditCard';
 import { EditPaymentMethod } from '/components/forms';
+import { DeleteCard } from '../../forms/DeleteCard/DeleteCard';
+import { Popup } from '/components/common';
 
 export function PaymentMethod({ paymentMethod }) {
   const APIs = new AuthencticatedUserAPI();
@@ -18,6 +20,7 @@ export function PaymentMethod({ paymentMethod }) {
   const [userDetails, setUserDetails] = useState({});
   const [editingState, setEditingState] = useState(false);
   const [countries, setCountries] = useState([]);
+  const [popup, setPopup] = useState('');
 
   useEffect(() => {
     async function getData() {
@@ -100,7 +103,17 @@ export function PaymentMethod({ paymentMethod }) {
                 </div>
               </div>
               <div className={Styles.buttons}>
-                <button onClick={() => setEditingState(true)}>EDIT</button>
+                <div>
+                  <button onClick={() => setEditingState(true)}>EDIT</button>
+                  <button
+                    className={Styles.removeButton}
+                    onClick={async () => {
+                      setPopup('deleteCard');
+                    }}
+                  >
+                    REMOVE CARD
+                  </button>
+                </div>
                 <div className={Styles.defaultCardId}>
                   {userDetails?.default_card_id === paymentMethod.cardToken
                     ? 'DEFAULT'
@@ -130,6 +143,18 @@ export function PaymentMethod({ paymentMethod }) {
               country={country}
               state={state}
             />
+          );
+        }
+      })()}
+      {(() => {
+        if (popup === 'deleteCard') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <DeleteCard
+                setPopupState={setPopup}
+                paymentMethod={paymentMethod}
+              />
+            </Popup>
           );
         }
       })()}

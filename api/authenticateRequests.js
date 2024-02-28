@@ -79,7 +79,7 @@ export class AuthencticatedUserAPI {
       );
       return data;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
@@ -239,6 +239,19 @@ export class AuthencticatedUserAPI {
       const response = await this.requestInstance.post(
         `${backendUrl}/subscription/cancelSubscription`,
         { id, reasons }
+      );
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletePaymentMethod(card_token) {
+    try {
+      const response = await this.requestInstance.post(
+        `${backendUrl}/user/paymentmethods/delete`,
+        { card_token },
+        {}
       );
       return response;
     } catch (error) {
