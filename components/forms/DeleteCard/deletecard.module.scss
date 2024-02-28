@@ -1,0 +1,30 @@
+@import 'common.scss';
+
+.deleteCard {
+  width: 300px;
+  height: 200px;
+  background-color: var(--website-color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  flex-direction: column;
+
+  h3 {
+    font: fontvalue(20, 20, 500);
+    text-align: center;
+  }
+
+  .button {
+    margin-top: 20px;
+
+    button:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.disabled {
+  background-color: grey !important;
+}
