@@ -5,12 +5,16 @@ import Styles from './deletecard.module.scss';
 import { useState } from 'react';
 
 export function DeleteCard({ setPopupState, paymentMethod }) {
+  console.log(paymentMethod.number.slice(-4));
   const APIs = new AuthencticatedUserAPI();
   const [loading, setLoading] = useState(false);
 
   return (
     <div className={Styles.deleteCard}>
-      <h3>Are you sure you want to delete this card</h3>
+      <h3>
+        Are you sure you want to delete this card ending with{' '}
+        {paymentMethod.number.slice(-4)}
+      </h3>
       <div className={Styles.button}>
         <button
           onClick={async () => {
@@ -27,8 +31,6 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
                 loadingToast
               );
             } catch (error) {
-              console.log(error);
-              console.log(error.response.data.message);
               if (error.response.data.message) {
                 toastTemplate(
                   toast.error,
