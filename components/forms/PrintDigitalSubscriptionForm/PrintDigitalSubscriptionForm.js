@@ -29,6 +29,7 @@ import {
 } from '../../../api';
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
+import Autocomplete from "react-google-autocomplete";
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -52,6 +53,8 @@ export function PrintDigitalSubscriptionForm({
   const [popup, setPopup] = useState('');
   const [allColleges, setAllColleges] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState();
+  const [streetError, setStreetError] = useState(undefined);
+  const [filterState, setFilterState] = useState(undefined);
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -519,6 +522,7 @@ export function PrintDigitalSubscriptionForm({
             handleChange,
             handleBlur,
             handleSubmit,
+            setFieldValue,
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
@@ -741,18 +745,52 @@ export function PrintDigitalSubscriptionForm({
                       {deliveryType === 'shipping' && (
                         <>
                           <label>
-                            <input
+                          <Autocomplete
+                              apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+                              options={{
+                                types: ["address"],
+                                componentRestrictions: { country: "us" },
+                              }}
                               type="text"
                               name="address_1"
                               placeholder="Street Address"
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values.address_1}
+                              onPlaceSelected={(place) => {
+                                if(place.address_components){
+                                  place.address_components.map((item) => {
+                                    if (item.types.includes("locality")) {
+                                      setFieldValue('city', item.long_name);
+                                    }
+                                    if (item.types.includes("administrative_area_level_1")) {
+                                      var objState=selectedCountry?.states.find(obj => {
+                                        return obj.name === item.short_name;
+                                      });
+                                      setFilterState(objState)
+                                      setFieldValue('state', objState !=undefined ? objState.id:item.short_name);
+                                    }
+                                    if (item.types.includes("postal_code")) {
+                                      setFieldValue('zip_code', item.long_name);
+                                    }
+                                  })
+
+                                  const address = place.formatted_address.split(",");
+                                  setFieldValue('address_1',address[0]);
+                                  setStreetError(undefined);
+                                }else{
+                                  setFieldValue('address_1',undefined);
+                                  setStreetError("Please select a valid address");
+                                }
+                              }}
                             />
                             <span className={Styles.error}>
-                              {errors.address_1 &&
+                              {
+                                streetError != undefined ? streetError :
+                                errors.address_1 &&
                                 touched.address_1 &&
-                                errors.address_1}
+                                errors.address_1
+                              }
                             </span>
                           </label>
                           <label>
@@ -780,6 +818,8 @@ export function PrintDigitalSubscriptionForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.city}
+                                className={filterState != undefined ? "disabled":""}
+                                disabled={filterState != undefined ? true:false}
                               />
                               <span className={Styles.error}>
                                 {errors.city && touched.city && errors.city}
@@ -794,18 +834,29 @@ export function PrintDigitalSubscriptionForm({
                                   value={values.state}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
+                                  disabled={filterState != undefined ? true:false}
                                 >
-                                  <option value="" hidden={true}>
-                                    State
-                                  </option>
+                                  {
+                                    filterState == undefined ? 
+                                    <option value="" hidden={true}>
+                                      State
+                                    </option>
+                                    :
+                                    <option key={filterState.id} value={filterState.id} >
+                                      {filterState.name}
+                                    </option>
+                                  }
+                                  
                                   {selectedCountry?.states
                                     ?.sort((a, b) =>
                                       a.name.localeCompare(b.name)
                                     )
                                     .map((state) => (
-                                      <option key={state.id} value={state.id}>
+                                      values.state != state.name ? 
+                                      <option key={state.id} value={state.id} >
                                         {state.name}
                                       </option>
+                                      :""
                                     ))}
                                 </select>
                                 <span className={Styles.error}>
@@ -828,6 +879,8 @@ export function PrintDigitalSubscriptionForm({
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values.zip_code}
+                              className={filterState != undefined ? "disabled":""}
+                              disabled={filterState != undefined ? true:false}
                             />
                             <span className={Styles.error}>
                               {errors.zip_code &&
