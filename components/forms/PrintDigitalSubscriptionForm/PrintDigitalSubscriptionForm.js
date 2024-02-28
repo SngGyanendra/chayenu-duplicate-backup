@@ -54,7 +54,9 @@ export function PrintDigitalSubscriptionForm({
   const [allColleges, setAllColleges] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState();
   const [streetError, setStreetError] = useState(undefined);
+  const [apiAddress, setApiAddress] = useState(undefined);
   const [filterState, setFilterState] = useState(undefined);
+  const [filterCity, setFilterCity] = useState(undefined);
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -486,6 +488,11 @@ export function PrintDigitalSubscriptionForm({
               setCardErrors({is_agree:"Please accept the terms and conditions checkbox"})
               return false;
             }
+            if(apiAddress!= values.address_1)
+            {
+              setStreetError("Please select a valid address");
+              return false;
+            }
             setLoading(true);
             if (!paymentMethod) {
               toastTemplate(toast.error, 'Please select a payment method');
@@ -749,7 +756,7 @@ export function PrintDigitalSubscriptionForm({
                               apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
                               options={{
                                 types: ["address"],
-                                componentRestrictions: { country: "us" },
+                                componentRestrictions: { country: selectedCountry?.alpha_2_code },
                               }}
                               type="text"
                               name="address_1"
@@ -759,9 +766,11 @@ export function PrintDigitalSubscriptionForm({
                               value={values.address_1}
                               onPlaceSelected={(place) => {
                                 if(place.address_components){
+                                  console.log(place);
                                   place.address_components.map((item) => {
                                     if (item.types.includes("locality")) {
                                       setFieldValue('city', item.long_name);
+                                      setFilterCity(item.long_name)
                                     }
                                     if (item.types.includes("administrative_area_level_1")) {
                                       var objState=selectedCountry?.states.find(obj => {
@@ -776,6 +785,7 @@ export function PrintDigitalSubscriptionForm({
                                   })
 
                                   const address = place.formatted_address.split(",");
+                                  setApiAddress(address[0]);
                                   setFieldValue('address_1',address[0]);
                                   setStreetError(undefined);
                                 }else{
@@ -818,8 +828,8 @@ export function PrintDigitalSubscriptionForm({
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.city}
-                                className={filterState != undefined ? "disabled":""}
-                                disabled={filterState != undefined ? true:false}
+                                className={filterCity != undefined ? "disabled":""}
+                                disabled={filterCity != undefined ? true:false}
                               />
                               <span className={Styles.error}>
                                 {errors.city && touched.city && errors.city}
