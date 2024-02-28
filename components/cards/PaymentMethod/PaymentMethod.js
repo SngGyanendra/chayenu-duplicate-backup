@@ -5,6 +5,7 @@ import { getAllCountries } from '/api';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './paymentmethod.module.scss';
 import { CreditCard } from '../CreditCard/CreditCard';
+import toast from 'react-hot-toast';
 import { EditPaymentMethod } from '/components/forms';
 import { DeleteCard } from '../../forms/DeleteCard/DeleteCard';
 import { Popup } from '/components/common';
@@ -105,14 +106,22 @@ export function PaymentMethod({ paymentMethod }) {
               <div className={Styles.buttons}>
                 <div>
                   <button onClick={() => setEditingState(true)}>EDIT</button>
-                    <button
-                      className={Styles.removeButton}
-                      onClick={() => {
+                  <button
+                    className={Styles.removeButton}
+                    onClick={() => {
+                      if (
+                        userDetails?.default_card_id === paymentMethod.cardToken
+                      ) {
+                        toast.error('Cannot delete default card', {
+                          duration: 6000,
+                        });
+                      } else {
                         setPopup('deleteCard');
-                      }}
-                    >
-                      REMOVE CARD
-                    </button>
+                      }
+                    }}
+                  >
+                    REMOVE CARD
+                  </button>
                 </div>
                 <div className={Styles.defaultCardId}>
                   {userDetails?.default_card_id === paymentMethod.cardToken
