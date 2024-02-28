@@ -281,6 +281,9 @@
         @media screen and (max-width: 70rem) {
           width: 100%;
         }
+        .disabled{
+          background-color: #f7fbfe !important;
+        }
       }
     }
     .plan {
@@ -320,6 +323,9 @@
       margin-top: 0.2rem;
       &:focus {
         outline: none;
+      }
+      &:disabled{
+        background-color: #f7fbfe !important;
       }
     }
     select {
