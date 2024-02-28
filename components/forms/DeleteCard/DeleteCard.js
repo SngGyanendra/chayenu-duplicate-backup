@@ -1,18 +1,21 @@
 import toast from 'react-hot-toast';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import { toastTemplate } from '/components/common';
+import { updatePaymentMethods } from '/store/userSlice';
+import { useDispatch } from 'react-redux';
 import Styles from './deletecard.module.scss';
 import { useState } from 'react';
 
 export function DeleteCard({ setPopupState, paymentMethod }) {
   console.log(paymentMethod.number.slice(-4));
   const APIs = new AuthencticatedUserAPI();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   return (
     <div className={Styles.deleteCard}>
       <h3>
-        Are you sure you want to delete this card ending with{' '}
+        Please confirm that you&rsquo;d like to delete card ending in{' '}
         {paymentMethod.number.slice(-4)}
       </h3>
       <div className={Styles.button}>
@@ -25,6 +28,8 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
                 paymentMethod.cardToken
               );
               setPopupState('');
+              const newPaymentMethods = await APIs.getAllPaymentMethods();
+              dispatch(updatePaymentMethods(newPaymentMethods));
               toastTemplate(
                 toast.success,
                 'Card deleted successfully',

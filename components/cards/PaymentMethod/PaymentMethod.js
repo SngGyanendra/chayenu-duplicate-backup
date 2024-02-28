@@ -105,14 +105,14 @@ export function PaymentMethod({ paymentMethod }) {
               <div className={Styles.buttons}>
                 <div>
                   <button onClick={() => setEditingState(true)}>EDIT</button>
-                  <button
-                    className={Styles.removeButton}
-                    onClick={async () => {
-                      setPopup('deleteCard');
-                    }}
-                  >
-                    REMOVE CARD
-                  </button>
+                    <button
+                      className={Styles.removeButton}
+                      onClick={() => {
+                        setPopup('deleteCard');
+                      }}
+                    >
+                      REMOVE CARD
+                    </button>
                 </div>
                 <div className={Styles.defaultCardId}>
                   {userDetails?.default_card_id === paymentMethod.cardToken
