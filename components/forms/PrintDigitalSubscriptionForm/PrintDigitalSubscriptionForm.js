@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback ,useRef } from 'react';
 import Image from 'next/image';
 import {
   initializeCustomBraintree,
@@ -53,10 +53,11 @@ export function PrintDigitalSubscriptionForm({
   const [popup, setPopup] = useState('');
   const [allColleges, setAllColleges] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState();
-  const [streetError, setStreetError] = useState(undefined);
-  const [apiAddress, setApiAddress] = useState(undefined);
+  const [addressError, setAddressError] = useState([]);
+  const [reAddressApi, setReAddressApi] = useState([]);
   const [filterState, setFilterState] = useState(undefined);
-  const [filterCity, setFilterCity] = useState(undefined);
+  const [subscribeAnyway, setSubscribeAnyway] = useState(false);
+  const [editAddress, setEditAddress] = useState(false);
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -68,6 +69,7 @@ export function PrintDigitalSubscriptionForm({
   const { payment_methods } = useSelector((state) => state.user);
 
   const router = useRouter();
+  const formRef = useRef()
 
   const autoScrollToPlanRef = useCallback(
     (node) => {
@@ -97,6 +99,21 @@ export function PrintDigitalSubscriptionForm({
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
     [selectedCollege]
   );
+
+  const handleEditAddress = () => {
+    setEditAddress(true);
+    setPopup('');
+    if (formRef.current) {
+      formRef.current.handleSubmit()
+    }
+  }
+  const handleSubmitForm = () => {
+    setSubscribeAnyway(true);
+    setPopup('');
+    if (formRef.current) {
+      formRef.current.handleSubmit()
+    }
+  }
 
   useEffect(() => {
     async function getData() {
@@ -321,6 +338,7 @@ export function PrintDigitalSubscriptionForm({
     address_1: undefined,
     distributor: undefined,
     address_2: undefined,
+    address_validated:true,
     zip_code: undefined,
     email: undefined,
     mobile: undefined,
@@ -483,16 +501,47 @@ export function PrintDigitalSubscriptionForm({
           initialValues={initialValues}
           initialErrors={initialErrors}
           validationSchema={validationSchema}
+          innerRef={formRef}
           onSubmit={async (values) => {
             if(is_trial && !values.is_agree){
               setCardErrors({is_agree:"Please accept the terms and conditions checkbox"})
               return false;
             }
-            if(apiAddress!= values.address_1)
+            console.log(selectedCountry?.name);
+            const addressError = {};
+            if(reAddressApi.address_1!= values.address_1)
             {
-              setStreetError("Please select a valid address");
-              return false;
+              addressError.address_1="Please select a valid address";
             }
+            if(reAddressApi.state!= values.state)
+            {
+              if(selectedCountry?.name!='Israel'){
+                addressError.state="Please select a valid state";
+              }
+            }
+            if(reAddressApi.city!= values.city)
+            {
+              addressError.city="Please enter a valid city";
+            }
+            if(reAddressApi.zip_code!= values.zip_code)
+            {
+              if(selectedCountry?.name!='Israel'){
+                addressError.zip_code="Please enter a valid postal code";
+              }
+            }
+            values.address_validated=true;
+            if(Object.keys(addressError).length > 0 && !subscribeAnyway && !editAddress ){
+              setPopup('confirmaddress');
+              return false;
+            }else if(editAddress){
+              setAddressError(addressError);
+              setEditAddress(false);
+              return false;
+            }else if(subscribeAnyway){
+              setSubscribeAnyway(false);
+              values.address_validated=false;
+            }
+            setAddressError(addressError);
             setLoading(true);
             if (!paymentMethod) {
               toastTemplate(toast.error, 'Please select a payment method');
@@ -763,14 +812,16 @@ export function PrintDigitalSubscriptionForm({
                               placeholder="Street Address"
                               onChange={handleChange}
                               onBlur={handleBlur}
+                              onKeyUp={(e) => setAddressError({...addressError ,address_1:undefined})}
                               value={values.address_1}
                               onPlaceSelected={(place) => {
                                 if(place.address_components){
                                   console.log(place);
+                                  const addressObj={};
                                   place.address_components.map((item) => {
                                     if (item.types.includes("locality")) {
                                       setFieldValue('city', item.long_name);
-                                      setFilterCity(item.long_name)
+                                      addressObj.city=item.long_name;
                                     }
                                     if (item.types.includes("administrative_area_level_1")) {
                                       var objState=selectedCountry?.states.find(obj => {
@@ -778,25 +829,29 @@ export function PrintDigitalSubscriptionForm({
                                       });
                                       setFilterState(objState)
                                       setFieldValue('state', objState !=undefined ? objState.id:item.short_name);
+                                      addressObj.state=objState !=undefined ? objState.id:item.short_name;
                                     }
                                     if (item.types.includes("postal_code")) {
                                       setFieldValue('zip_code', item.long_name);
+                                      addressObj.zip_code=item.long_name;
                                     }
                                   })
 
                                   const address = place.formatted_address.split(",");
-                                  setApiAddress(address[0]);
+                                  addressObj.address_1=address[0];
+                                  setReAddressApi(addressObj);
                                   setFieldValue('address_1',address[0]);
-                                  setStreetError(undefined);
+                                  setAddressError({});
                                 }else{
                                   setFieldValue('address_1',undefined);
-                                  setStreetError("Please select a valid address");
+                                  const addressError={address_1:"Please select a valid address"};
+                                  setAddressError(addressError);
                                 }
                               }}
                             />
                             <span className={Styles.error}>
                               {
-                                streetError != undefined ? streetError :
+                                (Object.keys(addressError).length > 0 && addressError.address_1 != undefined) ? addressError.address_1 :
                                 errors.address_1 &&
                                 touched.address_1 &&
                                 errors.address_1
@@ -827,12 +882,14 @@ export function PrintDigitalSubscriptionForm({
                                 placeholder="City"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                onKeyUp={(e) => setAddressError({...addressError ,city:undefined})}
                                 value={values.city}
-                                className={filterCity != undefined ? "disabled":""}
-                                disabled={filterCity != undefined ? true:false}
                               />
                               <span className={Styles.error}>
-                                {errors.city && touched.city && errors.city}
+                                {
+                                  (Object.keys(addressError).length > 0 && addressError.city != undefined) ? addressError.city :
+                                  errors.city && touched.city && errors.city
+                                }
                               </span>
                             </label>
                             {selectedCountry?.states?.length > 0 && (
@@ -844,7 +901,7 @@ export function PrintDigitalSubscriptionForm({
                                   value={values.state}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
-                                  disabled={filterState != undefined ? true:false}
+                                  onKeyUp={(e) => setAddressError({state:undefined})}
                                 >
                                   {
                                     filterState == undefined ? 
@@ -870,9 +927,12 @@ export function PrintDigitalSubscriptionForm({
                                     ))}
                                 </select>
                                 <span className={Styles.error}>
-                                  {errors.state &&
+                                  {
+                                    (Object.keys(addressError).length > 0 && addressError.state != undefined) ? addressError.state :
+                                    errors.state &&
                                     touched.state &&
-                                    errors.state}
+                                    errors.state
+                                  }
                                 </span>
                               </label>
                             )}
@@ -888,14 +948,16 @@ export function PrintDigitalSubscriptionForm({
                               placeholder="Postal Code"
                               onChange={handleChange}
                               onBlur={handleBlur}
+                              onKeyUp={(e) => setAddressError({...addressError ,zip_code:undefined})}
                               value={values.zip_code}
-                              className={filterState != undefined ? "disabled":""}
-                              disabled={filterState != undefined ? true:false}
                             />
                             <span className={Styles.error}>
-                              {errors.zip_code &&
+                              {
+                                (Object.keys(addressError).length > 0 && addressError.zip_code != undefined) ? addressError.zip_code :
+                                errors.zip_code &&
                                 touched.zip_code &&
-                                errors.zip_code}
+                                errors.zip_code
+                              }
                             </span>
                           </label>
                         )}
@@ -1089,6 +1151,18 @@ export function PrintDigitalSubscriptionForm({
                       </div>
                       
                     }
+                    {popup === 'confirmaddress' && (
+                      <Popup setPopupState={setPopup} isConfirmation={true}>
+                      <div className={Styles.popup}>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#61a0d6" d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3h58.3c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24V250.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1H222.6c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+                        <p>Your address is not valid. Do you want to continue with this address or want to change ?</p>
+                        <div className={Styles.btn}>
+                          <button className={Styles.edit} onClick={()=>handleEditAddress()}>Change Address</button>
+                          <button disabled={loading} onClick={()=>handleSubmitForm()}>Subscribe Anyway</button>
+                        </div>
+                      </div>
+                    </Popup>
+                    )}
                   </>
                 )}
             </form>

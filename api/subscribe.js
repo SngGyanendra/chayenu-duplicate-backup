@@ -48,6 +48,7 @@ export async function getAllPlans(
 }
 
 export async function addNewSubscription(values) {
+  console.log('values', values);
   try {
     const finalBody = {
       auto_renew: values.auto_renew,
@@ -77,6 +78,7 @@ export async function addNewSubscription(values) {
           state: values.state,
           zip_code: values.zip_code,
           country: values.country,
+          validated:values.address_validated,
         },
       }),
     };
