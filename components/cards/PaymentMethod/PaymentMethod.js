@@ -14,9 +14,11 @@ export function PaymentMethod({ paymentMethod }) {
   const APIs = new AuthencticatedUserAPI();
 
   const dispatch = useDispatch();
-  const { user_details, countries: countriesList } = useSelector(
-    (state) => state.user
-  );
+  const {
+    user_details,
+    countries: countriesList,
+    subscriptions,
+  } = useSelector((state) => state.user);
 
   const [userDetails, setUserDetails] = useState({});
   const [editingState, setEditingState] = useState(false);
@@ -115,6 +117,18 @@ export function PaymentMethod({ paymentMethod }) {
                         toast.error('Cannot delete default card', {
                           duration: 6000,
                         });
+                      } else if (
+                        subscriptions?.some(
+                          (sub) =>
+                            sub.paymentMethod.token === paymentMethod.cardToken
+                        )
+                      ) {
+                        toast.error(
+                          'Card is being used in subscription(s), please change the payment method first',
+                          {
+                            duration: 6000,
+                          }
+                        );
                       } else {
                         setPopup('deleteCard');
                       }
