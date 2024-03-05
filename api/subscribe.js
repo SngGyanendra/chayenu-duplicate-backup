@@ -48,7 +48,6 @@ export async function getAllPlans(
 }
 
 export async function addNewSubscription(values) {
-  console.log('values', values);
   try {
     const finalBody = {
       auto_renew: values.auto_renew,

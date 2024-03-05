@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import Styles from './popup.module.scss';
 
-export function Popup({ children, setPopupState, additionalStyles, innerDivClassNames ,isConfirmation=false }) {
+export function Popup({ children, setPopupState, additionalStyles, innerDivClassNames ,isConfirmationPopup=false }) {
   const popup = useRef();
   useEffect(() => {
     document.body.style.overflowY = 'hidden';
@@ -13,7 +13,7 @@ export function Popup({ children, setPopupState, additionalStyles, innerDivClass
 
   function handleOutsideClick(event) {
     if (!popup.current.contains(event.target)) {
-      if (!isConfirmation) {
+      if (!isConfirmationPopup) {
         setPopupState(undefined);
       }
     }
