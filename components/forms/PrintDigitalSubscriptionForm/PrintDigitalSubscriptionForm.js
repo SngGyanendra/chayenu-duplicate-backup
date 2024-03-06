@@ -115,6 +115,42 @@ export function PrintDigitalSubscriptionForm({
     }
   }
 
+  const handlePlaceSelected = (place, setFieldValue, selectedCountry) => {
+    if(place.address_components){
+      const addressObj={};
+      place.address_components.map((item) => {
+        if (item.types.includes("locality")) {
+          setFieldValue('city', item.long_name);
+          addressObj.city=item.long_name;
+        }
+        if (item.types.includes("administrative_area_level_1")) {
+          var objState=selectedCountry?.states.find(obj => {
+            return obj.name === item.short_name;
+          });
+          if(selectedCountry?.name!='Israel'){
+            setFilterState(objState)
+            setFieldValue('state', objState !=undefined ? objState.id:undefined);
+            addressObj.state=objState !=undefined ? objState.id:item.short_name;
+          }
+        }
+        if (item.types.includes("postal_code")) {
+          setFieldValue('zip_code', item.long_name);
+          addressObj.zip_code=item.long_name;
+        }
+      })
+
+      const address = place.formatted_address.split(",");
+      addressObj.address_1=address[0];
+      setReAddressApi(addressObj);
+      setFieldValue('address_1',address[0]);
+      setAddressError({});
+    }else{
+      setFieldValue('address_1',undefined);
+      const addressError={address_1:"Please select a valid address"};
+      setAddressError(addressError);
+    }
+  }
+
   const handleCustomAddressError = (values) => {
       const addressError = {};
       const response = {};
@@ -835,41 +871,7 @@ export function PrintDigitalSubscriptionForm({
                               onBlur={handleBlur}
                               onKeyUp={(e) => setAddressError({...addressError ,address_1:undefined})}
                               value={values.address_1}
-                              onPlaceSelected={(place) => {
-                                if(place.address_components){
-                                  const addressObj={};
-                                  place.address_components.map((item) => {
-                                    if (item.types.includes("locality")) {
-                                      setFieldValue('city', item.long_name);
-                                      addressObj.city=item.long_name;
-                                    }
-                                    if (item.types.includes("administrative_area_level_1")) {
-                                      var objState=selectedCountry?.states.find(obj => {
-                                        return obj.name === item.short_name;
-                                      });
-                                      if(selectedCountry?.name!='Israel'){
-                                        setFilterState(objState)
-                                        setFieldValue('state', objState !=undefined ? objState.id:undefined);
-                                        addressObj.state=objState !=undefined ? objState.id:item.short_name;
-                                      }
-                                    }
-                                    if (item.types.includes("postal_code")) {
-                                      setFieldValue('zip_code', item.long_name);
-                                      addressObj.zip_code=item.long_name;
-                                    }
-                                  })
-
-                                  const address = place.formatted_address.split(",");
-                                  addressObj.address_1=address[0];
-                                  setReAddressApi(addressObj);
-                                  setFieldValue('address_1',address[0]);
-                                  setAddressError({});
-                                }else{
-                                  setFieldValue('address_1',undefined);
-                                  const addressError={address_1:"Please select a valid address"};
-                                  setAddressError(addressError);
-                                }
-                              }}
+                              onPlaceSelected={(place) =>handlePlaceSelected(place, setFieldValue, selectedCountry)}
                             />
                             <span className={Styles.error}>
                               {
