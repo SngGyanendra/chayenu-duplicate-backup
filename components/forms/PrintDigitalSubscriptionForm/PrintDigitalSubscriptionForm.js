@@ -115,30 +115,72 @@ export function PrintDigitalSubscriptionForm({
     }
   }
 
+  const handlePlaceSelected = (place, setFieldValue, selectedCountry) => {
+    if(place.address_components){
+      const addressObj={};
+      place.address_components.map((item) => {
+        if (item.types.includes("locality")) {
+          setFieldValue('city', item.long_name);
+          addressObj.city=item.long_name;
+        }
+        if (item.types.includes("administrative_area_level_1")) {
+          var objState=selectedCountry?.states.find(obj => {
+            return obj.name === item.short_name;
+          });
+          if(selectedCountry?.name!='Israel'){
+            setFilterState(objState)
+            setFieldValue('state', objState !=undefined ? objState.id:undefined);
+            addressObj.state=objState !=undefined ? objState.id:item.short_name;
+          }
+        }
+        if (item.types.includes("postal_code")) {
+          setFieldValue('zip_code', item.long_name);
+          addressObj.zip_code=item.long_name;
+        }
+      })
+
+      const address = place.formatted_address.split(",");
+      addressObj.address_1=address[0];
+      setReAddressApi(addressObj);
+      setFieldValue('address_1',address[0]);
+      setAddressError({});
+    }else{
+      setFieldValue('address_1',undefined);
+      const addressError={address_1:"Please select a valid address"};
+      setAddressError(addressError);
+    }
+  }
+
   const handleCustomAddressError = (values) => {
       const addressError = {};
       const response = {};
+      const remarks =[];
       if(reAddressApi.address_1!= values.address_1)
       {
         addressError.address_1="Please select a valid address";
+        remarks.push("Address 1 is not valid");
       }
       if(reAddressApi.state!= values.state)
       {
         if(selectedCountry?.name!='Israel'){
           addressError.state="Please select a valid state";
+          remarks.push("State is not valid");
         }
       }
       if(reAddressApi.city!= values.city)
       {
         addressError.city="Please enter a valid city";
+        remarks.push("City is not valid");
       }
       if(reAddressApi.zip_code!= values.zip_code)
       {
         if(selectedCountry?.name!='Israel'){
           addressError.zip_code="Please enter a valid postal code";
+          remarks.push("Postal code is not valid");
         }
       }
       response.address_validated=true;
+      response.address_remarks="";
       if(Object.keys(addressError).length > 0 && !subscribeAnyway && !editAddress ){
         setPopup('confirmaddress');
         response.status=false;
@@ -152,6 +194,7 @@ export function PrintDigitalSubscriptionForm({
       }else if(subscribeAnyway){
         setSubscribeAnyway(false);
         response.address_validated=false;
+        response.address_remarks=remarks.toString();
       }
       setAddressError(addressError);
       response.status=true;
@@ -554,7 +597,8 @@ export function PrintDigitalSubscriptionForm({
             if(response.status == false){
               return false
             }
-            values.address_validated=response.address_validated;
+            values.is_validated=response.address_validated;
+            values.address_remarks=response.address_remarks;
             setLoading(true);
             if (!paymentMethod) {
               toastTemplate(toast.error, 'Please select a payment method');
@@ -827,39 +871,7 @@ export function PrintDigitalSubscriptionForm({
                               onBlur={handleBlur}
                               onKeyUp={(e) => setAddressError({...addressError ,address_1:undefined})}
                               value={values.address_1}
-                              onPlaceSelected={(place) => {
-                                if(place.address_components){
-                                  const addressObj={};
-                                  place.address_components.map((item) => {
-                                    if (item.types.includes("locality")) {
-                                      setFieldValue('city', item.long_name);
-                                      addressObj.city=item.long_name;
-                                    }
-                                    if (item.types.includes("administrative_area_level_1")) {
-                                      var objState=selectedCountry?.states.find(obj => {
-                                        return obj.name === item.short_name;
-                                      });
-                                      setFilterState(objState)
-                                      setFieldValue('state', objState !=undefined ? objState.id:item.short_name);
-                                      addressObj.state=objState !=undefined ? objState.id:item.short_name;
-                                    }
-                                    if (item.types.includes("postal_code")) {
-                                      setFieldValue('zip_code', item.long_name);
-                                      addressObj.zip_code=item.long_name;
-                                    }
-                                  })
-
-                                  const address = place.formatted_address.split(",");
-                                  addressObj.address_1=address[0];
-                                  setReAddressApi(addressObj);
-                                  setFieldValue('address_1',address[0]);
-                                  setAddressError({});
-                                }else{
-                                  setFieldValue('address_1',undefined);
-                                  const addressError={address_1:"Please select a valid address"};
-                                  setAddressError(addressError);
-                                }
-                              }}
+                              onPlaceSelected={(place) =>handlePlaceSelected(place, setFieldValue, selectedCountry)}
                             />
                             <span className={Styles.error}>
                               {
