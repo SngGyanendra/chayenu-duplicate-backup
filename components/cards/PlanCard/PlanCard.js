@@ -6,6 +6,7 @@ export function PlanCard({ plan, selectedPlan, setSelectedPlan }) {
       className={`${Styles.card} ${
         selectedPlan?.id === plan.id ? Styles.selectedPlan : ''
       }`}
+      title={'Selectable Plan'}
       onClick={() => {
         setSelectedPlan(plan);
       }}
