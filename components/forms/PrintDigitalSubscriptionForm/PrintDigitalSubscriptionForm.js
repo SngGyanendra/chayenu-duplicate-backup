@@ -561,13 +561,13 @@ export function PrintDigitalSubscriptionForm({
           deliveryType === 'shipping' &&
           selectedCountry?.states?.length > 0) ||
         selectedCountry?.name === 'USA',
-      then: () => Yup.number().required('state is required'),
+      then: () => Yup.number().required('State is required'),
     }),
     zip_code: Yup.string().when({
       is: () =>
         (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
         selectedCountry?.name === 'USA',
-      then: () => Yup.string().trim().required('postal code is required'),
+      then: () => Yup.string().trim().required('Postal code is required'),
     }),
   });
 
@@ -655,7 +655,7 @@ export function PrintDigitalSubscriptionForm({
                                   ? Styles.selectCountry
                                   : ''
                               }`}
-                              title={'The buttons'}
+                            
                               onClick={() => {
                                 setSelectedCountry(
                                   countriesList?.find(
@@ -673,7 +673,7 @@ export function PrintDigitalSubscriptionForm({
                                   ? Styles.selectCountry
                                   : ''
                               }`}
-                              title={'The buttons'}
+                            
                               onClick={() => {
                                 setSelectedCountry('others');
                               }}
@@ -688,7 +688,6 @@ export function PrintDigitalSubscriptionForm({
                       <div className={Styles.selectCountry}>
                         <select
                           name="country"
-                          title={'The dropdown'}
                           onChange={(e) => {
                             const country = countriesList.find((country) => {
                               return country.id == e.target.value;
@@ -715,7 +714,6 @@ export function PrintDigitalSubscriptionForm({
                         <div className={Styles.selectDistributor}>
                           <select
                             name="distributor"
-                            title={'The dropdown'}
                             onChange={(e) => {
                               values.distributor = e.target.value;
                               setDistributor(e.target.value);
@@ -926,7 +924,6 @@ export function PrintDigitalSubscriptionForm({
                                   name="state"
                                   id=""
                                   placeholder="State"
-                                  title={'The dropdown'}
                                   value={values.state}
                                   onChange={handleChange}
                                   onBlur={handleBlur}
@@ -1053,7 +1050,6 @@ export function PrintDigitalSubscriptionForm({
                           name="payment_method"
                           options={allPaymentMethods}
                           styles={style}
-                          title={'The dropdown'}
                           placeholder={
                             isLoggedIn
                               ? 'Choose payment method'
@@ -1151,7 +1147,7 @@ export function PrintDigitalSubscriptionForm({
                         className={`${Styles.submit} ${
                           loading ? `${Styles.disabled}` : ''
                         }`}
-                        title={'The buttons'}
+                      
                       >
                         Subscribe
                       </button>
@@ -1160,8 +1156,8 @@ export function PrintDigitalSubscriptionForm({
                       <div>
                         <div className={Styles.agree}>
                           <label className={Styles.container}>
-                            <input type="checkbox" id="is_agree" name="is_agree" title={'The checkbox'} onChange={handleChange} value={values.is_agree} />
-                            <span className={Styles.checkmark} title={'The checkbox'}></span>
+                            <input type="checkbox" id="is_agree" name="is_agree" onChange={handleChange} value={values.is_agree} />
+                            <span className={Styles.checkmark}></span>
                           </label>
                           <label for="is_agree" className={Styles.agreeLable}>I agree to the <a href='https://old.chayenu.org/terms-and-conditions/' target='_blank'>terms and conditions</a>, and I understand that if I do not cancel within one month, I will be billed $180 for the Chayenu annual subscription.</label>
                           {cardErrors.is_agree && !values.is_agree ? (
@@ -1176,7 +1172,6 @@ export function PrintDigitalSubscriptionForm({
                           className={`${Styles.trialSubmit} ${
                             loading ? `${Styles.disabled}` : ''
                           }`}
-                          title={'The buttons'}
                         >
                           Subscribe
                         </button>
@@ -1189,8 +1184,8 @@ export function PrintDigitalSubscriptionForm({
                       <Image src="/triangle-exclamation-solid.svg" alt="exclamation" height={50} width={50}  />
                         <p>We couldn’t verify your address. Please double check it is correct before subscribing.</p>
                         <div className={Styles.btn}>
-                          <button className={Styles.edit} onClick={()=>handleEditAddress()} title={'The buttons'}>Change Address</button>
-                          <button disabled={loading} onClick={()=>handleSubmitForm()} title={'The buttons'}>Subscribe Anyway</button>
+                          <button className={Styles.edit} onClick={()=>handleEditAddress()}>Change Address</button>
+                          <button className={Styles.submitBtn} disabled={loading} onClick={()=>handleSubmitForm()}>Subscribe Anyway</button>
                         </div>
                       </div>
                     </Popup>
