@@ -34,6 +34,15 @@
     .edit{
       background-color: var(--dark);
       color: #ffffff;
+      &:hover{
+        background: #61a0d6 0 0 no-repeat padding-box;
+        transition: background-color .25s;
+      }
+    }
+    .submitBtn:hover {
+        background-color: var(--dark);
+        color: #fff;
+        transition: background-color .25s;
     }
   }
   .subscribe {
