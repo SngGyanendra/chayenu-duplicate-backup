@@ -12,10 +12,27 @@
   align-items: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  overflow: hidden;
   .name {
     color: #003652;
     font: fontvalue(21, 23, 500);
     text-align: center;
+  }
+  .tag {
+    text-align: center;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    position: relative;
+    padding: 6px 0;
+    left: 50%;
+    top: -35px;
+    width: 170px;
+    color: #ffffff;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+    background: #75b2e6;
+    font-size: 11px;
   }
   .image {
     width: 100%;
