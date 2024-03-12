@@ -77,6 +77,9 @@ export async function addNewSubscription(values) {
           state: values.state,
           zip_code: values.zip_code,
           country: values.country,
+          is_valid:values.is_validated,
+          address_remarks:values.address_remarks
+
         },
       }),
     };
