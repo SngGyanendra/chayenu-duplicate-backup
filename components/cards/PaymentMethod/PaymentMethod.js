@@ -134,7 +134,7 @@ export function PaymentMethod({ paymentMethod }) {
                       }
                     }}
                   >
-                    REMOVE CARD
+                    REMOVE
                   </button>
                 </div>
                 <div className={Styles.defaultCardId}>
