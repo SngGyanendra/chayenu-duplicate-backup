@@ -35,7 +35,7 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
                   <div className={`${Styles.alert} ${Styles.success}`}>
                     <img src="/icons/icons8-checkmark.svg" alt="icon" />
                     <p>Card deleted successfully</p>
-                    <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                    <span className={Styles.closeBtn} onClick={(e) => toast.dismiss(t.id)}>&times;</span>
                   </div>
                 )),
                 'Card deleted successfully',
@@ -43,7 +43,7 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
               );
             } catch (error) {
               console.log(error);
-              if (error.response.data.message) {
+              if (error.response !=undefined && error.response.length > 0 && error.response.data.message) {
                 toastTemplate(
                   toast.error,
                   error.response.data.message,
