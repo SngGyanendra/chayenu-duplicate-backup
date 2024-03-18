@@ -42,6 +42,7 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
                 loadingToast
               );
             } catch (error) {
+              console.log(error);
               if (error.response.data.message) {
                 toastTemplate(
                   toast.error,
