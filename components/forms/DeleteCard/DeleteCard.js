@@ -31,7 +31,13 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
               const newPaymentMethods = await APIs.getAllPaymentMethods();
               dispatch(updatePaymentMethods(newPaymentMethods));
               toastTemplate(
-                toast.success,
+                toast.custom((t) => (
+                  <div className={`${Styles.alert} ${Styles.success}`}>
+                    <img src="/icons/icons8-checkmark.svg" alt="icon" />
+                    <p>Card deleted successfully</p>
+                    <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                  </div>
+                )),
                 'Card deleted successfully',
                 loadingToast
               );

@@ -114,7 +114,14 @@ export function PaymentMethod({ paymentMethod }) {
                       if (
                         userDetails?.default_card_id === paymentMethod.cardToken
                       ) {
-                        toast.error('Cannot delete default card', {
+                        toast.custom((t) => (
+                          <div className={`${Styles.alert} ${Styles.error}`}>
+                            <img src="/icons/icons8-cross.svg" alt="icon" />
+                            <p>Can not delete default card</p>
+                            <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                          </div>
+                        ),
+                        {
                           duration: 6000,
                         });
                       } else if (
@@ -123,12 +130,16 @@ export function PaymentMethod({ paymentMethod }) {
                             sub.paymentMethod.token === paymentMethod.cardToken
                         )
                       ) {
-                        toast.error(
-                          'Card is being used in subscription(s), please change the payment method first',
-                          {
-                            duration: 6000,
-                          }
-                        );
+                        toast.custom((t) => (
+                          <div className={`${Styles.alert} ${Styles.warning}`}>
+                            <img src="/icons/icons8-warning.svg" alt="icon" />
+                            <p>This card connot be deleted because it is being used for an <br />active subscription. Please update the payment method for the<br /> subscription and try again.</p>
+                            <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                          </div>
+                        ),
+                        {
+                          duration: 6000,
+                        });
                       } else {
                         setPopup('deleteCard');
                       }
