@@ -28,3 +28,41 @@
 .disabled {
   background-color: grey !important;
 }
+.alert {
+  border-radius: 15px !important;
+  padding: 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  p{
+    font-weight: 500;
+    padding: 0px 10px;
+    margin-top: -2px;
+  }
+  img{
+    border-radius: 10px;
+    width: 40px;
+  }
+  .closeBtn{
+    margin-left: 30px;
+    margin-right: 10px;
+    margin-top: -4px;
+    font-weight: 700;
+    font-size: 24px;
+    cursor: pointer;
+    color: #5a5b5c;
+    &:hover{
+      font-size: 25px;
+    }
+  }
+
+  @media screen and (max-width: 53.125rem) {
+    br{
+      display: none;
+    }
+  }
+}
+.success{
+  background-color: #ECF3CC;
+  border: 1px solid #9EC300;
+}
