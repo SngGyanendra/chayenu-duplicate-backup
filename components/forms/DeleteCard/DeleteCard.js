@@ -30,19 +30,15 @@ export function DeleteCard({ setPopupState, paymentMethod }) {
               setPopupState('');
               const newPaymentMethods = await APIs.getAllPaymentMethods();
               dispatch(updatePaymentMethods(newPaymentMethods));
-              toastTemplate(
-                toast.custom((t) => (
-                  <div className={`${Styles.alert} ${Styles.success}`}>
-                    <img src="/icons/icons8-checkmark.svg" alt="icon" />
-                    <p>Card deleted successfully</p>
-                    <span className={Styles.closeBtn} onClick={(e) => toast.dismiss(t.id)}>&times;</span>
-                  </div>
-                )),
-                'Card deleted successfully',
-                loadingToast
-              );
+              toast.custom((t) => (
+                <div className={`${Styles.alert} ${Styles.success}`}>
+                  <img src="/icons/icons8-checkmark.svg" alt="icon" />
+                  <p>Card deleted successfully</p>
+                  <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                </div>
+              ));
+              toast.dismiss(loadingToast);
             } catch (error) {
-              console.log(error);
               if (error.response !=undefined && error.response.length > 0 && error.response.data.message) {
                 toastTemplate(
                   toast.error,
