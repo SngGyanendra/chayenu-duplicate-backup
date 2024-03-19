@@ -58,6 +58,7 @@ export function PrintDigitalSubscriptionForm({
   const [filterState, setFilterState] = useState(undefined);
   const [subscribeAnyway, setSubscribeAnyway] = useState(false);
   const [editAddress, setEditAddress] = useState(false);
+  const [editZipcode, setEditZipcode] = useState(true);
   const [cardErrors, setCardErrors] = useState({
     cvv: undefined,
     number: undefined,
@@ -111,6 +112,14 @@ export function PrintDigitalSubscriptionForm({
     setSubscribeAnyway(true);
     setPopup('');
     if (formRef.current) {
+      formRef.current.handleSubmit()
+    }
+  }
+  const handleZipcodeOptions = (option) => {
+    setPopup('');
+    setEditZipcode(true)
+    if (option == 'no' && formRef.current) {
+      setEditZipcode(false);
       formRef.current.handleSubmit()
     }
   }
@@ -565,8 +574,8 @@ export function PrintDigitalSubscriptionForm({
     }),
     zip_code: Yup.string().when({
       is: () =>
-        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry?.name === 'USA',
+        (selectedCountry?.name!='Israel' && (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
+        selectedCountry?.name === 'USA'),
       then: () => Yup.string().trim().required('Postal code is required'),
     }),
   });
@@ -596,6 +605,12 @@ export function PrintDigitalSubscriptionForm({
             const response =handleCustomAddressError(values);
             if(response.status == false){
               return false
+            }
+            if(selectedCountry?.name=='Israel' && (values.zip_code == undefined || values.zip_code.length <= 0) && editZipcode == true){
+              setPopup('confirmzipcode');
+              return false;
+            }else{
+              setEditZipcode(false);
             }
             values.is_validated=response.address_validated;
             values.address_remarks=response.address_remarks;
@@ -1186,6 +1201,19 @@ export function PrintDigitalSubscriptionForm({
                         <div className={Styles.btn}>
                           <button className={Styles.edit} onClick={()=>handleEditAddress()}>Change Address</button>
                           <button className={Styles.submitBtn} disabled={loading} onClick={()=>handleSubmitForm()}>Subscribe Anyway</button>
+                        </div>
+                      </div>
+                    </Popup>
+                    )}
+
+                    {popup === 'confirmzipcode' && (
+                      <Popup setPopupState={setPopup} isConfirmationPopup={true}>
+                      <div className={Styles.popup}>
+                      <Image src="/triangle-exclamation-solid.svg" alt="exclamation" height={50} width={50}  />
+                        <p>Zipcodes in your region are recommended but not required. Would you like to add your zipcode?</p>
+                        <div className={Styles.btn}>
+                          <button className={Styles.edit} onClick={()=>handleZipcodeOptions('yes')}>Yes</button>
+                          <button className={Styles.submitBtn} disabled={loading} onClick={()=>handleZipcodeOptions('no')}>No</button>
                         </div>
                       </div>
                     </Popup>
