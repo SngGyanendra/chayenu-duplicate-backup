@@ -65,6 +65,13 @@ export default function Payments() {
           )}
         </section>
       )}
+
+      <div className={Styles.hide}>
+        <img src="/icons/icons8-cross.svg" alt="icon" />
+        <img src="/icons/icons8-warning.svg" alt="icon" />
+        <img src="/icons/icons8-checkmark.svg" alt="icon" />
+      </div>
+
     </>
   );
 }
