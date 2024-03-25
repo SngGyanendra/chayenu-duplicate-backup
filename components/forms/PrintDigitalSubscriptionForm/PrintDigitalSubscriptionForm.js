@@ -1210,7 +1210,7 @@ export function PrintDigitalSubscriptionForm({
                       <Popup setPopupState={setPopup} isConfirmationPopup={true}>
                       <div className={Styles.popup}>
                       <Image src="/triangle-exclamation-solid.svg" alt="exclamation" height={50} width={50}  />
-                        <p>Zipcodes in your region are recommended but not required. Would you like to add your zipcode?</p>
+                        <p>Zipcodes in your region are not required, but adding a zipcode will ensure a faster delivery. Would you like to add your zipcode?</p>
                         <div className={Styles.btn}>
                           <button className={Styles.edit} onClick={()=>handleZipcodeOptions('yes')}>Yes</button>
                           <button className={Styles.submitBtn} disabled={loading} onClick={()=>handleZipcodeOptions('no')}>No</button>
