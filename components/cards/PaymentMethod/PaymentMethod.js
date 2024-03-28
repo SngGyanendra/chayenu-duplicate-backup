@@ -5,19 +5,25 @@ import { getAllCountries } from '/api';
 import { AuthencticatedUserAPI } from '/api/authenticateRequests';
 import Styles from './paymentmethod.module.scss';
 import { CreditCard } from '../CreditCard/CreditCard';
+import toast from 'react-hot-toast';
 import { EditPaymentMethod } from '/components/forms';
+import { DeleteCard } from '../../forms/DeleteCard/DeleteCard';
+import { Popup } from '/components/common';
 
 export function PaymentMethod({ paymentMethod }) {
   const APIs = new AuthencticatedUserAPI();
 
   const dispatch = useDispatch();
-  const { user_details, countries: countriesList } = useSelector(
-    (state) => state.user
-  );
+  const {
+    user_details,
+    countries: countriesList,
+    subscriptions,
+  } = useSelector((state) => state.user);
 
   const [userDetails, setUserDetails] = useState({});
   const [editingState, setEditingState] = useState(false);
   const [countries, setCountries] = useState([]);
+  const [popup, setPopup] = useState('');
 
   useEffect(() => {
     async function getData() {
@@ -100,7 +106,48 @@ export function PaymentMethod({ paymentMethod }) {
                 </div>
               </div>
               <div className={Styles.buttons}>
-                <button onClick={() => setEditingState(true)}>EDIT</button>
+                <div>
+                  <button onClick={() => setEditingState(true)}>EDIT</button>
+                  <button
+                    className={Styles.removeButton}
+                    onClick={() => {
+                      if (
+                        userDetails?.default_card_id === paymentMethod.cardToken
+                      ) {
+                        toast.custom((t) => (
+                          <div className={`${Styles.alert} ${Styles.error}`}>
+                            <img src="/icons/icons8-cross.svg" alt="icon" />
+                            <p>Can not delete default card</p>
+                            <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                          </div>
+                        ),
+                        {
+                          duration: 6000,
+                        });
+                      } else if (
+                        subscriptions?.some(
+                          (sub) =>
+                            sub.paymentMethod.token === paymentMethod.cardToken
+                        )
+                      ) {
+                        toast.custom((t) => (
+                          <div className={`${Styles.alert} ${Styles.warning}`}>
+                            <img src="/icons/icons8-warning.svg" alt="icon" />
+                            <p>This card connot be deleted because it is being used for an <br />active subscription. Please update the payment method for the<br /> subscription and try again.</p>
+                            <span className={Styles.closeBtn} onClick={() => toast.dismiss(t.id)}>&times;</span>
+                          </div>
+                        ),
+                        {
+                          duration: 6000,
+                        });
+                      } else {
+                        setPopup('deleteCard');
+                      }
+                    }}
+                  >
+                    REMOVE
+                  </button>
+                </div>
                 <div className={Styles.defaultCardId}>
                   {userDetails?.default_card_id === paymentMethod.cardToken
                     ? 'DEFAULT'
@@ -130,6 +177,18 @@ export function PaymentMethod({ paymentMethod }) {
               country={country}
               state={state}
             />
+          );
+        }
+      })()}
+      {(() => {
+        if (popup === 'deleteCard') {
+          return (
+            <Popup setPopupState={setPopup}>
+              <DeleteCard
+                setPopupState={setPopup}
+                paymentMethod={paymentMethod}
+              />
+            </Popup>
           );
         }
       })()}

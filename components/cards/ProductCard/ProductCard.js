@@ -12,6 +12,11 @@ export function ProductCard({ product, selected, selectedProduct }) {
       }
     >
       <div className={Styles.name}>{product?.name}</div>
+      {
+        product.tag_text !=null && (
+          <div className={Styles.tag}>{product.tag_text}</div>
+        )
+      }
       <div
         className={Styles.image}
         style={{

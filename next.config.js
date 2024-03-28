@@ -3,6 +3,7 @@ const path = require('path');
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
+  minify: true,
   sassOptions: {
     includePaths: [
       path.join(__dirname, 'styles'),
@@ -51,14 +52,16 @@ const nextConfig = {
       },
       {
         source: '/shaimos',
-        destination: 'https://www.store.chayenu.org/shop/p/o75qtgpj5kvhwfpar5kinwew0p74ii',
+        destination:
+          'https://www.store.chayenu.org/shop/p/o75qtgpj5kvhwfpar5kinwew0p74ii',
         permanent: false,
       },
       {
         source: '/specialorders',
-        destination: 'https://www.chshippingcenter.com/chayenu/special-order-chayenu/',
+        destination:
+          'https://www.chshippingcenter.com/chayenu/special-order-chayenu/',
         permanent: false,
-      }, 
+      },
       {
         source: '/chayus',
         destination: 'https://old.chayenu.org/weekly-digest',
@@ -75,7 +78,7 @@ const nextConfig = {
         permanent: false,
       },
       {
-        source:'/weekly-digest',
+        source: '/weekly-digest',
         destination: 'https://old.chayenu.org/weekly-digest',
         permanent: false,
       },

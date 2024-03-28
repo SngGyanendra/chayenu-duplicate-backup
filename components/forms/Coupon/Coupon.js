@@ -75,7 +75,7 @@ export function Coupon({
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
-              <div onClick={verifyCoupon} className={Styles.apply}>
+              <div onClick={verifyCoupon} title='The buttons' className={Styles.apply}>
                 Apply
               </div>
             </div>
