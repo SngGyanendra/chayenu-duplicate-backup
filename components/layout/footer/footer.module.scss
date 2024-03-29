@@ -1,149 +1,131 @@
 @import 'styles/common.scss';
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap');
 
 .footer {
-  height: 8rem;
   font-family: var(--website-font-family);
   color: white;
   background-color: var(--website-color);
-  display: flex;
-  flex-direction: column;
+  padding: 50px 90px;
   align-items: center;
-  padding-bottom: 1rem;
   position: relative;
-  .upperLayer {
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    ul {
-      list-style: none;
-      display: flex;
-      width: 50%;
-      justify-content: space-between;
-      align-items: center;
-      li {
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        cursor: pointer;
-        font-weight: 300;
-      }
-    }
-    .instaMobile {
-      display: none;
-    }
-  }
-  .lowerLayer {
-    display: flex;
-    height: 50%;
-    justify-content: space-between;
-    font-weight: 400;
-    align-items: center;
-    position: relative;
-    font-size: 0.8rem;
-    ul {
-      list-style: none;
-      display: flex;
-      width: 60%;
-      justify-content: space-between;
-      align-items: center;
-      li {
-        font-size: 0.7rem;
-      }
-    }
-    .instaLogo {
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    div {
-      text-align: center;
-    }
 
-    @media screen and (max-width: 50rem) {
-      ul li {
-        font-size: 0.875rem;
-      }
-    }
-
-    @media screen and (min-width: 71.875rem) and (max-width: 81.25rem) {
-      ul {
-        width: 60%;
-      }
-    }
-  }
-  @media screen and (max-width: 71.875rem) {
-    height: 28rem;
-    .upperLayer {
+  .inner{
+    display: flex;
+    justify-content: space-between;
+    width: var(--container-width);
+    @media (max-width: 800px) {
+      width: 100%;
       flex-wrap: wrap;
-      justify-content: center;
-      .logo {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      ul {
-        width: min(20rem, 80%);
-        flex-wrap: wrap;
-        text-align: center;
-        justify-content: space-between;
-        height: 6rem;
-        li {
-          text-transform: initial;
-          font-size: 0.875rem;
-        }
-        li {
-          width: 50%;
-        }
-      }
-      .instaMobile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .instaDesktop {
-        display: none;
-      }
     }
-    .lowerLayer {
-      flex-direction: column;
-      justify-content: space-around;
-      padding-top: 1rem;
-      ul {
-        height: 55%;
-        width: 100%;
-        flex-direction: column;
-        li {
-          font-size: 0.875rem;
-        }
-      }
-    }
-  }
-
-  .developedBy {
-    img {
-      margin-left: 5px;
-    }
-    a {
+    margin: auto;
+    .item{
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+      h2{
+        color: #FFF;
+        font-family: Catamaran;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      a{
+        color: #FFF;
+        font-family: Catamaran;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        &:hover{
+          font-weight: 600;
+        }
+      }
+      label{
+        color: #FFF;
+        font-family: Catamaran;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        &:hover{
+          font-weight: 600;
+        }
+      }
     }
-    cursor: pointer;
   }
 
-  @media screen and (max-width: 50rem) {
-    .upperLayer {
-      // & {
-      //   height: 11rem;
-      // }
-
-      ul li {
-        font-size: 1rem;
+}
+.lowerFooter {
+  background-color: var(--dark);
+  padding: 15px 100px;
+  .inner{
+    width: var(--container-width);
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    margin: auto;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+    .logo{
+      img{
+        width: 51.905px;
+        height: 20px;
+        @media (max-width: 530px) {
+          width: 30px;
+          height: 10px;
+        }
       }
+    }
+    .inc{
+      color: #FFF;
+      font-family: Catamaran;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      @media (max-width: 530px) {
+        font-size: 10px;
+      }
+    }
+    .developedBy {
+      a {
+        display: flex;
+        align-items: center;
+        img {
+          margin-left: 5px;
+          width: 88.523px;
+          height: 12.148px;
+          @media (max-width: 530px) {
+            width: 58.905px;
+            height: 10px;
+          }
+        }
+        span{
+          color: #FFF;
+          font-family: Catamaran;
+          font-size: 10px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          @media (max-width: 530px) {
+           font-size: 9px;
+          }
+        }
+      }
+      cursor: pointer;
     }
   }
 }
