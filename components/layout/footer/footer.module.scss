@@ -3,7 +3,7 @@
 .footer {
   font-family: var(--website-font-family);
   color: white;
-  background-color: var(--website-color);
+  background-color: #49A2DB;
   padding: 50px 90px;
   align-items: center;
   position: relative;
@@ -80,7 +80,7 @@
 
 }
 .lowerFooter {
-  background-color: var(--dark);
+  background-color: #003652;
   padding: 15px 100px;
   @media (max-width: 530px) {
     padding: 15px 50px;
