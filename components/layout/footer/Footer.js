@@ -72,7 +72,7 @@ export function Footer() {
               />
               <span>Vimeo</span>
             </Link>
-            <Link href=" https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0" target="_blank">
+            <Link href="https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0" target="_blank">
               <Image
                 src="/footer/whatsapp.svg"
                 alt="whatsapp"
