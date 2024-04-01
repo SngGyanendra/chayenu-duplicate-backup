@@ -14,7 +14,7 @@ export function Footer() {
     <footer className={Styles.footer}>
       <div className={Styles.inner}>
           <div className={Styles.item}>
-            <h2>MAIN</h2>
+            <h2>main</h2>
             <Link href="/subscribe">Subscribe</Link>
             <Link href="/explore-chayenu">Explore</Link>
             <Link href="/comingsoon">Library</Link>
@@ -24,7 +24,7 @@ export function Footer() {
             <label onClick={() => {setPopup('newsletter');}}>Newsletter</label>
           </div>
           <div className={Styles.item}>
-            <h2>SPECIALS</h2>
+            <h2>specials</h2>
             <Link href="/comingsoon">Bulk Orders</Link>
             <Link href="/comingsoon">Shluchim</Link>
             <Link href="/comingsoon">Schools</Link>
@@ -32,14 +32,13 @@ export function Footer() {
             <Link href="/comingsoon">Military</Link>
           </div>
           <div className={Styles.item}>
-            <h2>DEPARMENTS</h2>
+            <h2>departments</h2>
             <Link href="/comingsoon">
               <Image
                 src="/footer/gate-of-trust.svg"
                 alt="gate-of-trust"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Gate of Trust</span> 
             </Link>
@@ -49,72 +48,57 @@ export function Footer() {
                 alt="chitas"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Chitas</span> 
             </Link>
           </div>
           <div className={Styles.item}>
-            <h2>COMMUNITY</h2>
-            <Link href="#">
+            <h2>community</h2>
+            <Link href="https://www.facebook.com/Chayenu/">
               <Image
                 src="/footer/facebook.svg"
                 alt="facebook"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Facebook</span> 
             </Link>
-            <Link href="#">
+            <Link href="https://vimeo.com/chayenu">
               <Image
                 src="/footer/vimeo.svg"
                 alt="vimeo"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Vimeo</span>
             </Link>
-            <Link href="#">
-              <Image
-                src="/footer/gate-of-trust.svg"
-                alt="gate-of-trust"
-                height={20}
-                width={20}
-                className=''
-              />
-              <span>Gate of Trust</span>
-            </Link>
-            <Link href="#">
+            <Link href=" https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0" target="_blank">
               <Image
                 src="/footer/whatsapp.svg"
                 alt="whatsapp"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Whatsapp</span>
             </Link>
-            <Link href="#">
+            <Link href="https://www.instagram.com/chayenu/?hl=en">
               <Image
                 src="/footer/insta.svg"
                 alt="insta"
                 height={20}
                 width={20}
-                className=''
               />
               <span>Instagram</span>
             </Link>
           </div>
           <div className={Styles.item}>
-            <h2>ABOUT</h2>
+            <h2>about</h2>
             <Link href="/contact">Contact Us</Link>
-            <a href='tel:(718) 450-3277'>(718) 450-3277</a>
-            <a>
+            <a href='tel:7184503277'>(718) 450-3277</a>
+            <address>
               1526 Union St. <br />
               Brooklyn, NY, 11213
-            </a>
+            </address>
           </div>
       </div>
       {(() => {
@@ -138,7 +122,7 @@ export function Footer() {
             loading="lazy"
           />
         </div>
-        <div className={Styles.inc}>© CHAYENU INC.</div>
+        <div className={Styles.inc}>© chayenu inc.</div>
         <div className={Styles.developedBy}>
           <Link href="https://gorinsystems.com" target="_blank">
             <span>Developed by{' '}</span>

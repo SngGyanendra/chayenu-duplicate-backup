@@ -1,5 +1,4 @@
 @import 'styles/common.scss';
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100..900&display=swap');
 
 .footer {
   font-family: var(--website-font-family);
@@ -8,6 +7,9 @@
   padding: 50px 90px;
   align-items: center;
   position: relative;
+  @media (max-width: 530px) {
+    padding: 50px;
+  }
 
   .inner{
     display: flex;
@@ -23,17 +25,19 @@
       flex-direction: column;
       gap: 10px;
       margin-top: 10px;
+      min-width: 110px;
       h2{
         color: #FFF;
-        font-family: Catamaran;
+        font-family: var(--website-footer-font);
         font-size: 14px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        text-transform: uppercase;
       }
       a{
         color: #FFF;
-        font-family: Catamaran;
+        font-family: var(--website-footer-font);
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -47,7 +51,7 @@
       }
       label{
         color: #FFF;
-        font-family: Catamaran;
+        font-family: var(--website-footer-font);
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -60,6 +64,17 @@
           font-weight: 600;
         }
       }
+      address{
+        color: #FFF;
+        font-family: var(--website-footer-font);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
     }
   }
 
@@ -67,6 +82,9 @@
 .lowerFooter {
   background-color: var(--dark);
   padding: 15px 100px;
+  @media (max-width: 530px) {
+    padding: 15px 50px;
+  }
   .inner{
     width: var(--container-width);
     display: flex;
@@ -91,11 +109,12 @@
     }
     .inc{
       color: #FFF;
-      font-family: Catamaran;
+      font-family: var(--website-footer-font);
       font-size: 12px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      text-transform: uppercase;
       @media (max-width: 530px) {
         font-size: 10px;
       }
@@ -115,7 +134,7 @@
         }
         span{
           color: #FFF;
-          font-family: Catamaran;
+          font-family: var(--website-footer-font);
           font-size: 10px;
           font-style: normal;
           font-weight: 400;

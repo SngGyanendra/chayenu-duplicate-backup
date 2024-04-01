@@ -1,5 +1,5 @@
 @import url('https://use.typekit.net/jrf7boc.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Catamaran:wght@100..900&display=swap');
 html,
 body {
   padding: 0;
@@ -23,6 +23,7 @@ body {
   --website-font-family: brandon-grotesque, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --dark: #003652;
+  --website-footer-font:Catamaran, sans-serif;
 }
 
 @media screen and (max-width: 90rem) {
