@@ -47,15 +47,15 @@ export function Footer() {
           </div>
           <div className={Styles.item}>
             <h2>specials</h2>
-            <Link href="/comingsoon">Bulk Orders</Link>
-            <Link href="/comingsoon">Shluchim</Link>
-            <Link href="/comingsoon">Schools</Link>
+            <Link href="/specialorders">Bulk Orders</Link>
+            <Link href="/shluchim">Shluchim</Link>
+            <Link href="/schools">Schools</Link>
             <Link href="/trial">Trial</Link>
-            <Link href="/comingsoon">Military</Link>
+            <Link href="/military">Military</Link>
           </div>
           <div className={Styles.item}>
             <h2>departments</h2>
-            <Link href="/comingsoon">
+            <Link href="http://gateoftrust.org/" target='_blank'>
               <Image
                 src="/footer/gate-of-trust.svg"
                 alt="gate-of-trust"
