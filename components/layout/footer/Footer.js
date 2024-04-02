@@ -51,7 +51,7 @@ export function Footer() {
             <Link href="/shluchim" target='_blank'>Shluchim</Link>
             <Link href="/schools" target='_blank'>Schools</Link>
             <Link href="/trial">Trial</Link>
-            <Link href="/subscribe?is_shluchim_only=true">Military</Link>
+            <Link href="/subscribe?is_military_only=true">Military</Link>
           </div>
           <div className={Styles.item}>
             <h2>departments</h2>
