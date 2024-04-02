@@ -54,7 +54,7 @@ export function Footer() {
           </div>
           <div className={Styles.item}>
             <h2>community</h2>
-            <Link href="https://www.facebook.com/Chayenu/">
+            <Link href="https://www.facebook.com/Chayenu/" target="_blank">
               <Image
                 src="/footer/facebook.svg"
                 alt="facebook"
@@ -63,7 +63,7 @@ export function Footer() {
               />
               <span>Facebook</span> 
             </Link>
-            <Link href="https://vimeo.com/chayenu">
+            <Link href="https://vimeo.com/chayenu" target="_blank">
               <Image
                 src="/footer/vimeo.svg"
                 alt="vimeo"
@@ -81,7 +81,7 @@ export function Footer() {
               />
               <span>Whatsapp</span>
             </Link>
-            <Link href="https://www.instagram.com/chayenu/?hl=en">
+            <Link href="https://www.instagram.com/chayenu/?hl=en" target="_blank">
               <Image
                 src="/footer/insta.svg"
                 alt="insta"
