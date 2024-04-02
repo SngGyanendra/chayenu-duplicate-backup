@@ -47,11 +47,11 @@ export function Footer() {
           </div>
           <div className={Styles.item}>
             <h2>specials</h2>
-            <Link href="/specialorders">Bulk Orders</Link>
-            <Link href="/shluchim">Shluchim</Link>
-            <Link href="/schools">Schools</Link>
+            <Link href="/specialorders" target='_blank'>Bulk Orders</Link>
+            <Link href="/shluchim" target='_blank'>Shluchim</Link>
+            <Link href="/schools" target='_blank'>Schools</Link>
             <Link href="/trial">Trial</Link>
-            <Link href="/military">Military</Link>
+            <Link href="/military" target='_blank'>Military</Link>
           </div>
           <div className={Styles.item}>
             <h2>departments</h2>
