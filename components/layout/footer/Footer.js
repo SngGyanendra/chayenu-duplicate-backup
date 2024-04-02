@@ -9,6 +9,28 @@ import { useState } from 'react';
 export function Footer() {
   const [popup, setPopup] = useState('');
   const router = useRouter();
+  const socialLinks=[
+    {
+      url:'https://www.facebook.com/Chayenu/',
+      icon:'/footer/facebook.svg',
+      label:'Facebook'
+    },
+    {
+      url:'https://vimeo.com/chayenu',
+      icon:'/footer/vimeo.svg',
+      label:'Vimeo'
+    },
+    {
+      url:'https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0',
+      icon:'/footer/whatsapp.svg',
+      label:'Whatsapp'
+    },
+    {
+      url:'https://www.instagram.com/chayenu/?hl=en',
+      icon:'/footer/insta.svg',
+      label:'Instagram'
+    }
+  ];
   return (
     <>
     <footer className={Styles.footer}>
@@ -54,42 +76,21 @@ export function Footer() {
           </div>
           <div className={Styles.item}>
             <h2>community</h2>
-            <Link href="https://www.facebook.com/Chayenu/" target="_blank">
-              <Image
-                src="/footer/facebook.svg"
-                alt="facebook"
-                height={20}
-                width={20}
-              />
-              <span>Facebook</span> 
-            </Link>
-            <Link href="https://vimeo.com/chayenu" target="_blank">
-              <Image
-                src="/footer/vimeo.svg"
-                alt="vimeo"
-                height={20}
-                width={20}
-              />
-              <span>Vimeo</span>
-            </Link>
-            <Link href="https://api.whatsapp.com/send/?phone=17184503277&text&type=phone_number&app_absent=0" target="_blank">
-              <Image
-                src="/footer/whatsapp.svg"
-                alt="whatsapp"
-                height={20}
-                width={20}
-              />
-              <span>Whatsapp</span>
-            </Link>
-            <Link href="https://www.instagram.com/chayenu/?hl=en" target="_blank">
-              <Image
-                src="/footer/insta.svg"
-                alt="insta"
-                height={20}
-                width={20}
-              />
-              <span>Instagram</span>
-            </Link>
+            {
+              socialLinks.map((link, index) => {
+                return (
+                  <Link key={index} href={link.url} target="_blank">
+                  <Image
+                    src={link.icon}
+                    alt={link.label}
+                    height={20}
+                    width={20}
+                  />
+                  <span>{link.label}</span>
+                  </Link>
+                );
+              })
+            }
           </div>
           <div className={Styles.item}>
             <h2>about</h2>
