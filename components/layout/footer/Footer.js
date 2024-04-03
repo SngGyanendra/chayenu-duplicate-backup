@@ -39,8 +39,8 @@ export function Footer() {
             <h2>main</h2>
             <Link href="/subscribe">Subscribe</Link>
             <Link href="/explore-chayenu">Explore</Link>
-            <Link href="/comingsoon">Library</Link>
-            <Link href="https://old.chayenu.org/weekly-digest/" target="_blank">
+            <Link href="https://old.chayenu.org/library" target='_blank'>Library</Link>
+            <Link href="https://old.chayenu.org/weekly-digest" target="_blank">
               Chayus
             </Link>
             <label onClick={() => {setPopup('newsletter');}}>Newsletter</label>
@@ -55,7 +55,7 @@ export function Footer() {
           </div>
           <div className={Styles.item}>
             <h2>departments</h2>
-            <Link href="http://gateoftrust.org/" target='_blank'>
+            <Link href="http://gateoftrust.org" target='_blank'>
               <Image
                 src="/footer/gate-of-trust.svg"
                 alt="gate-of-trust"
@@ -64,7 +64,7 @@ export function Footer() {
               />
               <span>Gate of Trust</span> 
             </Link>
-            <Link href="/comingsoon">
+            <Link href="http://chitas.org" target='_blank'>
               <Image
                 src="/footer/chitas.svg"
                 alt="chitas"
