@@ -3,56 +3,79 @@
 .footer {
   font-family: var(--website-font-family);
   color: white;
-  background-color: #49A2DB;
+  background-color: #61A0D6;
   padding: 50px 90px;
   align-items: center;
   position: relative;
+
   @media (max-width: 530px) {
-    padding: 50px;
+    padding: 0px 20px 30px 20px;
   }
 
-  .inner{
+  .inner {
     display: flex;
     justify-content: space-between;
     width: var(--container-width);
+    margin: auto;
+
     @media (max-width: 800px) {
       width: 100%;
       flex-wrap: wrap;
     }
-    margin: auto;
-    .item{
+
+    .pl_10 {
+
+      @media (min-width: 330px) and (max-width: 530px) {
+        padding-left: 10%;
+      }
+
+    }
+
+    .item {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 7px;
       margin-top: 10px;
       min-width: 110px;
-      h2{
+
+      @media (max-width: 530px) {
+        margin-top: 30px;
+        min-width: 50%;
+        &:last-child {
+          min-width: 100%;
+        }
+      }
+
+      h2 {
         color: #FFF;
         font-family: var(--website-footer-font);
-        font-size: 14px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         text-transform: uppercase;
       }
-      a{
+
+      a {
         color: #FFF;
         font-family: var(--website-footer-font);
-        font-size: 14px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
         display: flex;
         align-items: center;
         gap: 10px;
-        &:hover{
+
+        &:hover {
           font-weight: 600;
         }
       }
-      label{
+
+      label {
         color: #FFF;
         font-family: var(--website-footer-font);
-        font-size: 14px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
@@ -60,32 +83,43 @@
         align-items: center;
         gap: 10px;
         cursor: pointer;
-        &:hover{
+
+        &:hover {
           font-weight: 600;
         }
       }
-      address{
+
+      address {
         color: #FFF;
         font-family: var(--website-footer-font);
-        font-size: 14px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
         display: flex;
         align-items: center;
         gap: 10px;
+
+        @media (max-width: 530px) {
+          br {
+            display: none;
+          }
+        }
       }
     }
   }
 
 }
+
 .lowerFooter {
   background-color: #003652;
   padding: 15px 100px;
+
   @media (max-width: 530px) {
     padding: 15px 50px;
   }
-  .inner{
+
+  .inner {
     width: var(--container-width);
     display: flex;
     gap: 15px;
@@ -94,56 +128,60 @@
     flex-wrap: wrap;
     position: relative;
     margin: auto;
+
     @media (max-width: 800px) {
       width: 100%;
     }
-    .logo{
-      img{
+
+    @media (max-width: 530px) {
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .logo {
+      img {
         width: 51.905px;
         height: 20px;
-        @media (max-width: 530px) {
-          width: 30px;
-          height: 10px;
-        }
       }
     }
-    .inc{
+
+    .inc {
       color: #FFF;
       font-family: var(--website-footer-font);
-      font-size: 12px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
       text-transform: uppercase;
-      @media (max-width: 530px) {
-        font-size: 10px;
-      }
+      // @media (max-width: 530px) {
+      //   font-size: 12px;
+      // }
     }
+
     .developedBy {
       a {
         display: flex;
         align-items: center;
+
         img {
           margin-left: 5px;
           width: 88.523px;
           height: 12.148px;
-          @media (max-width: 530px) {
-            width: 58.905px;
-            height: 10px;
-          }
         }
-        span{
+
+        span {
           color: #FFF;
           font-family: var(--website-footer-font);
           font-size: 10px;
           font-style: normal;
           font-weight: 400;
           line-height: normal;
-          @media (max-width: 530px) {
-           font-size: 9px;
-          }
+          // @media (max-width: 530px) {
+          //  font-size: 9px;
+          // }
         }
       }
+
       cursor: pointer;
     }
   }

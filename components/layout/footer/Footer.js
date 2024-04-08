@@ -40,12 +40,9 @@ export function Footer() {
             <Link href="/subscribe">Subscribe</Link>
             <Link href="/explore-chayenu">Explore</Link>
             <Link href="https://old.chayenu.org/library" target='_blank'>Library</Link>
-            <Link href="https://old.chayenu.org/weekly-digest" target="_blank">
-              Chayus
-            </Link>
             <label onClick={() => {setPopup('newsletter');}}>Newsletter</label>
           </div>
-          <div className={Styles.item}>
+          <div className={`${Styles.item} ${Styles.pl_10}`}>
             <h2>specials</h2>
             <Link href="/specialorders" target='_blank'>Bulk Orders</Link>
             <Link href="/shluchim" target='_blank'>Shluchim</Link>
@@ -56,25 +53,16 @@ export function Footer() {
           <div className={Styles.item}>
             <h2>departments</h2>
             <Link href="http://gateoftrust.org" target='_blank'>
-              <Image
-                src="/footer/gate-of-trust.svg"
-                alt="gate-of-trust"
-                height={20}
-                width={20}
-              />
-              <span>Gate of Trust</span> 
+              Gate of Trust 
             </Link>
             <Link href="http://chitas.org" target='_blank'>
-              <Image
-                src="/footer/chitas.svg"
-                alt="chitas"
-                height={20}
-                width={20}
-              />
-              <span>Chitas</span> 
+              Chitas
+            </Link>
+            <Link href="https://old.chayenu.org/weekly-digest" target="_blank">
+              Chayus
             </Link>
           </div>
-          <div className={Styles.item}>
+          <div className={`${Styles.item} ${Styles.pl_10}`}>
             <h2>community</h2>
             {
               socialLinks.map((link, index) => {
@@ -126,7 +114,7 @@ export function Footer() {
         <div className={Styles.inc}>© chayenu inc.</div>
         <div className={Styles.developedBy}>
           <Link href="https://gorinsystems.com" target="_blank">
-            <span>Developed by{' '}</span>
+            <span>Developed by:</span>
             <Image
               src={'/footer/gorinsystems.svg'}
               alt="gorin systems"
