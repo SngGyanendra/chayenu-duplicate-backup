@@ -3,7 +3,7 @@
 .footer {
   font-family: var(--website-font-family);
   color: white;
-  background-color: #61A0D6;
+  background-color: var(--website-color);
   padding: 50px 90px;
   align-items: center;
   position: relative;
@@ -48,7 +48,7 @@
 
       h2 {
         color: #FFF;
-        font-family: var(--website-footer-font);
+        font-family: var(--website-font-family);
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
@@ -58,7 +58,7 @@
 
       a {
         color: #FFF;
-        font-family: var(--website-footer-font);
+        font-family: var(--website-font-family);
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -68,13 +68,13 @@
         gap: 10px;
 
         &:hover {
-          font-weight: 600;
+          font-weight: 500;
         }
       }
 
       label {
         color: #FFF;
-        font-family: var(--website-footer-font);
+        font-family: var(--website-font-family);
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -85,13 +85,13 @@
         cursor: pointer;
 
         &:hover {
-          font-weight: 600;
+          font-weight: 500;
         }
       }
 
       address {
         color: #FFF;
-        font-family: var(--website-footer-font);
+        font-family: var(--website-font-family);
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -112,7 +112,7 @@
 }
 
 .lowerFooter {
-  background-color: #003652;
+  background-color: var(--dark);
   padding: 15px 100px;
 
   @media (max-width: 530px) {
@@ -147,7 +147,7 @@
 
     .inc {
       color: #FFF;
-      font-family: var(--website-footer-font);
+      font-family: var(--website-font-family);
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
@@ -171,8 +171,8 @@
 
         span {
           color: #FFF;
-          font-family: var(--website-footer-font);
-          font-size: 10px;
+          font-family: var(--website-font-family);
+          font-size: 12px;
           font-style: normal;
           font-weight: 400;
           line-height: normal;
