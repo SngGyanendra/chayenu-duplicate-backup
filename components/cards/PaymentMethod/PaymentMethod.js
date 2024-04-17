@@ -127,7 +127,7 @@ export function PaymentMethod({ paymentMethod }) {
                       } else if (
                         subscriptions?.some(
                           (sub) =>
-                            sub.paymentMethod.token === paymentMethod.cardToken
+                            sub.paymentMethod?.token === paymentMethod.cardToken
                         )
                       ) {
                         toast.custom((t) => (
