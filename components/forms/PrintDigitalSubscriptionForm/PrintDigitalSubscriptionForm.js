@@ -437,6 +437,7 @@ export function PrintDigitalSubscriptionForm({
     address_1: undefined,
     distributor: undefined,
     address_2: undefined,
+    organization: undefined,
     address_validated: true,
     zip_code: undefined,
     email: undefined,
@@ -464,6 +465,7 @@ export function PrintDigitalSubscriptionForm({
     last_name: undefined,
     address_1: undefined,
     address_2: undefined,
+    organization: undefined,
     email: undefined,
     city: undefined,
     coupon: undefined,
@@ -562,6 +564,7 @@ export function PrintDigitalSubscriptionForm({
       then: () => Yup.string().trim().required('Street address is required'),
     }),
     address_2: Yup.string().trim(),
+    organization: Yup.string().trim(),
     city: Yup.string().when({
       is: () =>
         (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
@@ -887,6 +890,21 @@ export function PrintDigitalSubscriptionForm({
                         </span>
                       </label>
                     </div>
+                    <label>
+                        <input
+                          type="text"
+                          name="organization"
+                          placeholder="Organization (optional)"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.organization}
+                        />
+                        <span className={Styles.error}>
+                          {errors.organization &&
+                            touched.organization &&
+                            errors.organization}
+                        </span>
+                      </label>
                     <>
                       {deliveryType === 'shipping' && (
                         <>

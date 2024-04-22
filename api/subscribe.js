@@ -80,6 +80,7 @@ export async function addNewSubscription(values) {
         },
         is_valid:values.is_validated,
         address_remarks:values.address_remarks,
+        organization: values.organization,
       }),
     };
     const response = await axios.post(
