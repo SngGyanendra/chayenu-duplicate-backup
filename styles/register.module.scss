@@ -1,0 +1,55 @@
+@import 'common.scss';
+
+.registerForm {
+  background-color: var(--website-color-opacity-low);
+  width: 300px;
+  margin: 40px auto;
+  padding: 20px;
+  box-sizing: content-box;
+  border-radius: 10px;
+}
+
+.section {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  label {
+    &:first-of-type {
+      margin-right: 10px;
+    }
+    width: 250px;
+    input {
+      width: 100%;
+      border: none;
+      height: 2rem;
+      padding: 0 10px;
+      border-radius: 5px;
+      outline: none;
+    }
+  }
+
+  button {
+    border-radius: 5px;
+    background-color: var(--website-color);
+    color: white;
+    border: none;
+    outline: none;
+    font-family: 'Brandon Grotesque', sans-serif;
+    font: fontvalue(18, 18, 400);
+    cursor: pointer;
+    padding: 10px 20px;
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+  }
+}
+
+.error {
+  color: #be1550;
+  font: fontvalue(14, 14, 600);
+  min-width: 1px;
+  min-height: 14px;
+  font-family: 'Brandon Grotesque', sans-serif;
+  margin-top: 6px;
+}
