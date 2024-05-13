@@ -9,6 +9,49 @@
   border-radius: 10px;
 }
 
+.phoneInput {
+  input {
+    padding-left: 60px;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 50px !important;
+  }
+  & > input {
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+  div {
+    box-shadow: none !important;
+  }
+}
+
+.cardDetails{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+}
+.creditCard {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 1rem;
+  label {
+    font: fontvalue(16, 16, 300);
+    margin-bottom: 5px;
+  }
+  .hostedFields {
+    height: 2rem;
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .expirycvv {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: .5rem;
+  }
+}
+
 .section {
   display: flex;
   justify-content: center;
