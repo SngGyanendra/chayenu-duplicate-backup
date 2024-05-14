@@ -131,6 +131,9 @@ export function PrintDigitalSubscriptionForm({
         if (item.types.includes('locality')) {
           setFieldValue('city', item.long_name);
           addressObj.city = item.long_name;
+        }else if (item.types.includes('sublocality')) {
+          setFieldValue('city', item.long_name);
+          addressObj.city = item.long_name;
         }
         if (item.types.includes('administrative_area_level_1')) {
           var objState = selectedCountry?.states.find((obj) => {
