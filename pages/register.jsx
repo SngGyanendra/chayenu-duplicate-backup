@@ -105,7 +105,7 @@ export default function Register() {
           console.log('error', error);
           toastTemplate(
             toast.error,
-            'Subscription cancellation failed\n contact support for further help',
+            'Registration failed\n contact support for further help',
             loadingToast
           );
         }
@@ -241,7 +241,13 @@ export default function Register() {
                   onBlur={handleBlur}
                   value={values.country}
                 /> */}
-                <select name="country" id="">
+                <select
+                  name="country"
+                  id=""
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.country}
+                >
                   <option value="" hidden selected style={{ color: '#999' }}>
                     Country
                   </option>
