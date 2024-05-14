@@ -7,6 +7,7 @@ import { validateCreditCard } from '../util';
 import { initializeCustomBraintree } from '../components/common';
 import toast from 'react-hot-toast';
 import { toastTemplate } from '/components/common';
+import { useRouter } from 'next/router';
 
 export default function Register() {
   const [cardErrors, setCardErrors] = useState({
@@ -15,6 +16,7 @@ export default function Register() {
     expiry: undefined,
   });
   const [hostedFields, setHostedFields] = useState();
+  const router = useRouter();
 
   const initialValues = {
     first_name: undefined,
@@ -98,6 +100,7 @@ export default function Register() {
             payment_method_nonce: cardNonce,
           });
           toastTemplate(toast.success, 'Registration successful', loadingToast);
+          router.push('/login');
         } catch (error) {
           console.log('error', error);
           toastTemplate(
@@ -230,14 +233,29 @@ export default function Register() {
             </div>
             <div className={Styles.section}>
               <label>
-                <input
+                {/* <input
                   type="text"
                   name="country"
                   placeholder="Country"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.country}
-                />
+                /> */}
+                <select name="country" id="">
+                  <option value="" hidden selected style={{ color: '#999' }}>
+                    Country
+                  </option>
+                  <option value="United States of America">
+                    United States of America
+                  </option>
+                  <option value="Israel">Israel</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Italy">Italy</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="France">France</option>
+                </select>
                 <span className={Styles.error}>
                   {errors.country && touched.country && errors.country}
                 </span>
