@@ -55,7 +55,6 @@ export default function Register() {
       initialErrors={initialErrors}
       onSubmit={async (values) => {
         const loadingToast = toast.loading('Processing your request');
-        console.log('submitted values', values);
         const address = `Street Address : ${values.street_address} \n
          City : ${values.city} \n
          State : ${values.state} \n
@@ -102,12 +101,19 @@ export default function Register() {
           toastTemplate(toast.success, 'Registration successful', loadingToast);
           router.push('/login');
         } catch (error) {
-          console.log('error', error);
-          toastTemplate(
-            toast.error,
-            'Registration failed\n contact support for further help',
-            loadingToast
-          );
+          if (error.response.status === 409) {
+            toastTemplate(
+              toast.error,
+              'Email already registered',
+              loadingToast
+            );
+          } else {
+            toastTemplate(
+              toast.error,
+              'Registration failed\n contact support for further help',
+              loadingToast
+            );
+          }
         }
       }}
     >
