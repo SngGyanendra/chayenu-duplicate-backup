@@ -75,7 +75,7 @@ export function CancelSubscriptionReason({
           {
             reason.description === 'Other' && (
               <div className={Styles.reasons} style={showOther ? {display:'block'}:{display:'none'}}>
-                <input className={Styles.otherText} placeholder='Write reason' value={otherReason} type="text" onChange={(e)=>{setOtherReason(e.target.value)}} required={showOther ? true:false} />
+                <input className={Styles.otherText} value={otherReason} type="text" onChange={(e)=>{setOtherReason(e.target.value)}} required={showOther ? true:false} />
               </div>
             )
           }
