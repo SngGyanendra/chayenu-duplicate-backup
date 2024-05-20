@@ -16,12 +16,22 @@
     align-items: center;
     input[type='checkbox'] {
       width: 20px;
+      min-width: 20px;
       height: 20px;
       border: none ;
     }
     label {
       margin-left: 1rem;
       cursor: pointer;
+    }
+    .otherText {
+      height: 2rem;
+      border-radius: 5px;
+      padding: 0px 10px;
+      width: 100%;
+      font: normal normal 300 16px / 16px var(--website-font-family);
+      border: 0px solid rgb(206, 212, 218);
+      box-shadow: none;
     }
   }
   .button {
