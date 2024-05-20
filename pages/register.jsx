@@ -4,10 +4,12 @@ import { Formik } from 'formik';
 import Styles from '../styles/register.module.scss';
 import { registerUser } from '../api/register';
 import { validateCreditCard } from '../util';
+import * as Yup from 'yup';
 import { initializeCustomBraintree } from '../components/common';
 import toast from 'react-hot-toast';
 import { toastTemplate } from '/components/common';
 import { useRouter } from 'next/router';
+import { countryOptions } from '../util/countries';
 
 export default function Register() {
   const [cardErrors, setCardErrors] = useState({
@@ -28,6 +30,7 @@ export default function Register() {
     city: undefined,
     state: undefined,
     country: undefined,
+    zip_code: undefined,
   };
 
   const initialErrors = {
@@ -39,8 +42,22 @@ export default function Register() {
     state: undefined,
     city: undefined,
     country: undefined,
+    zip_code: undefined,
     street_address: undefined,
   };
+
+  const validationSchema = Yup.object().shape({
+    first_name: Yup.string().required('First name is required'),
+    last_name: Yup.string().required('Last name is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    mobile: Yup.string().required('Mobile number is required'),
+    password: Yup.string().required('Password is required'),
+    street_address: Yup.string().required('Street address is required'),
+    city: Yup.string().required('City is required'),
+    state: Yup.string().required('State is required'),
+    country: Yup.string().required('Country is required'),
+    zip_code: Yup.string().optional('Zip code is optional'),
+  });
 
   useEffect(() => {
     async function getData() {
@@ -53,12 +70,14 @@ export default function Register() {
     <Formik
       initialValues={initialValues}
       initialErrors={initialErrors}
+      validationSchema={validationSchema}
       onSubmit={async (values) => {
         const loadingToast = toast.loading('Processing your request');
         const address = `Street Address : ${values.street_address} \n
          City : ${values.city} \n
          State : ${values.state} \n
-         Country : ${values.country}
+         Country : ${values.country}\n
+         Zip Code : ${values.zip_code}
         `;
 
         try {
@@ -75,6 +94,11 @@ export default function Register() {
             street_address: values.street_address,
             address,
           };
+
+          if (values.zip_code !== undefined) {
+            body.zip_code = values.zip_code;
+          }
+
           let cardNonce;
           if (hostedFields) {
             if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
@@ -257,19 +281,29 @@ export default function Register() {
                   <option value="" hidden selected style={{ color: '#999' }}>
                     Country
                   </option>
-                  <option value="United States of America">
-                    United States of America
-                  </option>
-                  <option value="Israel">Israel</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Italy">Italy</option>
-                  <option value="United Kingdom">United Kingdom</option>
-                  <option value="Canada">Canada</option>
-                  <option value="South Africa">South Africa</option>
-                  <option value="France">France</option>
+                  {countryOptions.map((country) => (
+                    <option key={country.label} value={country.value}>
+                      {country.label}
+                    </option>
+                  ))}
                 </select>
                 <span className={Styles.error}>
                   {errors.country && touched.country && errors.country}
+                </span>
+              </label>
+            </div>
+            <div className={Styles.section}>
+              <label>
+                <input
+                  type="number"
+                  name="zip_code"
+                  placeholder="Zip Code"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.zip_code}
+                />
+                <span className={Styles.error}>
+                  {errors.state && touched.state && errors.state}
                 </span>
               </label>
             </div>
