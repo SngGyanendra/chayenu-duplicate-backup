@@ -11,6 +11,7 @@ export function ConfirmCancellation({
   reasonList,
   setPopupState,
   setProgress,
+  otherReason
 }) {
   const APIs = new AuthencticatedUserAPI();
   const dispatch = useDispatch();
@@ -36,7 +37,8 @@ export function ConfirmCancellation({
           try {
             const response = await APIs.toggleAutoRenew(
               subscription.id,
-              reasonList
+              reasonList,
+              otherReason
             );
             toastTemplate(
               toast.success,

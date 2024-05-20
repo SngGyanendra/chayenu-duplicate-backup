@@ -1,0 +1,52 @@
+   query Posts{
+      printouts( sort: "published_at:desc", limit: 12, start:0, where:{
+        weeks: { date_start_lte: "2024-05-17T12:30:29.296Z", date_end_gte: "2024-05-17T12:30:29.296Z" }
+      }) {
+        id
+        file
+        file_link
+        thumbnail{
+          url
+        }
+        num_pages
+        published_at
+        publication{
+          id
+          name
+          slug
+          language{
+            id
+            name
+          }
+          followings{
+            id
+            user {
+              id
+            }
+          }
+        }
+        weeks{
+          id
+          name
+          year
+        }
+        periods{
+          id
+          name_en
+          name_he
+          date_start
+          date_end
+        },
+        bookmark_users{
+          id
+        }
+      },
+      weeks( where: { date_start_lte: "2024-05-17T12:30:29.296Z", date_end_gte: "2024-05-17T12:30:29.296Z" }) {
+        id
+        name
+        printouts{
+          id
+        }
+      }
+    }
+  

@@ -5,6 +5,7 @@ import { ReactivateSubscription } from './ReactivateSubscription';
 
 export function CancelSubscription({ subscription, setPopupState }) {
   const [reasonList, setReasonList] = useState([]);
+  const [otherReason, setOtherReason] = useState('');
   const [progress, setProgress] = useState('selectReason');
 
   return (
@@ -16,6 +17,8 @@ export function CancelSubscription({ subscription, setPopupState }) {
               reasonList={reasonList}
               setReasonList={setReasonList}
               setProgress={setProgress}
+              otherReason={otherReason}
+              setOtherReason={setOtherReason}
             />
           );
         } else if (progress === 'confirmCancellation') {
@@ -25,6 +28,7 @@ export function CancelSubscription({ subscription, setPopupState }) {
               setPopupState={setPopupState}
               reasonList={reasonList}
               setProgress={setProgress}
+              otherReason={otherReason}
             />
           );
         } else if (progress === 'reactivationMessage') {
