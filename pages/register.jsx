@@ -95,7 +95,9 @@ export default function Register() {
             address,
           };
 
-          if (values.zip_code !== undefined) {
+          console.log(values.zip_code, 'zip code')
+
+          if (values.zip_code !== '') {
             body.zip_code = values.zip_code;
           }
 
