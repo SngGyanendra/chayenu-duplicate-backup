@@ -87,8 +87,8 @@
 }
 
 .alreadyHaveAccount {
-  font: fontvalue(16, 16, 400);
-  font-family: 'Brandon Grotesque', sans-serif;
+  font: fontvalue(18, 18, 400);
+  font-family: var(--website-font-family), sans-serif;
   text-align: center;
   margin-top: 2rem;
   a {
