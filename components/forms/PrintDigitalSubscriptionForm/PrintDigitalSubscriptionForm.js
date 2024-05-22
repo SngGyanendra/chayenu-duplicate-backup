@@ -30,6 +30,7 @@ import {
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
 import Autocomplete from 'react-google-autocomplete';
+import Link from 'next/link';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -672,6 +673,9 @@ export function PrintDigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
+              <div className={Styles.alreadyHaveAccount}>
+                Already have an account? <Link href="/login">Login Here</Link>
+              </div>
               {countriesList.find((country) => country.name === 'USA') &&
                 countriesList.length > 1 && (
                   <div className={Styles.form}>
@@ -894,20 +898,20 @@ export function PrintDigitalSubscriptionForm({
                       </label>
                     </div>
                     <label>
-                        <input
-                          type="text"
-                          name="organization"
-                          placeholder="Organization (optional)"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.organization}
-                        />
-                        <span className={Styles.error}>
-                          {errors.organization &&
-                            touched.organization &&
-                            errors.organization}
-                        </span>
-                      </label>
+                      <input
+                        type="text"
+                        name="organization"
+                        placeholder="Organization (optional)"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.organization}
+                      />
+                      <span className={Styles.error}>
+                        {errors.organization &&
+                          touched.organization &&
+                          errors.organization}
+                      </span>
+                    </label>
                     <>
                       {deliveryType === 'shipping' && (
                         <>
