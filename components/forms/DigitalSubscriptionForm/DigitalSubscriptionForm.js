@@ -22,6 +22,7 @@ import {
 import { Summary, Coupon } from '/components/forms';
 import { getAllPlans, getAllColleges, addNewSubscription } from '/api';
 import * as Yup from 'yup';
+import Link from 'next/link';
 
 export function DigitalSubscriptionForm({
   selectedProduct,

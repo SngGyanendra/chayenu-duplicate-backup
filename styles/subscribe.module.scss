@@ -21,6 +21,7 @@
   grid-template-columns: repeat(6, 1fr);
   column-gap: 1.5rem;
   row-gap: 1.5rem;
+
   .productCard {
     grid-column: span 2;
   }
@@ -33,6 +34,7 @@
   .productCard:last-child:nth-child(3n - 2) {
     grid-column-end: 5;
   }
+
   @media screen and (min-width: 59.375rem) and (max-width: 81.25rem) {
     grid-template-columns: repeat(4, 1fr);
     .productCard:last-child:nth-child(3n - 1) {
@@ -59,6 +61,21 @@
     }
   }
 }
+
+@media screen and (max-width: 81.25rem) {
+  .products > .productCard:nth-child(3):nth-last-child(1) {
+    order: 3; /* Ensure the third child remains in the third position */
+  }
+
+  .products > .productCard:nth-child(2):nth-last-child(2) {
+      order: 1; /* Move the second child to the first position */
+  }
+
+  .products > .productCard:nth-child(1):nth-last-child(3) {
+      order: 2; /* Move the first child to the second position */
+  }
+}
+
 .error {
   text-align: center;
   font-family: Brandon Grotesque;
@@ -67,4 +84,15 @@
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+}
+
+.alreadyHaveAccount {
+  font: fontvalue(18, 18, 400);
+  font-family: var(--website-font-family), sans-serif;
+  text-align: center;
+  margin-top: 2rem;
+  a {
+    color: var(--website-color);
+    font-weight: bold;
+  }
 }

@@ -30,6 +30,7 @@ import {
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
 import Autocomplete from 'react-google-autocomplete';
+import Link from 'next/link';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -894,20 +895,20 @@ export function PrintDigitalSubscriptionForm({
                       </label>
                     </div>
                     <label>
-                        <input
-                          type="text"
-                          name="organization"
-                          placeholder="Organization (optional)"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.organization}
-                        />
-                        <span className={Styles.error}>
-                          {errors.organization &&
-                            touched.organization &&
-                            errors.organization}
-                        </span>
-                      </label>
+                      <input
+                        type="text"
+                        name="organization"
+                        placeholder="Organization (optional)"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.organization}
+                      />
+                      <span className={Styles.error}>
+                        {errors.organization &&
+                          touched.organization &&
+                          errors.organization}
+                      </span>
+                    </label>
                     <>
                       {deliveryType === 'shipping' && (
                         <>
