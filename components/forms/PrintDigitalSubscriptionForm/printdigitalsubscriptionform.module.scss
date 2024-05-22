@@ -487,14 +487,3 @@
   align-items: center;
   font: fontvalue(14, 14, 300);
 }
-
-.alreadyHaveAccount {
-  font: fontvalue(16, 16, 300);
-  font-family: 'Brandon Grotesque', sans-serif;
-  text-align: center;
-  margin-top: 1rem;
-  a {
-    color: var(--website-color);
-    font-weight: bold;
-  }
-}

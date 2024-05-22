@@ -390,9 +390,6 @@ export function DigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form className={Styles.formWrapper} onSubmit={handleSubmit}>
-              <div className={Styles.alreadyHaveAccount}>
-                Already have an account? <Link href="/login">Login Here</Link>
-              </div>
               <div className={Styles.form} ref={autoScroll}>
                 <div className={Styles.plan}>
                   <div className={Styles.selectPlan}>Select a Plan</div>

@@ -68,3 +68,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.alreadyHaveAccount {
+  font: fontvalue(16, 16, 400);
+  font-family: 'Brandon Grotesque', sans-serif;
+  text-align: center;
+  margin-top: 2rem;
+  a {
+    color: var(--website-color);
+    font-weight: bold;
+  }
+}
