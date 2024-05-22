@@ -18,6 +18,7 @@ export default function Register() {
     expiry: undefined,
   });
   const [hostedFields, setHostedFields] = useState();
+  const [disabled, setDisabled] = useState(false);
   const router = useRouter();
 
   const initialValues = {
@@ -72,6 +73,7 @@ export default function Register() {
       initialErrors={initialErrors}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        setDisabled(true);
         const loadingToast = toast.loading('Processing your request');
         const address = `Street Address : ${values.street_address} \n
          City : ${values.city} \n
@@ -94,8 +96,6 @@ export default function Register() {
             street_address: values.street_address,
             address,
           };
-
-          console.log(values.zip_code, 'zip code')
 
           if (values.zip_code !== '') {
             body.zip_code = values.zip_code;
@@ -125,9 +125,11 @@ export default function Register() {
             payment_method_nonce: cardNonce,
           });
           toastTemplate(toast.success, 'Registration successful', loadingToast);
+          setDisabled(false);
           router.push('/login');
         } catch (error) {
-          if (error.response.status === 409) {
+          setDisabled(false);
+          if (error?.response?.status === 409) {
             toastTemplate(
               toast.error,
               'Email already registered',
@@ -368,7 +370,9 @@ export default function Register() {
               </label>
             </div>
             <div className={Styles.section}>
-              <button type="submit">Submit</button>
+              <button disabled={disabled} type="submit">
+                Submit
+              </button>
             </div>
           </div>
         </form>
