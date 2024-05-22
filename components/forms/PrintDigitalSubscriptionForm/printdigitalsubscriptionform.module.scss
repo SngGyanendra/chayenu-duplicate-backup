@@ -8,7 +8,7 @@
   margin: 2rem auto 2rem auto;
   font-family: 'Brandon Grotesque', sans-serif;
 
-  .popup{
+  .popup {
     background-color: white;
     width: 300px;
     height: 200px;
@@ -19,30 +19,30 @@
     justify-content: center;
     flex-direction: column;
 
-    p{
+    p {
       margin-bottom: 20px;
       margin-top: 10px;
     }
-    button{
+    button {
       padding: 7px;
       margin: 0px 5px;
       border-radius: 7px;
-      background-color: #61A0D6;
+      background-color: #61a0d6;
       border: none;
       color: #ffffff;
     }
-    .edit{
+    .edit {
       background-color: var(--dark);
       color: #ffffff;
-      &:hover{
+      &:hover {
         background: #61a0d6 0 0 no-repeat padding-box;
-        transition: background-color .25s;
+        transition: background-color 0.25s;
       }
     }
     .submitBtn:hover {
-        background-color: var(--dark);
-        color: #fff;
-        transition: background-color .25s;
+      background-color: var(--dark);
+      color: #fff;
+      transition: background-color 0.25s;
     }
   }
   .subscribe {
@@ -68,31 +68,31 @@
       box-shadow: 0px 6px 12px #00000029;
     }
   }
-  .agree{
+  .agree {
     text-align: center;
     width: 600px;
 
-    .agreeLable{
+    .agreeLable {
       font: normal normal 400 16px/16px var(--website-font-family);
       margin-left: 3.5%;
-      a{
+      a {
         font-weight: bold;
       }
     }
     @media screen and (max-width: 800px) {
       max-width: var(--container-width);
 
-      .agreeLable{
+      .agreeLable {
         margin-left: 7.5%;
         line-height: 23px;
       }
     }
-    .error{
+    .error {
       color: #be1550;
       font: normal normal 600 14px/14px var(--website-font-family);
       min-width: 1px;
       min-height: 14px;
-      font-family: "Brandon Grotesque", sans-serif;
+      font-family: 'Brandon Grotesque', sans-serif;
       margin-top: 6px;
     }
     .container {
@@ -129,7 +129,7 @@
         border-radius: 3px;
 
         &:after {
-          content: "";
+          content: '';
           position: absolute;
           display: none;
         }
@@ -157,7 +157,7 @@
       box-shadow: none;
     }
   }
-  .trialForm{
+  .trialForm {
     @media screen and (max-width: 500px) {
       width: 76vw;
     }
@@ -321,7 +321,7 @@
         @media screen and (max-width: 70rem) {
           width: 100%;
         }
-        .disabled{
+        .disabled {
           background-color: #f7fbfe !important;
         }
       }
@@ -364,7 +364,7 @@
       &:focus {
         outline: none;
       }
-      &:disabled{
+      &:disabled {
         background-color: #f7fbfe !important;
       }
     }
@@ -486,4 +486,15 @@
   justify-content: space-between;
   align-items: center;
   font: fontvalue(14, 14, 300);
+}
+
+.alreadyHaveAccount {
+  font: fontvalue(16, 16, 300);
+  font-family: 'Brandon Grotesque', sans-serif;
+  text-align: center;
+  margin-top: 1rem;
+  a {
+    color: var(--website-color);
+    font-weight: bold;
+  }
 }

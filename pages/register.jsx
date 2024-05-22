@@ -128,6 +128,7 @@ export default function Register() {
           setDisabled(false);
           router.push('/login');
         } catch (error) {
+          console.log(error);
           setDisabled(false);
           if (error?.response?.status === 409) {
             toastTemplate(
