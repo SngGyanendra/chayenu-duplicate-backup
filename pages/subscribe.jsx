@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { NextHead } from '../components/common';
@@ -7,14 +8,14 @@ import { getAllProducts } from '../api/common';
 import { useWindowDimensions } from '../hooks';
 import Link from 'next/link';
 import { ProductCard, ProductCardSkeleton } from '../components/cards';
+
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
-} from '../components/forms';
+} from "../components/forms";
 
-export default function Subscribe({ query }) {
-  const [allProducts, setAllProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function Subscribe({ query, products: allProducts }) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [selectedProduct, setSelectedProduct] = useState(undefined);
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -24,57 +25,30 @@ export default function Subscribe({ query }) {
   const autoScroll = useCallback(
     (node) => {
       if (node != null) {
-        node.scrollIntoView({ behavior: 'smooth' });
+        node.scrollIntoView({ behavior: "smooth" });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
     [selectedProduct]
   );
 
-  async function getData() {
-    try {
-      const productQuery = {};
+  // useEffect(() => {
+  //   getData();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
+  // }, [query]);
 
-      if (query.student_only === 'true') {
-        productQuery.student_only = true;
-      }
-
-      if (query.is_military_only === 'true') {
-        productQuery.is_military_only = true;
-      }
-
-      if (query.is_shluchim_only === 'true') {
-        productQuery.is_shluchim_only = true;
-      }
-
-      const { data } = await getAllProducts(productQuery);
-
-      setLoading(false);
-      setAllProducts(data);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-      setError('A error occured, please try after some time');
-    }
-  }
-
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
-  }, [query]);
-
-  const centerCardStyles = { transform: 'scale(1.1)' };
+  const centerCardStyles = { transform: "scale(1.1)" };
 
   function getContentHeader() {
     if (query.is_military_only) {
       return (
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            marginTop: '24px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "24px",
           }}
         >
           <Image
@@ -96,11 +70,11 @@ export default function Subscribe({ query }) {
       return (
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            marginTop: '24px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "24px",
           }}
         >
           <p className={Styles.studentmilitaryline}>
@@ -114,11 +88,11 @@ export default function Subscribe({ query }) {
       return (
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            marginTop: '24px',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            marginTop: "24px",
           }}
         >
           <Image
@@ -196,7 +170,7 @@ export default function Subscribe({ query }) {
       {selectedProduct && (
         <>
           {(() => {
-            if (selectedProduct.product_type.toLowerCase() === 'digital') {
+            if (selectedProduct.product_type.toLowerCase() === "digital") {
               return (
                 <DigitalSubscriptionForm
                   selectedProduct={selectedProduct}
@@ -224,10 +198,32 @@ export default function Subscribe({ query }) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  const { query } = context;
+
+  async function getData() {
+    const productQuery = {};
+
+    if (query.student_only === "true") {
+      productQuery.student_only = true;
+    }
+
+    if (query.is_military_only === "true") {
+      productQuery.is_military_only = true;
+    }
+
+    if (query.is_shluchim_only === "true") {
+      productQuery.is_shluchim_only = true;
+    }
+
+    const { data } = await getAllProducts(productQuery);
+    return data;
+  }
+
   return {
     props: {
-      query: context.query,
+      query,
+      products: await getData(),
     },
   };
 }

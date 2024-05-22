@@ -68,13 +68,14 @@ export class AuthencticatedUserAPI {
     } catch (error) {}
   }
 
-  async toggleAutoRenew(id, reasonList) {
+  async toggleAutoRenew(id, reasonList, otherReason) {
     try {
       const { data } = await this.requestInstance.post(
         `${backendUrl}/subscription/toggleautorenew`,
         {
           id: id,
           reasons: reasonList,
+          cancel_remark: otherReason,
         }
       );
       return data;

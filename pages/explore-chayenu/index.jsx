@@ -27,12 +27,13 @@ export default function Explore() {
       }
     } catch (error) {
       setLoading(false);
-      setError("An error occured, please try after some time");
+      setError("An error occurred, please try after some time");
     }
   }
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
