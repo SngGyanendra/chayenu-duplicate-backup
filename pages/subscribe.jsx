@@ -1,11 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
-import { NextHead } from "../components/common";
-import Styles from "../styles/subscribe.module.scss";
-import { getAllProducts } from "../api/common";
-import { useWindowDimensions } from "../hooks";
 
-import { ProductCard, ProductCardSkeleton } from "../components/cards";
+import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
+import { NextHead } from '../components/common';
+import { useSelector } from 'react-redux';
+import Styles from '../styles/subscribe.module.scss';
+import { getAllProducts } from '../api/common';
+import { useWindowDimensions } from '../hooks';
+import Link from 'next/link';
+import { ProductCard, ProductCardSkeleton } from '../components/cards';
+
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
@@ -15,6 +18,7 @@ export default function Subscribe({ query, products: allProducts }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [selectedProduct, setSelectedProduct] = useState(undefined);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const { width } = useWindowDimensions();
 
@@ -117,6 +121,11 @@ export default function Subscribe({ query, products: allProducts }) {
       {!error && (
         <>
           {getContentHeader()}
+          {!isLoggedIn && (
+            <div className={Styles.alreadyHaveAccount}>
+              Already have an account? <Link href="/login">Login Here</Link>
+            </div>
+          )}
           <h1 className={Styles.selectProduct}>Select Product</h1>
           <div className={Styles.products}>
             {loading

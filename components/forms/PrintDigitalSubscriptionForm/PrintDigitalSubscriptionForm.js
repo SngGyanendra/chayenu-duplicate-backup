@@ -673,9 +673,6 @@ export function PrintDigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
-              <div className={Styles.alreadyHaveAccount}>
-                Already have an account? <Link href="/login">Login Here</Link>
-              </div>
               {countriesList.find((country) => country.name === 'USA') &&
                 countriesList.length > 1 && (
                   <div className={Styles.form}>
