@@ -352,12 +352,14 @@ export function DigitalSubscriptionForm({
           validationSchema={validationSchema}
           onSubmit={async (values) => {
             setLoading(true);
-            if (!paymentMethod) {
-              toastTemplate(toast.error, 'Please select a payment method');
-              setLoading(false);
-              return;
+            if (coupon && require_cc) {
+              if (!paymentMethod) {
+                toastTemplate(toast.error, 'Please select a payment method');
+                setLoading(false);
+                return;
+              }
             }
-            if (hostedFields) {
+            if (hostedFields && require_cc) {
               if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
                 setLoading(false);
                 return;
