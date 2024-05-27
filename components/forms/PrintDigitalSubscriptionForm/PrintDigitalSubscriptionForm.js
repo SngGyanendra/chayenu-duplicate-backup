@@ -634,10 +634,12 @@ export function PrintDigitalSubscriptionForm({
             values.is_validated = response.address_validated;
             values.address_remarks = response.address_remarks;
             setLoading(true);
-            if (!paymentMethod) {
-              toastTemplate(toast.error, 'Please select a payment method');
-              setLoading(false);
-              return;
+            if (coupon && require_cc) {
+              if (!paymentMethod) {
+                toastTemplate(toast.error, 'Please select a payment method');
+                setLoading(false);
+                return;
+              }
             }
             if (hostedFields && require_cc) {
               if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
