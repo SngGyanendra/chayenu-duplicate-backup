@@ -132,7 +132,7 @@ export function PrintDigitalSubscriptionForm({
         if (item.types.includes('locality')) {
           setFieldValue('city', item.long_name);
           addressObj.city = item.long_name;
-        }else if (item.types.includes('sublocality')) {
+        } else if (item.types.includes('sublocality')) {
           setFieldValue('city', item.long_name);
           addressObj.city = item.long_name;
         }
@@ -639,7 +639,7 @@ export function PrintDigitalSubscriptionForm({
               setLoading(false);
               return;
             }
-            if (hostedFields) {
+            if (hostedFields && require_cc) {
               if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
                 setLoading(false);
                 return;
