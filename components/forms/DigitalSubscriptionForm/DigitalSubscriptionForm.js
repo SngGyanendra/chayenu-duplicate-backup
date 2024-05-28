@@ -16,19 +16,17 @@ import {
 } from '/components/common';
 import {
   PlanCard,
-  PlanLoadingSkeleton,
   SuccessfulSubscription,
 } from '/components/cards';
 import { Summary, Coupon } from '/components/forms';
-import { getAllPlans, getAllColleges, addNewSubscription } from '/api';
+import { getAllColleges, addNewSubscription } from '/api';
 import * as Yup from 'yup';
 
 export function DigitalSubscriptionForm({
   selectedProduct,
-  productPlans,
+  productPlans: allPlans,
   autoScroll,
 }) {
-  const [allPlans, setAllPlans] = useState(productPlans);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [popup, setPopup] = useState('');
   const [coupon, setCoupon] = useState(undefined);
@@ -327,7 +325,6 @@ export function DigitalSubscriptionForm({
 
   return (
     <div className={Styles.formWrapper}>
-      {!allPlans.length && <PlanLoadingSkeleton />}
       {popup === 'successfulSubscription' && (
         <Popup setPopupState={setPopup}>
           <SuccessfulSubscription
