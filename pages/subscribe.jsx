@@ -1,20 +1,21 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { NextHead } from "../components/common";
 import Styles from "../styles/subscribe.module.scss";
 import { getAllProducts } from "../api/common";
+import { getAllPlansUnfiltered } from "../api/subscribe";
 import { useWindowDimensions } from "../hooks";
-
-import { ProductCard, ProductCardSkeleton } from "../components/cards";
+import { ProductCard } from "../components/cards";
 import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
 } from "../components/forms";
+import { getCountriesFromPlans } from "../util";
 
-export default function Subscribe({ query, products: allProducts }) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+export default function Subscribe({ query, products: allProducts, plans }) {
+  const [productPlans, setProductPlans] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(undefined);
+  const countriesList = getCountriesFromPlans(plans);
 
   const { width } = useWindowDimensions();
 
@@ -27,11 +28,6 @@ export default function Subscribe({ query, products: allProducts }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
     [selectedProduct]
   );
-
-  // useEffect(() => {
-  //   getData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
-  // }, [query]);
 
   const centerCardStyles = { transform: "scale(1.1)" };
 
@@ -114,71 +110,63 @@ export default function Subscribe({ query, products: allProducts }) {
         title="Chayenu | Subscribe"
         description="Subscribe to Chayenu, Chayenu is delivered in print or digital formats."
       />
-      {!error && (
+      {
         <>
           {getContentHeader()}
           <h1 className={Styles.selectProduct}>Select Product</h1>
           <div className={Styles.products}>
-            {loading
-              ? Array.apply(0, Array(3)).map(function (_, i) {
-                  return (
-                    <div key={i} className={Styles.productCard}>
-                      <ProductCardSkeleton />
-                    </div>
-                  );
-                })
-              : allProducts.map((product, index) => {
-                  return (
-                    <div
-                      key={product.id}
-                      className={Styles.productCard}
-                      onClick={() => {
-                        setSelectedProduct(product);
-                      }}
-                      style={
-                        !query.student_only &&
-                        !query.is_military_only &&
-                        allProducts?.length === 3 &&
-                        width > 1300
-                          ? index === 1
-                            ? centerCardStyles
-                            : {}
-                          : {}
-                      }
-                    >
-                      <ProductCard
-                        product={product}
-                        selected={selectedProduct?.id === product?.id}
-                        selectedProduct={selectedProduct}
-                      />
-                    </div>
-                  );
-                })}
+            {allProducts.map((product, index) => {
+              return (
+                <div
+                  key={product.id}
+                  className={Styles.productCard}
+                  onClick={() => {
+                    const productPlans = plans.filter(
+                      (plan) => plan.product.id === product.id
+                    );
+                    setProductPlans(productPlans);
+                    setSelectedProduct(product);
+                  }}
+                  style={
+                    !query.student_only &&
+                    !query.is_military_only &&
+                    allProducts?.length === 3 &&
+                    width > 1300
+                      ? index === 1
+                        ? centerCardStyles
+                        : {}
+                      : {}
+                  }
+                >
+                  <ProductCard
+                    product={product}
+                    selected={selectedProduct?.id === product?.id}
+                    selectedProduct={selectedProduct}
+                  />
+                </div>
+              );
+            })}
           </div>
         </>
-      )}
-      {error && <div className={Styles.error}>{error}</div>}
+      }
       {selectedProduct && (
         <>
           {(() => {
             if (selectedProduct.product_type.toLowerCase() === "digital") {
               return (
                 <DigitalSubscriptionForm
-                  selectedProduct={selectedProduct}
-                  is_military_only={query.is_military_only}
-                  is_shluchim_only={query.is_shluchim_only}
-                  student_only={query.student_only}
                   autoScroll={autoScroll}
+                  productPlans={productPlans}
+                  selectedProduct={selectedProduct}
                 />
               );
             } else {
               return (
                 <PrintDigitalSubscriptionForm
-                  selectedProduct={selectedProduct}
-                  is_military_only={query.is_military_only}
-                  is_shluchim_only={query.is_shluchim_only}
-                  student_only={query.student_only}
                   autoScroll={autoScroll}
+                  countriesList={countriesList}
+                  productPlans={productPlans}
+                  selectedProduct={selectedProduct}
                 />
               );
             }
@@ -192,7 +180,7 @@ export default function Subscribe({ query, products: allProducts }) {
 export async function getServerSideProps(context) {
   const { query } = context;
 
-  async function getData() {
+  async function getProducts() {
     const productQuery = {};
 
     if (query.student_only === "true") {
@@ -211,10 +199,19 @@ export async function getServerSideProps(context) {
     return data;
   }
 
+  async function getPlans() {
+    return getAllPlansUnfiltered({
+      is_military_only: context.query.is_military_only,
+      is_shluchim_only: context.query.is_shluchim_only,
+      student_only: context.query.student_only,
+    });
+  }
+
   return {
     props: {
       query,
-      products: await getData(),
+      products: await getProducts(),
+      plans: (await getPlans()).data,
     },
   };
 }

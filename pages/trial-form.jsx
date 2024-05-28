@@ -3,7 +3,7 @@ import { getTrialProduct } from "../api/common";
 import { NextHead } from "/components/common";
 import Subscribe from "../components/Trial/Subscribe/index";
 
-export default function TrialForm({ products }) {
+export default function TrialForm({ product }) {
 
   return (
     <main>
@@ -12,7 +12,7 @@ export default function TrialForm({ products }) {
         description="Experience the transformative power of Chayenu with our exclusive trial. Dive into a wealth of Jewish wisdom, engaging articles, and inspiring Torah content. Start your journey today and discover why Chayenu is the ultimate companion for spiritual growth. Sign up for our trial and unlock a world of meaningful learning."
       />
       <section className={Styles.wrapper}>
-        <Subscribe />
+        <Subscribe product={product} />
       </section>
 
     </main>
@@ -21,9 +21,10 @@ export default function TrialForm({ products }) {
 
 export async function getServerSideProps() {
   const products = await getTrialProduct();
+
   return {
     props: {
-      products,
+      product: products.data[0],
     },
-  };
+  };  
 }

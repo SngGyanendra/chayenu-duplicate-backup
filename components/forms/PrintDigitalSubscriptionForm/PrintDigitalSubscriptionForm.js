@@ -17,15 +17,12 @@ import toast from 'react-hot-toast';
 import Styles from './printdigitalsubscriptionform.module.scss';
 import {
   PlanCard,
-  CountryLoadingSkeleton,
   SuccessfulSubscription,
 } from '../../../components/cards';
 import { Summary, Coupon } from '../../../components/forms';
 import {
-  getAllPlans,
   getAllColleges,
   addNewSubscription,
-  getTrialProduct,
 } from '../../../api';
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
@@ -33,15 +30,12 @@ import Autocomplete from 'react-google-autocomplete';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
-  student_only,
-  is_military_only,
-  is_shluchim_only,
   autoScroll,
+  productPlans: allPlans,
+  countriesList,
   is_trial = false,
 }) {
-  const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
-  const [countriesList, setCountriesList] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(undefined);
   const [deliveryType, setDeliveryType] = useState(undefined);
   const [distributor, setDistributor] = useState();
@@ -245,41 +239,20 @@ export function PrintDigitalSubscriptionForm({
 
   useEffect(() => {
     (async () => {
-      let data = [];
-      if (is_trial) {
-        const { data: products } = await getTrialProduct();
-        const product = products[0];
-        data = product.plans;
-      } else {
-        const { data: plans } = await getAllPlans(selectedProduct.id, {
-          is_military_only,
-          is_shluchim_only,
-          student_only,
-        });
-        data = plans;
-      }
       const { data: colleges } = await getAllColleges();
       setAllColleges(colleges);
-      setAllPlans(data);
-
-      let countryList = data.map((plan) => plan.country);
-      countryList = countryList.filter((country) => country !== null);
-      const uniqueCountries = [
-        ...new Map(
-          countryList.map((country) => [country.id, country])
-        ).values(),
-      ];
-      setCountriesList(uniqueCountries);
-      if (uniqueCountries.length === 1) {
-        setSelectedCountry(uniqueCountries[0]);
+      if (countriesList && countriesList.length === 1) {
+        setSelectedCountry(countriesList[0]);
       }
     })();
-    setSelectedPlan(undefined);
+    if (allPlans && allPlans.length === 1) {
+      setSelectedPlan(allPlans[0]);
+    } else {
+      setSelectedPlan(undefined);
+    }
+    
   }, [
     selectedProduct,
-    student_only,
-    is_military_only,
-    is_shluchim_only,
     is_trial,
   ]);
 
@@ -310,12 +283,6 @@ export function PrintDigitalSubscriptionForm({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCountry]);
-
-  useEffect(() => {
-    if (allPlans.length === 1) {
-      setSelectedPlan(allPlans[0]);
-    }
-  }, [allPlans]);
 
   const style = {
     control: (provided, state) => ({
@@ -594,7 +561,6 @@ export function PrintDigitalSubscriptionForm({
 
   return (
     <div className={Styles.formWrapper}>
-      {!allPlans.length && <CountryLoadingSkeleton />}
       {popup === 'successfulSubscription' && (
         <Popup setPopupState={setPopup}>
           <SuccessfulSubscription
@@ -603,7 +569,7 @@ export function PrintDigitalSubscriptionForm({
           />
         </Popup>
       )}
-      {allPlans.length > 0 && (
+      {allPlans && allPlans.length > 0 && (
         <Formik
           initialValues={initialValues}
           initialErrors={initialErrors}
@@ -669,7 +635,6 @@ export function PrintDigitalSubscriptionForm({
             handleBlur,
             handleSubmit,
             setFieldValue,
-            isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
               {countriesList.find((country) => country.name === 'USA') &&
@@ -894,20 +859,20 @@ export function PrintDigitalSubscriptionForm({
                       </label>
                     </div>
                     <label>
-                        <input
-                          type="text"
-                          name="organization"
-                          placeholder="Organization (optional)"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.organization}
-                        />
-                        <span className={Styles.error}>
-                          {errors.organization &&
-                            touched.organization &&
-                            errors.organization}
-                        </span>
-                      </label>
+                      <input
+                        type="text"
+                        name="organization"
+                        placeholder="Organization (optional)"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.organization}
+                      />
+                      <span className={Styles.error}>
+                        {errors.organization &&
+                          touched.organization &&
+                          errors.organization}
+                      </span>
+                    </label>
                     <>
                       {deliveryType === 'shipping' && (
                         <>

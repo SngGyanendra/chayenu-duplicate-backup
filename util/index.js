@@ -10,6 +10,15 @@ export function removeAuthData() {
   localStorage.clear();
 }
 
+export const getCountriesFromPlans = (plans) => {
+  let countries = plans.map((plan) => plan.country);
+  countries = countries.filter((country) => country !== null);
+
+  return [
+    ...new Map(countries.map((country) => [country.id, country])).values(),
+  ];
+};
+
 export * from './date.js';
 export * from './HydrateToken';
 export * from './CheckAuth'

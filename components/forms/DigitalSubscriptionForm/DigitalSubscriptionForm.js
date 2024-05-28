@@ -25,12 +25,10 @@ import * as Yup from 'yup';
 
 export function DigitalSubscriptionForm({
   selectedProduct,
-  student_only,
-  is_military_only,
-  is_shluchim_only,
+  productPlans,
   autoScroll,
 }) {
-  const [allPlans, setAllPlans] = useState([]);
+  const [allPlans, setAllPlans] = useState(productPlans);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
   const [popup, setPopup] = useState('');
   const [coupon, setCoupon] = useState(undefined);
@@ -80,17 +78,11 @@ export function DigitalSubscriptionForm({
 
   useEffect(() => {
     (async () => {
-      const { data } = await getAllPlans(selectedProduct.id, {
-        is_military_only,
-        is_shluchim_only,
-        student_only,
-      });
       const { data: colleges } = await getAllColleges();
       setAllColleges(colleges);
-      setAllPlans(data);
     })();
     setSelectedPlan(undefined);
-  }, [selectedProduct, is_military_only, student_only, is_shluchim_only]);
+  }, [selectedProduct]);
 
   useEffect(() => {
     if (typeof coupon === 'object') {

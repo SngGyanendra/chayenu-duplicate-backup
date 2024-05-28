@@ -47,6 +47,54 @@ export async function getAllPlans(
   }
 }
 
+/**
+ * Gets plans for all products. No filters
+ */
+export async function getAllPlansUnfiltered(
+  {
+    is_military_only = false,
+    is_shluchim_only = false,
+    student_only = false,
+  }
+) {
+  try {
+    const filter = {
+      _and: [
+        { status: { _eq: 'published' } },
+      ],
+    };
+
+    filter._and.push({
+      is_military_only: {
+        _eq: is_military_only,
+      },
+    });
+
+    filter._and.push({
+      is_shluchim_only: {
+        _eq: is_shluchim_only,
+      },
+    });
+
+    filter._and.push({
+      student_only: {
+        _eq: student_only,
+      },
+    });
+
+    const { data } = await axios.get(`${directusUrl}/items/plans`, {
+      params: {
+        fields: '*.*.*.*',
+        filter,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function addNewSubscription(values) {
   try {
     const finalBody = {
