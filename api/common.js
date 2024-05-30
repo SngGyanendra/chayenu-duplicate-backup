@@ -232,9 +232,18 @@ export async function getAllSupportIssues() {
 
 export async function getAllColleges() {
   try {
+    const fields = [
+      "id",
+      "first_name",
+      "last_name",
+      "college_name",
+      "country.id",
+      "country.name",
+    ];
+
     const { data } = await axios.get(`${directusUrl}/items/colleges?limit=-1`, {
       params: {
-        fields: "*.*",
+        fields: fields.join(",") // "*.*",
       },
     });
     return data;

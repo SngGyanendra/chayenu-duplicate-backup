@@ -34,9 +34,42 @@ export async function getAllPlans(
       },
     });
 
+    const fields = [
+      // Core fields
+      "id",
+      "status",
+      "name",
+      "price",
+      "recurring",
+      "student_only",
+      "is_military_only",
+      "is_shluchim_only",
+
+      // Product Fields
+      "product.id",
+      "product.status",
+      "product.name",
+      "product.product_type",
+      "product.is_on_subscription_page",
+      "product.order",
+      "product.mobile_order",
+
+      // Country fields
+      "country.id",
+      "country.name",
+      "country.has_distributors",
+      "country.has_shipping",
+      "country.braintree_name",
+      "country.alpha_2_code",
+
+      // State fields
+      "country.states.id",
+      "country.states.name",
+    ];
+
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
       params: {
-        fields: '*.*.*.*',
+        fields: fields.join(','), // '*.*.*.*',
         filter,
       },
     });
