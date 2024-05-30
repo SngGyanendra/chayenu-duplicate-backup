@@ -112,9 +112,40 @@ export async function getAllProducts({
     window &&
     window.matchMedia &&
     window.matchMedia("(max-width: 65rem)");
+  
+  const fields = [
+    // Core fields
+    "id",
+    "status",
+    "name",
+    "description",
+    "product_type",
+    "price_description",
+    "pricing_text",
+    "order",
+    "mobile_order",
+    "tag_text",
+
+    // Image
+    "image.id",
+
+    // Plans
+    "plans.id",
+    "plans.status",
+    "plans.name",
+    "plans.price",
+    "plans.recurring",
+    "plans.student_only",
+    "plans.is_military_only",
+    "plans.is_shluchim_only",
+
+    // Country
+    "plans.country.id",
+  ];
+
   const { data } = await axios.get(`${directusUrl}/items/products`, {
     params: {
-      fields: "*.*.*",
+      fields: fields.join(","), // "*.*.*",
       filter,
       deep,
       sort: isMobile.matches ? "mobile_order" : "order",
