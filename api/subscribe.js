@@ -65,6 +65,21 @@ export async function getAllPlans(
       // State fields
       "country.states.id",
       "country.states.name",
+
+      // Default coupon
+      "default_coupon.id",
+      "default_coupon.status",
+      "default_coupon.name",
+      "default_coupon.code",
+      "default_coupon.description",
+      "default_coupon.is_used",
+      "default_coupon.frequency",
+      "default_coupon.amount_type",
+      "default_coupon.expiry_date",
+      "default_coupon.amount",
+      "default_coupon.require_cc",
+      "default_coupon.limit_per_user",
+      "default_coupon.coupon_limit",
     ];
 
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
