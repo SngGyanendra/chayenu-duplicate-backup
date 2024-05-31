@@ -1090,6 +1090,11 @@ export function PrintDigitalSubscriptionForm({
                         </label>
                       </div>
                       <label>
+                        {selectedCountry?.name === 'Israel' && (
+                          <span className={Styles.contactInfo}>
+                            Israel subscriptions must have Israel contact number
+                          </span>
+                        )}
                         <PhoneInput
                           className={Styles.phoneInput}
                           key={selectedCountry.name}
