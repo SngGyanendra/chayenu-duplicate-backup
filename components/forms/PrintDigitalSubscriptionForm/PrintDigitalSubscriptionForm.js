@@ -30,7 +30,6 @@ import {
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
 import Autocomplete from 'react-google-autocomplete';
-import Link from 'next/link';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -217,6 +216,8 @@ export function PrintDigitalSubscriptionForm({
     response.status = true;
     return response;
   };
+
+  console.log(selectedCountry);
 
   useEffect(() => {
     async function getData() {
@@ -1091,12 +1092,17 @@ export function PrintDigitalSubscriptionForm({
                       <label>
                         <PhoneInput
                           className={Styles.phoneInput}
+                          key={selectedCountry.name}
                           country={
                             selectedCountry?.name
                               ? countryCodes[selectedCountry?.name]
                               : 'us'
                           }
-                          countryCodeEditable={false}
+                          {...(selectedCountry?.name === 'Israel'
+                            ? {
+                                onlyCountries: ['il'],
+                              }
+                            : {})}
                           placeholder={'Mobile Number'}
                           onChange={(value, country) => {
                             const countryCode = value.slice(
