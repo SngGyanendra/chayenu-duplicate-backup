@@ -66,6 +66,16 @@ export async function getAllPlans(
       "country.states.id",
       "country.states.name",
 
+      // distributor fields
+      "country.distributors.id",
+      "country.distributors.first_name",
+      "country.distributors.last_name",
+      "country.distributors.address_1",
+      "country.distributors.address_2",
+      "country.distributors.city",
+      "country.distributors.state",
+      "country.distributors.country.name",
+
       // Default coupon
       "default_coupon.id",
       "default_coupon.status",
