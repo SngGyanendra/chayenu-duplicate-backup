@@ -30,7 +30,6 @@ import {
 import * as Yup from 'yup';
 import { countryCodes } from '../../../util/countryCodes';
 import Autocomplete from 'react-google-autocomplete';
-import Link from 'next/link';
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -132,7 +131,7 @@ export function PrintDigitalSubscriptionForm({
         if (item.types.includes('locality')) {
           setFieldValue('city', item.long_name);
           addressObj.city = item.long_name;
-        }else if (item.types.includes('sublocality')) {
+        } else if (item.types.includes('sublocality')) {
           setFieldValue('city', item.long_name);
           addressObj.city = item.long_name;
         }
@@ -217,6 +216,8 @@ export function PrintDigitalSubscriptionForm({
     response.status = true;
     return response;
   };
+
+  console.log(selectedCountry);
 
   useEffect(() => {
     async function getData() {
@@ -634,12 +635,14 @@ export function PrintDigitalSubscriptionForm({
             values.is_validated = response.address_validated;
             values.address_remarks = response.address_remarks;
             setLoading(true);
-            if (!paymentMethod) {
-              toastTemplate(toast.error, 'Please select a payment method');
-              setLoading(false);
-              return;
+            if (coupon && require_cc) {
+              if (!paymentMethod) {
+                toastTemplate(toast.error, 'Please select a payment method');
+                setLoading(false);
+                return;
+              }
             }
-            if (hostedFields) {
+            if (hostedFields && require_cc) {
               if (!validateCreditCard(hostedFields.getState(), setCardErrors)) {
                 setLoading(false);
                 return;
@@ -1087,14 +1090,24 @@ export function PrintDigitalSubscriptionForm({
                         </label>
                       </div>
                       <label>
+                        {selectedCountry?.name === 'Israel' && (
+                          <span className={Styles.contactInfo}>
+                            Israel subscriptions must have Israel contact number
+                          </span>
+                        )}
                         <PhoneInput
                           className={Styles.phoneInput}
+                          key={selectedCountry.name}
                           country={
                             selectedCountry?.name
                               ? countryCodes[selectedCountry?.name]
                               : 'us'
                           }
-                          countryCodeEditable={false}
+                          {...(selectedCountry?.name === 'Israel'
+                            ? {
+                                onlyCountries: ['il'],
+                              }
+                            : {})}
                           placeholder={'Mobile Number'}
                           onChange={(value, country) => {
                             const countryCode = value.slice(
