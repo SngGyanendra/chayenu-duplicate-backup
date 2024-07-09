@@ -72,7 +72,7 @@
     text-align: center;
     width: 600px;
 
-    .agreeLable {
+    .agreeLabel {
       font: normal normal 400 16px/16px var(--website-font-family);
       margin-left: 3.5%;
       a {
@@ -82,7 +82,7 @@
     @media screen and (max-width: 800px) {
       max-width: var(--container-width);
 
-      .agreeLable {
+      .agreeLabel {
         margin-left: 7.5%;
         line-height: 23px;
       }
