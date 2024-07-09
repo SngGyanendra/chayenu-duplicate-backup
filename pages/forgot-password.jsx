@@ -102,7 +102,7 @@ export default function ForgotPassword() {
             }) => (
               <form className={Styles.emailInput} onSubmit={handleSubmit}>
                 <label>
-                  <span className={Styles.inputLable}>Enter your email </span>
+                  <span className={Styles.inputLabel}>Enter your email </span>
                   <input
                     type="email"
                     placeholder="Email"
