@@ -1263,7 +1263,7 @@ export function PrintDigitalSubscriptionForm({
                             />
                             <span className={Styles.checkmark}></span>
                           </label>
-                          <label for="is_agree" className={Styles.agreeLable}>
+                          <label for="is_agree" className={Styles.agreeLabel}>
                             I agree to the{' '}
                             <a
                               href="https://old.chayenu.org/terms-and-conditions/"
@@ -1272,7 +1272,7 @@ export function PrintDigitalSubscriptionForm({
                               terms and conditions
                             </a>
                             , and I understand that if I do not cancel within
-                            one month, I will be billed $180 for the Chayenu
+                            one month, I will be billed $220 for the Chayenu
                             annual subscription.
                           </label>
                           {cardErrors.is_agree && !values.is_agree ? (

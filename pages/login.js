@@ -81,7 +81,7 @@ export default function Login() {
             <label>
               <input
                 type="password"
-                placeholder="Passsword"
+                placeholder="Password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
