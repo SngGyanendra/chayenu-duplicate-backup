@@ -41,6 +41,7 @@ export function Footer() {
             <Link href="/explore-chayenu">Explore</Link>
             <Link href="https://old.chayenu.org/library" target='_blank'>Library</Link>
             <label onClick={() => {setPopup('newsletter');}}>Newsletter</label>
+            <Link href="https://chayenu.givingfuel.com/partner" target='_blank'>Partner</Link>
           </div>
           <div className={`${Styles.item} ${Styles.pl_10}`}>
             <h2>specials</h2>
