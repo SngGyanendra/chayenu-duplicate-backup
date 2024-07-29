@@ -186,12 +186,8 @@ export function Header() {
                   </Link>
                 </li>
                 <li className={Styles.portalLink}>
-                  <Link
-                    href="https://chayenu.givingfuel.com/partner"
-                    target="_blank"
-                    onClick={handleMenu}
-                  >
-                    PARTNER
+                  <Link href="/faq" onClick={handleMenu}>
+                    FAQ
                   </Link>
                 </li>
                 <li className={Styles.portalLink}>
