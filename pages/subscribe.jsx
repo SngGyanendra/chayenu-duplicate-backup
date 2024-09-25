@@ -13,6 +13,7 @@ import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
 } from "../components/forms";
+import { useRouter } from 'next/router';
 
 export default function Subscribe({ query, products: allProducts }) {
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,15 @@ export default function Subscribe({ query, products: allProducts }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
     [selectedProduct]
   );
+
+
+  useEffect(() => {
+    if(query.code){
+
+    }
+  }, [selectedProduct]);
+
+
 
   // useEffect(() => {
   //   getData();
@@ -188,6 +198,7 @@ export default function Subscribe({ query, products: allProducts }) {
                   is_shluchim_only={query.is_shluchim_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
+                  query={query}
                 />
               );
             }
