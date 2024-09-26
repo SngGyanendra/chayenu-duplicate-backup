@@ -1,17 +1,14 @@
-import axios from 'axios';
-import { directusUrl, backendUrl } from './config';
+import axios from "axios";
+import { directusUrl, backendUrl } from "./config";
 
 export async function getAllPlans(
-  id, {
-    is_military_only = false,
-    is_shluchim_only = false,
-    student_only = false,
-  }
+  id,
+  { is_military_only = false, is_shluchim_only = false, student_only = false }
 ) {
   try {
     const filter = {
       _and: [
-        { status: { _eq: 'published' } },
+        { status: { _eq: "published" } },
         { product: { id: { _eq: id } } },
       ],
     };
@@ -94,7 +91,7 @@ export async function getAllPlans(
 
     const { data } = await axios.get(`${directusUrl}/items/plans`, {
       params: {
-        fields: fields.join(','), // '*.*.*.*',
+        fields: fields.join(","), // '*.*.*.*',
         filter,
       },
     });
@@ -105,7 +102,7 @@ export async function getAllPlans(
   }
 }
 
-export async function addNewSubscription(values) {
+export async function addNewSubscription(values, isReferral = false) {
   try {
     const finalBody = {
       auto_renew: values.auto_renew,
@@ -136,15 +133,17 @@ export async function addNewSubscription(values) {
           zip_code: values.zip_code,
           country: values.country,
         },
-        is_valid:values.is_validated,
-        address_remarks:values.address_remarks,
+        is_valid: values.is_validated,
+        address_remarks: values.address_remarks,
         organization: values.organization,
       }),
     };
-    const response = await axios.post(
-      `${backendUrl}/subscription/addSubscription`,
-      finalBody
-    );
+
+    const url = `${backendUrl}/subscription/addSubscription${
+      isReferral ? "?isReferral=true" : ""
+    }`;
+
+    const response = await axios.post(url, finalBody);
     return response;
   } catch (error) {
     throw error;

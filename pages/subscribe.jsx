@@ -32,6 +32,15 @@ export default function Subscribe({ query, products: allProducts }) {
     [selectedProduct]
   );
 
+
+  useEffect(() => {
+    if(query.code){
+
+    }
+  }, [selectedProduct]);
+
+
+
   // useEffect(() => {
   //   getData();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
@@ -188,6 +197,7 @@ export default function Subscribe({ query, products: allProducts }) {
                   is_shluchim_only={query.is_shluchim_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
+                  query={query}
                 />
               );
             }

@@ -1,35 +1,35 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
-import Image from 'next/image';
+import { useEffect, useState, useCallback, useRef } from "react";
+import Image from "next/image";
 import {
   initializeCustomBraintree,
   Popup,
   toastTemplate,
-} from '../../../components/common';
-import PhoneInput from 'react-phone-input-2';
-import Select from 'react-select';
-import { Formik } from 'formik';
-import { validateCreditCard, autoScrollToPlan, autoScrollToForm } from '/util';
-import { isValidPhoneNumber } from 'react-phone-number-input';
-import 'react-phone-input-2/lib/bootstrap.css';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
-import Styles from './printdigitalsubscriptionform.module.scss';
+} from "../../../components/common";
+import PhoneInput from "react-phone-input-2";
+import Select from "react-select";
+import { Formik } from "formik";
+import { validateCreditCard, autoScrollToPlan, autoScrollToForm } from "/util";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-input-2/lib/bootstrap.css";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import Styles from "./printdigitalsubscriptionform.module.scss";
 import {
   PlanCard,
   CountryLoadingSkeleton,
   SuccessfulSubscription,
-} from '../../../components/cards';
-import { Summary, Coupon } from '../../../components/forms';
+} from "../../../components/cards";
+import { Summary, Coupon } from "../../../components/forms";
 import {
   getAllPlans,
   getAllColleges,
   addNewSubscription,
   getTrialProduct,
-} from '../../../api';
-import * as Yup from 'yup';
-import { countryCodes } from '../../../util/countryCodes';
-import Autocomplete from 'react-google-autocomplete';
+} from "../../../api";
+import * as Yup from "yup";
+import { countryCodes } from "../../../util/countryCodes";
+import Autocomplete from "react-google-autocomplete";
 
 export function PrintDigitalSubscriptionForm({
   selectedProduct,
@@ -38,6 +38,7 @@ export function PrintDigitalSubscriptionForm({
   is_shluchim_only,
   autoScroll,
   is_trial = false,
+  query,
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
@@ -47,10 +48,10 @@ export function PrintDigitalSubscriptionForm({
   const [distributor, setDistributor] = useState();
   const [hostedFields, setHostedFields] = useState();
   const [coupon, setCoupon] = useState(undefined);
-  const [paymentMethod, setPaymentMethod] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [allPaymentMethods, setAllPaymentMethods] = useState();
   const [loading, setLoading] = useState(false);
-  const [popup, setPopup] = useState('');
+  const [popup, setPopup] = useState("");
   const [allColleges, setAllColleges] = useState([]);
   const [selectedCollege, setSelectedCollege] = useState();
   const [addressError, setAddressError] = useState([]);
@@ -71,6 +72,9 @@ export function PrintDigitalSubscriptionForm({
 
   const router = useRouter();
   const formRef = useRef();
+
+  const referralFirstName = query?.first_name
+  const referralEmail = query?.email
 
   const autoScrollToPlanRef = useCallback(
     (node) => {
@@ -94,7 +98,7 @@ export function PrintDigitalSubscriptionForm({
   const autoScrollToCollegeRef = useCallback(
     (node) => {
       if (node != null) {
-        node.scrollIntoView({ behavior: 'smooth' });
+        node.scrollIntoView({ behavior: "smooth" });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
@@ -103,22 +107,22 @@ export function PrintDigitalSubscriptionForm({
 
   const handleEditAddress = () => {
     setEditAddress(true);
-    setPopup('');
+    setPopup("");
     if (formRef.current) {
       formRef.current.handleSubmit();
     }
   };
   const handleSubmitForm = () => {
     setSubscribeAnyway(true);
-    setPopup('');
+    setPopup("");
     if (formRef.current) {
       formRef.current.handleSubmit();
     }
   };
   const handleZipcodeOptions = (option) => {
-    setPopup('');
+    setPopup("");
     setEditZipcode(true);
-    if (option == 'no' && formRef.current) {
+    if (option == "no" && formRef.current) {
       setEditZipcode(false);
       formRef.current.handleSubmit();
     }
@@ -128,41 +132,41 @@ export function PrintDigitalSubscriptionForm({
     if (place.address_components) {
       const addressObj = {};
       place.address_components.map((item) => {
-        if (item.types.includes('locality')) {
-          setFieldValue('city', item.long_name);
+        if (item.types.includes("locality")) {
+          setFieldValue("city", item.long_name);
           addressObj.city = item.long_name;
-        } else if (item.types.includes('sublocality')) {
-          setFieldValue('city', item.long_name);
+        } else if (item.types.includes("sublocality")) {
+          setFieldValue("city", item.long_name);
           addressObj.city = item.long_name;
         }
-        if (item.types.includes('administrative_area_level_1')) {
+        if (item.types.includes("administrative_area_level_1")) {
           var objState = selectedCountry?.states.find((obj) => {
             return obj.name === item.short_name;
           });
-          if (selectedCountry?.name != 'Israel') {
+          if (selectedCountry?.name != "Israel") {
             setFilterState(objState);
             setFieldValue(
-              'state',
+              "state",
               objState != undefined ? objState.id : undefined
             );
             addressObj.state =
               objState != undefined ? objState.id : item.short_name;
           }
         }
-        if (item.types.includes('postal_code')) {
-          setFieldValue('zip_code', item.long_name);
+        if (item.types.includes("postal_code")) {
+          setFieldValue("zip_code", item.long_name);
           addressObj.zip_code = item.long_name;
         }
       });
 
-      const address = place.formatted_address.split(',');
+      const address = place.formatted_address.split(",");
       addressObj.address_1 = address[0];
       setReAddressApi(addressObj);
-      setFieldValue('address_1', address[0]);
+      setFieldValue("address_1", address[0]);
       setAddressError({});
     } else {
-      setFieldValue('address_1', undefined);
-      const addressError = { address_1: 'Please select a valid address' };
+      setFieldValue("address_1", undefined);
+      const addressError = { address_1: "Please select a valid address" };
       setAddressError(addressError);
     }
   };
@@ -172,33 +176,33 @@ export function PrintDigitalSubscriptionForm({
     const response = {};
     const remarks = [];
     if (reAddressApi.address_1 != values.address_1) {
-      addressError.address_1 = 'Please select a valid address';
-      remarks.push('Address 1 is not valid');
+      addressError.address_1 = "Please select a valid address";
+      remarks.push("Address 1 is not valid");
     }
     if (reAddressApi.state != values.state) {
-      if (selectedCountry?.name != 'Israel') {
-        addressError.state = 'Please select a valid state';
-        remarks.push('State is not valid');
+      if (selectedCountry?.name != "Israel") {
+        addressError.state = "Please select a valid state";
+        remarks.push("State is not valid");
       }
     }
     if (reAddressApi.city != values.city) {
-      addressError.city = 'Please enter a valid city';
-      remarks.push('City is not valid');
+      addressError.city = "Please enter a valid city";
+      remarks.push("City is not valid");
     }
     if (reAddressApi.zip_code != values.zip_code) {
-      if (selectedCountry?.name != 'Israel') {
-        addressError.zip_code = 'Please enter a valid postal code';
-        remarks.push('Postal code is not valid');
+      if (selectedCountry?.name != "Israel") {
+        addressError.zip_code = "Please enter a valid postal code";
+        remarks.push("Postal code is not valid");
       }
     }
     response.address_validated = true;
-    response.address_remarks = '';
+    response.address_remarks = "";
     if (
       Object.keys(addressError).length > 0 &&
       !subscribeAnyway &&
       !editAddress
     ) {
-      setPopup('confirmaddress');
+      setPopup("confirmaddress");
       response.status = false;
 
       return response;
@@ -223,24 +227,24 @@ export function PrintDigitalSubscriptionForm({
     async function getData() {
       await initializeCustomBraintree(setHostedFields);
     }
-    if (paymentMethod === 'other' || isLoggedIn === false) {
+    if (paymentMethod === "other" || isLoggedIn === false) {
       getData();
     } else {
       setHostedFields(undefined);
     }
     if (isLoggedIn === false) {
-      setPaymentMethod('other');
+      setPaymentMethod("other");
     }
   }, [selectedPlan, require_cc, paymentMethod, isLoggedIn, selectedCollege]);
 
   useEffect(() => {
     if (payment_methods && isLoggedIn) {
       const newPaymentMethods = [...payment_methods];
-      newPaymentMethods.push({ id: 'other', label: 'other' });
+      newPaymentMethods.push({ id: "other", label: "other" });
       setAllPaymentMethods(newPaymentMethods);
     } else if (isLoggedIn) {
       const newPaymentMethods = [];
-      newPaymentMethods.push({ id: 'other', label: 'other' });
+      newPaymentMethods.push({ id: "other", label: "other" });
       setAllPaymentMethods(newPaymentMethods);
     }
   }, [isLoggedIn, payment_methods]);
@@ -286,7 +290,7 @@ export function PrintDigitalSubscriptionForm({
   ]);
 
   useEffect(() => {
-    if (typeof coupon === 'object') {
+    if (typeof coupon === "object") {
       if (coupon.require_cc) {
         setRequire_cc(true);
       } else {
@@ -298,14 +302,14 @@ export function PrintDigitalSubscriptionForm({
   }, [coupon]);
 
   useEffect(() => {
-    if (typeof selectedCountry === 'object') {
+    if (typeof selectedCountry === "object") {
       if (selectedCountry?.has_distributors) {
-        setDeliveryType('distributor');
+        setDeliveryType("distributor");
       } else {
-        setDeliveryType('shipping');
+        setDeliveryType("shipping");
       }
     } else {
-      setDeliveryType('shipping');
+      setDeliveryType("shipping");
     }
 
     // autoScrollToPlan(selectedCountry, selectPlanRef, distributor);
@@ -319,45 +323,66 @@ export function PrintDigitalSubscriptionForm({
     }
   }, [allPlans]);
 
+  useEffect(() => {
+    if (query.code && countriesList?.length > 0 && allPlans?.length > 0) {
+      if (selectedProduct.name === "Chayenu") {
+        const selectedCountry = countriesList?.find(
+          (country) => country.name === "USA"
+        );
+        setSelectedCountry(selectedCountry);
+        setSelectedPlan(
+          allPlans.filter(
+            (plan) =>
+              plan?.country?.id === selectedCountry?.id &&
+              plan?.recurring === "Yearly"
+          )[0]
+        );
+      }
+      console.log("IN COUPON", selectedProduct);
+      setCoupon(process.env.NEXT_PUBLIC_REFERRAL_COUPON);
+    }
+  }, [countriesList, allPlans]);
+
+
   const style = {
     control: (provided, state) => ({
       ...provided,
       border: 0,
-      boxShadow: 'none',
-      fontFamily: 'Brandon Grotesque',
-      height: '2rem',
-      minHeight: '2rem',
-      marginTop: '.2rem',
-      display: 'flex',
-      alignItems: 'center',
+      boxShadow: "none",
+      fontFamily: "Brandon Grotesque",
+      height: "2rem",
+      minHeight: "2rem",
+      marginTop: ".2rem",
+      display: "flex",
+      alignItems: "center",
     }),
     valueContainer: (provided, state) => ({
       ...provided,
-      height: '2rem',
-      padding: '0px 8px',
+      height: "2rem",
+      padding: "0px 8px",
     }),
     input: (provided, state) => ({
       ...provided,
-      height: '2rem',
-      margin: '0',
-      padding: '0',
+      height: "2rem",
+      margin: "0",
+      padding: "0",
     }),
     indicatorsContainer: (provided, state) => ({
       ...provided,
-      height: '2rem',
+      height: "2rem",
     }),
     placeholder: (defaultStyles) => ({
       ...defaultStyles,
-      fontFamily: 'Brandon Grotesque',
-      color: '#999',
-      fontWeight: '300',
-      position: 'absolute',
-      marginTop: '0px',
+      fontFamily: "Brandon Grotesque",
+      color: "#999",
+      fontWeight: "300",
+      position: "absolute",
+      marginTop: "0px",
     }),
     menu: (defaultStyles) => ({
       ...defaultStyles,
-      marginTop: '0px',
-      top: '75%',
+      marginTop: "0px",
+      top: "75%",
     }),
   };
 
@@ -365,19 +390,19 @@ export function PrintDigitalSubscriptionForm({
     ...style,
     menu: (defaultStyles) => ({
       ...defaultStyles,
-      marginTop: '0px',
-      top: '110%',
+      marginTop: "0px",
+      top: "110%",
     }),
   };
 
   function getCardImage(cardName) {
     switch (cardName) {
-      case 'Visa':
+      case "Visa":
         return (
           <Image src="/cards/VisaDark.svg" alt="Visa" height={20} width={40} />
         );
 
-      case 'American Express':
+      case "American Express":
         return (
           <Image
             src="/cards/AmericanExpressDark.svg"
@@ -386,7 +411,7 @@ export function PrintDigitalSubscriptionForm({
             width={40}
           />
         );
-      case 'MasterCard':
+      case "MasterCard":
         return (
           <Image
             src="/cards/mastercardDark.svg"
@@ -395,7 +420,7 @@ export function PrintDigitalSubscriptionForm({
             width={40}
           />
         );
-      case 'Discover':
+      case "Discover":
         return (
           <Image
             src="/cards/DiscoverDark.svg"
@@ -404,17 +429,17 @@ export function PrintDigitalSubscriptionForm({
             width={50}
           />
         );
-      case 'JCB':
+      case "JCB":
         return (
           <Image src="/cards/JCBDark.svg" alt="Visa" height={25} width={25} />
         );
       default:
-        return '';
+        return "";
     }
   }
 
   function formatPaymentMethods(card) {
-    if (card.label === 'other') {
+    if (card.label === "other") {
       return <div className={Styles.stylePaymentMethods}>others</div>;
     } else {
       return (
@@ -436,7 +461,7 @@ export function PrintDigitalSubscriptionForm({
   }
 
   const initialValues = {
-    first_name: undefined,
+    first_name: referralFirstName || undefined,
     last_name: undefined,
     organization: undefined,
     address_1: undefined,
@@ -445,15 +470,15 @@ export function PrintDigitalSubscriptionForm({
     organization: undefined,
     address_validated: true,
     zip_code: undefined,
-    email: undefined,
+    email: referralEmail || undefined,
     mobile: undefined,
     coupon: undefined,
     is_trial:
       is_trial &&
       selectedPlan &&
-      selectedPlan.recurring === 'Yearly' &&
+      selectedPlan.recurring === "Yearly" &&
       selectedPlan.country &&
-      selectedPlan.country.name === 'USA',
+      selectedPlan.country.name === "USA",
     quantity: 1,
     plan: undefined,
     city: undefined,
@@ -495,29 +520,29 @@ export function PrintDigitalSubscriptionForm({
       ...(require_cc && { card_nonce: nonce }),
       ...(values.state && { state: parseInt(values.state) }),
       ...(paymentMethod &&
-        paymentMethod !== 'other' && { card_token: paymentMethod }),
+        paymentMethod !== "other" && { card_token: paymentMethod }),
       is_trial:
         is_trial &&
         selectedPlan &&
-        selectedPlan.recurring === 'Yearly' &&
+        selectedPlan.recurring === "Yearly" &&
         selectedPlan.country &&
-        selectedPlan.country.name === 'USA',
+        selectedPlan.country.name === "USA",
     };
     try {
-      const response = await addNewSubscription(finalValues);
+      const response = await addNewSubscription(finalValues, query.code ? true : false);
       router.push(`/thank-you?product_name=${selectedPlan?.product?.name}`);
       setLoading(false);
       // setPopup('successfulSubscription');
     } catch (error) {
       console.log(error);
-      let message = 'Something went wrong! Please try again later';
+      let message = "Something went wrong! Please try again later";
       if (
         error.response &&
         error.response.data &&
         error.response.data.message
       ) {
-        if (error.response.data.message === 'server.trial.is_used') {
-          message = 'You have alread used a trial before';
+        if (error.response.data.message === "server.trial.is_used") {
+          message = "You have alread used a trial before";
         } else {
           message = error.response.data.message;
         }
@@ -531,73 +556,73 @@ export function PrintDigitalSubscriptionForm({
   const validationSchema = Yup.object().shape({
     first_name: Yup.string()
       .trim()
-      .min(2, 'Too short!')
-      .max(50, 'Too long')
-      .required('First name is required')
-      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for first name.'),
+      .min(2, "Too short!")
+      .max(50, "Too long")
+      .required("First name is required")
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for first name."),
     last_name: Yup.string()
       .trim()
-      .min(2, 'Too short!')
-      .max(50, 'Too long')
-      .required('Last Name is required')
-      .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for last name.'),
+      .min(2, "Too short!")
+      .max(50, "Too long")
+      .required("Last Name is required")
+      .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for last name."),
     email: Yup.string()
       .trim()
-      .email('Enter valid email')
-      .required('Email is required'),
-    coupon: Yup.string('Coupon needs to be a string').trim(),
+      .email("Enter valid email")
+      .required("Email is required"),
+    coupon: Yup.string("Coupon needs to be a string").trim(),
     organization: Yup.string().trim(),
     quantity: Yup.number()
-      .min(0, 'Minimunt quantity is 1')
-      .max(10, 'Maximum quantity is 10')
-      .required('Quantity is required')
-      .positive('Quantity needs to be positive')
-      .integer('Quantity needs to be an integer'),
+      .min(0, "Minimunt quantity is 1")
+      .max(10, "Maximum quantity is 10")
+      .required("Quantity is required")
+      .positive("Quantity needs to be positive")
+      .integer("Quantity needs to be an integer"),
     mobile: Yup.string()
-      .required('Phone is required')
-      .test('phone is valid', 'Invalid contact', (value) => {
+      .required("Phone is required")
+      .test("phone is valid", "Invalid contact", (value) => {
         if (value) {
           return isValidPhoneNumber(value);
         } else {
           return false;
         }
       }),
-    address_1: Yup.string().when('mobile', {
+    address_1: Yup.string().when("mobile", {
       is: () =>
-        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry?.name === 'USA',
-      then: () => Yup.string().trim().required('Street address is required'),
+        (selectedCountry?.has_shipping && deliveryType === "shipping") ||
+        selectedCountry?.name === "USA",
+      then: () => Yup.string().trim().required("Street address is required"),
     }),
     address_2: Yup.string().trim(),
     organization: Yup.string().trim(),
     city: Yup.string().when({
       is: () =>
-        (selectedCountry?.has_shipping && deliveryType === 'shipping') ||
-        selectedCountry?.name === 'USA',
-      then: () => Yup.string().trim().required('City is required'),
+        (selectedCountry?.has_shipping && deliveryType === "shipping") ||
+        selectedCountry?.name === "USA",
+      then: () => Yup.string().trim().required("City is required"),
     }),
     state: Yup.number().when({
       is: () =>
         (selectedCountry?.has_shipping &&
-          deliveryType === 'shipping' &&
+          deliveryType === "shipping" &&
           selectedCountry?.states?.length > 0) ||
-        selectedCountry?.name === 'USA',
-      then: () => Yup.number().required('State is required'),
+        selectedCountry?.name === "USA",
+      then: () => Yup.number().required("State is required"),
     }),
     zip_code: Yup.string().when({
       is: () =>
-        (selectedCountry?.name != 'Israel' &&
+        (selectedCountry?.name != "Israel" &&
           selectedCountry?.has_shipping &&
-          deliveryType === 'shipping') ||
-        selectedCountry?.name === 'USA',
-      then: () => Yup.string().trim().required('Postal code is required'),
+          deliveryType === "shipping") ||
+        selectedCountry?.name === "USA",
+      then: () => Yup.string().trim().required("Postal code is required"),
     }),
   });
 
   return (
     <div className={Styles.formWrapper}>
       {!allPlans.length && <CountryLoadingSkeleton />}
-      {popup === 'successfulSubscription' && (
+      {popup === "successfulSubscription" && (
         <Popup setPopupState={setPopup}>
           <SuccessfulSubscription
             setPopupState={setPopup}
@@ -614,7 +639,7 @@ export function PrintDigitalSubscriptionForm({
           onSubmit={async (values) => {
             if (is_trial && !values.is_agree) {
               setCardErrors({
-                is_agree: 'Please accept the terms and conditions checkbox',
+                is_agree: "Please accept the terms and conditions checkbox",
               });
               return false;
             }
@@ -623,11 +648,11 @@ export function PrintDigitalSubscriptionForm({
               return false;
             }
             if (
-              selectedCountry?.name == 'Israel' &&
+              selectedCountry?.name == "Israel" &&
               (values.zip_code == undefined || values.zip_code.length <= 0) &&
               editZipcode == true
             ) {
-              setPopup('confirmzipcode');
+              setPopup("confirmzipcode");
               return false;
             } else {
               setEditZipcode(false);
@@ -637,7 +662,7 @@ export function PrintDigitalSubscriptionForm({
             setLoading(true);
             if (coupon && require_cc) {
               if (!paymentMethod) {
-                toastTemplate(toast.error, 'Please select a payment method');
+                toastTemplate(toast.error, "Please select a payment method");
                 setLoading(false);
                 return;
               }
@@ -653,9 +678,9 @@ export function PrintDigitalSubscriptionForm({
                 cardNonce = nonce;
               } catch (error) {
                 setCardErrors({
-                  cvv: 'Recheck CVV',
-                  number: 'Recheck Card Number',
-                  expirationDate: 'Recheck Expiration Date',
+                  cvv: "Recheck CVV",
+                  number: "Recheck Card Number",
+                  expirationDate: "Recheck Expiration Date",
                 });
                 setLoading(false);
               }
@@ -676,7 +701,7 @@ export function PrintDigitalSubscriptionForm({
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit} className={Styles.trialForm}>
-              {countriesList.find((country) => country.name === 'USA') &&
+              {countriesList.find((country) => country.name === "USA") &&
                 countriesList.length > 1 && (
                   <div className={Styles.form}>
                     {
@@ -688,14 +713,14 @@ export function PrintDigitalSubscriptionForm({
                           <div className={Styles.location}>
                             <div
                               className={`${Styles.countryType} ${
-                                selectedCountry?.name === 'USA'
+                                selectedCountry?.name === "USA"
                                   ? Styles.selectCountry
-                                  : ''
+                                  : ""
                               }`}
                               onClick={() => {
                                 setSelectedCountry(
                                   countriesList?.find(
-                                    (country) => country.name === 'USA'
+                                    (country) => country.name === "USA"
                                   )
                                 );
                               }}
@@ -704,13 +729,14 @@ export function PrintDigitalSubscriptionForm({
                             </div>
                             <div
                               className={`${Styles.countryType} ${
-                                selectedCountry?.name !== 'USA' &&
+                                selectedCountry?.name !== "USA" &&
                                 selectedCountry !== undefined
                                   ? Styles.selectCountry
-                                  : ''
+                                  : ""
                               }`}
                               onClick={() => {
-                                setSelectedCountry('others');
+                                setSelectedCountry("others");
+                                setCoupon(undefined)
                               }}
                             >
                               International
@@ -719,7 +745,7 @@ export function PrintDigitalSubscriptionForm({
                         </div>
                       </>
                     }
-                    {selectedCountry && selectedCountry?.name !== 'USA' && (
+                    {selectedCountry && selectedCountry?.name !== "USA" && (
                       <div className={Styles.selectCountry}>
                         <select
                           name="country"
@@ -734,7 +760,7 @@ export function PrintDigitalSubscriptionForm({
                             Select a country
                           </option>
                           {countriesList
-                            .filter((country) => country.name !== 'USA')
+                            .filter((country) => country.name !== "USA")
                             .map((country) => (
                               <option key={country.id} value={country.id}>
                                 {country.name}
@@ -744,7 +770,7 @@ export function PrintDigitalSubscriptionForm({
                       </div>
                     )}
                     {selectedCountry &&
-                      selectedCountry?.name !== 'USA' &&
+                      selectedCountry?.name !== "USA" &&
                       selectedCountry.has_distributors && (
                         <div className={Styles.selectDistributor}>
                           <select
@@ -773,19 +799,19 @@ export function PrintDigitalSubscriptionForm({
                                   } - ${
                                     distributor?.address_1
                                       ? `${distributor?.address_1},`
-                                      : ''
+                                      : ""
                                   } ${
                                     distributor?.address_2
                                       ? `${distributor?.address_2},`
-                                      : ''
+                                      : ""
                                   } ${
                                     distributor?.city
                                       ? `${distributor?.city},`
-                                      : ''
+                                      : ""
                                   } ${
                                     distributor?.state
                                       ? `${distributor?.state},`
-                                      : ''
+                                      : ""
                                   } ${distributor?.country?.name}`}
                                 </option>
                               )
@@ -796,8 +822,8 @@ export function PrintDigitalSubscriptionForm({
                   </div>
                 )}
               {(countriesList?.length <= 1 ||
-                (selectedCountry !== 'others' && selectedCountry)) &&
-                (deliveryType === 'shipping' || distributor) &&
+                (selectedCountry !== "others" && selectedCountry)) &&
+                (deliveryType === "shipping" || distributor) &&
                 allPlans.length > 1 && (
                   <div className={Styles.form} ref={autoScrollToPlanRef}>
                     <div className={Styles.plan}>
@@ -826,14 +852,14 @@ export function PrintDigitalSubscriptionForm({
                   <Select
                     name="colleges"
                     options={allColleges.filter((college) => {
-                      if (selectedPlan?.country?.name === 'USA') {
-                        return college.country.name === 'USA';
+                      if (selectedPlan?.country?.name === "USA") {
+                        return college.country.name === "USA";
                       } else {
                         return true;
                       }
                     })}
                     styles={collegesStyle}
-                    placeholder={'Select a college'}
+                    placeholder={"Select a college"}
                     className={Styles.selectCollegesDropdown}
                     getOptionValue={(option) => option.college_name}
                     isSearchable={true}
@@ -851,12 +877,12 @@ export function PrintDigitalSubscriptionForm({
 
               {(!selectedPlan?.student_only || selectedCollege) &&
                 selectedPlan &&
-                selectedCountry !== 'others' && (
+                selectedCountry !== "others" && (
                   <div className={Styles.form} ref={autoScrollToFormRef}>
                     <div className={Styles.selectCountry}>
                       {selectedCountry?.has_distributors
-                        ? 'CONTACT INFO'
-                        : 'SHIPPING INFO'}
+                        ? "CONTACT INFO"
+                        : "SHIPPING INFO"}
                     </div>
                     <div
                       className={
@@ -913,7 +939,7 @@ export function PrintDigitalSubscriptionForm({
                       </span>
                     </label>
                     <>
-                      {deliveryType === 'shipping' && (
+                      {deliveryType === "shipping" && (
                         <>
                           <label>
                             <Autocomplete
@@ -921,7 +947,7 @@ export function PrintDigitalSubscriptionForm({
                                 process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
                               }
                               options={{
-                                types: ['address'],
+                                types: ["address"],
                                 componentRestrictions: {
                                   country: selectedCountry?.alpha_2_code,
                                 },
@@ -1030,7 +1056,7 @@ export function PrintDigitalSubscriptionForm({
                                           {state.name}
                                         </option>
                                       ) : (
-                                        ''
+                                        ""
                                       )
                                     )}
                                 </select>
@@ -1048,7 +1074,7 @@ export function PrintDigitalSubscriptionForm({
                         </>
                       )}
                       <div className={Styles.location}>
-                        {deliveryType === 'shipping' && (
+                        {deliveryType === "shipping" && (
                           <label>
                             <input
                               type="text"
@@ -1083,6 +1109,7 @@ export function PrintDigitalSubscriptionForm({
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.email}
+                            disabled={referralEmail ? true : false}
                           />
                           <span className={Styles.error}>
                             {errors.email && touched.email && errors.email}
@@ -1090,7 +1117,7 @@ export function PrintDigitalSubscriptionForm({
                         </label>
                       </div>
                       <label>
-                        {selectedCountry?.name === 'Israel' && (
+                        {selectedCountry?.name === "Israel" && (
                           <span className={Styles.contactInfo}>
                             Israel subscriptions must have Israel contact number
                           </span>
@@ -1101,14 +1128,14 @@ export function PrintDigitalSubscriptionForm({
                           country={
                             selectedCountry?.name
                               ? countryCodes[selectedCountry?.name]
-                              : 'us'
+                              : "us"
                           }
-                          {...(selectedCountry?.name === 'Israel'
+                          {...(selectedCountry?.name === "Israel"
                             ? {
-                                onlyCountries: ['il'],
+                                onlyCountries: ["il"],
                               }
                             : {})}
-                          placeholder={'Mobile Number'}
+                          placeholder={"Mobile Number"}
                           onChange={(value, country) => {
                             const countryCode = value.slice(
                               0,
@@ -1149,8 +1176,8 @@ export function PrintDigitalSubscriptionForm({
                             styles={style}
                             placeholder={
                               isLoggedIn
-                                ? 'Choose payment method'
-                                : 'Login to see saved cards'
+                                ? "Choose payment method"
+                                : "Login to see saved cards"
                             }
                             className={Styles.selectPaymentMethodDropdown}
                             getOptionValue={(option) => option.cardToken}
@@ -1163,7 +1190,7 @@ export function PrintDigitalSubscriptionForm({
                               IndicatorSeparator: () => null,
                             }}
                             onChange={(value) => {
-                              if (value.label === 'other') {
+                              if (value.label === "other") {
                                 setPaymentMethod(value.id);
                               } else {
                                 setPaymentMethod(value.cardToken);
@@ -1171,7 +1198,7 @@ export function PrintDigitalSubscriptionForm({
                             }}
                           />
                         ) : (
-                          ''
+                          ""
                         )}
                         <Coupon
                           values={values}
@@ -1181,10 +1208,14 @@ export function PrintDigitalSubscriptionForm({
                           coupon={coupon}
                           setCoupon={setCoupon}
                           isTrial={is_trial}
+                          query={query}
+                          selectedProduct={selectedProduct}
+                          selectedCountry={selectedCountry}
+                          setFieldValue={setFieldValue}
                         />
                       </div>
                       {require_cc &&
-                        (paymentMethod === 'other' || !isLoggedIn) && (
+                        (paymentMethod === "other" || !isLoggedIn) && (
                           <div className={Styles.creditCard}>
                             <div className={Styles.ccnumber}>
                               <label for="cc-number">Credit Card Number</label>
@@ -1244,7 +1275,7 @@ export function PrintDigitalSubscriptionForm({
                           type="submit"
                           disabled={loading}
                           className={`${Styles.submit} ${
-                            loading ? `${Styles.disabled}` : ''
+                            loading ? `${Styles.disabled}` : ""
                           }`}
                         >
                           Subscribe
@@ -1264,7 +1295,7 @@ export function PrintDigitalSubscriptionForm({
                             <span className={Styles.checkmark}></span>
                           </label>
                           <label for="is_agree" className={Styles.agreeLabel}>
-                            I agree to the{' '}
+                            I agree to the{" "}
                             <a
                               href="https://old.chayenu.org/terms-and-conditions/"
                               target="_blank"
@@ -1280,21 +1311,21 @@ export function PrintDigitalSubscriptionForm({
                               {cardErrors.is_agree}
                             </p>
                           ) : (
-                            ''
+                            ""
                           )}
                         </div>
                         <button
                           type="submit"
                           disabled={loading}
                           className={`${Styles.trialSubmit} ${
-                            loading ? `${Styles.disabled}` : ''
+                            loading ? `${Styles.disabled}` : ""
                           }`}
                         >
                           Subscribe
                         </button>
                       </div>
                     )}
-                    {popup === 'confirmaddress' && (
+                    {popup === "confirmaddress" && (
                       <Popup
                         setPopupState={setPopup}
                         isConfirmationPopup={true}
@@ -1329,7 +1360,7 @@ export function PrintDigitalSubscriptionForm({
                       </Popup>
                     )}
 
-                    {popup === 'confirmzipcode' && (
+                    {popup === "confirmzipcode" && (
                       <Popup
                         setPopupState={setPopup}
                         isConfirmationPopup={true}
@@ -1349,14 +1380,14 @@ export function PrintDigitalSubscriptionForm({
                           <div className={Styles.btn}>
                             <button
                               className={Styles.edit}
-                              onClick={() => handleZipcodeOptions('yes')}
+                              onClick={() => handleZipcodeOptions("yes")}
                             >
                               Yes
                             </button>
                             <button
                               className={Styles.submitBtn}
                               disabled={loading}
-                              onClick={() => handleZipcodeOptions('no')}
+                              onClick={() => handleZipcodeOptions("no")}
                             >
                               No
                             </button>
