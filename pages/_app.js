@@ -8,7 +8,7 @@ import Head from 'next/head';
 import LogRocket from 'logrocket';
 import { ulid } from 'ulid';
 import { useEffect } from 'react';
-import StickyNote from '../components/layout/stickyNote';
+// import StickyNote from '../components/layout/stickyNote';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -36,10 +36,10 @@ function MyApp({ Component, pageProps }) {
         <HydrateToken />
         <CheckAuth />
         <Header />
-        <StickyNote
+        {/* <StickyNote
           url="https://chayenu.givingfuel.com/elul-campaign"
           content="Elul Appeal. Please help give daily Torah to Jews everywhere"
-        />
+        /> */}
         <Component {...pageProps} />
         <Footer />
         <Toaster />
