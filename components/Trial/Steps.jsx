@@ -1,4 +1,4 @@
-import Styles from "./Steps.module.scss";
+import Styles from './Steps.module.scss';
 import Link from 'next/link';
 
 export default function Steps() {
@@ -6,7 +6,7 @@ export default function Steps() {
     <div>
       <div className={Styles.MainSection2}>
         <div className={Styles.section2}>
-        <h2>Get started in 3 easy steps</h2>
+          <h2>Get started in 3 easy steps</h2>
           <div className={Styles.card}>
             <div className={Styles.cardContentLeft}>
               <div className={Styles.mainSteps}>
@@ -20,13 +20,15 @@ export default function Steps() {
                   </div>
                   <div className={Styles.text}>
                     <h3>
-                    <img
-                      className={Styles.img}
-                      src="/images/trial/steps1.svg"
-                      alt="steps"
-                    />
-                      <span>Click <a href="javascript:void(0);">HERE</a> to sign up
-                      for your 30-day free trial</span>
+                      <img
+                        className={Styles.img}
+                        src="/images/trial/steps1.svg"
+                        alt="steps"
+                      />
+                      <span>
+                        Click <a href="javascript:void(0);">HERE</a> to sign up
+                        for your 30-day free trial
+                      </span>
                     </h3>
                     <p>
                       Access Chayenu instantly on our app while you wait for
@@ -44,12 +46,12 @@ export default function Steps() {
                   </div>
                   <div className={Styles.text}>
                     <h3>
-                    <img
-                      className={Styles.img}
-                      src="/images/trial/steps2.svg"
-                      alt="steps"
-                    />
-                        <span>We&apos;ll send your first Chayenu right away</span>
+                      <img
+                        className={Styles.img}
+                        src="/images/trial/steps2.svg"
+                        alt="steps"
+                      />
+                      <span>We&apos;ll send your first Chayenu right away</span>
                     </h3>
                     <p>
                       Get your first issue within a week with our speedy
@@ -67,17 +69,16 @@ export default function Steps() {
                   </div>
                   <div className={Styles.text}>
                     <h3>
-                    <img
-                      className={Styles.img}
-                      src="/images/trial/steps3.svg"
-                      alt="steps"
-                    />
-                        <span>Enjoy learning with Chayenu weekly</span>
+                      <img
+                        className={Styles.img}
+                        src="/images/trial/steps3.svg"
+                        alt="steps"
+                      />
+                      <span>Enjoy learning with Chayenu weekly</span>
                     </h3>
                     <p>
-                      After 30 days, the annual fee is $180/year ($3.50 per
-                      week!).<br></br> Cancel anytime for a pro-rated refund on
-                      the remaining subscription.
+                      After 30 days, the annual fee is $220/year. Cancel anytime
+                      for a pro-rated refund on the remaining subscription.
                     </p>
                   </div>
                 </div>
@@ -101,7 +102,7 @@ export default function Steps() {
               without their Chayenu.
             </h1>
             <Link href="/trial-form" className={Styles.cta}>
-                START MY <strong>FREE</strong> 30-DAY TRIAL
+              START MY <strong>FREE</strong> 30-DAY TRIAL
             </Link>
             <p>
               Have questions? We’re just a friendly email away:{' '}
