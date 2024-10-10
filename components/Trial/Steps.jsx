@@ -75,8 +75,7 @@ export default function Steps() {
                         <span>Enjoy learning with Chayenu weekly</span>
                     </h3>
                     <p>
-                      After 30 days, the annual fee is $180/year ($3.50 per
-                      week!).<br></br> Cancel anytime for a pro-rated refund on
+                      After 30 days, the annual fee is $220/year.<br></br> Cancel anytime for a pro-rated refund on
                       the remaining subscription.
                     </p>
                   </div>
