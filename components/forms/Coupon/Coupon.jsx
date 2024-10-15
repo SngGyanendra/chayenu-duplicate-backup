@@ -11,6 +11,7 @@ export function Coupon({
   coupon,
   setCoupon,
   isTrial,
+  isReferral,
   query,
   selectedProduct,
   selectedCountry,
@@ -105,7 +106,7 @@ export function Coupon({
   };
   return (
     <>
-      {!isTrial && (
+      {!isTrial && !isReferral && (
         <label className={Styles.couponLabel}>
           {!isCouponVerified ? (
             <div className={Styles.coupon}>

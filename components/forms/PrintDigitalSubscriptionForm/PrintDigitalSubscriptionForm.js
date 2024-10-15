@@ -38,6 +38,7 @@ export function PrintDigitalSubscriptionForm({
   is_shluchim_only,
   autoScroll,
   is_trial = false,
+  is_referral = false,
   query,
 }) {
   const [allPlans, setAllPlans] = useState([]);
@@ -256,7 +257,13 @@ export function PrintDigitalSubscriptionForm({
         const { data: products } = await getTrialProduct();
         const product = products[0];
         data = product.plans;
-      } else {
+      }
+      else if(is_referral){
+        const { data: products } = await getTrialProduct();
+        const product = products[0];
+        data = product.plans;
+      } 
+      else {
         const { data: plans } = await getAllPlans(selectedProduct.id, {
           is_military_only,
           is_shluchim_only,
@@ -324,7 +331,7 @@ export function PrintDigitalSubscriptionForm({
   }, [allPlans]);
 
   useEffect(() => {
-    if (query.code && countriesList?.length > 0 && allPlans?.length > 0) {
+    if (query?.code && countriesList?.length > 0 && allPlans?.length > 0) {
       if (selectedProduct.name === "Chayenu") {
         const selectedCountry = countriesList?.find(
           (country) => country.name === "USA"
@@ -1164,7 +1171,7 @@ export function PrintDigitalSubscriptionForm({
                       <div className={Styles.selectCountry}>PAYMENT INFO</div>
                       <div
                         className={
-                          !is_trial
+                          !is_trial && !is_referral
                             ? Styles.selectPaymentMethod
                             : `${Styles.selectPaymentMethod} ${Styles.isTrial}`
                         }
@@ -1208,6 +1215,7 @@ export function PrintDigitalSubscriptionForm({
                           coupon={coupon}
                           setCoupon={setCoupon}
                           isTrial={is_trial}
+                          isReferral={is_referral}
                           query={query}
                           selectedProduct={selectedProduct}
                           selectedCountry={selectedCountry}
