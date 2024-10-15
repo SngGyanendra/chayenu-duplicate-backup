@@ -2,7 +2,6 @@ import Styles from "./index.module.scss";
 import { PrintDigitalSubscriptionForm } from "../../../components/forms";
 
 export default function Subscribe({ product, query }) {
-  console.log("IN SUBS", product)
   return (
     <div className={Styles.wrapper} id="payment-section">
       <div className={Styles.paymentCardsWrapper}>
