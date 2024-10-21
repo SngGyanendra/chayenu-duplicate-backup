@@ -32,6 +32,8 @@ export default function Subscribe({ query, products: allProducts }) {
     [selectedProduct]
   );
 
+
+
   // useEffect(() => {
   //   getData();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps -- Shut up ESLint
