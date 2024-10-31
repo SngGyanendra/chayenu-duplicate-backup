@@ -13,6 +13,7 @@ import {
   DigitalSubscriptionForm,
   PrintDigitalSubscriptionForm,
 } from "../components/forms";
+import { useRouter } from 'next/router';
 
 export default function Subscribe({ query, products: allProducts }) {
   const [loading, setLoading] = useState(false);
