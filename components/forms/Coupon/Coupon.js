@@ -11,7 +11,6 @@ export function Coupon({
   coupon,
   setCoupon,
   isTrial,
-  query
 }) {
   const [error, setError] = useState(undefined);
   const [isCouponVerified, setIsCouponVerified] = useState(false);
@@ -21,26 +20,12 @@ export function Coupon({
       setIsCouponVerified(true);
       setCoupon(selectedPlan?.default_coupon);
       values.coupon = selectedPlan?.default_coupon.code;
-    } 
-    else if(query?.code){
-        // setCoupon("REFER");
-        values.coupon="REFER"
-    }
-    else {
+    } else {
       setCoupon();
       setIsCouponVerified(false);
       values.coupon = undefined;
     }
   }, [selectedPlan]);
-
-
-  useEffect(()=>{
-    if(query?.code && selectedPlan && values?.coupon){
-      (async ()=>{
-          verifyCoupon()
-      })()
-    }
-  }, [query.code, selectedPlan, values.coupon])
 
   const verifyCoupon = async () => {
     setError(undefined);
@@ -97,7 +82,7 @@ export function Coupon({
           ) : (
             <div className={Styles.couponVerified}>
               <span>
-                {coupon?.amount_type?.toLowerCase() === 'percentage'
+                {coupon?.amount_type.toLowerCase() === 'percentage'
                   ? `${coupon?.amount}% COUPON APPLIED`
                   : `$${coupon?.amount} COUPON APPLIED`}
               </span>

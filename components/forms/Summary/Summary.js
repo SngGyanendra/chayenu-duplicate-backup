@@ -12,7 +12,7 @@ export function Summary({ selectedPlan, coupon, showTrialMessage, values }) {
       : calculateDiscountedPrice(selectedPlan.price, coupon);
 
     const tenure =
-      selectedPlan?.recurring?.toLowerCase() === 'monthly' ? 'mo' : 'yr';
+      selectedPlan.recurring.toLowerCase() === 'monthly' ? 'mo' : 'yr';
     const pricing = `$${pricingMessage}/${tenure}`;
     return showTrialMessage ? `1st month FREE then ${pricing}` : pricing;
   };
@@ -73,12 +73,12 @@ export function Summary({ selectedPlan, coupon, showTrialMessage, values }) {
                   calculateDiscountedPrice(selectedPlan.price, coupon) *
                   quantity
                 }/${
-                  selectedPlan?.recurring?.toLowerCase() === 'monthly'
+                  selectedPlan.recurring.toLowerCase() === 'monthly'
                     ? 'mo'
                     : 'yr'
                 }`
               : `$${selectedPlan.price * quantity}/${
-                  selectedPlan?.recurring?.toLowerCase() === 'monthly'
+                  selectedPlan.recurring.toLowerCase() === 'monthly'
                     ? 'mo'
                     : 'yr'
                 }`}

@@ -38,8 +38,6 @@ export function PrintDigitalSubscriptionForm({
   is_shluchim_only,
   autoScroll,
   is_trial = false,
-  query
-
 }) {
   const [allPlans, setAllPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState(undefined);
@@ -320,25 +318,6 @@ export function PrintDigitalSubscriptionForm({
       setSelectedPlan(allPlans[0]);
     }
   }, [allPlans]);
-
-
-  
-
-  useEffect(()=>{
-    if(query.code && countriesList?.length > 0 && allPlans?.length > 0){
-      const selectedCountry =  countriesList?.find(
-        (country) => country.name === 'USA'
-      )
-      setSelectedCountry(selectedCountry);
-      setSelectedPlan(
-        allPlans.filter((plan) => plan?.country?.id === selectedCountry?.id && plan?.recurring === 'Yearly')[0])
-    }
-    setCoupon('REFER');
-    
-  }, [countriesList, allPlans])
-
-  console.log(selectedPlan)
-
 
   const style = {
     control: (provided, state) => ({
@@ -1202,7 +1181,6 @@ export function PrintDigitalSubscriptionForm({
                           coupon={coupon}
                           setCoupon={setCoupon}
                           isTrial={is_trial}
-                          query={query}
                         />
                       </div>
                       {require_cc &&
