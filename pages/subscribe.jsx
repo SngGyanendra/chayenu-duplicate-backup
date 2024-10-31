@@ -33,6 +33,13 @@ export default function Subscribe({ query, products: allProducts }) {
   );
 
 
+  useEffect(() => {
+    if(query.code){
+
+    }
+  }, [selectedProduct]);
+
+
 
   // useEffect(() => {
   //   getData();
@@ -190,6 +197,7 @@ export default function Subscribe({ query, products: allProducts }) {
                   is_shluchim_only={query.is_shluchim_only}
                   student_only={query.student_only}
                   autoScroll={autoScroll}
+                  query={query}
                 />
               );
             }
